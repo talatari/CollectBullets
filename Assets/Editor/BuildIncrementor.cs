@@ -8,7 +8,7 @@ namespace Editor
 {
     public class BuildIncrementor : IPreprocessBuildWithReport
     {
-        private const string PathToBuildAsset = "Assets/Source/Build/Build.asset";
+        private const string PathToBuildAsset = "Assets/Resources/Build.asset";
         
         public int callbackOrder => 1;
 
