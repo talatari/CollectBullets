@@ -23,7 +23,7 @@ namespace Source.Build
             if (buildScriptableObject == null)
                 Debug.LogError("Build scriptable object not found in resources directory! Check build log for errors!");
             else
-                _textBuildNumber.text = $"{Application.version}.{buildScriptableObject.BuildNumber}";
+                _textBuildNumber.text = $"Version: {Application.version}.{buildScriptableObject.BuildNumber}";
         }
     }
 }
