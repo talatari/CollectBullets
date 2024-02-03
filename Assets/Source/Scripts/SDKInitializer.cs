@@ -19,6 +19,7 @@ namespace Source.Scripts
 
         private void OnInitialized()
         {
+            // TODO: remove to MainScene when load all resoureces
             YandexGamesSdk.GameReady();
             
             SceneManager.LoadScene(MainScene);
