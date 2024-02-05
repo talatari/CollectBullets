@@ -1,3 +1,4 @@
+using System;
 using Source.Scripts.Bullets;
 using UnityEngine;
 
@@ -5,20 +6,28 @@ namespace Source.Scripts.Players
 {
     public class CollisionHandler : MonoBehaviour
     {
+        private Player _player;
+        
+        public event Action BulletCollected; 
+        
         private void OnTriggerEnter(Collider other)
         {
-            print($"Player OnTriggerEnter with {other.name}");
-            
-            if (other.TryGetComponent(out Bullet bullet)) 
-                bullet.ReleaseToPool();
+            if (other.TryGetComponent(out Bullet bullet))
+            {
+                if (_player.CollectedBulletCount < _player.MaxCapacityBullets)
+                {
+                    bullet.ReleaseToPool();
+                    BulletCollected?.Invoke();
+                }
+            }
         }
 
-        private void OnCollisionEnter(Collision other)
+        public void Init(Player player)
         {
-            print($"Player OnCollisionEnter with {other.gameObject.name}");
+            if (player == null) 
+                throw new ArgumentNullException(nameof(player));
             
-            if (other.gameObject.TryGetComponent(out Bullet bullet))
-                bullet.ReleaseToPool();
+            _player = player;
         }
     }
 }
