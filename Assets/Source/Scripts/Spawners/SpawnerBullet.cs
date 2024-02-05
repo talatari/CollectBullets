@@ -14,9 +14,11 @@ namespace Source.Scripts.Spawners
         private Coroutine _coroutineSpawnBullet;
         private float _spawnDelay;
         private float _distanceRange;
+        private float _spawnBulletPositionY;
         private int _maxBulletSpawnCount;
 
-        public void Construct(PoolBullet poolBullet, float spawnDelay, float distanceRange, int maxBulletSpawnCount)
+        public void Construct(PoolBullet poolBullet, float spawnDelay, float distanceRange, int maxBulletSpawnCount,
+            float spawnBulletPositionY)
         {
             if (poolBullet == null) 
                 throw new ArgumentNullException(nameof(poolBullet));
@@ -29,11 +31,15 @@ namespace Source.Scripts.Spawners
             
             if (maxBulletSpawnCount < 0) 
                 throw new ArgumentOutOfRangeException(nameof(maxBulletSpawnCount));
+            
+            if (spawnBulletPositionY < 0) 
+                throw new ArgumentOutOfRangeException(nameof(spawnBulletPositionY));
 
             _poolBullet = poolBullet;
             _spawnDelay = spawnDelay;
             _distanceRange = distanceRange;
             _maxBulletSpawnCount = maxBulletSpawnCount;
+            _spawnBulletPositionY = spawnBulletPositionY;
         }
 
         private void Update()
@@ -101,7 +107,7 @@ namespace Source.Scripts.Spawners
             float spawnPositionX = Random.Range(-1 * _distanceRange, _distanceRange);
             float spawnPositionZ = Random.Range(-1 * _distanceRange, _distanceRange);
             
-            bullet.transform.position =  new Vector3(spawnPositionX, bullet.transform.position.y, spawnPositionZ);
+            bullet.transform.position =  new Vector3(spawnPositionX, _spawnBulletPositionY, spawnPositionZ);
         }
     }
 }
