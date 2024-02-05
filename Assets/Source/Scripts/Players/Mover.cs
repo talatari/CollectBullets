@@ -9,7 +9,7 @@ namespace Source.Scripts.Players
         [SerializeField] private float _rotateSpeed = 10.0f;
         [SerializeField] private float _gravityForce = 20.0f;
 
-        private float _currentAttractionCharacter = 0;
+        private float _currentAttractionCharacter;
         private CharacterController _characterController;
 
         private void Start() => 
