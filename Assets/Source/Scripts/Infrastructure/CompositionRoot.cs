@@ -3,6 +3,7 @@ using Source.Scripts.Bullets;
 using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Bullets;
 using Source.Scripts.Infrastructure.Enemies;
+using Source.Scripts.Players;
 using Source.Scripts.Spawners;
 using UnityEngine;
 
@@ -29,6 +30,7 @@ namespace Source.Scripts.Infrastructure
         private const string PathToBulletPrefab = "Prefabs/Bullets/Bullet+";
         private const string PathToKeyPrefab = "Prefabs/Keys/Key+";
         
+        private Player _player;
         private Enemy _enemyPrefab;
         private SpawnerEnemy _spawnerEnemy;
         private Bullet _bulletPrefab;
@@ -38,9 +40,17 @@ namespace Source.Scripts.Infrastructure
 
         private void Start()
         {
+            _player = FindObjectOfType<Player>();
+            
+            if (_player == null)
+                throw new Exception("Player not found.");
+            
+            TargetService targetService = new TargetService();
+            targetService.SetTarget(_player);
+            
             LoadPrefabs();
 
-            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefab, _enemiesParent, _distanceRange);
+            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefab, _enemiesParent, _distanceRange, targetService);
             PoolEnemy poolEnemy = new PoolEnemy(factoryEnemy, _startEnemyCount);
             poolEnemy.Init();
 

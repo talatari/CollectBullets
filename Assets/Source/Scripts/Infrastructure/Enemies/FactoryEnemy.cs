@@ -11,15 +11,18 @@ namespace Source.Scripts.Infrastructure.Enemies
         private readonly Transform _enemiesParent;
         private readonly Enemy _enemyPrefab;
         private float _distanceRange;
+        private readonly TargetService _targetService;
 
-        public FactoryEnemy(Enemy enemyPrefab, Transform enemiesParent, float distanceRange)
+        public FactoryEnemy(Enemy enemyPrefab, Transform enemiesParent, float distanceRange,
+            TargetService targetService)
         {
             _enemiesParent = enemiesParent ? enemiesParent : throw new ArgumentNullException(nameof(enemiesParent));
             _enemyPrefab = enemyPrefab ? enemyPrefab : throw new ArgumentNullException(nameof(enemyPrefab));
-            
+            _targetService = targetService ?? throw new ArgumentNullException(nameof(targetService));
+
             if (distanceRange <= 0)
                 throw new ArgumentOutOfRangeException(nameof(distanceRange));
-            
+
             _distanceRange = distanceRange;
         }
 
@@ -27,6 +30,7 @@ namespace Source.Scripts.Infrastructure.Enemies
         {
             Enemy enemy = Object.Instantiate(_enemyPrefab, _enemiesParent);
             SetPosition(enemy);
+            enemy.SetTarget(_targetService.Target.Position);
 
             return enemy;
         }
