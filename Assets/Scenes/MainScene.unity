@@ -597,14 +597,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c1736630e9348ee89cb4508c1fa02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startEnemyCount: 5
-  _maxEnemySpawnCount: 10
+  _startEnemyCount: 20
+  _maxEnemySpawnCount: 100
   _spawnEnemyDelay: 1
   _enemiesParent: {fileID: 1851156504}
-  _startBulletCount: 100
-  _maxBulletSpawnCount: 1000
+  _startBulletCount: 20
+  _maxBulletSpawnCount: 100
   _spawnBulletDelay: 1
-  _spawnBulletPositionY: 100
   _bulletsParent: {fileID: 732305963}
   _distanceRange: 30
 --- !u!1 &1274119226

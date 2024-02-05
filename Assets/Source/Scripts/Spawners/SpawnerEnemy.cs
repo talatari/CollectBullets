@@ -13,10 +13,9 @@ namespace Source.Scripts.Spawners
         private PoolEnemy _poolEnemy;
         private Coroutine _coroutineSpawnEnemy;
         private float _spawnDelay;
-        private float _distanceRange;
         private int _maxEnemySpawnCount;
 
-        public void Construct(PoolEnemy poolEnemy, float spawnDelay, float distanceRange, int maxEnemySpawnCount)
+        public void Construct(PoolEnemy poolEnemy, float spawnDelay, int maxEnemySpawnCount)
         {
             if (poolEnemy == null) 
                 throw new ArgumentNullException(nameof(poolEnemy));
@@ -24,15 +23,11 @@ namespace Source.Scripts.Spawners
             if (spawnDelay < 0) 
                 throw new ArgumentOutOfRangeException(nameof(spawnDelay));
             
-            if (distanceRange <= 0)
-                throw new ArgumentOutOfRangeException(nameof(distanceRange));
-            
             if (maxEnemySpawnCount < 0) 
                 throw new ArgumentOutOfRangeException(nameof(maxEnemySpawnCount));
 
             _poolEnemy = poolEnemy;
             _spawnDelay = spawnDelay;
-            _distanceRange = distanceRange;
             _maxEnemySpawnCount = maxEnemySpawnCount;
         }
 
@@ -92,16 +87,7 @@ namespace Source.Scripts.Spawners
             if (_poolEnemy.GetAmountAllEnemies >= _maxEnemySpawnCount)
                 return;
             
-            Enemy enemy = _poolEnemy.Get();
-            SetPosition(enemy);
-        }
-
-        private void SetPosition(Enemy enemy)
-        {
-            float spawnPositionX = Random.Range(-1 * _distanceRange, _distanceRange);
-            float spawnPositionZ = Random.Range(-1 * _distanceRange, _distanceRange);
-            
-            enemy.transform.position =  new Vector3(spawnPositionX, enemy.transform.position.y, spawnPositionZ);
+            _poolEnemy.Get();
         }
     }
 }
