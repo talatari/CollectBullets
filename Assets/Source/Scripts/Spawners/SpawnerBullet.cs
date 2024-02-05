@@ -13,12 +13,9 @@ namespace Source.Scripts.Spawners
         private PoolBullet _poolBullet;
         private Coroutine _coroutineSpawnBullet;
         private float _spawnDelay;
-        private float _distanceRange;
-        private float _spawnBulletPositionY;
         private int _maxBulletSpawnCount;
 
-        public void Construct(PoolBullet poolBullet, float spawnDelay, float distanceRange, int maxBulletSpawnCount,
-            float spawnBulletPositionY)
+        public void Construct(PoolBullet poolBullet, float spawnDelay, int maxBulletSpawnCount)
         {
             if (poolBullet == null) 
                 throw new ArgumentNullException(nameof(poolBullet));
@@ -26,20 +23,12 @@ namespace Source.Scripts.Spawners
             if (spawnDelay < 0) 
                 throw new ArgumentOutOfRangeException(nameof(spawnDelay));
             
-            if (distanceRange <= 0)
-                throw new ArgumentOutOfRangeException(nameof(distanceRange));
-            
             if (maxBulletSpawnCount < 0) 
                 throw new ArgumentOutOfRangeException(nameof(maxBulletSpawnCount));
             
-            if (spawnBulletPositionY < 0) 
-                throw new ArgumentOutOfRangeException(nameof(spawnBulletPositionY));
-
             _poolBullet = poolBullet;
             _spawnDelay = spawnDelay;
-            _distanceRange = distanceRange;
             _maxBulletSpawnCount = maxBulletSpawnCount;
-            _spawnBulletPositionY = spawnBulletPositionY;
         }
 
         private void Update()
@@ -98,16 +87,7 @@ namespace Source.Scripts.Spawners
             if (_poolBullet.GetAmountAllBullets >= _maxBulletSpawnCount)
                 return;
             
-            Bullet bullet = _poolBullet.Get();
-            SetPosition(bullet);
-        }
-
-        private void SetPosition(Bullet bullet)
-        {
-            float spawnPositionX = Random.Range(-1 * _distanceRange, _distanceRange);
-            float spawnPositionZ = Random.Range(-1 * _distanceRange, _distanceRange);
-            
-            bullet.transform.position =  new Vector3(spawnPositionX, _spawnBulletPositionY, spawnPositionZ);
+            _poolBullet.Get();
         }
     }
 }

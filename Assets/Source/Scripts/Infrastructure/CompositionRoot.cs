@@ -17,10 +17,9 @@ namespace Source.Scripts.Infrastructure
         [SerializeField] private Transform _enemiesParent;
         
         [Header("Bullets")]
-        [SerializeField] private int _startBulletCount = 5;
-        [SerializeField] private int _maxBulletSpawnCount = 10;
+        [SerializeField] private int _startBulletCount = 100;
+        [SerializeField] private int _maxBulletSpawnCount = 1000;
         [SerializeField] private float _spawnBulletDelay = 1f;
-        [SerializeField] private float _spawnBulletPositionY = 50f;
         [SerializeField] private Transform _bulletsParent;
         
         [Header("Others")]
@@ -41,21 +40,20 @@ namespace Source.Scripts.Infrastructure
         {
             LoadPrefabs();
 
-            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefab, _enemiesParent);
+            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefab, _enemiesParent, _distanceRange);
             PoolEnemy poolEnemy = new PoolEnemy(factoryEnemy, _startEnemyCount);
             poolEnemy.Init();
 
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
-            _spawnerEnemy.Construct(poolEnemy, _spawnEnemyDelay, _distanceRange, _maxEnemySpawnCount);
+            _spawnerEnemy.Construct(poolEnemy, _spawnEnemyDelay, _maxEnemySpawnCount);
             _spawnerEnemy.StartSpawn();
             
-            FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent);
+            FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent, _distanceRange);
             PoolBullet poolBullet = new PoolBullet(factoryBullet, _startBulletCount);
             poolBullet.Init();
             
             _spawnerBullet = gameObject.AddComponent<SpawnerBullet>();
-            _spawnerBullet.Construct(
-                poolBullet, _spawnBulletDelay, _distanceRange, _maxBulletSpawnCount, _spawnBulletPositionY);
+            _spawnerBullet.Construct(poolBullet, _spawnBulletDelay, _maxBulletSpawnCount);
             _spawnerBullet.StartSpawn();
         }
 
