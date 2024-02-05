@@ -10,12 +10,21 @@ namespace Source.Scripts.Infrastructure
 {
     public class CompositionRoot : MonoBehaviour
     {
+        [Header("Enemies")]
         [SerializeField] private int _startEnemyCount = 5;
         [SerializeField] private int _maxEnemySpawnCount = 10;
-        [SerializeField] private float _spawnDelay = 1f;
-        [SerializeField] private float _distanceRange = 30f;
+        [SerializeField] private float _spawnEnemyDelay = 1f;
+        [SerializeField] private Transform _enemiesParent;
+        
+        [Header("Bullets")]
         [SerializeField] private int _startBulletCount = 5;
         [SerializeField] private int _maxBulletSpawnCount = 10;
+        [SerializeField] private float _spawnBulletDelay = 1f;
+        [SerializeField] private float _spawnBulletPositionY = 50f;
+        [SerializeField] private Transform _bulletsParent;
+        
+        [Header("Others")]
+        [SerializeField] private float _distanceRange = 30f;
 
         private const string PathToEnemyPrefab = "Prefabs/Enemies/Enemy+";
         private const string PathToBulletPrefab = "Prefabs/Bullets/Bullet+";
@@ -32,20 +41,21 @@ namespace Source.Scripts.Infrastructure
         {
             LoadPrefabs();
 
-            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefab);
+            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefab, _enemiesParent);
             PoolEnemy poolEnemy = new PoolEnemy(factoryEnemy, _startEnemyCount);
             poolEnemy.Init();
 
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
-            _spawnerEnemy.Construct(poolEnemy, _spawnDelay, _distanceRange, _maxEnemySpawnCount);
+            _spawnerEnemy.Construct(poolEnemy, _spawnEnemyDelay, _distanceRange, _maxEnemySpawnCount);
             _spawnerEnemy.StartSpawn();
             
-            FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab);
+            FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent);
             PoolBullet poolBullet = new PoolBullet(factoryBullet, _startBulletCount);
             poolBullet.Init();
             
             _spawnerBullet = gameObject.AddComponent<SpawnerBullet>();
-            _spawnerBullet.Construct(poolBullet, _spawnDelay, _distanceRange, _maxBulletSpawnCount);
+            _spawnerBullet.Construct(
+                poolBullet, _spawnBulletDelay, _distanceRange, _maxBulletSpawnCount, _spawnBulletPositionY);
             _spawnerBullet.StartSpawn();
         }
 
