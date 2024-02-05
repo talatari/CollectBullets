@@ -64,6 +64,8 @@ namespace Source.Scripts.Infrastructure.Bullets
         {
             bullet.gameObject.SetActive(true);
             _activeBullets.Add(bullet);
+            
+            bullet.Init(this);
         }
     }
 }
