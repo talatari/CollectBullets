@@ -201,11 +201,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5235903559077632932, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5235903559077632932, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5235903559077632932, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: m_LocalPosition.z
@@ -455,7 +455,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.26799512, y: -0, z: -0, w: 0.9634203}
-  m_LocalPosition: {x: 0, y: 20, z: -15}
+  m_LocalPosition: {x: 3, y: 13, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -539,7 +539,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c1736630e9348ee89cb4508c1fa02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startEnemyCount: 5
+  _maxEnemySpawnCount: 10
   _spawnDelay: 1
+  _distanceRange: 30
+  _startBulletCount: 5
+  _maxBulletSpawnCount: 10
 --- !u!1 &1274119226
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,7 +710,7 @@ Transform:
   m_GameObject: {fileID: 1848754415}
   serializedVersion: 2
   m_LocalRotation: {x: 0.26799512, y: -0, z: -0, w: 0.9634203}
-  m_LocalPosition: {x: 0, y: 20, z: -15}
+  m_LocalPosition: {x: 3, y: 13, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -839,7 +844,8 @@ PrefabInstance:
       value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6316142987671724874, guid: 3ef2d43ff8f444914bec086dfc3926ef, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ef2d43ff8f444914bec086dfc3926ef, type: 3}
