@@ -48,7 +48,7 @@ namespace Source.Scripts.Players
 
         public void Rotate(Vector3 direction)
         {
-            _mover.Rotate(direction);
+            // _mover.Rotate(direction);
         }
     }
 }
