@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Source.Scripts.Bullets;
+using Source.Scripts.Infrastructure.Factories;
 
-namespace Source.Scripts.Infrastructure.Bullets
+namespace Source.Scripts.Infrastructure.Pools
 {
     public class PoolBullet
     {

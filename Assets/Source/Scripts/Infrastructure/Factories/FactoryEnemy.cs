@@ -4,7 +4,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace Source.Scripts.Infrastructure.Enemies
+namespace Source.Scripts.Infrastructure.Factories
 {
     public class FactoryEnemy
     {

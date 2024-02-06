@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Source.Scripts.Enemies;
-using Source.Scripts.Infrastructure.Enemies;
+using Source.Scripts.Infrastructure.Pools;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
