@@ -103,7 +103,7 @@ namespace Source.Scripts.Infrastructure.Spawners
             float positionX = GetRandomValue(_distanceRange, _distanceRange);
             float positionY = GetRandomValue(_distanceRange);
             float positionZ = GetRandomValue(_distanceRange, _distanceRange);
-
+            
             bullet.transform.position = new Vector3(positionX, positionY, positionZ);
         }
         

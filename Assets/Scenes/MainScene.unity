@@ -243,9 +243,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player+
       objectReference: {fileID: 0}
+    - target: {fileID: 8660839928877488480, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+      propertyPath: _bulletsLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660839928877488480, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+      propertyPath: _enemiesLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 8761932229523578958, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: _moveSpeed
-      value: 1.5
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

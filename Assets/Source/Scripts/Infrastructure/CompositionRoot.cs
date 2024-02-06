@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Source.Scripts.Bullets;
 using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Factories;
@@ -13,26 +14,27 @@ namespace Source.Scripts.Infrastructure
     public class CompositionRoot : MonoBehaviour
     {
         [Header("Enemies")]
-        [SerializeField] private int _startEnemyCount = 5;
-        [SerializeField] private int _maxEnemySpawnCount = 10;
+        [SerializeField] private int _startEnemyCount = 20;
+        [SerializeField] private int _maxEnemySpawnCount = 100;
         [SerializeField] private float _spawnEnemyDelay = 1f;
         [SerializeField] private Transform _enemiesParent;
         
         [Header("Bullets")]
-        [SerializeField] private int _startBulletCount = 100;
-        [SerializeField] private int _maxBulletSpawnCount = 1000;
+        [SerializeField] private int _startBulletCount = 20;
+        [SerializeField] private int _maxBulletSpawnCount = 100;
         [SerializeField] private float _spawnBulletDelay = 1f;
         [SerializeField] private Transform _bulletsParent;
         
         [Header("Others")]
         [SerializeField] private float _distanceRange = 30f;
         
-        private const string PathToEnemyPrefab = "Prefabs/Enemies/Enemy+";
+        private const string PathToEnemyMeleePrefab = "Prefabs/Enemies/Melee+";
+        private const string PathToEnemyRangePrefab = "Prefabs/Enemies/Range+";
         private const string PathToBulletPrefab = "Prefabs/Bullets/Bullet+";
         private const string PathToKeyPrefab = "Prefabs/Keys/Key+";
         
         private Player _player;
-        private Enemy _enemyPrefab;
+        private List<Enemy> _enemyPrefabs = new ();
         private SpawnerEnemy _spawnerEnemy;
         private Bullet _bulletPrefab;
         private SpawnerBullet _spawnerBullet;
@@ -51,7 +53,7 @@ namespace Source.Scripts.Infrastructure
             
             LoadPrefabs();
             
-            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefab, _enemiesParent, targetProvider);
+            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefabs, _enemiesParent, targetProvider);
             Pool<Enemy> poolEnemy = new Pool<Enemy>(factoryEnemy, _startEnemyCount);
             poolEnemy.Init();
 
@@ -70,8 +72,10 @@ namespace Source.Scripts.Infrastructure
 
         private void LoadPrefabs()
         {
-            _enemyPrefab = (Enemy)Resources.Load(PathToEnemyPrefab, typeof(Enemy));
-            if (_enemyPrefab == null)
+            _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyMeleePrefab, typeof(Enemy)));
+            _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyRangePrefab, typeof(Enemy)));
+            // TODO: как проверить список, на предмет того что добавление, прошло успешно?
+            if (_enemyPrefabs == null)
                 throw new Exception("PathToEnemyPrefab not found.");
             
             _bulletPrefab = (Bullet)Resources.Load(PathToBulletPrefab, typeof(Bullet));
