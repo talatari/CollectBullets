@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Source.Scripts.Enemies
@@ -13,8 +14,11 @@ namespace Source.Scripts.Enemies
         public void SetTarget(Transform target)
         {
             if (_mover == null)
-                return;
+                throw new ArgumentNullException(nameof(_mover));
             
+            if (target == null) 
+                throw new ArgumentNullException(nameof(target));
+
             _mover.SetTarget(target);
         }
     }
