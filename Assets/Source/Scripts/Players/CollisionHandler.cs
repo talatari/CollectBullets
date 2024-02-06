@@ -57,8 +57,6 @@ namespace Source.Scripts.Players
                 {
                     float magnitude = (_player.transform.position - enemy.transform.position).magnitude;
                     
-                    print($"magnitude: {magnitude}");
-
                     if (distance < magnitude)
                     {
                         distance = magnitude;
