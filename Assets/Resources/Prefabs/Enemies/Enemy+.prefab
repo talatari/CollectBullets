@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8374947389572630470}
   - component: {fileID: 1645097043712434591}
   - component: {fileID: 8821495723421317471}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74e289e2a99a049aca21dde4171aaabd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  _speed: 1
 --- !u!135 &8374947389572630470
 SphereCollider:
   m_ObjectHideFlags: 0

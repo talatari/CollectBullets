@@ -65,7 +65,6 @@ namespace Source.Scripts.Infrastructure.Pools
         {
             bullet.Enable();
             _activeBullets.Add(bullet);
-            
             bullet.Init(this);
         }
     }

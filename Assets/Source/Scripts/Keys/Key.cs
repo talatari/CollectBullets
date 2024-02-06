@@ -1,25 +1,28 @@
 using Source.Scripts.Infrastructure.Pools.Interfaces;
 using UnityEngine;
 
-public class Key : MonoBehaviour, IPoolable
+namespace Source.Scripts.Keys
 {
-    public void Init<T>(IPool<T> pool) where T : IPoolable
+    public class Key : MonoBehaviour, IPoolable
     {
-        throw new System.NotImplementedException();
-    }
+        public void Init<T>(IPool<T> pool) where T : IPoolable
+        {
+            throw new System.NotImplementedException();
+        }
 
-    public void Enable()
-    {
-        throw new System.NotImplementedException();
-    }
+        public void Enable()
+        {
+            throw new System.NotImplementedException();
+        }
 
-    public void Disable()
-    {
-        throw new System.NotImplementedException();
-    }
+        public void Disable()
+        {
+            throw new System.NotImplementedException();
+        }
 
-    public void ReleaseToPool()
-    {
-        throw new System.NotImplementedException();
+        public void ReleaseToPool()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

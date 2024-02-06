@@ -19,12 +19,5 @@ namespace Source.Scripts.Infrastructure.Factories
 
         public Bullet Create() => 
             Object.Instantiate(_bulletPrefab, _parent);
-
-        // private void SetPosition(Bullet bullet)
-        // {
-        //     bullet.transform.position = GetPositionX(bullet.transform.position);
-        //     bullet.transform.position = GetPositionY(bullet.transform.position);
-        //     bullet.transform.position = GetPositionZ(bullet.transform.position);
-        // }
     }
 }
