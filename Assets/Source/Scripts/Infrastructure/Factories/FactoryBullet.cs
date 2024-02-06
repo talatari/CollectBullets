@@ -1,21 +1,16 @@
 using System;
 using Source.Scripts.Bullets;
 using UnityEngine;
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace Source.Scripts.Infrastructure.Factories
 {
-    public class FactoryBullet
+    public class FactoryBullet : AbstractFactory
     {
-        private readonly Transform _bulletsParent;
         private readonly Bullet _bulletPrefab;
 
-        private float _distanceRange;
-
-        public FactoryBullet(Bullet bulletPrefab, Transform bulletsParent, float distanceRange)
+        public FactoryBullet(Bullet bulletPrefab, Transform parent, float distanceRange)
         {
-            _bulletsParent = bulletsParent ? bulletsParent : throw new ArgumentNullException(nameof(bulletsParent));
+            _parent = parent ? parent : throw new ArgumentNullException(nameof(parent));
             _bulletPrefab = bulletPrefab ? bulletPrefab : throw new ArgumentNullException(nameof(bulletPrefab));
             
             if (distanceRange <= 0)
@@ -26,19 +21,17 @@ namespace Source.Scripts.Infrastructure.Factories
 
         public Bullet Create()
         {
-            Bullet bullet = Object.Instantiate(_bulletPrefab, _bulletsParent);
+            Bullet bullet = CreateObject(_bulletPrefab);
             SetPosition(bullet);
-
+            
             return bullet;
         }
         
         private void SetPosition(Bullet bullet)
         {
-            float spawnPositionX = Random.Range(-1 * _distanceRange, _distanceRange);
-            float spawnPositionY = Random.Range(0, _distanceRange);
-            float spawnPositionZ = Random.Range(-1 * _distanceRange, _distanceRange);
-
-            bullet.transform.position = new Vector3(spawnPositionX, spawnPositionY, spawnPositionZ);
+            bullet.transform.position = GetPositionX(bullet.transform.position);
+            bullet.transform.position = GetPositionY(bullet.transform.position);
+            bullet.transform.position = GetPositionZ(bullet.transform.position);
         }
     }
 }
