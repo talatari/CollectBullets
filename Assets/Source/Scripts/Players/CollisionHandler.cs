@@ -9,9 +9,10 @@ namespace Source.Scripts.Players
         [SerializeField] private LayerMask _bulletsLayer;
         [SerializeField] private float _radius = 2f;
         
+        private const int MaxOverlap = 10;
+
         private Player _player;
-        private static int _maxOverlap = 10;
-        private Collider[] _results = new Collider[_maxOverlap];
+        private Collider[] _results = new Collider[MaxOverlap];
         
         public event Action BulletCollected; 
         
