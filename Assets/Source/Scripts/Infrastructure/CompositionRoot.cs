@@ -25,7 +25,7 @@ namespace Source.Scripts.Infrastructure
         
         [Header("Others")]
         [SerializeField] private float _distanceRange = 30f;
-
+        
         private const string PathToEnemyPrefab = "Prefabs/Enemies/Enemy+";
         private const string PathToBulletPrefab = "Prefabs/Bullets/Bullet+";
         private const string PathToKeyPrefab = "Prefabs/Keys/Key+";
@@ -37,7 +37,7 @@ namespace Source.Scripts.Infrastructure
         private SpawnerBullet _spawnerBullet;
         private Key _keyPrefab;
         private SpawnerKey _spawnerKey;
-
+        
         private void Start()
         {
             _player = FindObjectOfType<Player>();
@@ -49,11 +49,11 @@ namespace Source.Scripts.Infrastructure
             targetService.SetTarget(_player);
             
             LoadPrefabs();
-
+            
             FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefab, _enemiesParent, _distanceRange, targetService);
             PoolEnemy poolEnemy = new PoolEnemy(factoryEnemy, _startEnemyCount);
             poolEnemy.Init();
-
+            
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
             _spawnerEnemy.Construct(poolEnemy, _spawnEnemyDelay, _maxEnemySpawnCount);
             _spawnerEnemy.StartSpawn();
