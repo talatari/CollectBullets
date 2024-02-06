@@ -1,39 +1,30 @@
 using System;
 using Source.Scripts.Enemies;
+using Source.Scripts.Infrastructure.Factories.Interfaces;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Source.Scripts.Infrastructure.Factories
 {
-    public class FactoryEnemy : AbstractFactory
+    public class FactoryEnemy : IFactory<Enemy>
     {
         private readonly Enemy _enemyPrefab;
-        private readonly TargetService _targetService;
+        private readonly TargetProvider _targetProvider;
+        private readonly Transform _parent;
 
-        public FactoryEnemy(Enemy enemyPrefab, Transform parent, float distanceRange, TargetService targetService)
+        public FactoryEnemy(Enemy enemyPrefab, Transform parent, TargetProvider targetProvider)
         {
-            _parent = parent ? parent : throw new ArgumentNullException(nameof(parent));
             _enemyPrefab = enemyPrefab ? enemyPrefab : throw new ArgumentNullException(nameof(enemyPrefab));
-            _targetService = targetService ?? throw new ArgumentNullException(nameof(targetService));
-
-            if (distanceRange <= 0)
-                throw new ArgumentOutOfRangeException(nameof(distanceRange));
-
-            _distanceRange = distanceRange;
+            _parent = parent ? parent : throw new ArgumentNullException(nameof(parent));
+            _targetProvider = targetProvider ?? throw new ArgumentNullException(nameof(targetProvider));
         }
 
         public Enemy Create()
         {
-            Enemy enemy = CreateObject(_enemyPrefab);
-            SetPosition(enemy);
-            enemy.SetTarget(_targetService.Target.Position);
+            Enemy enemy = Object.Instantiate(_enemyPrefab, _parent);
+            enemy.SetTarget(_targetProvider.Target);
 
             return enemy;
-        }
-
-        private void SetPosition(Enemy enemy)
-        {
-            enemy.transform.position = GetPositionX(enemy.transform.position);
-            enemy.transform.position = GetPositionZ(enemy.transform.position);
         }
     }
 }

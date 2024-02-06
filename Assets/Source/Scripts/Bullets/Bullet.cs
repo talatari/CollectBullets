@@ -1,22 +1,31 @@
 using System;
-using Source.Scripts.Infrastructure.Pools;
+using Source.Scripts.Infrastructure.Pools.Interfaces;
 using UnityEngine;
 
 namespace Source.Scripts.Bullets
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : MonoBehaviour, IPoolable
     {
-        private PoolBullet _poolBullet;
+        private IPool<Bullet> _pool;
 
-        public void Init(PoolBullet poolBullet)
+        public void Init<T>(IPool<T> pool) where T : IPoolable
         {
-            if (poolBullet == null) 
-                throw new ArgumentNullException(nameof(poolBullet));
-
-            _poolBullet = poolBullet;
+            if (pool == null) 
+                throw new ArgumentNullException(nameof(pool));
+            
+            _pool = pool as IPool<Bullet>;
+            
+            if (_pool == null)
+                throw new ArgumentException("Pool must be of type IPool<Bullet>");
         }
 
+        public void Enable() => 
+            gameObject.SetActive(true);
+
+        public void Disable() => 
+            gameObject.SetActive(false);
+
         public void ReleaseToPool() => 
-            _poolBullet.Release(this);
+            _pool.Release(this);
     }
 }

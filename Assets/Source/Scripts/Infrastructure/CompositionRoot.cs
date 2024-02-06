@@ -45,21 +45,21 @@ namespace Source.Scripts.Infrastructure
             if (_player == null)
                 throw new Exception("Player not found.");
             
-            TargetService targetService = new TargetService();
-            targetService.SetTarget(_player);
+            TargetProvider targetProvider = new TargetProvider();
+            targetProvider.SetTarget(_player.transform);
             
             LoadPrefabs();
             
-            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefab, _enemiesParent, _distanceRange, targetService);
-            PoolEnemy poolEnemy = new PoolEnemy(factoryEnemy, _startEnemyCount);
+            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefab, _enemiesParent, targetProvider);
+            Pool<Enemy> poolEnemy = new Pool<Enemy>(factoryEnemy, _startEnemyCount);
             poolEnemy.Init();
-            
+
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
             _spawnerEnemy.Construct(poolEnemy, _spawnEnemyDelay, _maxEnemySpawnCount);
             _spawnerEnemy.StartSpawn();
             
-            FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent, _distanceRange);
-            PoolBullet poolBullet = new PoolBullet(factoryBullet, _startBulletCount);
+            FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent);
+            Pool<Bullet> poolBullet = new Pool<Bullet>(factoryBullet, _startBulletCount);
             poolBullet.Init();
             
             _spawnerBullet = gameObject.AddComponent<SpawnerBullet>();

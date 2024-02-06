@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
-using Source.Scripts.Bullets;
-using Source.Scripts.Infrastructure.Factories;
+using Source.Scripts.Infrastructure.Factories.Interfaces;
+using Source.Scripts.Infrastructure.Pools.Interfaces;
 
 namespace Source.Scripts.Infrastructure.Pools
 {
-    public class PoolBullet
+    public class Pool<T> : IPool<T> where T : IPoolable
     {
-        private readonly FactoryBullet _factoryBullet;
+        private readonly IFactory<T> _factoryBullet;
         private readonly int _startBulletCount;
 
-        private Queue<Bullet> _pool = new();
-        private List<Bullet> _activeBullets = new();
+        private Queue<T> _pool = new();
+        private List<T> _activeBullets = new();
 
-        public PoolBullet(FactoryBullet factoryBullet, int startBulletCount)
+        public Pool(IFactory<T> factoryBullet, int startBulletCount)
         {
             _factoryBullet = factoryBullet ?? throw new ArgumentNullException(nameof(factoryBullet));
             
@@ -23,9 +23,9 @@ namespace Source.Scripts.Infrastructure.Pools
             _startBulletCount = startBulletCount;
         }
 
-        public int StartBulletCount => _startBulletCount;
-        public int GetAmountAllBullets => _activeBullets.Count + _pool.Count;
-        public List<Bullet> ActiveBullets => _activeBullets;
+        public int StartItemCount => _startBulletCount;
+        public int AllItemsCount => _activeBullets.Count + _pool.Count;
+        public List<T> ActiveItems => _activeBullets;
 
         public void Init()
         {
@@ -33,9 +33,9 @@ namespace Source.Scripts.Infrastructure.Pools
                 Release(_factoryBullet.Create());
         }
 
-        public Bullet Get()
+        public T Get()
         {
-            Bullet bullet;
+            T bullet;
             
             if (_pool.Count > 0)
             {
@@ -51,19 +51,19 @@ namespace Source.Scripts.Infrastructure.Pools
             return bullet;
         }
 
-        public void Release(Bullet bullet)
+        public void Release(T bullet)
         {
             if (bullet == null) 
                 throw new ArgumentNullException(nameof(bullet));
-            
-            bullet.gameObject.SetActive(false);
+
+            bullet.Disable();
             _pool.Enqueue(bullet);
             _activeBullets.Remove(bullet);
         }
 
-        public void SetActive(Bullet bullet)
+        public void SetActive(T bullet)
         {
-            bullet.gameObject.SetActive(true);
+            bullet.Enable();
             _activeBullets.Add(bullet);
             
             bullet.Init(this);
