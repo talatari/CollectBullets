@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Source.Scripts.Enemies
@@ -8,10 +7,8 @@ namespace Source.Scripts.Enemies
     {
         private Mover _mover;
         
-        private void Awake()
-        {
+        private void Awake() => 
             _mover = GetComponent<Mover>();
-        }
 
         public void SetTarget(Transform target)
         {

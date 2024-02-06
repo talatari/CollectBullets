@@ -1,4 +1,3 @@
-using System;
 using Source.Scripts.Infrastructure.Interfaces;
 using UnityEngine;
 
@@ -28,10 +27,8 @@ namespace Source.Scripts.Players
         private void OnEnable() => 
             _collisionHandler.BulletCollected += OnBulletCollected;
 
-        private void Update()
-        {
+        private void Update() => 
             Position = transform;
-        }
 
         private void OnDisable() => 
             _collisionHandler.BulletCollected -= OnBulletCollected;
