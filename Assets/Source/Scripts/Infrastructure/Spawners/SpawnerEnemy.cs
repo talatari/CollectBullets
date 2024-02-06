@@ -3,19 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
+using Source.Scripts.Infrastructure.Spawners.Intefaces;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Source.Scripts.Spawners
+namespace Source.Scripts.Infrastructure.Spawners
 {
-    public class SpawnerEnemy : MonoBehaviour
+    public class SpawnerEnemy : MonoBehaviour, ISpawner
     {
         private IPool<Enemy> _poolEnemy;
         private Coroutine _coroutineSpawnEnemy;
         private float _spawnDelay;
         private int _maxEnemySpawnCount;
-        
-        public void Construct(IPool<Enemy> poolEnemy, float spawnDelay, int maxEnemySpawnCount)
+        private float _distanceRange;
+
+        public void Construct(IPool<Enemy> poolEnemy, float spawnDelay, int maxEnemySpawnCount, float distanceRange)
         {
             if (poolEnemy == null)
                 throw new ArgumentNullException(nameof(poolEnemy));
@@ -25,12 +27,17 @@ namespace Source.Scripts.Spawners
             
             if (maxEnemySpawnCount < 0)
                 throw new ArgumentOutOfRangeException(nameof(maxEnemySpawnCount));
+            
+            if (distanceRange <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(distanceRange));
 
             _poolEnemy = poolEnemy;
             _spawnDelay = spawnDelay;
             _maxEnemySpawnCount = maxEnemySpawnCount;
+            _distanceRange = distanceRange;
         }
 
+        // TODO: delete for implementation spawn enemies
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.S))
@@ -87,7 +94,19 @@ namespace Source.Scripts.Spawners
             if (_poolEnemy.AllItemsCount >= _maxEnemySpawnCount)
                 return;
             
-            _poolEnemy.Get();
+            Enemy enemy = _poolEnemy.Get();
+            SetPosition(enemy);
         }
+        
+        private void SetPosition(Enemy enemy)
+        {
+            float positionX = GetRandomValue(_distanceRange, _distanceRange);
+            float positionZ = GetRandomValue(_distanceRange, _distanceRange);
+
+            enemy.transform.position = new Vector3(positionX, enemy.transform.position.y, positionZ);
+        }
+        
+        private float GetRandomValue(float min, float max) =>
+            Random.Range(-1 * min, max);
     }
 }

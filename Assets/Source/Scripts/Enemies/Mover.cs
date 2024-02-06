@@ -4,7 +4,7 @@ namespace Source.Scripts.Enemies
 {
     public class Mover : MonoBehaviour
     {
-        [SerializeField] private float _speed = 10f;
+        [SerializeField] private float _speed = 1f;
         
         private Transform _target;
 
@@ -16,10 +16,7 @@ namespace Source.Scripts.Enemies
             transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
         }
         
-        public void SetTarget(Transform target)
-        {
-            print($"gameObject: {gameObject.GetInstanceID()}, target: {target.GetInstanceID()}");
+        public void SetTarget(Transform target) => 
             _target = target;
-        }
     }
 }

@@ -3,19 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using Source.Scripts.Bullets;
 using Source.Scripts.Infrastructure.Pools;
+using Source.Scripts.Infrastructure.Spawners.Intefaces;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Source.Scripts.Spawners
+namespace Source.Scripts.Infrastructure.Spawners
 {
-    public class SpawnerBullet : MonoBehaviour
+    public class SpawnerBullet : MonoBehaviour, ISpawner
     {
         private Pool<Bullet> _poolBullet;
         private Coroutine _coroutineSpawnBullet;
         private float _spawnDelay;
         private int _maxBulletSpawnCount;
+        private float _distanceRange;
 
-        public void Construct(Pool<Bullet> poolBullet, float spawnDelay, int maxBulletSpawnCount)
+        public void Construct(Pool<Bullet> poolBullet, float spawnDelay, int maxBulletSpawnCount, float distanceRange)
         {
             if (poolBullet == null) 
                 throw new ArgumentNullException(nameof(poolBullet));
@@ -26,11 +28,16 @@ namespace Source.Scripts.Spawners
             if (maxBulletSpawnCount < 0) 
                 throw new ArgumentOutOfRangeException(nameof(maxBulletSpawnCount));
             
+            if (distanceRange <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(distanceRange));
+
             _poolBullet = poolBullet;
             _spawnDelay = spawnDelay;
             _maxBulletSpawnCount = maxBulletSpawnCount;
+            _distanceRange = distanceRange;
         }
 
+        // TODO: delete for implementation spawn bullets
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.S))
@@ -82,12 +89,28 @@ namespace Source.Scripts.Spawners
             }
         }
 
-        private void Spawn()
+        public void Spawn()
         {
             if (_poolBullet.AllItemsCount >= _maxBulletSpawnCount)
                 return;
             
-            _poolBullet.Get();
+            Bullet bullet = _poolBullet.Get();
+            SetPosition(bullet);
         }
+
+        private void SetPosition(Bullet bullet)
+        {
+            float positionX = GetRandomValue(_distanceRange, _distanceRange);
+            float positionY = GetRandomValue(_distanceRange);
+            float positionZ = GetRandomValue(_distanceRange, _distanceRange);
+
+            bullet.transform.position = new Vector3(positionX, positionY, positionZ);
+        }
+        
+        private float GetRandomValue(float max) =>
+            Random.Range(0, max);
+        
+        private float GetRandomValue(float min, float max) =>
+            Random.Range(-1 * min, max);
     }
 }
