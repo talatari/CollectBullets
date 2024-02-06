@@ -1,10 +1,9 @@
-using Source.Scripts.Infrastructure.Interfaces;
 using UnityEngine;
 
 namespace Source.Scripts.Players
 {
     [RequireComponent(typeof(CollisionHandler))]
-    public class Player : MonoBehaviour, ITarget
+    public class Player : MonoBehaviour
     {
         [SerializeField] private GameObject _collectedBulletPrefab;
         [SerializeField] private Transform _bag;

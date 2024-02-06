@@ -10,13 +10,13 @@ namespace Source.Scripts.Spawners
 {
     public class SpawnerKey : MonoBehaviour
     {
-        private PoolEnemy _poolEnemy;
+        private Pool<Key> _poolEnemy;
         private Coroutine _coroutineSpawnEnemy;
         private float _spawnDelay;
         private float _distanceRange;
         private int _maxEnemySpawnCount;
-
-        public void Construct(PoolEnemy poolEnemy, float spawnDelay, float distanceRange, int maxEnemySpawnCount)
+    // todo: rename naming
+        public void Construct(Pool<Key> poolEnemy, float spawnDelay, float distanceRange, int maxEnemySpawnCount)
         {
             if (poolEnemy == null) 
                 throw new ArgumentNullException(nameof(poolEnemy));
@@ -50,7 +50,7 @@ namespace Source.Scripts.Spawners
 
         private void Release()
         {
-            List<Enemy> activeEnemies = _poolEnemy.ActiveEnemies;
+            List<Key> activeEnemies = _poolEnemy.ActiveItems;
             int randomIndex = Random.Range(0, activeEnemies.Count);
             
             if (randomIndex < 0 || randomIndex >= activeEnemies.Count)
@@ -78,7 +78,7 @@ namespace Source.Scripts.Spawners
 
             while (enabled)
             {
-                if (_poolEnemy.ActiveEnemies.Count >= _poolEnemy.StartEnemyCount)
+                if (_poolEnemy.ActiveItems.Count >= _poolEnemy.StartItemCount)
                     break;
                 
                 Spawn();
@@ -89,19 +89,19 @@ namespace Source.Scripts.Spawners
 
         private void Spawn()
         {
-            if (_poolEnemy.GetAmountAllEnemies >= _maxEnemySpawnCount)
+            if (_poolEnemy.AllItemsCount >= _maxEnemySpawnCount)
                 return;
             
-            Enemy enemy = _poolEnemy.Get();
-            SetPosition(enemy);
+            // Enemy enemy = _poolEnemy.Get();
+            // SetPosition(enemy);
         }
-
-        private void SetPosition(Enemy enemy)
-        {
-            float spawnPositionX = Random.Range(-1 * _distanceRange, _distanceRange);
-            float spawnPositionZ = Random.Range(-1 * _distanceRange, _distanceRange);
-            
-            enemy.transform.position =  new Vector3(spawnPositionX, enemy.transform.position.y, spawnPositionZ);
-        }
+        //
+        // private void SetPosition(Enemy enemy)
+        // {
+        //     float spawnPositionX = Random.Range(-1 * _distanceRange, _distanceRange);
+        //     float spawnPositionZ = Random.Range(-1 * _distanceRange, _distanceRange);
+        //     
+        //     enemy.transform.position =  new Vector3(spawnPositionX, enemy.transform.position.y, spawnPositionZ);
+        // }
     }
 }

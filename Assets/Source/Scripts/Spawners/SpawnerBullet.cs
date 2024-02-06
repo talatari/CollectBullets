@@ -10,12 +10,12 @@ namespace Source.Scripts.Spawners
 {
     public class SpawnerBullet : MonoBehaviour
     {
-        private PoolBullet _poolBullet;
+        private Pool<Bullet> _poolBullet;
         private Coroutine _coroutineSpawnBullet;
         private float _spawnDelay;
         private int _maxBulletSpawnCount;
 
-        public void Construct(PoolBullet poolBullet, float spawnDelay, int maxBulletSpawnCount)
+        public void Construct(Pool<Bullet> poolBullet, float spawnDelay, int maxBulletSpawnCount)
         {
             if (poolBullet == null) 
                 throw new ArgumentNullException(nameof(poolBullet));
@@ -45,7 +45,7 @@ namespace Source.Scripts.Spawners
 
         private void Release()
         {
-            List<Bullet> activeBullets = _poolBullet.ActiveBullets;
+            List<Bullet> activeBullets = _poolBullet.ActiveItems;
             int randomIndex = Random.Range(0, activeBullets.Count);
             
             if (randomIndex < 0 || randomIndex >= activeBullets.Count)
@@ -73,7 +73,7 @@ namespace Source.Scripts.Spawners
 
             while (enabled)
             {
-                if (_poolBullet.ActiveBullets.Count >= _poolBullet.StartBulletCount)
+                if (_poolBullet.ActiveItems.Count >= _poolBullet.StartItemCount)
                     break;
                 
                 Spawn();
@@ -84,7 +84,7 @@ namespace Source.Scripts.Spawners
 
         private void Spawn()
         {
-            if (_poolBullet.GetAmountAllBullets >= _maxBulletSpawnCount)
+            if (_poolBullet.AllItemsCount >= _maxBulletSpawnCount)
                 return;
             
             _poolBullet.Get();

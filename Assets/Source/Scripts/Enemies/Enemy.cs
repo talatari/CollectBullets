@@ -1,15 +1,15 @@
 using System;
+using Source.Scripts.Infrastructure.Pools.Interfaces;
 using UnityEngine;
 
 namespace Source.Scripts.Enemies
 {
     [RequireComponent(typeof(Mover))]
-    public class Enemy : MonoBehaviour
+    public class Enemy : MonoBehaviour, IPoolable
     {
-        private Mover _mover;
+        [SerializeField] private Mover _mover;
         
-        private void Awake() => 
-            _mover = GetComponent<Mover>();
+        private IPool<Enemy> _pool;
 
         public void SetTarget(Transform target)
         {
@@ -21,5 +21,25 @@ namespace Source.Scripts.Enemies
 
             _mover.SetTarget(target);
         }
+
+        public void Init<T>(IPool<T> pool) where T : IPoolable
+        {
+            if (pool == null) 
+                throw new ArgumentNullException(nameof(pool));
+            
+            _pool = pool as IPool<Enemy>;
+            
+            if (_pool == null)
+                throw new ArgumentException("Pool must be of type IPool<Enemy>");
+        }
+
+        public void Enable() => 
+            gameObject.SetActive(true);
+
+        public void Disable() => 
+            gameObject.SetActive(false);
+
+        public void ReleaseToPool() => 
+            _pool.Release(this);
     }
 }

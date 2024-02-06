@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4748922125285946996}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7642404090985845595}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 2176673509242009516}
   - component: {fileID: 5173757398808475252}
   - component: {fileID: 8128129381722427705}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BlackSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8306483270029796734}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 1316769745205459314}
   - component: {fileID: 1959061478130837107}
   - component: {fileID: 5413228412479864567}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WhiteSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5900591993859587751}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 5419095948567385716}
   - component: {fileID: 5959117218842608731}
   - component: {fileID: 5561086319979372267}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   - component: {fileID: 5201966760088862528}
   - component: {fileID: 9103864818034619725}
   - component: {fileID: 1304203917033774577}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BlackSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 1184659105798632523}
   - component: {fileID: 589993027992772511}
   - component: {fileID: 7140626181930439914}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: WhiteSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
