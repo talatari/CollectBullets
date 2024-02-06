@@ -350,6 +350,7 @@ MonoBehaviour:
   _collectedBulletPrefab: {fileID: 2251718402828340361, guid: 96ed8629b0d32443caf2113f5a08250a, type: 3}
   _bag: {fileID: 4748922125285946996}
   _maxCapacityBullets: 5
+  _mover: {fileID: 8761932229523578958}
 --- !u!114 &8660839928877488480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,6 +363,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf6ade42ea404aa99b35c1214cbf4cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bulletLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  _radiusPickUpBullets: 2
+  _radiusDetectEnemies: 10
 --- !u!114 &8761932229523578958
 MonoBehaviour:
   m_ObjectHideFlags: 0
