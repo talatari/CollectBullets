@@ -2,12 +2,13 @@ using UnityEngine;
 
 namespace Source.Scripts.Players
 {
-    [RequireComponent(typeof(CollisionHandler))]
+    [RequireComponent(typeof(CollisionHandler), typeof(Mover))]
     public class Player : MonoBehaviour
     {
         [SerializeField] private GameObject _collectedBulletPrefab;
         [SerializeField] private Transform _bag;
         [SerializeField] private int _maxCapacityBullets = 5;
+        [SerializeField] private Mover _mover;
         
         private CollisionHandler _collisionHandler;
         private int _collectedBulletCount;
@@ -43,6 +44,11 @@ namespace Source.Scripts.Players
 
             GameObject collectedBullet = Instantiate(_collectedBulletPrefab, _bag);
             collectedBullet.transform.position = newPosition;
+        }
+
+        public void Rotate(Vector3 direction)
+        {
+            _mover.Rotate(direction);
         }
     }
 }

@@ -100,13 +100,10 @@ namespace Source.Scripts.Infrastructure.Spawners
         
         private void SetPosition(Enemy enemy)
         {
-            float positionX = GetRandomValue(_distanceRange, _distanceRange);
-            float positionZ = GetRandomValue(_distanceRange, _distanceRange);
+            float positionY = enemy.transform.position.y;
+            enemy.transform.position = Random.insideUnitSphere * _distanceRange;
 
-            enemy.transform.position = new Vector3(positionX, enemy.transform.position.y, positionZ);
+            enemy.transform.position = new Vector3(enemy.transform.position.x, positionY, enemy.transform.position.z);
         }
-        
-        private float GetRandomValue(float min, float max) =>
-            Random.Range(-1 * min, max);
     }
 }

@@ -199,6 +199,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1446779389}
     m_Modifications:
+    - target: {fileID: 813115569166104298, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+      propertyPath: _mover
+      value: 
+      objectReference: {fileID: 324559532}
     - target: {fileID: 5235903559077632932, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -242,6 +246,14 @@ PrefabInstance:
     - target: {fileID: 5265008638577894127, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: m_Name
       value: Player+
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660839928877488480, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+      propertyPath: _enemyLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660839928877488480, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+      propertyPath: _bulletLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 8660839928877488480, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: _bulletsLayer.m_Bits
@@ -769,6 +781,34 @@ PrefabInstance:
     - target: {fileID: 2920169749319461597, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_Name
       value: CompositionRoot+
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _distanceRange
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _spawnEnemyDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _startEnemyCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _spawnBulletDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _startBulletCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _maxEnemySpawnCount
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _maxBulletSpawnCount
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_LocalPosition.x

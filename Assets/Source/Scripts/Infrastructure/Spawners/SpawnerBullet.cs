@@ -100,17 +100,15 @@ namespace Source.Scripts.Infrastructure.Spawners
 
         private void SetPosition(Bullet bullet)
         {
-            float positionX = GetRandomValue(_distanceRange, _distanceRange);
-            float positionY = GetRandomValue(_distanceRange);
-            float positionZ = GetRandomValue(_distanceRange, _distanceRange);
-            
-            bullet.transform.position = new Vector3(positionX, positionY, positionZ);
+            bullet.transform.position = Random.insideUnitSphere * _distanceRange;
+
+            if (bullet.transform.position.y < 0)
+            {
+                float newPositionY = bullet.transform.position.y * -1;
+
+                bullet.transform.position =
+                    new Vector3(bullet.transform.position.x, newPositionY, bullet.transform.position.z);
+            }
         }
-        
-        private float GetRandomValue(float max) =>
-            Random.Range(0, max);
-        
-        private float GetRandomValue(float min, float max) =>
-            Random.Range(-1 * min, max);
     }
 }
