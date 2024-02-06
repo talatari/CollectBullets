@@ -13,13 +13,11 @@ namespace Source.Scripts.Players
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out Bullet bullet))
-            {
                 if (_player.CollectedBulletCount < _player.MaxCapacityBullets)
                 {
                     bullet.ReleaseToPool();
                     BulletCollected?.Invoke();
                 }
-            }
         }
 
         public void Init(Player player)

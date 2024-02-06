@@ -16,7 +16,10 @@ namespace Source.Scripts.Enemies
             transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
         }
         
-        public void SetTarget(Transform target) => 
+        public void SetTarget(Transform target)
+        {
+            print($"gameObject: {gameObject.GetInstanceID()}, target: {target.GetInstanceID()}");
             _target = target;
+        }
     }
 }
