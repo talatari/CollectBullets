@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Source.Scripts.Enemies;
+using Source.Scripts.Infrastructure.Factories;
 
-namespace Source.Scripts.Infrastructure.Enemies
+namespace Source.Scripts.Infrastructure.Pools
 {
     public class PoolEnemy
     {

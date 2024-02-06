@@ -1,5 +1,5 @@
 using System;
-using Source.Scripts.Infrastructure.Bullets;
+using Source.Scripts.Infrastructure.Pools;
 using UnityEngine;
 
 namespace Source.Scripts.Bullets

@@ -1,8 +1,8 @@
 using System;
 using Source.Scripts.Bullets;
 using Source.Scripts.Enemies;
-using Source.Scripts.Infrastructure.Bullets;
-using Source.Scripts.Infrastructure.Enemies;
+using Source.Scripts.Infrastructure.Factories;
+using Source.Scripts.Infrastructure.Pools;
 using Source.Scripts.Players;
 using Source.Scripts.Spawners;
 using UnityEngine;
