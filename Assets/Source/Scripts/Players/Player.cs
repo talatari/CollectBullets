@@ -1,6 +1,6 @@
-using System;
 using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.Players.Movement;
+using Source.Scripts.Players.Movement.Joystick;
 using UnityEngine;
 
 namespace Source.Scripts.Players
@@ -12,6 +12,7 @@ namespace Source.Scripts.Players
         [SerializeField] private Transform _bag;
         [SerializeField] private int _maxCapacityBullets = 5;
         [SerializeField] private Rotator _rotator;
+        [SerializeField] private JoystickForRotator _joystickForRotator;
         
         private CollisionForBullets _collisionForBullets;
         private CollisionForEnemies _collisionForEnemies;
@@ -54,7 +55,7 @@ namespace Source.Scripts.Players
             collectedBullet.transform.position = newPosition;
         }
 
-        public void Rotate(Vector3 direction) => 
-            _rotator.Rotate(direction);
+        public void RotateToEnemy(Vector3 direction) => 
+            _joystickForRotator.EnemyPosition = direction;
     }
 }

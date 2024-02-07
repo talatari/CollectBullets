@@ -199,6 +199,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1446779389}
     m_Modifications:
+    - target: {fileID: 813115569166104298, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+      propertyPath: _joystickForRotator
+      value: 
+      objectReference: {fileID: 2072737332}
     - target: {fileID: 5235903559077632932, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -242,6 +246,14 @@ PrefabInstance:
     - target: {fileID: 5265008638577894127, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: m_Name
       value: Player+
+      objectReference: {fileID: 0}
+    - target: {fileID: 7228586493095186988, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+      propertyPath: _joystickForRotator
+      value: 
+      objectReference: {fileID: 2072737332}
+    - target: {fileID: 8660839928877488480, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+      propertyPath: _radiusPickUpBullets
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -711,6 +723,28 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1462906521}
+--- !u!114 &2057963823 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5569014828246196029, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+  m_PrefabInstance: {fileID: 324559530}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baf3be0d34ef4379ab2567c729466144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2072737332 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4247680334404842791, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
+  m_PrefabInstance: {fileID: 7913987472392685559}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdb64f4c2774bdaa8e8d0b3235f81cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2108983105
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,38 +1015,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1274119227}
     m_Modifications:
-    - target: {fileID: 228566837881240540, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 7680
-      objectReference: {fileID: 0}
-    - target: {fileID: 228566837881240540, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 4320
-      objectReference: {fileID: 0}
     - target: {fileID: 1118167234463468811, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
       propertyPath: _mover
       value: 
       objectReference: {fileID: 324559532}
-    - target: {fileID: 1118167234463468811, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
-      propertyPath: _playerMover
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1118167234463468811, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
-      propertyPath: _inActiveBackgroundJoystickColor.a
-      value: 0.5019608
-      objectReference: {fileID: 0}
     - target: {fileID: 1223707707629169665, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
       propertyPath: m_Name
       value: JoystickCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1223707707629169665, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3769713775663295594, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
-      propertyPath: m_Sprite
+    - target: {fileID: 4247680334404842791, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
+      propertyPath: _rotator
       value: 
-      objectReference: {fileID: 21300000, guid: 4b0bff30dd3524d9b98256d3494aa05f, type: 3}
+      objectReference: {fileID: 2057963823}
     - target: {fileID: 8804953029546196655, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
       propertyPath: m_Pivot.x
       value: 0

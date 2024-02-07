@@ -21,7 +21,7 @@ namespace Source.Scripts.Players.CollisionHandlers
             _player = player;
         }
 
-        private void FixedUpdate() => 
+        private void Update() => 
             OverlapEnemies();
 
         private void OverlapEnemies()
@@ -30,7 +30,11 @@ namespace Source.Scripts.Players.CollisionHandlers
                 transform.position, radiusEnemyDetectChanger.Radius, _enemyColliders, _enemyLayer);
 
             if (enemiesAmount == 0)
+            {
+                _player.RotateToEnemy(Vector3.zero);
+                
                 return;
+            }
 
             for (int i = 0; i < enemiesAmount; i++)
             {
@@ -51,7 +55,7 @@ namespace Source.Scripts.Players.CollisionHandlers
                 }
             }
             
-            _player.Rotate(_rotateDirection);
+            _player.RotateToEnemy(_rotateDirection);
         }
     }
 }

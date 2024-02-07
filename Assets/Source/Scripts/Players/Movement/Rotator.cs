@@ -8,14 +8,12 @@ namespace Source.Scripts.Players.Movement
         [SerializeField] private float _rotateSpeed = 10.0f;
         
         private CharacterController _characterController;
-
+        
         private void Start() => 
             _characterController = GetComponent<CharacterController>();
 
         public void Rotate(Vector3 moveDirection)
         {
-            print($"moveDirection = {moveDirection}");
-            
             if (_characterController.isGrounded == false)
                 return;
             

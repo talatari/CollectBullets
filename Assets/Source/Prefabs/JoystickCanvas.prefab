@@ -168,7 +168,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 938677bc843ac4121906bb50e8ffa3d4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4b0bff30dd3524d9b98256d3494aa05f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -188,6 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 228566837881240540}
   - component: {fileID: 1118167234463468811}
+  - component: {fileID: 4247680334404842791}
   - component: {fileID: 765874710035489518}
   - component: {fileID: 1803883406426914073}
   m_Layer: 0
@@ -215,7 +216,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3840, y: 2160}
+  m_SizeDelta: {x: 7680, y: 4320}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1118167234463468811
 MonoBehaviour:
@@ -232,11 +233,31 @@ MonoBehaviour:
   _joystickArea: {fileID: 1803883406426914073}
   _joystickBackground: {fileID: 3769713775663295594}
   _joystick: {fileID: 8874329881825926824}
-  _inActiveBackgroundJoystickColor: {r: 0.99607843, g: 0.827451, b: 0.31764707, a: 0.7529412}
+  _inActiveBackgroundJoystickColor: {r: 0.99607843, g: 0.827451, b: 0.31764707, a: 0.5019608}
   _inActiveJoystickColor: {r: 0.20784314, g: 0.23137255, b: 0.28235295, a: 0.7529412}
   _activeBackgroundJoystickColor: {r: 0.99607843, g: 0.827451, b: 0.31764707, a: 0}
   _activeJoystickColor: {r: 0.20784314, g: 0.23137255, b: 0.28235295, a: 0}
-  _playerMover: {fileID: 0}
+  _mover: {fileID: 0}
+--- !u!114 &4247680334404842791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4825268145393486851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdb64f4c2774bdaa8e8d0b3235f81cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _joystickArea: {fileID: 1803883406426914073}
+  _joystickBackground: {fileID: 3769713775663295594}
+  _joystick: {fileID: 8874329881825926824}
+  _inActiveBackgroundJoystickColor: {r: 0.99607843, g: 0.827451, b: 0.31764707, a: 0.5019608}
+  _inActiveJoystickColor: {r: 0.20784314, g: 0.23137255, b: 0.28235295, a: 0.7529412}
+  _activeBackgroundJoystickColor: {r: 0.99607843, g: 0.827451, b: 0.31764707, a: 0}
+  _activeJoystickColor: {r: 0.20784314, g: 0.23137255, b: 0.28235295, a: 0}
+  _rotator: {fileID: 0}
 --- !u!222 &765874710035489518
 CanvasRenderer:
   m_ObjectHideFlags: 0
