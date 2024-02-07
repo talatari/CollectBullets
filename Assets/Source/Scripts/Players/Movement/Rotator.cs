@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Source.Scripts.Players.Movement
 {
     [RequireComponent(typeof(CharacterController))]
-    public class Rotater : MonoBehaviour
+    public class Rotator : MonoBehaviour
     {
         [SerializeField] private float _rotateSpeed = 10.0f;
         
@@ -14,6 +14,8 @@ namespace Source.Scripts.Players.Movement
 
         public void Rotate(Vector3 moveDirection)
         {
+            print($"moveDirection = {moveDirection}");
+            
             if (_characterController.isGrounded == false)
                 return;
             

@@ -4,10 +4,12 @@ using UnityEngine.UI;
 
 namespace Source.Scripts.Players
 {
-    public class RadiusChanger : MonoBehaviour
+    public class RadiusEnemyDetectChanger : MonoBehaviour
     {
         [SerializeField] private Image _image;
-        [SerializeField, Range(0.1f, 0.3f)] private float _radius = 0.2f;
+        [SerializeField, Range(5f, 20f)] private float _diameter = 8f;
+
+        private float _radius;
         
         public float Radius => _radius;
         
@@ -16,7 +18,8 @@ namespace Source.Scripts.Players
             if (_image == null)
                 return;
             
-            _image.transform.localScale = new Vector3(_radius, _radius, _radius);
+            _image.transform.localScale = new Vector3(_diameter, _diameter, _diameter);
+            _radius = _diameter / 2;
         }
 
         public void SetRadius(float value)
@@ -24,7 +27,7 @@ namespace Source.Scripts.Players
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _radius = value;
+            _diameter = value;
         }
     }
 }

@@ -1,17 +1,20 @@
+using System;
+using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.Players.Movement;
 using UnityEngine;
 
 namespace Source.Scripts.Players
 {
-    [RequireComponent(typeof(CollisionHandler), typeof(Mover))]
+    [RequireComponent(typeof(CollisionForBullets), typeof(Mover))]
     public class Player : MonoBehaviour
     {
         [SerializeField] private GameObject _collectedBulletPrefab;
         [SerializeField] private Transform _bag;
         [SerializeField] private int _maxCapacityBullets = 5;
-        [SerializeField] private Rotater _rotater;
+        [SerializeField] private Rotator _rotator;
         
-        private CollisionHandler _collisionHandler;
+        private CollisionForBullets _collisionForBullets;
+        private CollisionForEnemies _collisionForEnemies;
         private int _collectedBulletCount;
         private float _offsetY = 0.35f;
 
@@ -19,27 +22,31 @@ namespace Source.Scripts.Players
         public int CollectedBulletCount => _collectedBulletCount;
         public int MaxCapacityBullets => _maxCapacityBullets;
 
+        private void OnValidate() => 
+            _rotator ??= GetComponent<Rotator>();
+
         private void Awake()
         {
-            _collisionHandler = GetComponent<CollisionHandler>();
-            _collisionHandler.Init(this);
+            _collisionForBullets = GetComponent<CollisionForBullets>();
+            _collisionForBullets.Init(this);
+            _collisionForEnemies = GetComponentInChildren<CollisionForEnemies>();
+            _collisionForEnemies.Init(this);
         }
 
         private void OnEnable() => 
-            _collisionHandler.BulletCollected += OnBulletCollected;
+            _collisionForBullets.BulletCollected += OnCollected;
 
         private void Update() => 
             Position = transform;
 
         private void OnDisable() => 
-            _collisionHandler.BulletCollected -= OnBulletCollected;
+            _collisionForBullets.BulletCollected -= OnCollected;
 
-        private void OnBulletCollected()
+        private void OnCollected()
         {
+            Vector3 bagPosition = _bag.transform.position;
             Vector3 newPosition = new Vector3(
-                _bag.transform.position.x,
-                _bag.transform.position.y + _collectedBulletCount * _offsetY,
-                _bag.transform.position.z);
+                bagPosition.x, bagPosition.y + _collectedBulletCount * _offsetY, bagPosition.z);
             
             _collectedBulletCount++;
 
@@ -48,6 +55,6 @@ namespace Source.Scripts.Players
         }
 
         public void Rotate(Vector3 direction) => 
-            _rotater.Rotate(direction);
+            _rotator.Rotate(direction);
     }
 }
