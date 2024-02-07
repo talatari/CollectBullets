@@ -29,6 +29,7 @@ namespace Source.Scripts.Infrastructure.Factories
             int randomIndex = Random.Range(0, _enemyPrefabs.Count);
             Enemy enemy = Object.Instantiate(_enemyPrefabs[randomIndex], _parent);
             enemy.SetTarget(_targetProvider.Target);
+            enemy.name = _enemyPrefabs[randomIndex].name + enemy.GetInstanceID();
 
             return enemy;
         }

@@ -27,6 +27,9 @@ namespace Source.Scripts.Players
 
             OverlapEnemies();
 
+            if (_rotateDirection != Vector3.zero)
+                print($"_rotateDirection = {_rotateDirection}");
+            
             _player.Rotate(_rotateDirection);
         }
 
@@ -47,7 +50,9 @@ namespace Source.Scripts.Players
         private void OverlapEnemies()
         {
             int enemiesAmount = Physics.OverlapSphereNonAlloc(
-                transform.position, _radiusChanger.Radius, _enemyColliders, _enemyLayer);
+                transform.position, 
+                _radiusChanger.Radius, 
+                _enemyColliders, _enemyLayer);
 
             for (int i = 0; i < enemiesAmount; i++)
             {
@@ -56,6 +61,7 @@ namespace Source.Scripts.Players
                 if (_enemyColliders[i].TryGetComponent(out Enemy enemy))
                 {
                     float magnitude = (_player.transform.position - enemy.transform.position).magnitude;
+                    print($"magnitude = {magnitude}, enemy.name: {enemy.name}");
                     
                     if (distance < magnitude)
                     {
@@ -77,7 +83,7 @@ namespace Source.Scripts.Players
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.black;
-            Gizmos.DrawWireSphere(transform.position, _radiusChanger.Radius);
+            Gizmos.DrawWireSphere(transform.position, _radiusChanger.Radius * 14);
         }
     }
 }
