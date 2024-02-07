@@ -7,7 +7,7 @@ namespace Source.Scripts.Yandex
 {
     public class SDKInitializer : MonoBehaviour
     {
-        private const string MainScene = "Scenes/MainScene";
+        private const string MainScene = "Source/Scenes/MainScene";
         
         private void Awake() => 
             YandexGamesSdk.CallbackLogging = true;
