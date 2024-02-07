@@ -199,22 +199,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1446779389}
     m_Modifications:
-    - target: {fileID: 782694265144706340, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      propertyPath: _radius
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 884659296740910421, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 884659296740910421, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 884659296740910421, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 5235903559077632932, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -584,8 +568,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 902635370}
-  - {fileID: 324559531}
   - {fileID: 1242412505}
+  - {fileID: 324559531}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1462906520
@@ -647,8 +631,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 4
   m_FollowOffset: {x: 0, y: 15, z: -15}
-  m_XDamping: 1
-  m_YDamping: 1
+  m_XDamping: 0.15
+  m_YDamping: 0.5
   m_ZDamping: 1
   m_AngularDampingMode: 0
   m_PitchDamping: 0
@@ -784,7 +768,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_LocalPosition.y

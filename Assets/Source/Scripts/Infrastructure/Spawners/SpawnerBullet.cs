@@ -40,7 +40,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         // TODO: delete for implementation spawn bullets
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.Space))
                 Spawn();
             
             if (Input.GetKeyDown(KeyCode.R))
