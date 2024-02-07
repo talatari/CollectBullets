@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.Scripts.Players.Joystick
+namespace Source.Scripts.Players.Movement.Joystick
 {
     public class JoystickForMover : JoystickHandler
     {
