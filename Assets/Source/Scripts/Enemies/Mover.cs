@@ -12,10 +12,12 @@ namespace Source.Scripts.Enemies
         {
             if (_target == null)
                 return;
-            
+
             transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
         }
         
+        // TODO: сделать преобразование по центру от высоты (Y) самого врага, чтобы он двигался к игроку параллельно
+        // TODO: плоскости земли, а не по диагонали в пространстве
         public void SetTarget(Transform target) => 
             _target = target;
     }

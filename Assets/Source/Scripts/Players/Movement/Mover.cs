@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.Scripts.Players
+namespace Source.Scripts.Players.Movement
 {
     [RequireComponent(typeof(CharacterController))]
     public class Mover : MonoBehaviour

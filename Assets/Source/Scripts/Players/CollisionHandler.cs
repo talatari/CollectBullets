@@ -10,7 +10,7 @@ namespace Source.Scripts.Players
         [SerializeField] private LayerMask _bulletLayer;
         [SerializeField] private LayerMask _enemyLayer;
         [SerializeField] private float _radiusPickUpBullets = 2f;
-        [SerializeField] private float _radiusDetectEnemies = 10f;
+        [SerializeField] private RadiusChanger _radiusChanger;
         
         private const int MaxOverlap = 10;
 
@@ -47,7 +47,7 @@ namespace Source.Scripts.Players
         private void OverlapEnemies()
         {
             int enemiesAmount = Physics.OverlapSphereNonAlloc(
-                transform.position, _radiusDetectEnemies, _enemyColliders, _enemyLayer);
+                transform.position, _radiusChanger.Radius, _enemyColliders, _enemyLayer);
 
             for (int i = 0; i < enemiesAmount; i++)
             {
@@ -72,6 +72,12 @@ namespace Source.Scripts.Players
                 throw new ArgumentNullException(nameof(player));
             
             _player = player;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.black;
+            Gizmos.DrawWireSphere(transform.position, _radiusChanger.Radius);
         }
     }
 }
