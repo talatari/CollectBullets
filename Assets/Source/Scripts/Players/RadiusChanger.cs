@@ -7,11 +7,9 @@ namespace Source.Scripts.Players
     public class RadiusChanger : MonoBehaviour
     {
         [SerializeField] private Image _image;
-        [SerializeField, Range(0.1f, 0.28f)] private float _radius = 0.25f;
+        [SerializeField, Range(0.1f, 0.3f)] private float _radius = 0.2f;
         
-        private const int RadiusRatio = 13;
-        
-        public float Radius => _radius * RadiusRatio;
+        public float Radius => _radius;
         
         private void OnValidate()
         {

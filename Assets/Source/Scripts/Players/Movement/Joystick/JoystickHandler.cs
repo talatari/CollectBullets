@@ -17,6 +17,8 @@ namespace Source.Scripts.Players.Movement.Joystick
         private Vector2 _joystickBackgroundStartPosition;
         private bool _joystickIsActive;
 
+        protected const string Horizontal = "Horizontal";
+        protected const string Vertical = "Vertical";
         protected Vector2 _inputVector;
 
         private void Start()

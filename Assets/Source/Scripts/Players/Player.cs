@@ -9,7 +9,7 @@ namespace Source.Scripts.Players
         [SerializeField] private GameObject _collectedBulletPrefab;
         [SerializeField] private Transform _bag;
         [SerializeField] private int _maxCapacityBullets = 5;
-        [SerializeField] private Mover _mover;
+        [SerializeField] private Rotater _rotater;
         
         private CollisionHandler _collisionHandler;
         private int _collectedBulletCount;
@@ -47,9 +47,7 @@ namespace Source.Scripts.Players
             collectedBullet.transform.position = newPosition;
         }
 
-        public void Rotate(Vector3 direction)
-        {
-            // _mover.Rotate(direction);
-        }
+        public void Rotate(Vector3 direction) => 
+            _rotater.Rotate(direction);
     }
 }
