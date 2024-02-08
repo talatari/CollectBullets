@@ -21,6 +21,8 @@ namespace Source.Scripts.Players.Projectiles
             _damage = _projectileScriptableObject.Damage;
             _speed = _projectileScriptableObject.Speed;
             _radius = transform.localScale.x / 2;
+            
+            Destroy(gameObject, _projectileScriptableObject.LifeTime);
         }
 
         private void Update()

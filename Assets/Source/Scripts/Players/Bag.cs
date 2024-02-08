@@ -10,26 +10,26 @@ namespace Source.Scripts.Players
         private float _offsetY = 0.35f;
         private List<GameObject> _collectedBullets = new ();
         
-        public void CollectBullet(int collectedBullets)
+        public void CreateClip(int capacity)
         {
-            if (_collectedBullets.Count == 0)
+            for (int i = 0; i < capacity; i++)
             {
                 Vector3 bagPosition = transform.position;
                 Vector3 newPosition = new Vector3(
-                    bagPosition.x, bagPosition.y + collectedBullets * _offsetY, bagPosition.z);
+                    bagPosition.x, bagPosition.y + i * _offsetY, bagPosition.z);
             
                 GameObject collectedBullet = Instantiate(_collectedBulletPrefab, transform);
                 collectedBullet.transform.position = newPosition;
+                collectedBullet.SetActive(false);
+                
                 _collectedBullets.Add(collectedBullet);
-            }
-            else
-            {
-                // todo: fix index out of range
-                _collectedBullets[collectedBullets].SetActive(true);
             }
         }
 
-        public void UseCollectedBullets() => 
-            _collectedBullets[_collectedBullets.Count - 1].SetActive(false);
+        public void CollectBullet(int collectedBullets) => 
+            _collectedBullets[collectedBullets - 1].SetActive(true);
+
+        public void UseCollectedBullets(int collectedBullets) => 
+            _collectedBullets[collectedBullets].SetActive(false);
     }
 }
