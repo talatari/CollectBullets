@@ -20,7 +20,7 @@ namespace Source.Scripts.Keys
             throw new System.NotImplementedException();
         }
 
-        public void ReleaseToPool()
+        public void OnReleaseToPool()
         {
             throw new System.NotImplementedException();
         }

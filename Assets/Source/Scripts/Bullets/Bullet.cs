@@ -25,7 +25,7 @@ namespace Source.Scripts.Bullets
         public void Disable() => 
             gameObject.SetActive(false);
 
-        public void ReleaseToPool() => 
+        public void OnReleaseToPool() => 
             _pool.Release(this);
     }
 }

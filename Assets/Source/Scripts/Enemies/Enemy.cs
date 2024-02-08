@@ -8,19 +8,9 @@ namespace Source.Scripts.Enemies
     public class Enemy : MonoBehaviour, IPoolable
     {
         [SerializeField] private Mover _mover;
+        [SerializeField] private Health _health;
         
         private IPool<Enemy> _pool;
-
-        public void SetTarget(Transform target)
-        {
-            if (_mover == null)
-                throw new ArgumentNullException(nameof(_mover));
-            
-            if (target == null) 
-                throw new ArgumentNullException(nameof(target));
-
-            _mover.SetTarget(target);
-        }
 
         public void Init<T>(IPool<T> pool) where T : IPoolable
         {
@@ -33,13 +23,39 @@ namespace Source.Scripts.Enemies
                 throw new ArgumentException("Pool must be of type IPool<Enemy>");
         }
 
+        private void OnEnable() => 
+            _health.EnemyDie += OnReleaseToPool;
+
+        private void OnDisable() => 
+            _health.EnemyDie -= OnReleaseToPool;
+
+        public void SetTarget(Transform target)
+        {
+            if (_mover == null)
+                throw new ArgumentNullException(nameof(_mover));
+            
+            if (target == null) 
+                throw new ArgumentNullException(nameof(target));
+
+            _mover.SetTarget(target);
+        }
+
         public void Enable() => 
             gameObject.SetActive(true);
 
         public void Disable() => 
             gameObject.SetActive(false);
 
-        public void ReleaseToPool() => 
+        public void OnReleaseToPool() => 
             _pool.Release(this);
+
+        public void TakeDamage(int damage)
+        {
+            if (_health == null)
+                return;
+            
+            print($"Enemy: {name}");
+            _health.TakeDamage(damage);
+        }
     }
 }

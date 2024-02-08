@@ -247,22 +247,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player+
       objectReference: {fileID: 0}
-    - target: {fileID: 7228586493095186988, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      propertyPath: _text
-      value: 
-      objectReference: {fileID: 475217592}
-    - target: {fileID: 7228586493095186988, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      propertyPath: _joystickForRotator
-      value: 
-      objectReference: {fileID: 2072737332}
-    - target: {fileID: 7228586493095186988, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      propertyPath: _radiusEnemyDetectChanger
-      value: 
-      objectReference: {fileID: 409943261}
-    - target: {fileID: 8660839928877488480, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      propertyPath: _radiusPickUpBullets
-      value: 0.75
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -282,17 +266,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79abd33f8d5734bcfa3de13e6ce166bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &409943261 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1865621844983028912, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-  m_PrefabInstance: {fileID: 324559530}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e70dc0a2b4e44072a518b8ab757f93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &440532392 stripped

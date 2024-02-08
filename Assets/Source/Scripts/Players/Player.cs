@@ -1,6 +1,7 @@
 using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.Players.Movement;
 using Source.Scripts.Players.Movement.Joystick;
+using Source.Scripts.Players.Weapons;
 using UnityEngine;
 
 namespace Source.Scripts.Players
@@ -10,18 +11,17 @@ namespace Source.Scripts.Players
     {
         [SerializeField] private GameObject _collectedBulletPrefab;
         [SerializeField] private Transform _bag;
-        [SerializeField] private int _maxCapacityBullets = 5;
         [SerializeField] private JoystickForRotator _joystickForRotator;
+        [SerializeField] private WeaponHandler _weaponHandler;
         
         private CollisionForBullets _collisionForBullets;
         private CollisionForEnemies _collisionForEnemies;
-        private int _collectedBulletCount;
         private float _offsetY = 0.35f;
 
         public Transform Position { get; set; }
-        public int CollectedBulletCount => _collectedBulletCount;
-        public int MaxCapacityBullets => _maxCapacityBullets;
-
+        public int ClipCapacityBullets => _weaponHandler.ClipCapacityBullets;
+        public int CollectedBullets => _weaponHandler.CollectedBullets;
+        
         private void Awake()
         {
             _collisionForBullets = GetComponent<CollisionForBullets>();
@@ -39,16 +39,24 @@ namespace Source.Scripts.Players
         private void OnDisable() => 
             _collisionForBullets.BulletCollected -= OnCollected;
 
-        public void RotateToEnemy(Vector3 direction) => 
+        public void RotateToEnemy(Vector3 direction)
+        {
             _joystickForRotator.SetEnemyPosition(direction);
+            
+            if (direction != Vector3.zero)
+                _weaponHandler.StartShooting();
+        }
+        
+        public void StopShooting() => 
+            _weaponHandler.StopShooting();
 
         private void OnCollected()
         {
             Vector3 bagPosition = _bag.transform.position;
             Vector3 newPosition = new Vector3(
-                bagPosition.x, bagPosition.y + _collectedBulletCount * _offsetY, bagPosition.z);
-            
-            _collectedBulletCount++;
+                bagPosition.x, bagPosition.y + CollectedBullets * _offsetY, bagPosition.z);
+
+            _weaponHandler.CollectBullet();
 
             GameObject collectedBullet = Instantiate(_collectedBulletPrefab, _bag);
             collectedBullet.transform.position = newPosition;
