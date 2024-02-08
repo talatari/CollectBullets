@@ -50,17 +50,6 @@ namespace Source.Scripts.Infrastructure.Spawners
         private void OnDisable() => 
             StopSpawn();
 
-        private void Release()
-        {
-            List<Enemy> activeEnemies = _poolEnemy.ActiveItems;
-            int randomIndex = Random.Range(0, activeEnemies.Count);
-            
-            if (randomIndex < 0 || randomIndex >= activeEnemies.Count)
-                return;
-            
-            _poolEnemy.Release(activeEnemies[randomIndex]);
-        }
-
         public void StartSpawn()
         {
             StopSpawn();
@@ -72,6 +61,34 @@ namespace Source.Scripts.Infrastructure.Spawners
         {
             if (_coroutineSpawnEnemy != null)
                 StopCoroutine(_coroutineSpawnEnemy);
+        }
+
+        private void Release()
+        {
+            List<Enemy> activeEnemies = _poolEnemy.ActiveItems;
+            int randomIndex = Random.Range(0, activeEnemies.Count);
+            
+            if (randomIndex < 0 || randomIndex >= activeEnemies.Count)
+                return;
+            
+            _poolEnemy.Release(activeEnemies[randomIndex]);
+        }
+
+        private void Spawn()
+        {
+            if (_poolEnemy.AllItemsCount >= _maxEnemySpawnCount)
+                return;
+            
+            Enemy enemy = _poolEnemy.Get();
+            SetPosition(enemy);
+        }
+
+        private void SetPosition(Enemy enemy)
+        {
+            float positionY = enemy.transform.position.y;
+            enemy.transform.position = Random.insideUnitSphere * _distanceRange;
+
+            enemy.transform.position = new Vector3(enemy.transform.position.x, positionY, enemy.transform.position.z);
         }
 
         private IEnumerator SpawnEnemy()
@@ -87,23 +104,6 @@ namespace Source.Scripts.Infrastructure.Spawners
 
                 yield return delay;
             }
-        }
-
-        private void Spawn()
-        {
-            if (_poolEnemy.AllItemsCount >= _maxEnemySpawnCount)
-                return;
-            
-            Enemy enemy = _poolEnemy.Get();
-            SetPosition(enemy);
-        }
-        
-        private void SetPosition(Enemy enemy)
-        {
-            float positionY = enemy.transform.position.y;
-            enemy.transform.position = Random.insideUnitSphere * _distanceRange;
-
-            enemy.transform.position = new Vector3(enemy.transform.position.x, positionY, enemy.transform.position.z);
         }
     }
 }

@@ -50,17 +50,6 @@ namespace Source.Scripts.Infrastructure.Spawners
         private void OnDisable() => 
             StopSpawn();
 
-        private void Release()
-        {
-            List<Bullet> activeBullets = _poolBullet.ActiveItems;
-            int randomIndex = Random.Range(0, activeBullets.Count);
-            
-            if (randomIndex < 0 || randomIndex >= activeBullets.Count)
-                return;
-            
-            _poolBullet.Release(activeBullets[randomIndex]);
-        }
-
         public void StartSpawn()
         {
             StopSpawn();
@@ -72,6 +61,39 @@ namespace Source.Scripts.Infrastructure.Spawners
         {
             if (_coroutineSpawnBullet != null)
                 StopCoroutine(_coroutineSpawnBullet);
+        }
+
+        public void Spawn()
+        {
+            if (_poolBullet.AllItemsCount >= _maxBulletSpawnCount)
+                return;
+            
+            Bullet bullet = _poolBullet.Get();
+            SetPosition(bullet);
+        }
+
+        private void Release()
+        {
+            List<Bullet> activeBullets = _poolBullet.ActiveItems;
+            int randomIndex = Random.Range(0, activeBullets.Count);
+            
+            if (randomIndex < 0 || randomIndex >= activeBullets.Count)
+                return;
+            
+            _poolBullet.Release(activeBullets[randomIndex]);
+        }
+
+        private void SetPosition(Bullet bullet)
+        {
+            bullet.transform.position = Random.insideUnitSphere * _distanceRange;
+
+            if (bullet.transform.position.y < 0)
+            {
+                float newPositionY = bullet.transform.position.y * -1;
+
+                bullet.transform.position =
+                    new Vector3(bullet.transform.position.x, newPositionY, bullet.transform.position.z);
+            }
         }
 
         private IEnumerator SpawnBullet()
@@ -86,28 +108,6 @@ namespace Source.Scripts.Infrastructure.Spawners
                 Spawn();
 
                 yield return delay;
-            }
-        }
-
-        public void Spawn()
-        {
-            if (_poolBullet.AllItemsCount >= _maxBulletSpawnCount)
-                return;
-            
-            Bullet bullet = _poolBullet.Get();
-            SetPosition(bullet);
-        }
-
-        private void SetPosition(Bullet bullet)
-        {
-            bullet.transform.position = Random.insideUnitSphere * _distanceRange;
-
-            if (bullet.transform.position.y < 0)
-            {
-                float newPositionY = bullet.transform.position.y * -1;
-
-                bullet.transform.position =
-                    new Vector3(bullet.transform.position.x, newPositionY, bullet.transform.position.z);
             }
         }
     }

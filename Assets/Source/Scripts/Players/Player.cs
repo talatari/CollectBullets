@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.Players.Movement;
 using Source.Scripts.Players.Movement.Joystick;
@@ -10,15 +10,13 @@ namespace Source.Scripts.Players
     [RequireComponent(typeof(CollisionForBullets), typeof(Mover))]
     public class Player : MonoBehaviour
     {
-        [SerializeField] private GameObject _collectedBulletPrefab;
-        [SerializeField] private Transform _bag;
+        [SerializeField] private Bag _bag;
         [SerializeField] private JoystickForRotator _joystickForRotator;
         [SerializeField] private WeaponHandler _weaponHandler;
         
         private CollisionForBullets _collisionForBullets;
         private CollisionForEnemies _collisionForEnemies;
-        private float _offsetY = 0.35f;
-
+    
         public Transform Position { get; set; }
         public int ClipCapacityBullets => _weaponHandler.ClipCapacityBullets;
         public int CollectedBullets => _weaponHandler.CollectedBullets;
@@ -31,14 +29,21 @@ namespace Source.Scripts.Players
             _collisionForEnemies.Init(this);
         }
 
-        private void OnEnable() => 
+        private void OnEnable()
+        {
             _collisionForBullets.BulletCollected += OnCollected;
+            _weaponHandler.Shoted += OnShoted;
+        }
 
+        // TODO: проверить, возможно устарело и не используется
         private void Update() => 
             Position = transform;
 
-        private void OnDisable() => 
+        private void OnDisable()
+        {
             _collisionForBullets.BulletCollected -= OnCollected;
+            _weaponHandler.Shoted -= OnShoted;
+        }
 
         public void RotateToEnemy(Vector3 direction)
         {
@@ -53,14 +58,13 @@ namespace Source.Scripts.Players
 
         private void OnCollected()
         {
-            Vector3 bagPosition = _bag.transform.position;
-            Vector3 newPosition = new Vector3(
-                bagPosition.x, bagPosition.y + CollectedBullets * _offsetY, bagPosition.z);
-
             _weaponHandler.CollectBullet();
+            _bag.CollectBullet(CollectedBullets);
+        }
 
-            GameObject collectedBullet = Instantiate(_collectedBulletPrefab, _bag);
-            collectedBullet.transform.position = newPosition;
+        private void OnShoted()
+        {
+            _bag.UseCollectedBullets();
         }
     }
 }

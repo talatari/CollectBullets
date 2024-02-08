@@ -50,17 +50,6 @@ namespace Source.Scripts.Infrastructure.Spawners
         private void OnDisable() => 
             StopSpawn();
 
-        private void Release()
-        {
-            List<Key> activeKeys = _poolKey.ActiveItems;
-            int randomIndex = Random.Range(0, activeKeys.Count);
-            
-            if (randomIndex < 0 || randomIndex >= activeKeys.Count)
-                return;
-            
-            _poolKey.Release(activeKeys[randomIndex]);
-        }
-
         public void StartSpawn()
         {
             StopSpawn();
@@ -73,6 +62,37 @@ namespace Source.Scripts.Infrastructure.Spawners
             if (_coroutineSpawnKey != null)
                 StopCoroutine(_coroutineSpawnKey);
         }
+
+        private void Release()
+        {
+            List<Key> activeKeys = _poolKey.ActiveItems;
+            int randomIndex = Random.Range(0, activeKeys.Count);
+            
+            if (randomIndex < 0 || randomIndex >= activeKeys.Count)
+                return;
+            
+            _poolKey.Release(activeKeys[randomIndex]);
+        }
+
+        private void Spawn()
+        {
+            if (_poolKey.AllItemsCount >= _maxKeySpawnCount)
+                return;
+            
+            Key key = _poolKey.Get();
+            SetPosition(key);
+        }
+
+        private void SetPosition(Key key)
+        {
+            float positionX = GetRandomValue(_distanceRange, _distanceRange);
+            float positionZ = GetRandomValue(_distanceRange, _distanceRange);
+
+            key.transform.position = new Vector3(positionX, key.transform.position.y, positionZ);
+        }
+
+        private float GetRandomValue(float min, float max) =>
+            Random.Range(-1 * min, max);
 
         private IEnumerator SpawnKey()
         {
@@ -88,25 +108,5 @@ namespace Source.Scripts.Infrastructure.Spawners
                 yield return delay;
             }
         }
-
-        private void Spawn()
-        {
-            if (_poolKey.AllItemsCount >= _maxKeySpawnCount)
-                return;
-            
-            Key key = _poolKey.Get();
-            SetPosition(key);
-        }
-        
-        private void SetPosition(Key key)
-        {
-            float positionX = GetRandomValue(_distanceRange, _distanceRange);
-            float positionZ = GetRandomValue(_distanceRange, _distanceRange);
-
-            key.transform.position = new Vector3(positionX, key.transform.position.y, positionZ);
-        }
-        
-        private float GetRandomValue(float min, float max) =>
-            Random.Range(-1 * min, max);
     }
 }

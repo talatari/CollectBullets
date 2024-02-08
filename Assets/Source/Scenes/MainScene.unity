@@ -200,6 +200,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1446779389}
     m_Modifications:
     - target: {fileID: 813115569166104298, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+      propertyPath: _bag
+      value: 
+      objectReference: {fileID: 988970611}
+    - target: {fileID: 813115569166104298, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: _joystickForRotator
       value: 
       objectReference: {fileID: 2072737332}
@@ -258,7 +262,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1060923795839240238, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 988970611}
   m_SourcePrefab: {fileID: 100100000, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
 --- !u!4 &324559531 stripped
 Transform:
@@ -507,6 +514,24 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &988970609 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1060923795839240238, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
+  m_PrefabInstance: {fileID: 324559530}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &988970611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988970609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 433097246e9834caeba5ecb4af3579a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collectedBulletPrefab: {fileID: 2251718402828340361, guid: 96ed8629b0d32443caf2113f5a08250a, type: 3}
 --- !u!4 &1242412505 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}

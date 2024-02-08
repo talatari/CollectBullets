@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using Source.Scripts.Common;
+using Source.Scripts.Players.Projectiles;
 using UnityEngine;
 
 namespace Source.Scripts.Players.Weapons
@@ -13,8 +15,10 @@ namespace Source.Scripts.Players.Weapons
         private Coroutine _shootingCoroutine;
         private Vector3 _direction;
         private bool _isRealoding;
-        private Timer _timer;
+        private CooldownTimer _cooldownTimer;
 
+        public event Action Shoted;
+        
         public int ClipCapacityBullets => _weapon.ClipCapacityBullets;
         public int CollectedBullets => _weapon.CollectedBullets;
 
@@ -52,8 +56,11 @@ namespace Source.Scripts.Players.Weapons
             {
                 if (_weapon.CollectedBullets > 0)
                 {
-                    _weapon.Shoot();
                     
+                    _weapon.Shoot();
+                    Shoted?.Invoke();
+                    
+                    // TODO: implement
                     // _timer.Start();
                     
                     ProjectileForPistol projectileForPistol = Instantiate(

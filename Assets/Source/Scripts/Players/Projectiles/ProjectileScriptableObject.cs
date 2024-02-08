@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Source.Scripts.Players.Projectiles
 {
-    [CreateAssetMenu(menuName = "Create ProjectileSO", fileName = "ProjectileSO", order = 0)]
+    [CreateAssetMenu(menuName = "Create ProjectileScriptableObject", fileName = "ProjectileScriptableObject", order = 0)]
     public class ProjectileScriptableObject : ScriptableObject
     {
         [field: SerializeField] public GameObject BulletPrefab { get; private set; }
