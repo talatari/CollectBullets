@@ -1,26 +1,38 @@
 using System.Collections;
+using Source.Scripts.Common;
 using UnityEngine;
 
 namespace Source.Scripts.Players.Weapons
 {
     public class WeaponHandler : MonoBehaviour
     {
-        [SerializeField] private BulletForPistol _bulletPrefab;
+        [SerializeField] private ProjectileForPistol _projectilePrefab;
+        [SerializeField] private WeaponScriptableObject _weaponScriptableObject;
         
-        private Weapon _weapon = new (new Pistol());
+        private Weapon _weapon;
         private Coroutine _shootingCoroutine;
-        
+        private Vector3 _direction;
+        private bool _isRealoding;
+        private Timer _timer;
+
         public int ClipCapacityBullets => _weapon.ClipCapacityBullets;
         public int CollectedBullets => _weapon.CollectedBullets;
+
+        private void Start() => 
+            _weapon = new Weapon(_weaponScriptableObject);
 
         private void OnDisable() => 
             StopShooting();
 
-        public void StartShooting()
+        public void StartShooting(Vector3 direction)
         {
-            StopShooting();
-
-            _shootingCoroutine = StartCoroutine(Shooting());
+            if (_isRealoding)
+                return;
+            
+            _direction = direction;
+            
+            if (_shootingCoroutine == null)
+                _shootingCoroutine = StartCoroutine(Shooting());
         }
         
         public void CollectBullet() => 
@@ -30,6 +42,8 @@ namespace Source.Scripts.Players.Weapons
         {
             if (_shootingCoroutine != null)
                 StopCoroutine(_shootingCoroutine);
+            
+            _shootingCoroutine = null;
         }
 
         private IEnumerator Shooting()
@@ -40,12 +54,16 @@ namespace Source.Scripts.Players.Weapons
                 {
                     _weapon.Shoot();
                     
-                    Vector3 startPosition = new Vector3(
-                        transform.position.x, transform.position.y, transform.position.z);
+                    // _timer.Start();
                     
-                    Instantiate(_bulletPrefab, startPosition, Quaternion.identity);
+                    ProjectileForPistol projectileForPistol = Instantiate(
+                        _projectilePrefab, new Vector3(
+                            transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+                    
+                    projectileForPistol.SetDirection(_direction);
                 }
-
+                
+                // TODO: баг когда враг выходит из радиуса атаки и тут же входит, кулдаун сбрасывается 
                 yield return new WaitForSeconds(_weapon.ShootingDelay);
             }
         }

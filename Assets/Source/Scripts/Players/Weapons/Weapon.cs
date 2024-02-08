@@ -8,18 +8,15 @@ namespace Source.Scripts.Players.Weapons
         private int _collectedBullets;
         private float _shootingDelay;
 
-        public Weapon(Pistol pistol)
+        public Weapon(WeaponScriptableObject weaponScriptableObject)
         {
-           if (pistol.ClipCapacityBullets <= 0)
-               throw new ArgumentOutOfRangeException(nameof(pistol.ClipCapacityBullets));
-           if (pistol.CollectedBullets < 0)
-               throw new ArgumentOutOfRangeException(nameof(pistol.CollectedBullets));
-           if (pistol.ShootingDelay < 0)
-               throw new ArgumentOutOfRangeException(nameof(pistol.ShootingDelay));
+           if (weaponScriptableObject.ClipCapacityProjectile <= 0)
+               throw new ArgumentOutOfRangeException(nameof(weaponScriptableObject.ClipCapacityProjectile));
+           if (weaponScriptableObject.ShootingDelay < 0)
+               throw new ArgumentOutOfRangeException(nameof(weaponScriptableObject.ShootingDelay));
            
-           _clipCapacityBullets = pistol.ClipCapacityBullets;
-           _collectedBullets = pistol.CollectedBullets;
-           _shootingDelay = pistol.ShootingDelay;
+           _clipCapacityBullets = weaponScriptableObject.ClipCapacityProjectile;
+           _shootingDelay = weaponScriptableObject.ShootingDelay;
         }
         
         public int ClipCapacityBullets => _clipCapacityBullets;

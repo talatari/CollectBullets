@@ -1,3 +1,4 @@
+using System;
 using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.Players.Movement;
 using Source.Scripts.Players.Movement.Joystick;
@@ -44,7 +45,7 @@ namespace Source.Scripts.Players
             _joystickForRotator.SetEnemyPosition(direction);
             
             if (direction != Vector3.zero)
-                _weaponHandler.StartShooting();
+                _weaponHandler.StartShooting(direction);
         }
         
         public void StopShooting() => 
