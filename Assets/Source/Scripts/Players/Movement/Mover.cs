@@ -7,8 +7,9 @@ namespace Source.Scripts.Players.Movement
     {
         [SerializeField] private float _moveSpeed = 10.0f;
 
-        public float CurrentAttractionCharacter;
         private CharacterController _characterController;
+
+        [HideInInspector] public float CurrentAttractionCharacter;
 
         private void Start() => 
             _characterController = GetComponent<CharacterController>();

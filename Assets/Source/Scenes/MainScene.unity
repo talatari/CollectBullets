@@ -200,21 +200,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 1446779389}
     m_Modifications:
     - target: {fileID: 813115569166104298, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      propertyPath: _bag
-      value: 
-      objectReference: {fileID: 988970611}
-    - target: {fileID: 813115569166104298, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: _joystickForRotator
       value: 
       objectReference: {fileID: 2072737332}
-    - target: {fileID: 3627872384121836180, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      propertyPath: _projectilePrefab
-      value: 
-      objectReference: {fileID: 2555182813560936047, guid: 6d38cadad180140ccac00ede156bce08, type: 3}
-    - target: {fileID: 3627872384121836180, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      propertyPath: _weaponScriptableObject
-      value: 
-      objectReference: {fileID: 11400000, guid: e7f654234f88d47dcbf1f55a7318b052, type: 2}
     - target: {fileID: 5235903559077632932, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -262,10 +250,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1060923795839240238, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 988970611}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
 --- !u!4 &324559531 stripped
 Transform:
@@ -514,24 +499,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &988970609 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1060923795839240238, guid: e7af04ac8a3964bf38bb3a364ea201be, type: 3}
-  m_PrefabInstance: {fileID: 324559530}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &988970611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 988970609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 433097246e9834caeba5ecb4af3579a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _collectedBulletPrefab: {fileID: 2251718402828340361, guid: 96ed8629b0d32443caf2113f5a08250a, type: 3}
 --- !u!4 &1242412505 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
@@ -816,10 +783,6 @@ PrefabInstance:
     - target: {fileID: 2920169749319461597, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_Name
       value: CompositionRoot+
-      objectReference: {fileID: 0}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _startEnemyCount
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_LocalPosition.x
