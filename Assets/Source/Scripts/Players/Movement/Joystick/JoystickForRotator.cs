@@ -6,19 +6,21 @@ namespace Source.Scripts.Players.Movement.Joystick
     {
         [SerializeField] private Rotator _rotator;
 
-        public Vector3 EnemyPosition;
+        private Vector3 _enemyPosition;
         
         private void Update()
         {
             if (_rotator == null)
                 return;
 
-            if (EnemyPosition == Vector3.zero)
+            if (_enemyPosition == Vector3.zero)
                 RotateToForward();
             else
-                _rotator.Rotate(EnemyPosition);
-            
+                _rotator.Rotate(_enemyPosition);
         }
+
+        public void SetEnemyPosition(Vector3 enemyPosition) => 
+            _enemyPosition = enemyPosition;
 
         private void RotateToForward()
         {

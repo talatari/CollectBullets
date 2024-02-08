@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,15 +18,13 @@ namespace Source.Scripts.Players
                 return;
             
             _image.transform.localScale = new Vector3(_diameter, _diameter, _diameter);
-            _radius = _diameter / 2;
+            SetRadius();
         }
 
-        public void SetRadius(float value)
-        {
-            if (value <= 0) 
-                throw new ArgumentOutOfRangeException(nameof(value));
-            
-            _diameter = value;
-        }
+        private void Awake() => 
+            SetRadius();
+
+        private void SetRadius() => 
+            _radius = _diameter / 2;
     }
 }

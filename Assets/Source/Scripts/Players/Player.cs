@@ -11,7 +11,6 @@ namespace Source.Scripts.Players
         [SerializeField] private GameObject _collectedBulletPrefab;
         [SerializeField] private Transform _bag;
         [SerializeField] private int _maxCapacityBullets = 5;
-        [SerializeField] private Rotator _rotator;
         [SerializeField] private JoystickForRotator _joystickForRotator;
         
         private CollisionForBullets _collisionForBullets;
@@ -22,9 +21,6 @@ namespace Source.Scripts.Players
         public Transform Position { get; set; }
         public int CollectedBulletCount => _collectedBulletCount;
         public int MaxCapacityBullets => _maxCapacityBullets;
-
-        private void OnValidate() => 
-            _rotator ??= GetComponent<Rotator>();
 
         private void Awake()
         {
@@ -43,6 +39,9 @@ namespace Source.Scripts.Players
         private void OnDisable() => 
             _collisionForBullets.BulletCollected -= OnCollected;
 
+        public void RotateToEnemy(Vector3 direction) => 
+            _joystickForRotator.SetEnemyPosition(direction);
+
         private void OnCollected()
         {
             Vector3 bagPosition = _bag.transform.position;
@@ -54,8 +53,5 @@ namespace Source.Scripts.Players
             GameObject collectedBullet = Instantiate(_collectedBulletPrefab, _bag);
             collectedBullet.transform.position = newPosition;
         }
-
-        public void RotateToEnemy(Vector3 direction) => 
-            _joystickForRotator.EnemyPosition = direction;
     }
 }
