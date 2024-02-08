@@ -54,7 +54,6 @@ namespace Source.Scripts.Enemies
             if (_health == null)
                 return;
             
-            print($"Enemy: {name}");
             _health.TakeDamage(damage);
         }
     }

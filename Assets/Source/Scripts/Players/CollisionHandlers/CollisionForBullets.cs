@@ -22,7 +22,7 @@ namespace Source.Scripts.Players.CollisionHandlers
             _player = player;
         }
         
-        private void FixedUpdate() => 
+        private void Update() => 
             OverlapBullets();
 
         private void OverlapBullets()
