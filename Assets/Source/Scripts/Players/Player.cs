@@ -1,4 +1,3 @@
-using System;
 using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.Players.Movement;
 using Source.Scripts.Players.Movement.Joystick;
@@ -17,7 +16,6 @@ namespace Source.Scripts.Players
         private CollisionForBullets _collisionForBullets;
         private CollisionForEnemies _collisionForEnemies;
         
-        public Transform Position { get; set; }
         public int ClipCapacityBullets => _weaponHandler.ClipCapacityBullets;
         public int CollectedBullets => _weaponHandler.CollectedBullets;
         
@@ -37,10 +35,6 @@ namespace Source.Scripts.Players
             _collisionForBullets.BulletCollected += OnCollected;
             _weaponHandler.Shoted += OnShoted;
         }
-
-        // TODO: проверить, возможно устарело и не используется
-        private void Update() => 
-            Position = transform;
 
         private void OnDisable()
         {
@@ -65,9 +59,7 @@ namespace Source.Scripts.Players
             _bag.CollectBullet(CollectedBullets);
         }
 
-        private void OnShoted()
-        {
+        private void OnShoted() => 
             _bag.UseCollectedBullets(CollectedBullets);
-        }
     }
 }
