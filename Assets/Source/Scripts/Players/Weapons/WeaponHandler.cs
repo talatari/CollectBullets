@@ -22,8 +22,14 @@ namespace Source.Scripts.Players.Weapons
         public int ClipCapacityBullets => _weapon.ClipCapacityBullets;
         public int CollectedBullets => _weapon.CollectedBullets;
 
-        private void Start() => 
+        private void Start()
+        {
             _weapon = new Weapon(_weaponScriptableObject);
+            _cooldownTimer = new CooldownTimer(_weaponScriptableObject.ShootingDelay);
+        }
+
+        private void Update() => 
+            _cooldownTimer.Tick(Time.deltaTime);
 
         private void OnDisable() => 
             StopShooting();
@@ -54,14 +60,11 @@ namespace Source.Scripts.Players.Weapons
         {
             while (enabled)
             {
-                if (_weapon.CollectedBullets > 0)
+                if (_weapon.CollectedBullets > 0 && _cooldownTimer.CanShoot)
                 {
-                    
                     _weapon.Shoot();
                     Shoted?.Invoke();
-                    
-                    // TODO: implement
-                    // _timer.Start();
+                    _cooldownTimer.Run();
                     
                     ProjectileForPistol projectileForPistol = Instantiate(
                         _projectilePrefab, new Vector3(
@@ -70,7 +73,6 @@ namespace Source.Scripts.Players.Weapons
                     projectileForPistol.SetDirection(_direction);
                 }
                 
-                // TODO: баг когда враг выходит из радиуса атаки и тут же входит, кулдаун сбрасывается 
                 yield return new WaitForSeconds(_weapon.ShootingDelay);
             }
         }
