@@ -21,7 +21,7 @@ namespace Source.Scripts.Players.CollisionHandlers
             _player = player;
         }
 
-        private void Update() => 
+        private void FixedUpdate() => 
             OverlapEnemies();
 
         private void OverlapEnemies()
@@ -32,6 +32,7 @@ namespace Source.Scripts.Players.CollisionHandlers
             if (enemiesAmount == 0)
             {
                 _player.RotateToEnemy(Vector3.zero);
+                _player.StopShooting();
                 
                 return;
             }

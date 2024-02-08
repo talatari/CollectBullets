@@ -27,16 +27,18 @@ namespace Source.Scripts.Players.CollisionHandlers
 
         private void OverlapBullets()
         {
+            if (_player.CollectedBullets >= _player.ClipCapacityBullets)
+                return;
+            
             int bulletsAmount = Physics.OverlapSphereNonAlloc(
                 transform.position, _radiusPickUpBullets, _bulletColliders, _bulletLayer);
 
             for (int i = 0; i < bulletsAmount; i++)
-                if (_player.CollectedBulletCount < _player.MaxCapacityBullets)
-                    if (_bulletColliders[i].TryGetComponent(out Bullet bullet))
-                    {
-                        bullet.ReleaseToPool();
-                        BulletCollected?.Invoke();
-                    }
+                if (_bulletColliders[i].TryGetComponent(out Bullet bullet))
+                {
+                    bullet.OnReleaseToPool();
+                    BulletCollected?.Invoke();
+                }
         }
     }
 }

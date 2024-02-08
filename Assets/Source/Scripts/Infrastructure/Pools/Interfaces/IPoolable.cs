@@ -5,6 +5,6 @@ namespace Source.Scripts.Infrastructure.Pools.Interfaces
         void Init<T>(IPool<T> pool) where T : IPoolable;
         void Enable();
         void Disable();
-        void ReleaseToPool();
+        void OnReleaseToPool();
     }
 }
