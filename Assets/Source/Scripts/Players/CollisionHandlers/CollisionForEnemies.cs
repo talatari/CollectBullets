@@ -7,7 +7,7 @@ namespace Source.Scripts.Players.CollisionHandlers
     public class CollisionForEnemies : CollisionHandler
     {
         [SerializeField] private LayerMask _enemyLayer;
-        [SerializeField] private RadiusEnemyDetectChanger radiusEnemyDetectChanger;
+        [SerializeField] private RadiusEnemyDetectChanger _radiusEnemyDetectChanger;
         
         private Player _player;
         private Collider[] _enemyColliders = new Collider[MaxOverlap];
@@ -27,7 +27,7 @@ namespace Source.Scripts.Players.CollisionHandlers
         private void OverlapEnemies()
         {
             int enemiesAmount = Physics.OverlapSphereNonAlloc(
-                transform.position, radiusEnemyDetectChanger.Radius, _enemyColliders, _enemyLayer);
+                transform.position, _radiusEnemyDetectChanger.Radius, _enemyColliders, _enemyLayer);
 
             if (enemiesAmount == 0)
             {
