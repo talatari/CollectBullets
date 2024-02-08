@@ -13,8 +13,13 @@ namespace Source.Scripts.Enemies
         {
             if (_target == null)
                 return;
+
+            Vector3 position = transform.position;
             
-            transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
+            position = Vector3.MoveTowards(
+                position, new Vector3(_target.position.x, position.y, _target.position.z), _speed * Time.deltaTime);
+            
+            transform.position = position;
         }
         
         public void SetTarget(Transform target)
