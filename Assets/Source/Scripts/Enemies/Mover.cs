@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Source.Scripts.Enemies
@@ -12,13 +13,16 @@ namespace Source.Scripts.Enemies
         {
             if (_target == null)
                 return;
-
+            
             transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
         }
         
-        // TODO: сделать преобразование по центру от высоты (Y) самого врага, чтобы он двигался к игроку параллельно
-        // TODO: плоскости земли, а не по диагонали в пространстве
-        public void SetTarget(Transform target) => 
+        public void SetTarget(Transform target)
+        {
+            if (target == null) 
+                throw new ArgumentNullException(nameof(target));
+
             _target = target;
+        }
     }
 }
