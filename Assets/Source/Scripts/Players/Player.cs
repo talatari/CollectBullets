@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.Players.Movement;
 using Source.Scripts.Players.Movement.Joystick;
@@ -16,7 +16,7 @@ namespace Source.Scripts.Players
         
         private CollisionForBullets _collisionForBullets;
         private CollisionForEnemies _collisionForEnemies;
-    
+        
         public Transform Position { get; set; }
         public int ClipCapacityBullets => _weaponHandler.ClipCapacityBullets;
         public int CollectedBullets => _weaponHandler.CollectedBullets;
@@ -28,6 +28,9 @@ namespace Source.Scripts.Players
             _collisionForEnemies = GetComponentInChildren<CollisionForEnemies>();
             _collisionForEnemies.Init(this);
         }
+
+        private void Start() => 
+            _bag.CreateClip(_weaponHandler.ClipCapacityBullets);
 
         private void OnEnable()
         {
@@ -64,7 +67,7 @@ namespace Source.Scripts.Players
 
         private void OnShoted()
         {
-            _bag.UseCollectedBullets();
+            _bag.UseCollectedBullets(CollectedBullets);
         }
     }
 }

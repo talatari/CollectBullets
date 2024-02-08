@@ -8,5 +8,6 @@ namespace Source.Scripts.Players.Projectiles
         [field: SerializeField] public GameObject BulletPrefab { get; private set; }
         [field: SerializeField] public int Damage { get; private set; }
         [field: SerializeField] public float Speed { get; private set; }
+        [field: SerializeField] public float LifeTime { get; private set; }
     }
 }
