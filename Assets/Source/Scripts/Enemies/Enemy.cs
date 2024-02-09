@@ -12,7 +12,6 @@ namespace Source.Scripts.Enemies
         [SerializeField] private Mover _mover;
         [SerializeField] private Health _health;
         [SerializeField] private Attacker _attacker;
-        [SerializeField] private Collider _collider;
         
         private IPool<Enemy> _pool;
 
