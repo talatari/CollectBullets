@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.Scripts.Players.Projectiles.SO
+namespace Source.Scripts.SO
 {
     [CreateAssetMenu(menuName = "Create ScriptableObject/Projectile", fileName = "Projectile", order = 1)]
     public class ProjectileScriptableObject : ScriptableObject

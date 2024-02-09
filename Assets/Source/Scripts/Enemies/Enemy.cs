@@ -1,6 +1,6 @@
 using System;
-using Source.Scripts.Enemies.SO;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
+using Source.Scripts.SO;
 using UnityEngine;
 
 namespace Source.Scripts.Enemies
@@ -28,6 +28,7 @@ namespace Source.Scripts.Enemies
             _mover.SetSpeed(_enemyScriptableObject.Speed);
             _health.SetHealth(_enemyScriptableObject.Health);
             _attacker.SetDamage(_enemyScriptableObject.Damage);
+            _attacker.SetDistanceAttack(_enemyScriptableObject.DistanceAttack);
         }
 
         private void OnEnable() => 

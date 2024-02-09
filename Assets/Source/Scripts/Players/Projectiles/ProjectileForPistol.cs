@@ -1,7 +1,7 @@
 using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
 using Source.Scripts.Players.CollisionHandlers;
-using Source.Scripts.Players.Projectiles.SO;
+using Source.Scripts.SO;
 using UnityEngine;
 
 namespace Source.Scripts.Players.Projectiles
