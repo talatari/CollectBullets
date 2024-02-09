@@ -13,7 +13,6 @@ namespace Source.Scripts.Enemies
         [SerializeField] private ProjectileEnemy _projectilePrefab;
         [SerializeField] private Transform _attackPoint;
         
-        private int _damage;
         private float _distanceAttack;
         private Collider[] _playerCollider = new Collider[MaxOverlap];
         private CooldownTimer _cooldownTimer;
@@ -24,16 +23,13 @@ namespace Source.Scripts.Enemies
         public event Action PlayerDetected;
         public event Action PlayerLost;
 
-        public void Init(int damage, float distanceAttack, float attackCooldown)
+        public void Init(float distanceAttack, float attackCooldown)
         {
-            if (damage <= 0) 
-                throw new ArgumentOutOfRangeException(nameof(damage));
             if (distanceAttack < 0)
                 distanceAttack = 0;
             if (attackCooldown <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(attackCooldown));
             
-            _damage = damage;
             _distanceAttack = distanceAttack;
             _attackCooldown = attackCooldown;
         }
@@ -87,23 +83,22 @@ namespace Source.Scripts.Enemies
         {
             while (enabled)
             {
-                if (_cooldownTimer.CanShoot == false)
-                    yield break;
-                
-                if (_projectilePrefab != null)
+                if (_cooldownTimer.CanShoot)
                 {
-                    ProjectileEnemy projectileEnemy = Instantiate(
-                        _projectilePrefab, _attackPoint.transform.position, Quaternion.identity);
+                    if (_projectilePrefab != null)
+                    {
+                        ProjectileEnemy projectileEnemy = Instantiate(
+                            _projectilePrefab, _attackPoint.transform.position, Quaternion.identity);
                 
-                    Vector3 rotateDirection = player.transform.position - transform.position;
-                    rotateDirection.y = 0;
-                    projectileEnemy.SetDirection(rotateDirection);
+                        Vector3 rotateDirection = player.transform.position - transform.position;
+                        rotateDirection.y = 0;
+                        projectileEnemy.SetDirection(rotateDirection);
+                    }
+                
+                    _cooldownTimer.Run();
                 }
-                
-                player.TakeDamage(_damage);
-                _cooldownTimer.Run();
-                
-                yield return new WaitForSeconds(_attackCooldown);
+
+                yield return null;
             }
         }
     }

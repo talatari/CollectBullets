@@ -45,18 +45,11 @@ namespace Source.Scripts.Enemies
             if (playerColliders == 0)
                 return;
             
-            // TODO: BAG:
-            // когда несколько врагов долго преследуют игрока, они начинают сливаться воедино, так как
-            // они не физические объекты и как следствие попадание в такую кучу врагов приводит к тому что
-            // одна пуля дамажит всех разом. Нужно обрабатывать только первого из списка, либо разводить
-            // врагов, чтобы они не сливались воедино.
             for (int i = 0; i < playerColliders; i++)
                 if (_playerColliders[i].TryGetComponent(out Player player))
                 {
                     player.TakeDamage(_damage);
                     Destroy(gameObject);
-                    
-                    // break; // нормальная практика?
                 }
         }
 
