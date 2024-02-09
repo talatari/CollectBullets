@@ -20,7 +20,10 @@ namespace Source.Scripts.Players.Projectiles
         {
             _damage = _projectileScriptableObject.Damage;
             _speed = _projectileScriptableObject.Speed;
-            _radius = transform.localScale.x / 2;
+            // TODO: QUESTION:
+            // нормально так вычислять радиус? или как тут правильней обозначить магическое число 2?
+            float _diameter = transform.localScale.x;
+            _radius = _diameter / 2;
             
             Destroy(gameObject, _projectileScriptableObject.LifeTime);
         }
