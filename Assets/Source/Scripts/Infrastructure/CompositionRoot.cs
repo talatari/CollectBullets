@@ -71,9 +71,8 @@ namespace Source.Scripts.Infrastructure
 
         private void LoadPrefabs()
         {
-            // TODO: отключил спавн милишных мобов для теста рейнджей
              _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyMeleePrefab, typeof(Enemy)));
-            // _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyRangePrefab, typeof(Enemy)));
+             _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyRangePrefab, typeof(Enemy)));
             // TODO: QUESTION: как проверить список, на предмет того что добавление, прошло успешно?
             if (_enemyPrefabs == null)
                 throw new Exception("PathToEnemyPrefab not found.");
