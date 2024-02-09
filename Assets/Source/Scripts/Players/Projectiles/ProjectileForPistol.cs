@@ -43,35 +43,50 @@ namespace Source.Scripts.Players.Projectiles
             if (enemiesAmount == 0)
                 return;
             
+            // TODO: BAG:
+            // когда несколько врагов долго преследуют игрока, они начинают сливаться воедино, так как
+            // они не физические объекты и как следствие попадание в такую кучу врагов приводит к тому что
+            // одна пуля дамажит всех разом. Нужно обрабатывать только первого из списка, либо разводить
+            // врагов, чтобы они не сливались воедино.
             for (int i = 0; i < enemiesAmount; i++)
                 if (_enemyColliders[i].TryGetComponent(out Enemy enemy))
                 {
                     enemy.TakeDamage(_damage);
                     Destroy(gameObject);
+                    
+                    break; // нормальная практика?
                 }
+
+            // такой хардкод думаю тоже не лучше, если мне нужно обработать коллизию с первым из списка объектом?
+            // if (_enemyColliders[0].TryGetComponent(out Enemy enemy))
+            // {
+            //     enemy.TakeDamage(_damage);
+            //     Destroy(gameObject);
+            // }
         }
 
         private void Move() => 
             transform.Translate(_direction * (_speed * Time.deltaTime));
 
+        
         public void Init<T>(IPool<T> pool) where T : IPoolable
         {
-            throw new System.NotImplementedException();
+            // TODO: реализовать пул проджектайлов, возможно эти методы нужны не в этом классе
         }
 
         public void Enable()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Disable()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void OnReleaseToPool()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

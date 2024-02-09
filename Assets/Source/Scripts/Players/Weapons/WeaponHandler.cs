@@ -22,7 +22,7 @@ namespace Source.Scripts.Players.Weapons
         public int ClipCapacityBullets => _weapon.ClipCapacityBullets;
         public int CollectedBullets => _weapon.CollectedBullets;
 
-        private void Start()
+        private void Awake()
         {
             _weapon = new Weapon(_weaponScriptableObject);
             _cooldownTimer = new CooldownTimer(_weaponScriptableObject.ShootingDelay);

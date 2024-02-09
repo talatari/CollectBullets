@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,9 @@ namespace Source.Scripts.Players
         
         public void CreateClip(int capacity)
         {
+            if (capacity <= 0)
+                throw new ArgumentOutOfRangeException(nameof(capacity));
+            
             for (int i = 0; i < capacity; i++)
             {
                 Vector3 bagPosition = transform.position;
@@ -26,10 +30,20 @@ namespace Source.Scripts.Players
             }
         }
 
-        public void CollectBullet(int collectedBullets) => 
+        public void CollectBullet(int collectedBullets)
+        {
+            if (collectedBullets <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(collectedBullets));
+            
             _collectedBullets[collectedBullets - 1].SetActive(true);
+        }
 
-        public void UseCollectedBullets(int collectedBullets) => 
+        public void UseCollectedBullets(int collectedBullets)
+        {
+            if (collectedBullets < 0) 
+                throw new ArgumentOutOfRangeException(nameof(collectedBullets));
+            
             _collectedBullets[collectedBullets].SetActive(false);
+        }
     }
 }
