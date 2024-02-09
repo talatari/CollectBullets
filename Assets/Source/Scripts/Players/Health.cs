@@ -27,6 +27,8 @@ namespace Source.Scripts.Players
             _currentHealth = Mathf.Clamp(_currentHealth -= damage, _minHealth, _maxHealth);
             PlayerHealthChanged?.Invoke(_currentHealth, _maxHealth);
             
+            print($"_currentHealth: {_currentHealth}");
+            
             if (_currentHealth <= _minHealth)
                 PlayerDie?.Invoke();
         }

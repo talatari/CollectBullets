@@ -24,13 +24,8 @@ namespace Source.Scripts.Enemies
             transform.position = position;
         }
         
-        public void SetTarget(Transform target)
-        {
-            if (target == null) 
-                throw new ArgumentNullException(nameof(target));
-
+        public void SetTarget(Transform target) => 
             _target = target;
-        }
 
         public void SetSpeed(float speed)
         {
