@@ -5,13 +5,15 @@ namespace Source.Scripts.Enemies
 {
     public class Mover : MonoBehaviour
     {
-        [SerializeField] private float _speed = 1f;
-        
+        private float _speed;
         private Transform _target;
 
         private void Update()
         {
             if (_target == null)
+                return;
+            
+            if (_speed == 0)
                 return;
 
             Vector3 position = transform.position;
@@ -28,6 +30,14 @@ namespace Source.Scripts.Enemies
                 throw new ArgumentNullException(nameof(target));
 
             _target = target;
+        }
+
+        public void SetSpeed(float speed)
+        {
+            if (speed <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(speed));
+            
+            _speed = speed;
         }
     }
 }

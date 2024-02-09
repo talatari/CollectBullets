@@ -1,6 +1,7 @@
 using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
 using Source.Scripts.Players.CollisionHandlers;
+using Source.Scripts.Players.Projectiles.SO;
 using UnityEngine;
 
 namespace Source.Scripts.Players.Projectiles
@@ -24,6 +25,7 @@ namespace Source.Scripts.Players.Projectiles
             // нормально так вычислять радиус? или как тут правильней обозначить магическое число 2?
             float _diameter = transform.localScale.x;
             _radius = _diameter / 2;
+            // аналогичная история в классе RadiusEnemyDetectChanger
             
             Destroy(gameObject, _projectileScriptableObject.LifeTime);
         }

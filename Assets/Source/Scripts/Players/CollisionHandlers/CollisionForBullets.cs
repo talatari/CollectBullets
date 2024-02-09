@@ -1,5 +1,4 @@
 using System;
-using Source.Scripts.Bullets;
 using UnityEngine;
 
 namespace Source.Scripts.Players.CollisionHandlers

@@ -1,6 +1,7 @@
+using Source.Scripts.Players.Movement;
 using UnityEngine;
 
-namespace Source.Scripts.Players.Movement.Joystick
+namespace Source.Scripts.Players.Joystick
 {
     public class JoystickForRotator : JoystickHandler
     {

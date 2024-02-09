@@ -1,6 +1,6 @@
 using System;
-using Source.Scripts.Bullets;
 using Source.Scripts.Infrastructure.Factories.Interfaces;
+using Source.Scripts.Players;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
