@@ -1,7 +1,9 @@
 using System;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
 using Source.Scripts.SO;
+using Unity.VisualScripting;
 using UnityEngine;
+using IPoolable = Source.Scripts.Infrastructure.Pools.Interfaces.IPoolable;
 
 namespace Source.Scripts.Enemies
 {
@@ -14,6 +16,7 @@ namespace Source.Scripts.Enemies
         [SerializeField] private Attacker _attacker;
         
         private IPool<Enemy> _pool;
+        private Transform _target;
 
         public void Init<T>(IPool<T> pool) where T : IPoolable
         {
@@ -27,15 +30,30 @@ namespace Source.Scripts.Enemies
             
             _mover.SetSpeed(_enemyScriptableObject.Speed);
             _health.SetHealth(_enemyScriptableObject.Health);
-            _attacker.SetDamage(_enemyScriptableObject.Damage);
-            _attacker.SetDistanceAttack(_enemyScriptableObject.DistanceAttack);
+
+            _attacker.Init(_enemyScriptableObject.Damage, _enemyScriptableObject.DistanceAttack, 
+                _enemyScriptableObject.AttackCooldown);
         }
 
-        private void OnEnable() => 
+        private void OnEnable()
+        {
             _health.EnemyDie += OnReleaseToPool;
+            _attacker.PlayerDetected += OnMoveStop;
+            _attacker.PlayerLost += OnMoveContinue;
+        }
 
-        private void OnDisable() => 
+        private void OnDisable()
+        {
             _health.EnemyDie -= OnReleaseToPool;
+            _attacker.PlayerDetected -= OnMoveStop;
+            _attacker.PlayerLost -= OnMoveContinue;
+        }
+
+        private void OnMoveStop() => 
+            _mover.SetTarget(null);
+
+        private void OnMoveContinue() => 
+            _mover.SetTarget(_target);
 
         public void SetTarget(Transform target)
         {
@@ -45,6 +63,7 @@ namespace Source.Scripts.Enemies
             if (target == null) 
                 throw new ArgumentNullException(nameof(target));
 
+            _target = target;
             _mover.SetTarget(target);
         }
 

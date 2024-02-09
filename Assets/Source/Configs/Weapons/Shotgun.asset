@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869a420f7a4c4fd591d10f7df428f49b, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  <ClipCapacityProjectile>k__BackingField: 0
-  <ShootingDelay>k__BackingField: 0
+  <ClipCapacityProjectile>k__BackingField: 10
+  <AttackCooldown>k__BackingField: 3
