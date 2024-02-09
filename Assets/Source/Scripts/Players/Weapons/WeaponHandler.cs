@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Source.Scripts.Common;
 using Source.Scripts.Players.Projectiles;
-using Source.Scripts.Players.Weapons.SO;
+using Source.Scripts.SO;
 using UnityEngine;
 
 namespace Source.Scripts.Players.Weapons
@@ -26,7 +26,7 @@ namespace Source.Scripts.Players.Weapons
         private void Awake()
         {
             _weapon = new Weapon(_weaponScriptableObject);
-            _cooldownTimer = new CooldownTimer(_weaponScriptableObject.ShootingDelay);
+            _cooldownTimer = new CooldownTimer(_weaponScriptableObject.AttackCooldown);
         }
 
         private void Update() => 

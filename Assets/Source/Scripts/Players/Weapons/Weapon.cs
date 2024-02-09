@@ -1,5 +1,5 @@
 using System;
-using Source.Scripts.Players.Weapons.SO;
+using Source.Scripts.SO;
 
 namespace Source.Scripts.Players.Weapons
 {
@@ -13,11 +13,11 @@ namespace Source.Scripts.Players.Weapons
         {
            if (weaponScriptableObject.ClipCapacityProjectile <= 0)
                throw new ArgumentOutOfRangeException(nameof(weaponScriptableObject.ClipCapacityProjectile));
-           if (weaponScriptableObject.ShootingDelay < 0)
-               throw new ArgumentOutOfRangeException(nameof(weaponScriptableObject.ShootingDelay));
+           if (weaponScriptableObject.AttackCooldown < 0)
+               throw new ArgumentOutOfRangeException(nameof(weaponScriptableObject.AttackCooldown));
            
            _clipCapacityBullets = weaponScriptableObject.ClipCapacityProjectile;
-           _shootingDelay = weaponScriptableObject.ShootingDelay;
+           _shootingDelay = weaponScriptableObject.AttackCooldown;
         }
         
         public int ClipCapacityBullets => _clipCapacityBullets;

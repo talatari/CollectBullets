@@ -1,3 +1,4 @@
+using System;
 using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.Players.Joystick;
 using Source.Scripts.Players.Movement;
@@ -12,6 +13,7 @@ namespace Source.Scripts.Players
         [SerializeField] private Bag _bag;
         [SerializeField] private JoystickForRotator _joystickForRotator;
         [SerializeField] private WeaponHandler _weaponHandler;
+        [SerializeField] private Health _health;
         
         private CollisionForBullets _collisionForBullets;
         private CollisionForEnemies _collisionForEnemies;
@@ -52,6 +54,14 @@ namespace Source.Scripts.Players
         
         public void StopShooting() => 
             _weaponHandler.StopShooting();
+
+        public void TakeDamage(int damage)
+        {
+            if (damage <= 0)
+                throw new ArgumentOutOfRangeException(nameof(damage));
+            
+            _health.TakeDamage(damage);
+        }
 
         private void OnCollected()
         {

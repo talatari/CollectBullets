@@ -496,6 +496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5235903559077632932}
   - component: {fileID: 813115569166104298}
+  - component: {fileID: 1557012492528232269}
   - component: {fileID: 8761932229523578958}
   - component: {fileID: 5569014828246196029}
   - component: {fileID: 9175264899720159629}
@@ -545,6 +546,20 @@ MonoBehaviour:
   _bag: {fileID: 2570721631234281526}
   _joystickForRotator: {fileID: 0}
   _weaponHandler: {fileID: 3627872384121836180}
+  _health: {fileID: 1557012492528232269}
+--- !u!114 &1557012492528232269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5265008638577894127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92b9385996944f50a44993ece3cf6021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!114 &8761932229523578958
 MonoBehaviour:
   m_ObjectHideFlags: 0
