@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Source.Scripts.Players
+namespace Source.Scripts.Players.Health
 {
-    public class Health : MonoBehaviour
+    public class PlayerHealth : MonoBehaviour
     {
         [SerializeField] private int _maxHealth = 100;
     
@@ -26,8 +26,6 @@ namespace Source.Scripts.Players
             
             _currentHealth = Mathf.Clamp(_currentHealth -= damage, _minHealth, _maxHealth);
             PlayerHealthChanged?.Invoke(_currentHealth, _maxHealth);
-            
-            print($"_currentHealth: {_currentHealth}");
             
             if (_currentHealth <= _minHealth)
                 PlayerDie?.Invoke();

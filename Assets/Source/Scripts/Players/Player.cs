@@ -13,7 +13,7 @@ namespace Source.Scripts.Players
         [SerializeField] private Bag _bag;
         [SerializeField] private JoystickForRotator _joystickForRotator;
         [SerializeField] private WeaponHandler _weaponHandler;
-        [SerializeField] private Health _health;
+        [SerializeField] private Health.PlayerHealth playerHealth;
         
         private CollisionForBullets _collisionForBullets;
         private CollisionForEnemies _collisionForEnemies;
@@ -60,7 +60,7 @@ namespace Source.Scripts.Players
             if (damage <= 0)
                 throw new ArgumentOutOfRangeException(nameof(damage));
             
-            _health.TakeDamage(damage);
+            playerHealth.TakeDamage(damage);
         }
 
         private void OnCollected()

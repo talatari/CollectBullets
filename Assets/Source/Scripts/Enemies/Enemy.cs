@@ -1,7 +1,7 @@
 using System;
+using Source.Scripts.Enemies.Health;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
 using Source.Scripts.SO;
-using Unity.VisualScripting;
 using UnityEngine;
 using IPoolable = Source.Scripts.Infrastructure.Pools.Interfaces.IPoolable;
 
@@ -12,7 +12,7 @@ namespace Source.Scripts.Enemies
     {
         [SerializeField] private EnemyScriptableObject _enemyScriptableObject;
         [SerializeField] private Mover _mover;
-        [SerializeField] private Health _health;
+        [SerializeField] private EnemyHealth _health;
         [SerializeField] private Attacker _attacker;
         
         private IPool<Enemy> _pool;

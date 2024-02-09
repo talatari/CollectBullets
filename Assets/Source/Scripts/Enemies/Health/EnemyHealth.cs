@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Source.Scripts.Enemies
+namespace Source.Scripts.Enemies.Health
 {
-    public class Health : MonoBehaviour
+    public class EnemyHealth : MonoBehaviour
     {
         private int _maxHealth;
         private int _currentHealth;
