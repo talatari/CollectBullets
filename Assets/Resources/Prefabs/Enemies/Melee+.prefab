@@ -54,7 +54,6 @@ MonoBehaviour:
   _mover: {fileID: 9200395204532124333}
   _health: {fileID: 1984103108989475362}
   _attacker: {fileID: 3536282882429849777}
-  _collider: {fileID: 8374947389572630470}
 --- !u!114 &9200395204532124333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,5 +159,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

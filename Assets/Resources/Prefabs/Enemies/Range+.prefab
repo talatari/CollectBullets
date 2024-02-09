@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2350820542180912140}
   - component: {fileID: 1645097043712434591}
   - component: {fileID: 8821495723421317471}
-  - component: {fileID: 1138408755830084314}
+  - component: {fileID: 2285570193254179852}
   m_Layer: 7
   m_Name: Range+
   m_TagString: Untagged
@@ -54,7 +54,6 @@ MonoBehaviour:
   _mover: {fileID: 9200395204532124333}
   _health: {fileID: 5768957337392924404}
   _attacker: {fileID: 2350820542180912140}
-  _collider: {fileID: 1138408755830084314}
 --- !u!114 &9200395204532124333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,8 +140,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1138408755830084314
-CapsuleCollider:
+--- !u!65 &2285570193254179852
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -159,8 +158,6 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
