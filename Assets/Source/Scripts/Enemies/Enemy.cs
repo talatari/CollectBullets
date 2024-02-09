@@ -1,9 +1,8 @@
 using System;
-using Source.Scripts.Enemies.Health;
+using Source.Scripts.Behaviour;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
 using Source.Scripts.SO;
 using UnityEngine;
-using IPoolable = Source.Scripts.Infrastructure.Pools.Interfaces.IPoolable;
 
 namespace Source.Scripts.Enemies
 {
@@ -12,7 +11,7 @@ namespace Source.Scripts.Enemies
     {
         [SerializeField] private EnemyScriptableObject _enemyScriptableObject;
         [SerializeField] private Mover _mover;
-        [SerializeField] private EnemyHealth _health;
+        [SerializeField] private Damageable _health;
         [SerializeField] private Attacker _attacker;
         
         private IPool<Enemy> _pool;
@@ -29,22 +28,22 @@ namespace Source.Scripts.Enemies
                 throw new ArgumentException("Pool must be of type IPool<Enemy>");
             
             _mover.SetSpeed(_enemyScriptableObject.Speed);
-            _health.SetHealth(_enemyScriptableObject.Health);
-
-            _attacker.Init(_enemyScriptableObject.Damage, _enemyScriptableObject.DistanceAttack, 
-                _enemyScriptableObject.AttackCooldown);
+            _attacker.Init(_enemyScriptableObject.DistanceAttack, _enemyScriptableObject.AttackCooldown);
         }
 
         private void OnEnable()
         {
-            _health.EnemyDie += OnReleaseToPool;
+            _health.Died += OnReleaseToPool;
             _attacker.PlayerDetected += OnMoveStop;
             _attacker.PlayerLost += OnMoveContinue;
         }
 
+        private void Start() => 
+            _health.SetMaxHealth(_enemyScriptableObject.MaxHealth);
+
         private void OnDisable()
         {
-            _health.EnemyDie -= OnReleaseToPool;
+            _health.Died -= OnReleaseToPool;
             _attacker.PlayerDetected -= OnMoveStop;
             _attacker.PlayerLost -= OnMoveContinue;
         }

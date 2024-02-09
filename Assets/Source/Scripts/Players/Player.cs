@@ -1,8 +1,10 @@
 using System;
+using Source.Scripts.Behaviour;
 using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.Players.Joystick;
 using Source.Scripts.Players.Movement;
 using Source.Scripts.Players.Weapons;
+using Source.Scripts.SO;
 using UnityEngine;
 
 namespace Source.Scripts.Players
@@ -13,7 +15,8 @@ namespace Source.Scripts.Players
         [SerializeField] private Bag _bag;
         [SerializeField] private JoystickForRotator _joystickForRotator;
         [SerializeField] private WeaponHandler _weaponHandler;
-        [SerializeField] private Health.PlayerHealth playerHealth;
+        [SerializeField] private Damageable _playerHealth;
+        [SerializeField] private PlayerScriptableObject _playerScriptableObject;
         
         private CollisionForBullets _collisionForBullets;
         private CollisionForEnemies _collisionForEnemies;
@@ -27,6 +30,8 @@ namespace Source.Scripts.Players
             _collisionForBullets.Init(this);
             _collisionForEnemies = GetComponentInChildren<CollisionForEnemies>();
             _collisionForEnemies.Init(this);
+            
+            _playerHealth.SetMaxHealth(_playerScriptableObject.MaxHealth);
         }
 
         private void Start() => 
@@ -60,7 +65,7 @@ namespace Source.Scripts.Players
             if (damage <= 0)
                 throw new ArgumentOutOfRangeException(nameof(damage));
             
-            playerHealth.TakeDamage(damage);
+            _playerHealth.TakeDamage(damage);
         }
 
         private void OnCollected()

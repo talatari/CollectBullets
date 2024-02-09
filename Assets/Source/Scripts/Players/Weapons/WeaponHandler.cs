@@ -22,11 +22,14 @@ namespace Source.Scripts.Players.Weapons
         
         public int ClipCapacityBullets => _weapon.ClipCapacityBullets;
         public int CollectedBullets => _weapon.CollectedBullets;
-
+        
         private void Awake()
         {
             _weapon = new Weapon(_weaponScriptableObject);
-            _cooldownTimer = new CooldownTimer(_weaponScriptableObject.AttackCooldown);
+            _cooldownTimer = new CooldownTimer(_weapon.ShootingDelay);
+            
+            // TODO: create IFactory<ProjectileForPistol> -> pool
+            // TODO: create pool projectile
         }
 
         private void Update() => 
@@ -71,10 +74,16 @@ namespace Source.Scripts.Players.Weapons
                         _projectilePrefab, new Vector3(
                             transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
                     
+                    // TODO: использовать пул 
+                    // ProjectileForPistol projectileForPistol = _projectilePool.Get();
+                    
+                    // SetPositionAndRotation(new Vector3(
+                    // transform.position.x, transform.position.y, transform.position.z), Quaternion.identity))'
+                    
                     projectileForPistol.SetDirection(_direction);
                 }
                 
-                yield return new WaitForSeconds(_weapon.ShootingDelay);
+                yield return null;
             }
         }
     }

@@ -81,8 +81,8 @@ MonoBehaviour:
   _maxEnemySpawnCount: 20
   _spawnEnemyDelay: 1
   _enemiesParent: {fileID: 4567002090889281664}
-  _startBulletCount: 10
-  _maxBulletSpawnCount: 20
+  _startBulletCount: 20
+  _maxBulletSpawnCount: 30
   _spawnBulletDelay: 1
   _bulletsParent: {fileID: 3293311338438183936}
   _distanceRange: 40

@@ -1,20 +1,21 @@
+using Source.Scripts.Behaviour;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Enemies.Health
+namespace Source.Scripts.UI
 {
-    public class UIEnemyHealthBar : MonoBehaviour
+    public class UIHealthBar : MonoBehaviour
     {
         [SerializeField] private TMP_Text _tmpText;
         [SerializeField] private Image _fillBar;
-        [SerializeField] private EnemyHealth _enemyEnemyHealth;
+        [SerializeField] private Damageable _health;
         
         private void OnEnable() => 
-            _enemyEnemyHealth.EnemyHealthChanged += OnRefreshHealthBar;
+            _health.HealthChanged += OnRefreshHealthBar;
 
         private void OnDisable() => 
-            _enemyEnemyHealth.EnemyHealthChanged -= OnRefreshHealthBar;
+            _health.HealthChanged -= OnRefreshHealthBar;
 
         private void OnRefreshHealthBar(int currentHealth, int maxHealth)
         {
