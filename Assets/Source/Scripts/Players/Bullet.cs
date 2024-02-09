@@ -2,7 +2,7 @@ using System;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
 using UnityEngine;
 
-namespace Source.Scripts.Bullets
+namespace Source.Scripts.Players
 {
     public class Bullet : MonoBehaviour, IPoolable
     {

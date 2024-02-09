@@ -10,14 +10,14 @@ namespace Source.Scripts.Players
         private int _currentHealth;
         private int _minHealth = 0;
 
-        public event Action EnemyDie;
-        public event Action<int, int> HealthChanged;
+        public event Action PlayerDie;
+        public event Action<int, int> PlayerHealthChanged;
 
         private void Awake() => 
             _currentHealth = _maxHealth;
 
         private void Start() => 
-            HealthChanged?.Invoke(_currentHealth, _maxHealth);
+            PlayerHealthChanged?.Invoke(_currentHealth, _maxHealth);
         
         public void TakeDamage(int damage)
         {
@@ -25,10 +25,10 @@ namespace Source.Scripts.Players
                 throw new ArgumentOutOfRangeException(nameof(damage));
             
             _currentHealth = Mathf.Clamp(_currentHealth -= damage, _minHealth, _maxHealth);
-            HealthChanged?.Invoke(_currentHealth, _maxHealth);
+            PlayerHealthChanged?.Invoke(_currentHealth, _maxHealth);
             
             if (_currentHealth <= _minHealth)
-                EnemyDie?.Invoke();
+                PlayerDie?.Invoke();
         }
     }
 }

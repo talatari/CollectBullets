@@ -1,4 +1,5 @@
 using System;
+using Source.Scripts.Players.Weapons.SO;
 
 namespace Source.Scripts.Players.Weapons
 {

@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Source.Scripts.Bullets;
 using Source.Scripts.Infrastructure.Pools;
 using Source.Scripts.Infrastructure.Spawners.Intefaces;
+using Source.Scripts.Players;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

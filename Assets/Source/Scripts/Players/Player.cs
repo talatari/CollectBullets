@@ -1,6 +1,6 @@
 using Source.Scripts.Players.CollisionHandlers;
+using Source.Scripts.Players.Joystick;
 using Source.Scripts.Players.Movement;
-using Source.Scripts.Players.Movement.Joystick;
 using Source.Scripts.Players.Weapons;
 using UnityEngine;
 

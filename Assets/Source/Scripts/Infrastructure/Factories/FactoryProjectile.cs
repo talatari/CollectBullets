@@ -6,6 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace Source.Scripts.Infrastructure.Factories
 {
+    // TODO: implement
     public class FactoryProjectile : IFactory<ProjectileForPistol>
     {
         private readonly Transform _parent;

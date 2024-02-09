@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Source.Scripts.Players.Weapons
+namespace Source.Scripts.Players.Weapons.SO
 {
-    [CreateAssetMenu(menuName = "Create WeaponScriptbleObject", fileName = "WeaponScriptbleObject", order = 0)]
+    [CreateAssetMenu(menuName = "Create ScriptableObject/Weapon", fileName = "Weapon", order = 2)]
     public class WeaponScriptableObject : ScriptableObject
     {
         [field: SerializeField] public int ClipCapacityProjectile { get; private set; }

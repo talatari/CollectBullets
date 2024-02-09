@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.Build
+namespace Source.Scripts.Build
 {
     public class BuildScriptableObject : ScriptableObject
     {

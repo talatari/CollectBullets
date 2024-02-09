@@ -1,4 +1,5 @@
 using System;
+using Source.Scripts.Enemies.SO;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
 using UnityEngine;
 
@@ -7,8 +8,11 @@ namespace Source.Scripts.Enemies
     [RequireComponent(typeof(Mover))]
     public class Enemy : MonoBehaviour, IPoolable
     {
+        [SerializeField] private EnemyScriptableObject _enemyScriptableObject;
         [SerializeField] private Mover _mover;
         [SerializeField] private Health _health;
+        [SerializeField] private Attacker _attacker;
+        [SerializeField] private Collider _collider;
         
         private IPool<Enemy> _pool;
 
@@ -21,6 +25,10 @@ namespace Source.Scripts.Enemies
             
             if (_pool == null)
                 throw new ArgumentException("Pool must be of type IPool<Enemy>");
+            
+            _mover.SetSpeed(_enemyScriptableObject.Speed);
+            _health.SetHealth(_enemyScriptableObject.Health);
+            _attacker.SetDamage(_enemyScriptableObject.Damage);
         }
 
         private void OnEnable() => 

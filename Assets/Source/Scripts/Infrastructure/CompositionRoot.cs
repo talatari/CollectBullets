@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Source.Scripts.Bullets;
 using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Factories;
 using Source.Scripts.Infrastructure.Pools;
@@ -74,7 +73,7 @@ namespace Source.Scripts.Infrastructure
         {
             _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyMeleePrefab, typeof(Enemy)));
             _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyRangePrefab, typeof(Enemy)));
-            // TODO: как проверить список, на предмет того что добавление, прошло успешно?
+            // TODO: QUESTION: как проверить список, на предмет того что добавление, прошло успешно?
             if (_enemyPrefabs == null)
                 throw new Exception("PathToEnemyPrefab not found.");
             
