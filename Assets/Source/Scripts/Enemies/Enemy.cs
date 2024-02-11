@@ -33,6 +33,8 @@ namespace Source.Scripts.Enemies
                 _enemyScriptableObject.Damage,
                 _enemyScriptableObject.DistanceAttack, 
                 _enemyScriptableObject.AttackCooldown);
+            
+            _health.SetMaxHealth(_enemyScriptableObject.MaxHealth);
         }
 
         private void OnEnable()
@@ -42,21 +44,12 @@ namespace Source.Scripts.Enemies
             _attacker.PlayerLost += OnMoveContinue;
         }
 
-        private void Start() => 
-            _health.SetMaxHealth(_enemyScriptableObject.MaxHealth);
-
         private void OnDisable()
         {
             _health.Died -= OnReleaseToPool;
             _attacker.PlayerDetected -= OnMoveStop;
             _attacker.PlayerLost -= OnMoveContinue;
         }
-
-        private void OnMoveStop() => 
-            _mover.SetTarget(null);
-
-        private void OnMoveContinue() => 
-            _mover.SetTarget(_target);
 
         public void SetTarget(Transform target)
         {
@@ -83,10 +76,14 @@ namespace Source.Scripts.Enemies
         {
             if (_health == null)
                 return;
-            print($"{name} _health.CurrentHealth: {_health.CurrentHealth}");
+            
             _health.TakeDamage(damage);
-            print($"{name} _health.CurrentHealth: {_health.CurrentHealth}");
-            print("------------------------------------------------------");
         }
+
+        private void OnMoveStop() => 
+            _mover.SetTarget(null);
+
+        private void OnMoveContinue() => 
+            _mover.SetTarget(_target);
     }
 }

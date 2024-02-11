@@ -34,7 +34,7 @@ namespace Source.Scripts.Enemies
                 throw new ArgumentOutOfRangeException(nameof(attackCooldown));
             
             _damage = damage;
-            _distanceAttack = distanceAttack;
+            _distanceAttack = distanceAttack; // TODO: implement random range for distance
             _attackCooldown = attackCooldown;
         }
 

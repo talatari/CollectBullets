@@ -46,12 +46,12 @@ namespace Source.Scripts.Players.Projectiles
             if (enemiesAmount == 0)
                 return;
             
-            for (int i = 0; i < enemiesAmount; i++)
-                if (_enemyColliders[i].TryGetComponent(out Enemy enemy))
-                {
-                    enemy.TakeDamage(_damage);
-                    Destroy(gameObject);
-                }
+            // for (int i = 0; i < enemiesAmount; i++)
+            if (_enemyColliders[0].TryGetComponent(out Enemy enemy))
+            {
+                enemy.TakeDamage(_damage);
+                Destroy(gameObject);
+            }
         }
 
         private void Move() => 

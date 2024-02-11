@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Source.Scripts.Infrastructure.Pools;
 using Source.Scripts.Infrastructure.Spawners.Intefaces;
 using Source.Scripts.Keys;
@@ -16,6 +15,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         private float _spawnDelay;
         private float _distanceRange;
         private int _maxKeySpawnCount;
+        private int _spawnedCount;
 
         public void Construct(Pool<Key> poolKey, float spawnDelay, float distanceRange, int maxKeySpawnCount)
         {
@@ -37,16 +37,6 @@ namespace Source.Scripts.Infrastructure.Spawners
             _maxKeySpawnCount = maxKeySpawnCount;
         }
 
-        // TODO: delete for implementation spawn keys
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-                Spawn();
-            
-            if (Input.GetKeyDown(KeyCode.R))
-                Release();
-        }
-
         private void OnDisable() => 
             StopSpawn();
 
@@ -63,17 +53,6 @@ namespace Source.Scripts.Infrastructure.Spawners
                 StopCoroutine(_coroutineSpawnKey);
         }
 
-        private void Release()
-        {
-            List<Key> activeKeys = _poolKey.ActiveItems;
-            int randomIndex = Random.Range(0, activeKeys.Count);
-            
-            if (randomIndex < 0 || randomIndex >= activeKeys.Count)
-                return;
-            
-            _poolKey.Release(activeKeys[randomIndex]);
-        }
-
         private void Spawn()
         {
             if (_poolKey.AllItemsCount >= _maxKeySpawnCount)
@@ -81,6 +60,7 @@ namespace Source.Scripts.Infrastructure.Spawners
             
             Key key = _poolKey.Get();
             SetPosition(key);
+            _spawnedCount++;
         }
 
         private void SetPosition(Key key)
@@ -100,7 +80,7 @@ namespace Source.Scripts.Infrastructure.Spawners
 
             while (enabled)
             {
-                if (_poolKey.ActiveItems.Count >= _poolKey.StartItemCount)
+                if (_spawnedCount >= _poolKey.StartItemCount)
                     break;
                 
                 Spawn();

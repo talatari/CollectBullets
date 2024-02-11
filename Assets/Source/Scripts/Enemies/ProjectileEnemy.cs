@@ -45,12 +45,12 @@ namespace Source.Scripts.Enemies
             if (playerColliders == 0)
                 return;
             
-            for (int i = 0; i < playerColliders; i++)
-                if (_playerColliders[i].TryGetComponent(out Player player))
-                {
-                    player.TakeDamage(_damage);
-                    Destroy(gameObject);
-                }
+            // for (int i = 0; i < playerColliders; i++)
+            if (_playerColliders[0].TryGetComponent(out Player player))
+            {
+                player.TakeDamage(_damage);
+                Destroy(gameObject);
+            }
         }
 
         private void Move() => 
