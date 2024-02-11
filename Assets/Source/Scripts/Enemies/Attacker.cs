@@ -19,17 +19,21 @@ namespace Source.Scripts.Enemies
         private float _attackCooldown;
         private bool _isRealoding;
         private Coroutine _attackCoroutine;
+        private int _damage;
 
         public event Action PlayerDetected;
         public event Action PlayerLost;
 
-        public void Init(float distanceAttack, float attackCooldown)
+        public void Init(int damage, float distanceAttack, float attackCooldown)
         {
+            if (damage <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(damage));
             if (distanceAttack < 0)
                 distanceAttack = 0;
             if (attackCooldown <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(attackCooldown));
             
+            _damage = damage;
             _distanceAttack = distanceAttack;
             _attackCooldown = attackCooldown;
         }
@@ -85,21 +89,26 @@ namespace Source.Scripts.Enemies
             {
                 if (_cooldownTimer.CanShoot)
                 {
-                    if (_projectilePrefab != null)
-                    {
-                        ProjectileEnemy projectileEnemy = Instantiate(
-                            _projectilePrefab, _attackPoint.transform.position, Quaternion.identity);
-                
-                        Vector3 rotateDirection = player.transform.position - transform.position;
-                        rotateDirection.y = 0;
-                        projectileEnemy.SetDirection(rotateDirection);
-                    }
-                
+                    if (_projectilePrefab == null)
+                        player.TakeDamage(_damage);
+                    else
+                        CreateProjectile(player);
+                    
                     _cooldownTimer.Run();
                 }
 
                 yield return null;
             }
+        }
+
+        private void CreateProjectile(Player player)
+        {
+            ProjectileEnemy projectileEnemy = Instantiate(
+                _projectilePrefab, _attackPoint.transform.position, Quaternion.identity);
+                
+            Vector3 rotateDirection = player.transform.position - transform.position;
+            rotateDirection.y = 0;
+            projectileEnemy.SetDirection(rotateDirection);
         }
     }
 }

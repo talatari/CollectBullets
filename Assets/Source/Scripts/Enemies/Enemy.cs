@@ -28,7 +28,11 @@ namespace Source.Scripts.Enemies
                 throw new ArgumentException("Pool must be of type IPool<Enemy>");
             
             _mover.SetSpeed(_enemyScriptableObject.Speed);
-            _attacker.Init(_enemyScriptableObject.DistanceAttack, _enemyScriptableObject.AttackCooldown);
+            
+            _attacker.Init(
+                _enemyScriptableObject.Damage,
+                _enemyScriptableObject.DistanceAttack, 
+                _enemyScriptableObject.AttackCooldown);
         }
 
         private void OnEnable()
@@ -79,8 +83,10 @@ namespace Source.Scripts.Enemies
         {
             if (_health == null)
                 return;
-            
+            print($"{name} _health.CurrentHealth: {_health.CurrentHealth}");
             _health.TakeDamage(damage);
+            print($"{name} _health.CurrentHealth: {_health.CurrentHealth}");
+            print("------------------------------------------------------");
         }
     }
 }

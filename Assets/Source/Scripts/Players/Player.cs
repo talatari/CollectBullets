@@ -15,7 +15,7 @@ namespace Source.Scripts.Players
         [SerializeField] private Bag _bag;
         [SerializeField] private JoystickForRotator _joystickForRotator;
         [SerializeField] private WeaponHandler _weaponHandler;
-        [SerializeField] private Damageable _playerHealth;
+        [SerializeField] private Damageable _health;
         [SerializeField] private PlayerScriptableObject _playerScriptableObject;
         
         private CollisionForBullets _collisionForBullets;
@@ -31,7 +31,7 @@ namespace Source.Scripts.Players
             _collisionForEnemies = GetComponentInChildren<CollisionForEnemies>();
             _collisionForEnemies.Init(this);
             
-            _playerHealth.SetMaxHealth(_playerScriptableObject.MaxHealth);
+            _health.SetMaxHealth(_playerScriptableObject.MaxHealth);
         }
 
         private void Start() => 
@@ -65,7 +65,7 @@ namespace Source.Scripts.Players
             if (damage <= 0)
                 throw new ArgumentOutOfRangeException(nameof(damage));
             
-            _playerHealth.TakeDamage(damage);
+            _health.TakeDamage(damage);
         }
 
         private void OnCollected()

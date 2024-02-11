@@ -182,7 +182,7 @@ MonoBehaviour:
   _bag: {fileID: 6176588145452337043}
   _joystickForRotator: {fileID: 0}
   _weaponHandler: {fileID: 356748677024705508}
-  _playerHealth: {fileID: 4146685920099514370}
+  _health: {fileID: 4146685920099514370}
   _playerScriptableObject: {fileID: 11400000, guid: 7cb9d4abdaf8b44b79b3306356ed0349, type: 2}
 --- !u!114 &4146685920099514370
 MonoBehaviour:
