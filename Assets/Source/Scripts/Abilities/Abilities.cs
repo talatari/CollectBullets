@@ -13,22 +13,24 @@ namespace Source.Scripts.Abilities
         [SerializeField] private AbilityView _abilityRightView;
         
         private Queue<AbilitySriptableObject> _abilitiesQueue = new ();
-        
-        private void OnEnable()
-        {
-            _abilitiesQueue.Enqueue(_abilities[Random.Range(0, _abilities.Length)]);
-            _abilitiesQueue.Enqueue(_abilities[Random.Range(0, _abilities.Length)]);
-            _abilitiesQueue.Enqueue(_abilities[Random.Range(0, _abilities.Length)]);
-        }
 
-        private void Start() => 
+        private void OnEnable() => 
+            SetAbilityValue();
+
+        private void SetAbilityValue()
+        {
             LoadAbility();
-
-        public void LoadAbility()
-        {
+            
             _abilityLeftView.SetAbility(GetAbility());
             _abilityMiddleView.SetAbility(GetAbility());
             _abilityRightView.SetAbility(GetAbility());
+        }
+
+        private void LoadAbility()
+        {
+            _abilitiesQueue.Enqueue(_abilities[Random.Range(0, _abilities.Length)]);
+            _abilitiesQueue.Enqueue(_abilities[Random.Range(0, _abilities.Length)]);
+            _abilitiesQueue.Enqueue(_abilities[Random.Range(0, _abilities.Length)]);
         }
 
         private AbilitySriptableObject GetAbility() => 
