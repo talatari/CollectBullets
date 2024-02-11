@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Source.Scripts.SO
 {
-    [CreateAssetMenu(menuName = "Create ScriptableObject/Enemy", fileName = "Enemy", order = 0)]
+    [CreateAssetMenu(menuName = "Create ScriptableObject/Enemy", fileName = "Enemy", order = 1)]
     public class EnemyScriptableObject : ScriptableObject
     {
         [field: SerializeField] public float Speed { get; private set; }
