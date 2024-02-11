@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
 using Source.Scripts.Infrastructure.Spawners.Intefaces;
@@ -16,6 +15,15 @@ namespace Source.Scripts.Infrastructure.Spawners
         private float _spawnDelay;
         private int _maxEnemySpawnCount;
         private float _distanceRange;
+        private int _spawnedCount;
+        
+        private void OnEnable()
+        {
+            if (_poolEnemy == null)
+                return;
+            
+            _poolEnemy.Init();
+        }
 
         public void Construct(IPool<Enemy> poolEnemy, float spawnDelay, int maxEnemySpawnCount, float distanceRange)
         {
@@ -37,16 +45,6 @@ namespace Source.Scripts.Infrastructure.Spawners
             _distanceRange = distanceRange;
         }
 
-        // TODO: delete for implementation spawn enemies
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-                Spawn();
-            
-            if (Input.GetKeyDown(KeyCode.R))
-                Release();
-        }
-
         private void OnDisable() => 
             StopSpawn();
 
@@ -63,17 +61,6 @@ namespace Source.Scripts.Infrastructure.Spawners
                 StopCoroutine(_coroutineSpawnEnemy);
         }
 
-        private void Release()
-        {
-            List<Enemy> activeEnemies = _poolEnemy.ActiveItems;
-            int randomIndex = Random.Range(0, activeEnemies.Count);
-            
-            if (randomIndex < 0 || randomIndex >= activeEnemies.Count)
-                return;
-            
-            _poolEnemy.Release(activeEnemies[randomIndex]);
-        }
-
         private void Spawn()
         {
             if (_poolEnemy.AllItemsCount >= _maxEnemySpawnCount)
@@ -81,6 +68,7 @@ namespace Source.Scripts.Infrastructure.Spawners
             
             Enemy enemy = _poolEnemy.Get();
             SetPosition(enemy);
+            _spawnedCount++;
         }
 
         private void SetPosition(Enemy enemy)
@@ -97,7 +85,7 @@ namespace Source.Scripts.Infrastructure.Spawners
 
             while (enabled)
             {
-                if (_poolEnemy.ActiveItems.Count >= _poolEnemy.StartItemCount)
+                if (_spawnedCount >= _poolEnemy.StartItemCount)
                     break;
                 
                 Spawn();

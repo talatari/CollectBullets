@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Source.Scripts.Infrastructure.Pools;
 using Source.Scripts.Infrastructure.Spawners.Intefaces;
 using Source.Scripts.Players;
@@ -16,6 +15,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         private float _spawnDelay;
         private int _maxBulletSpawnCount;
         private float _distanceRange;
+        private int _spawnedCount;
 
         public void Construct(Pool<Bullet> poolBullet, float spawnDelay, int maxBulletSpawnCount, float distanceRange)
         {
@@ -35,16 +35,6 @@ namespace Source.Scripts.Infrastructure.Spawners
             _spawnDelay = spawnDelay;
             _maxBulletSpawnCount = maxBulletSpawnCount;
             _distanceRange = distanceRange;
-        }
-
-        // TODO: delete for implementation spawn bullets
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-                Spawn();
-            
-            if (Input.GetKeyDown(KeyCode.R))
-                Release();
         }
 
         private void OnDisable() => 
@@ -70,17 +60,7 @@ namespace Source.Scripts.Infrastructure.Spawners
             
             Bullet bullet = _poolBullet.Get();
             SetPosition(bullet);
-        }
-
-        private void Release()
-        {
-            List<Bullet> activeBullets = _poolBullet.ActiveItems;
-            int randomIndex = Random.Range(0, activeBullets.Count);
-            
-            if (randomIndex < 0 || randomIndex >= activeBullets.Count)
-                return;
-            
-            _poolBullet.Release(activeBullets[randomIndex]);
+            _spawnedCount++;
         }
 
         private void SetPosition(Bullet bullet)
@@ -102,7 +82,7 @@ namespace Source.Scripts.Infrastructure.Spawners
 
             while (enabled)
             {
-                if (_poolBullet.ActiveItems.Count >= _poolBullet.StartItemCount)
+                if (_spawnedCount >= _poolBullet.StartItemCount)
                     break;
                 
                 Spawn();

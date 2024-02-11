@@ -7,65 +7,65 @@ namespace Source.Scripts.Infrastructure.Pools
 {
     public class Pool<T> : IPool<T> where T : IPoolable
     {
-        private readonly IFactory<T> _factoryBullet;
-        private readonly int _startBulletCount;
+        private readonly IFactory<T> _factoryItems;
+        private readonly int _startItemsCount;
 
         private Queue<T> _pool = new();
-        private List<T> _activeBullets = new();
+        private List<T> _activeItems = new();
 
-        public Pool(IFactory<T> factoryBullet, int startBulletCount)
+        public Pool(IFactory<T> factoryItems, int startItemsCount)
         {
-            _factoryBullet = factoryBullet ?? throw new ArgumentNullException(nameof(factoryBullet));
+            _factoryItems = factoryItems ?? throw new ArgumentNullException(nameof(factoryItems));
             
-            if (startBulletCount < 0) 
-                throw new ArgumentOutOfRangeException(nameof(startBulletCount));
+            if (startItemsCount < 0) 
+                throw new ArgumentOutOfRangeException(nameof(startItemsCount));
             
-            _startBulletCount = startBulletCount;
+            _startItemsCount = startItemsCount;
         }
 
-        public int StartItemCount => _startBulletCount;
-        public int AllItemsCount => _activeBullets.Count + _pool.Count;
-        public List<T> ActiveItems => _activeBullets;
+        public int StartItemCount => _startItemsCount;
+        public int AllItemsCount => _activeItems.Count + _pool.Count;
+        public List<T> ActiveItems => _activeItems;
 
         public void Init()
         {
-            for (int i = 0; i < _startBulletCount; i++)
-                Release(_factoryBullet.Create());
+            for (int i = 0; i < _startItemsCount; i++)
+                Release(_factoryItems.Create());
         }
 
         public T Get()
         {
-            T bullet;
+            T item;
             
             if (_pool.Count > 0)
             {
-                bullet = _pool.Dequeue();
-                SetActive(bullet);
+                item = _pool.Dequeue();
+                SetActive(item);
                 
-                return bullet;
+                return item;
             }
             
-            bullet = _factoryBullet.Create();
-            SetActive(bullet);
+            item = _factoryItems.Create();
+            SetActive(item);
 
-            return bullet;
+            return item;
         }
 
-        public void Release(T bullet)
+        public void Release(T item)
         {
-            if (bullet == null) 
-                throw new ArgumentNullException(nameof(bullet));
+            if (item == null) 
+                throw new ArgumentNullException(nameof(item));
 
-            bullet.Disable();
-            _pool.Enqueue(bullet);
-            _activeBullets.Remove(bullet);
+            item.Disable();
+            _pool.Enqueue(item);
+            _activeItems.Remove(item);
         }
 
-        public void SetActive(T bullet)
+        public void SetActive(T item)
         {
-            bullet.Enable();
-            _activeBullets.Add(bullet);
-            bullet.Init(this);
+            item.Enable();
+            _activeItems.Add(item);
+            item.Init(this);
         }
     }
 }
