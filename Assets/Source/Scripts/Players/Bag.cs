@@ -10,7 +10,8 @@ namespace Source.Scripts.Players
         
         private float _offsetY = 0.35f;
         private List<GameObject> _collectedBullets = new ();
-        
+        private int _activatedBulletsCount;
+       
         public void CreateClip(int capacity)
         {
             if (capacity <= 0)
@@ -36,6 +37,10 @@ namespace Source.Scripts.Players
                 throw new ArgumentOutOfRangeException(nameof(collectedBullets));
             
             _collectedBullets[collectedBullets - 1].SetActive(true);
+            _activatedBulletsCount++;
+            
+            if (_activatedBulletsCount >= _collectedBullets.Count)
+                ShowMaxLabel();
         }
 
         public void UseCollectedBullets(int collectedBullets)
@@ -44,6 +49,20 @@ namespace Source.Scripts.Players
                 throw new ArgumentOutOfRangeException(nameof(collectedBullets));
             
             _collectedBullets[collectedBullets].SetActive(false);
+            _activatedBulletsCount--;
+
+            if (_activatedBulletsCount < _collectedBullets.Count)
+                HideMaxLabel();
+        }
+
+        private void ShowMaxLabel()
+        {
+            // TODO: включаем отображение надписи MAX, когда все слоты заняты
+        }
+
+        private void HideMaxLabel()
+        {
+            // TODO: отключаем отображение надписи MAX, когда не все слоты заняты
         }
     }
 }
