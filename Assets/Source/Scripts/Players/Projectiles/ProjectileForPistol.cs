@@ -1,3 +1,4 @@
+using System.Linq;
 using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
 using Source.Scripts.Players.CollisionHandlers;
@@ -45,9 +46,8 @@ namespace Source.Scripts.Players.Projectiles
             
             if (enemiesAmount == 0)
                 return;
-            
-            // for (int i = 0; i < enemiesAmount; i++)
-            if (_enemyColliders[0].TryGetComponent(out Enemy enemy))
+
+            if (_enemyColliders.First(x => x != null).TryGetComponent(out Enemy enemy))
             {
                 enemy.TakeDamage(_damage);
                 Destroy(gameObject);

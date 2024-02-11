@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Source.Scripts.Common;
 using Source.Scripts.Players;
 using Source.Scripts.Players.CollisionHandlers;
@@ -12,13 +13,13 @@ namespace Source.Scripts.Enemies
         [SerializeField] private LayerMask _playerLayer;
         [SerializeField] private ProjectileEnemy _projectilePrefab;
         [SerializeField] private Transform _attackPoint;
-        
-        private float _distanceAttack;
-        private Collider[] _playerCollider = new Collider[MaxOverlap];
+
+        private Collider[] _playerColliders = new Collider[MaxOverlap];
         private CooldownTimer _cooldownTimer;
+        private Coroutine _attackCoroutine;
+        private float _distanceAttack;
         private float _attackCooldown;
         private bool _isRealoding;
-        private Coroutine _attackCoroutine;
         private int _damage;
 
         public event Action PlayerDetected;
@@ -51,7 +52,7 @@ namespace Source.Scripts.Enemies
         private void OverlapPlayer()
         {
             int playerColliders = Physics.OverlapSphereNonAlloc(
-                transform.position, _distanceAttack, _playerCollider, _playerLayer);
+                transform.position, _distanceAttack, _playerColliders, _playerLayer);
 
             if (playerColliders == 0)
             {
@@ -61,12 +62,11 @@ namespace Source.Scripts.Enemies
                 return;
             }
 
-            for (int i = 0; i < playerColliders; i++)
-                if (_playerCollider[i].TryGetComponent(out Player player))
-                {
-                    PlayerDetected?.Invoke();
-                    AttackPlayer(player);
-                }
+            if (_playerColliders.First(x => x != null).TryGetComponent(out Player player))
+            {
+                PlayerDetected?.Invoke();
+                AttackPlayer(player);
+            }
         }
 
         private void StopShooting()
@@ -80,10 +80,10 @@ namespace Source.Scripts.Enemies
         private void AttackPlayer(Player player)
         {
             if (_attackCoroutine == null)
-                _attackCoroutine = StartCoroutine(Shooting(player));
+                _attackCoroutine = StartCoroutine(Attacking(player));
         }
 
-        private IEnumerator Shooting(Player player)
+        private IEnumerator Attacking(Player player)
         {
             while (enabled)
             {

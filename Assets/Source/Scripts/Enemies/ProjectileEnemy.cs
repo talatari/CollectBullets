@@ -1,3 +1,4 @@
+using System.Linq;
 using Source.Scripts.Players;
 using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.SO;
@@ -45,8 +46,7 @@ namespace Source.Scripts.Enemies
             if (playerColliders == 0)
                 return;
             
-            // for (int i = 0; i < playerColliders; i++)
-            if (_playerColliders[0].TryGetComponent(out Player player))
+            if (_playerColliders.First(x => x != null).TryGetComponent(out Player player))
             {
                 player.TakeDamage(_damage);
                 Destroy(gameObject);

@@ -822,22 +822,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CompositionRoot+
       objectReference: {fileID: 0}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _spawnEnemyDelay
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _startEnemyCount
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _maxEnemySpawnCount
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _maxBulletSpawnCount
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1000
@@ -898,10 +882,6 @@ PrefabInstance:
     - target: {fileID: 1992340296186183984, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
       propertyPath: m_Name
       value: Player+
-      objectReference: {fileID: 0}
-    - target: {fileID: 4176175042378283165, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
-      propertyPath: _radiusPickUpBullets
-      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7914356212811610726, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1117,10 +1097,6 @@ PrefabInstance:
     - target: {fileID: 3401638136153462999, guid: 3ef2d43ff8f444914bec086dfc3926ef, type: 3}
       propertyPath: m_Name
       value: Environment
-      objectReference: {fileID: 0}
-    - target: {fileID: 3925255830754554589, guid: 3ef2d43ff8f444914bec086dfc3926ef, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

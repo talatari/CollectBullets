@@ -251,7 +251,7 @@ MonoBehaviour:
   _bulletLayer:
     serializedVersion: 2
     m_Bits: 64
-  _radiusPickUpBullets: 0.75
+  _radiusPickUpBullets: 1.5
 --- !u!33 &7646452602729401742
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -27,17 +27,9 @@ namespace Source.Scripts.Behaviour
             if (damage < 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
 
-            float tempCurrHP = _currentHealth;
-            
             _currentHealth = Mathf.Clamp(_currentHealth -= damage, _minHealth, _maxHealth);
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
 
-            if (_currentHealth == 0)
-            {
-                print($"tempCurrHP: {tempCurrHP}");
-                print($"_currentHealth: {_currentHealth}");
-            }
-            
             if (_currentHealth <= _minHealth)
                 Died?.Invoke();
         }
