@@ -426,6 +426,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Middle_Ability_View+
       objectReference: {fileID: 0}
+    - target: {fileID: 8793235033589353843, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
+      propertyPath: _abilityView
+      value: 
+      objectReference: {fileID: 1959479329}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1295,6 +1299,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right_Ability_View+
       objectReference: {fileID: 0}
+    - target: {fileID: 8793235033589353843, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
+      propertyPath: _abilityView
+      value: 
+      objectReference: {fileID: 1959479329}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1442,8 +1450,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2916196378260618822, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: m_Name
-      value: Left_Ability_Button
+      value: Left_Ability_Button+
       objectReference: {fileID: 0}
+    - target: {fileID: 8793235033589353843, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
+      propertyPath: _abilityView
+      value: 
+      objectReference: {fileID: 1959479329}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

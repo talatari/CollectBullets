@@ -12,6 +12,8 @@ namespace Source.Scripts.Infrastructure
 {
     public class CompositionRoot : MonoBehaviour
     {
+        [SerializeField] private Player _player;
+        
         [Header("Enemies")]
         [SerializeField] private int _startEnemyCount = 20;
         [SerializeField] private int _maxEnemySpawnCount = 100;
@@ -32,7 +34,6 @@ namespace Source.Scripts.Infrastructure
         private const string PathToBulletPrefab = "Prefabs/Bullets/Bullet+";
         private const string PathToKeyPrefab = "Prefabs/Keys/Key+";
         
-        private Player _player;
         private List<Enemy> _enemyPrefabs = new ();
         private SpawnerEnemy _spawnerEnemy;
         private Bullet _bulletPrefab;
@@ -42,11 +43,8 @@ namespace Source.Scripts.Infrastructure
         
         private void Start()
         {
-            // TODO: delete
-            _player = FindObjectOfType<Player>();
-            
             if (_player == null)
-                throw new Exception("Player not found.");
+                throw new ArgumentNullException(nameof(_player));
             
             TargetProvider targetProvider = new TargetProvider();
             targetProvider.SetTarget(_player.transform);

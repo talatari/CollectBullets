@@ -15,7 +15,7 @@ namespace Source.Scripts.Abilities
         [SerializeField] private TMP_Text _separator;
         [SerializeField] private TMP_Text _upgradedValue;
 
-        private const string _charPercent = "%";
+        private const string CharPercent = "%";
         
         public void SetAbility(AbilitySriptableObject ability)
         {
@@ -25,8 +25,8 @@ namespace Source.Scripts.Abilities
             if (ability.IsUpgradable)
             {
                 _level.text = ability.Level.ToString();
-                _defaultValue.text = ability.DefaultValue + _charPercent;
-                _upgradedValue.text = ability.DefaultValue + 1 + _charPercent; // TODO: переделать расчет значения
+                _defaultValue.text = ability.DefaultValue + CharPercent;
+                _upgradedValue.text = ability.DefaultValue + 1 + CharPercent; // TODO: переделать расчет значения
             }
             else
             {
