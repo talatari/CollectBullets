@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <BulletPrefab>k__BackingField: {fileID: 5377072721499401503, guid: 8284d2afdb5d544a9ae22ed3a582d8a3, type: 3}
   <Damage>k__BackingField: 10
-  <Speed>k__BackingField: 5
+  <Speed>k__BackingField: 2
   <LifeTime>k__BackingField: 3
