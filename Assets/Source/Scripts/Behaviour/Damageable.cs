@@ -12,6 +12,8 @@ namespace Source.Scripts.Behaviour
         public event Action Died;
         public event Action<int, int> HealthChanged;
 
+        public int CurrentHealth => _currentHealth;
+
         private void Start()
         {
             _currentHealth = _maxHealth;
