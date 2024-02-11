@@ -72,8 +72,8 @@ namespace Source.Scripts.Infrastructure
 
         private void LoadPrefabs()
         {
-             // _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyMeleePrefab, typeof(Enemy)));
-              _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyRangePrefab, typeof(Enemy)));
+            _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyMeleePrefab, typeof(Enemy)));
+            _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyRangePrefab, typeof(Enemy)));
             // TODO: переделать на загрузку префабов через SO
             if (_enemyPrefabs == null)
                 throw new Exception("PathToEnemyPrefab not found.");
