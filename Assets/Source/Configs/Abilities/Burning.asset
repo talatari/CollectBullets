@@ -16,4 +16,6 @@ MonoBehaviour:
   <Name>k__BackingField: BURNING
   <IsUpgradable>k__BackingField: 1
   <Level>k__BackingField: 1
+  <MaxLevel>k__BackingField: 10
   <DefaultValue>k__BackingField: 1
+  <IncrementValue>k__BackingField: 1

@@ -420,7 +420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2916196378260618822, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: m_Name
-      value: Middle_Ability_Button
+      value: Middle_Ability_Button+
       objectReference: {fileID: 0}
     - target: {fileID: 6499589998931149383, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: m_Name
@@ -1010,9 +1010,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _abilities:
   - {fileID: 11400000, guid: 0c2f2d7317406472c9023b7d757242e5, type: 2}
+  - {fileID: 11400000, guid: 26353adcb80cb48cc988d46b0443855e, type: 2}
   - {fileID: 11400000, guid: 34bff4c68499f4a3a9af24ce058b0907, type: 2}
   - {fileID: 11400000, guid: a9a7146a6766847279a3313fcc0d6bff, type: 2}
+  - {fileID: 11400000, guid: 4dbe1308e573e42db91b67d6a02c740b, type: 2}
+  - {fileID: 11400000, guid: d614d66ee13694c859e9c5299fbee67b, type: 2}
   - {fileID: 11400000, guid: cd81297e94c894e9a97b83039ba5b84e, type: 2}
+  - {fileID: 11400000, guid: c533250bc55354be8927e05d1211a4a3, type: 2}
+  - {fileID: 11400000, guid: 075abe86995814c4ea4ca2f94ef4e0e4, type: 2}
   - {fileID: 11400000, guid: d7f820bae397f4bd7acda55a31d17b44, type: 2}
   - {fileID: 11400000, guid: 44352b133c16a461ba5f10206c73d3b0, type: 2}
   _abilityLeftView: {fileID: 8213186251106253464}
@@ -1293,7 +1298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2916196378260618822, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: m_Name
-      value: Right_Ability_Button
+      value: Right_Ability_Button+
       objectReference: {fileID: 0}
     - target: {fileID: 6499589998931149383, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: m_Name
@@ -1473,6 +1478,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Composition_Root+
       objectReference: {fileID: 0}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 8761932229771576044}
     - target: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1000
@@ -1899,6 +1908,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79abd33f8d5734bcfa3de13e6ce166bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8761932229771576044 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 626301032406746911, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
+  m_PrefabInstance: {fileID: 4995678700342140417}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1debc8a3b949b4679af44706f5eb37b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
