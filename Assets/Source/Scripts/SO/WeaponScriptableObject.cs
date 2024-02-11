@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Source.Scripts.SO
 {
-    [CreateAssetMenu(menuName = "Create ScriptableObject/Weapon", fileName = "Weapon", order = 3)]
+    [CreateAssetMenu(menuName = "Create ScriptableObject/Weapon", fileName = "Weapon", order = 4)]
     public class WeaponScriptableObject : ScriptableObject
     {
         [field: SerializeField] public int ClipCapacityProjectile { get; private set; }
