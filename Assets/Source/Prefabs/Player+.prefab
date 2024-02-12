@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 5831540781371975001}
   - component: {fileID: 356748677024705508}
   m_Layer: 3
-  m_Name: WeaponHandler+
+  m_Name: Weapon_Handler+
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -321,7 +321,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 0.5
   m_Radius: 0.75
   m_SlopeLimit: 45
   m_StepOffset: 0.5
@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 1842529774350651860}
   - component: {fileID: 7969837106788011712}
   m_Layer: 3
-  m_Name: AttackRange+
+  m_Name: Attack_Range+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1009,7 +1009,7 @@ PrefabInstance:
       objectReference: {fileID: 4146685920099514370}
     - target: {fileID: 4524316191233897162, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
       propertyPath: m_Name
-      value: PlayerHealthBarCanvas+
+      value: Player_Health_Bar_Canvas+
       objectReference: {fileID: 0}
     - target: {fileID: 9005790142449330271, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
       propertyPath: m_Pivot.x
