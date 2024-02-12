@@ -6,6 +6,8 @@ using Source.Scripts.Infrastructure.Pools;
 using Source.Scripts.Infrastructure.Spawners;
 using Source.Scripts.Keys;
 using Source.Scripts.Players;
+using Source.Scripts.Players.PlayerStats;
+using Source.Scripts.SO;
 using UnityEngine;
 
 namespace Source.Scripts.Infrastructure
@@ -13,6 +15,7 @@ namespace Source.Scripts.Infrastructure
     public class CompositionRoot : MonoBehaviour
     {
         [SerializeField] private Player _player;
+        [SerializeField] private PlayerScriptableObject _playerScriptableObject;
         
         [Header("Enemies")]
         [SerializeField] private int _startEnemyCount = 20;
@@ -34,6 +37,7 @@ namespace Source.Scripts.Infrastructure
         private const string PathToBulletPrefab = "Prefabs/Bullets/Bullet+";
         private const string PathToKeyPrefab = "Prefabs/Keys/Key+";
         
+        private Stats _stats = new ();
         private List<Enemy> _enemyPrefabs = new ();
         private SpawnerEnemy _spawnerEnemy;
         private Bullet _bulletPrefab;
@@ -45,6 +49,11 @@ namespace Source.Scripts.Infrastructure
         {
             if (_player == null)
                 throw new ArgumentNullException(nameof(_player));
+
+            _stats.SetDamage(_playerScriptableObject.Damage);
+            _stats.SetMaxHealth(_playerScriptableObject.MaxHealth);
+            
+            _player.Init(_stats);
             
             TargetProvider targetProvider = new TargetProvider();
             targetProvider.SetTarget(_player.transform);

@@ -1,4 +1,5 @@
 using System;
+using Source.Scripts.Players.PlayerStats;
 using UnityEngine;
 
 namespace Source.Scripts.Behaviour
@@ -12,9 +13,9 @@ namespace Source.Scripts.Behaviour
         public event Action Died;
         public event Action<int, int> HealthChanged;
 
-        public void SetMaxHealth(int maxHealth)
+        public void Init(int maxHealth)
         {
-            if (maxHealth <= 0) 
+            if (maxHealth <= 0 || maxHealth <= _currentHealth) 
                 throw new ArgumentOutOfRangeException(nameof(maxHealth));
             
             _maxHealth = maxHealth;
@@ -32,6 +33,12 @@ namespace Source.Scripts.Behaviour
 
             if (_currentHealth <= _minHealth)
                 Died?.Invoke();
+        }
+
+        public void Heal()
+        {
+            _currentHealth = _maxHealth;
+            HealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
     }
 }

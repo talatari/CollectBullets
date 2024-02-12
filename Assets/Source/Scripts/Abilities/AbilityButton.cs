@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,9 +6,12 @@ namespace Source.Scripts.Abilities
 {
     public class AbilityButton : MonoBehaviour
     {
-        [SerializeField] private GameObject _abilityView;
+        [SerializeField] private Canvas _abilityViewCanvas;
         [SerializeField] private Button _buttonClick;
-    
+        [SerializeField] private AbilityView _abilityView;
+        
+        public event Action<string> OnAbilityButtonClick; 
+        
         private void Start() => 
             _buttonClick.onClick.AddListener(OnClick);
 
@@ -16,10 +20,12 @@ namespace Source.Scripts.Abilities
 
         public void OnClick()
         {
-            if (_abilityView == null)
+            if (_abilityViewCanvas == null)
                 return;
             
-            _abilityView.SetActive(false);
+            OnAbilityButtonClick?.Invoke(_abilityView.GetNameAbility());
+            
+            _abilityViewCanvas.gameObject.SetActive(false);
         }
     }
 }

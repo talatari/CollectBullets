@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
@@ -18,9 +19,17 @@ namespace Source.Scripts.Players.Projectiles
         private Collider[] _enemyColliders = new Collider[MaxOverlap];
         private float _radius;
 
+        public void Init(int damage)
+        {
+            if (damage <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(damage));
+            
+            _damage = damage;
+        }
+        
         private void Start()
         {
-            _damage = _projectileScriptableObject.Damage;
+            // _damage = _projectileScriptableObject.Damage;
             _speed = _projectileScriptableObject.Speed;
 
             float _diameter = transform.localScale.x;

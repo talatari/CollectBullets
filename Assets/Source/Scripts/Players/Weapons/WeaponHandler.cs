@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Source.Scripts.Common;
+using Source.Scripts.Players.PlayerStats;
 using Source.Scripts.Players.Projectiles;
 using Source.Scripts.SO;
 using UnityEngine;
@@ -19,10 +20,13 @@ namespace Source.Scripts.Players.Weapons
         private CooldownTimer _cooldownTimer;
 
         public event Action Shoted;
-        
+
         public int ClipCapacityBullets => _weapon.ClipCapacityBullets;
         public int CollectedBullets => _weapon.CollectedBullets;
-        
+
+        public void Init(DamageStats damageStats) => 
+            _projectilePrefab.Init(damageStats.Damage);
+
         private void Awake()
         {
             _weapon = new Weapon(_weaponScriptableObject);
@@ -48,7 +52,7 @@ namespace Source.Scripts.Players.Weapons
             if (_shootingCoroutine == null)
                 _shootingCoroutine = StartCoroutine(Shooting());
         }
-        
+
         public void CollectBullet() => 
             _weapon.CollectBullet();
 

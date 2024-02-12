@@ -34,7 +34,7 @@ namespace Source.Scripts.Enemies
                 _enemyScriptableObject.DistanceAttack, 
                 _enemyScriptableObject.AttackCooldown);
             
-            _health.SetMaxHealth(_enemyScriptableObject.MaxHealth);
+            _health.Init(_enemyScriptableObject.MaxHealth);
         }
 
         private void OnEnable()
