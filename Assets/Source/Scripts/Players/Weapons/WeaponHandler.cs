@@ -3,7 +3,6 @@ using System.Collections;
 using Source.Scripts.Common;
 using Source.Scripts.Players.PlayerStats;
 using Source.Scripts.Players.Projectiles;
-using Source.Scripts.SO;
 using UnityEngine;
 
 namespace Source.Scripts.Players.Weapons
@@ -11,26 +10,32 @@ namespace Source.Scripts.Players.Weapons
     public class WeaponHandler : MonoBehaviour
     {
         [SerializeField] private ProjectileForPistol _projectilePrefab;
-        [SerializeField] private WeaponScriptableObject _weaponScriptableObject;
         
         private Weapon _weapon;
         private Coroutine _shootingCoroutine;
         private Vector3 _direction;
         private bool _isRealoding;
         private CooldownTimer _cooldownTimer;
+        private DamageStats _damageStats;
 
         public event Action Shoted;
 
         public int ClipCapacityBullets => _weapon.ClipCapacityBullets;
         public int CollectedBullets => _weapon.CollectedBullets;
 
-        public void Init(DamageStats damageStats) => 
-            _projectilePrefab.Init(damageStats.Damage);
+        public void Init(DamageStats damageStats)
+        {
+            if (damageStats == null)
+                throw new ArgumentNullException(nameof(damageStats));
+
+            _damageStats = damageStats;
+            _projectilePrefab.Init(_damageStats.Damage);
+        }
 
         private void Awake()
         {
-            _weapon = new Weapon(_weaponScriptableObject);
-            _cooldownTimer = new CooldownTimer(_weapon.ShootingDelay);
+            _weapon = new Weapon(_damageStats);
+            _cooldownTimer = new CooldownTimer(_damageStats.ShootingDelay);
             
             // TODO: create IFactory<ProjectileForPistol> -> pool
             // TODO: create pool projectile

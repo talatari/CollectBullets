@@ -19,17 +19,17 @@ namespace Source.Scripts.Players
         [SerializeField] private Damageable _health;
         
         // TODO: создать класс Stats, в котором будут храниться базовые и измененные характеристики
-        private const string AddCapacityName = "ADD CAPACITY";   // 
-        private const string BurningName = "BURNING";            //
-        // private const string DamageUpName = "DAMAGE UP";      // Damage
-        private const string FreezeName = "FREEZE";              //
-        private const string FullRecoveryName = "FULL RECOVERY"; //
-        private const string MagnetName = "MAGNET";              //
-        // private const string MaxHealthName = "MAX HEALTH";    // MaxHealth
-        private const string RegenerationName = "REGENERATION";  //
-        private const string ShootingName = "SHOOTING";          //
-        private const string SpeedUpName = "SPEED UP";           //
-        private const string VampirismName = "VAMPIRISM";        //
+        private const string AddCapacityName = "ADD CAPACITY";   // _weaponHandler._weapon.ClipCapacity
+        private const string BurningName = "BURNING";            // TODO: Burning - пока что ни где не используется
+        private const string DamageUpName = "DAMAGE UP";         // _weaponHandler._projectilePrefab.Damage
+        private const string FreezeName = "FREEZE";              // TODO: Freeze - нужно менять статы врагов
+        private const string FullRecoveryName = "FULL RECOVERY"; // _health.FullRecovery(); - просто вызов метода
+        private const string MagnetName = "MAGNET";              // TODO: Magnet - пока что не реализован
+        private const string MaxHealthName = "MAX HEALTH";       // _health.Init(); - передаем int максимального здоровья
+        private const string RegenerationName = "REGENERATION";  // TODO: Regeneration - пока что не реализован
+        private const string ShootingName = "SHOOTING";          // _weaponHandler._weapon.ShootingDelay
+        private const string SpeedUpName = "SPEED UP";           // TODO: SpeedUp - пока что не реализован
+        private const string VampirismName = "VAMPIRISM";        // TODO: Vampirism - пока что не реализован
         
         private CollisionForBullets _collisionForBullets;
         private CollisionForEnemies _collisionForEnemies;

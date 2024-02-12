@@ -35,7 +35,7 @@ namespace Source.Scripts.Behaviour
                 Died?.Invoke();
         }
 
-        public void Heal()
+        public void FullRecovery()
         {
             _currentHealth = _maxHealth;
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
