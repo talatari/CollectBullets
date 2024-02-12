@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Add_Capacity
   m_EditorClassIdentifier: 
   <Icon>k__BackingField: {fileID: 21300000, guid: abcc3036f50eb4847ba2d5d7dd3bdd60, type: 3}
-  <Name>k__BackingField: CAPACITY
+  <Name>k__BackingField: ADD CAPACITY
   <IsUpgradable>k__BackingField: 1
   <Level>k__BackingField: 1
   <MaxLevel>k__BackingField: 10

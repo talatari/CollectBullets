@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Source.Scripts.Players.PlayerStats;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Source.Scripts.Behaviour
         private int _minHealth = 0;
         private int _maxHealth;
         private int _currentHealth;
+        private float _regeneration;
+        private HealthStats _healthStats;
 
         public event Action Died;
         public event Action<int, int> HealthChanged;
@@ -21,6 +24,14 @@ namespace Source.Scripts.Behaviour
             _maxHealth = maxHealth;
             _currentHealth = _maxHealth;
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
+        }
+
+        public void Init(HealthStats healthStats)
+        {
+            _healthStats = healthStats ?? throw new ArgumentNullException(nameof(healthStats));
+            
+            Init(_healthStats.MaxHealth);
+            _regeneration = _healthStats.Regeneration;
         }
 
         public void TakeDamage(int damage)
@@ -39,6 +50,21 @@ namespace Source.Scripts.Behaviour
         {
             _currentHealth = _maxHealth;
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
+        }
+
+        public void Heal(int heal)
+        {
+            if (heal <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(heal));
+            
+            _currentHealth = Mathf.Clamp(_currentHealth += heal, _minHealth, _maxHealth);
+            HealthChanged?.Invoke(_currentHealth, _maxHealth);
+        }
+
+        private IEnumerator Regeneration()
+        {
+            // TODO: implement
+            return null;
         }
     }
 }

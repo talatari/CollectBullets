@@ -120,7 +120,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectilePrefab: {fileID: 2555182813560936047, guid: 6d38cadad180140ccac00ede156bce08, type: 3}
-  _weaponScriptableObject: {fileID: 11400000, guid: e7f654234f88d47dcbf1f55a7318b052, type: 2}
 --- !u!1 &1992340296186183984
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,9 +180,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bag: {fileID: 6176588145452337043}
   _joystickForRotator: {fileID: 0}
+  _mover: {fileID: 5629440709096150236}
   _weaponHandler: {fileID: 356748677024705508}
   _health: {fileID: 4146685920099514370}
-  _playerScriptableObject: {fileID: 11400000, guid: 7cb9d4abdaf8b44b79b3306356ed0349, type: 2}
+  _collisionForBullets: {fileID: 4176175042378283165}
+  _collisionForEnemies: {fileID: 1842529774350651860}
 --- !u!114 &4146685920099514370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79abd33f8d5734bcfa3de13e6ce166bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 10
+  _characterController: {fileID: 7522842146740572652}
   CurrentAttractionCharacter: 0
 --- !u!114 &6001024232803642620
 MonoBehaviour:
@@ -251,7 +252,6 @@ MonoBehaviour:
   _bulletLayer:
     serializedVersion: 2
     m_Bits: 64
-  _radiusPickUpBullets: 1.5
 --- !u!33 &7646452602729401742
 MeshFilter:
   m_ObjectHideFlags: 0

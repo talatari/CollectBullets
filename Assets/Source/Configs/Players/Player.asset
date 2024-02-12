@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e27faf5b6b142938e44de0da93b9c85, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  <SpeedMove>k__BackingField: 0
-  <SpeedRotate>k__BackingField: 0
-  <GravityForce>k__BackingField: 0
-  <MaxHealth>k__BackingField: 100
   <Damage>k__BackingField: 10
-  <DistanceAttack>k__BackingField: 4
-  <BulletRadiusPickUp>k__BackingField: 0
-  <AttackCooldown>k__BackingField: 1
+  <ClipCapacity>k__BackingField: 5
+  <Burning>k__BackingField: 0
+  <ShootingDelay>k__BackingField: 1
+  <MaxHealth>k__BackingField: 100
+  <Regeneration>k__BackingField: 0
+  <Vampirism>k__BackingField: 0
+  <Magnet>k__BackingField: 1
+  <Speed>k__BackingField: 10
+  <Freeze>k__BackingField: 0

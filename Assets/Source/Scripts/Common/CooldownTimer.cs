@@ -27,5 +27,13 @@ namespace Source.Scripts.Common
             if (_remainingDuration < 0)
                 _remainingDuration = 0;
         }
+
+        public void SetCooldown(float cooldownInSeconds)
+        {
+            if (cooldownInSeconds <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(cooldownInSeconds));
+            
+            _cooldownInSeconds = cooldownInSeconds;
+        }
     }
 }

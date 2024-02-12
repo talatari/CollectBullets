@@ -1484,7 +1484,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 8761932229771576044}
-  _abilityViewCanvas: {fileID: 1959479332}
   _abilityButtonLeft: {fileID: 770008348792158921}
   _abilityButtonMiddle: {fileID: 970749447}
   _abilityButtonRight: {fileID: 2107189023}
