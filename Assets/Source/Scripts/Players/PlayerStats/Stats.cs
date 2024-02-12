@@ -10,20 +10,10 @@ namespace Source.Scripts.Players.PlayerStats
         public DamageStats DamageStats => _damageStats;
         public HealthStats HealthStats => _healthStats;
 
-        public void SetDamage(int damage)
+        public Stats(DamageStats damageStats, HealthStats healthStats)
         {
-            if (damage <= 0) 
-                throw new ArgumentOutOfRangeException(nameof(damage));
-            
-            _damageStats.SetDamage(damage);
-        }
-
-        public void SetMaxHealth(int maxHealth)
-        {
-            if (maxHealth <= 0) 
-                throw new ArgumentOutOfRangeException(nameof(maxHealth));
-            
-            _healthStats.SetMaxHealth(maxHealth);
+            _damageStats = damageStats ?? throw new ArgumentNullException(nameof(damageStats));
+            _healthStats = healthStats ?? throw new ArgumentNullException(nameof(healthStats));
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Source.Scripts.Players.PlayerStats
         
         public int MaxHealth => _maxHealth;
 
-        public void SetMaxHealth(int maxHealth)
+        public HealthStats(int maxHealth)
         {
             if (maxHealth <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(maxHealth));

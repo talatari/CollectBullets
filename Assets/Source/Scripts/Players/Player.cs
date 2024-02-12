@@ -19,18 +19,17 @@ namespace Source.Scripts.Players
         [SerializeField] private Damageable _health;
         
         // TODO: создать класс Stats, в котором будут храниться базовые и измененные характеристики
-        // 
-        private const string AddCapacityName = "ADD CAPACITY";
-        private const string BurningName = "BURNING";
-        private const string DamageUpName = "DAMAGE UP";
-        private const string FreezeName = "FREEZE";
-        private const string FullRecoveryName = "FULL RECOVERY";
-        private const string MagnetName = "MAGNET";
-        private const string MaxHealthName = "MAX HEALTH";
-        private const string RegenerationName = "REGENERATION";
-        private const string ShootingName = "SHOOTING";
-        private const string SpeedUpName = "SPEED UP";
-        private const string VampirismName = "VAMPIRISM";
+        private const string AddCapacityName = "ADD CAPACITY";   // 
+        private const string BurningName = "BURNING";            //
+        // private const string DamageUpName = "DAMAGE UP";      // Damage
+        private const string FreezeName = "FREEZE";              //
+        private const string FullRecoveryName = "FULL RECOVERY"; //
+        private const string MagnetName = "MAGNET";              //
+        // private const string MaxHealthName = "MAX HEALTH";    // MaxHealth
+        private const string RegenerationName = "REGENERATION";  //
+        private const string ShootingName = "SHOOTING";          //
+        private const string SpeedUpName = "SPEED UP";           //
+        private const string VampirismName = "VAMPIRISM";        //
         
         private CollisionForBullets _collisionForBullets;
         private CollisionForEnemies _collisionForEnemies;
@@ -88,91 +87,6 @@ namespace Source.Scripts.Players
             
             _health.TakeDamage(damage);
         }
-
-        public void UpgradeAbility(string abilityName)
-        {
-            switch (abilityName)
-            {
-                case AddCapacityName:
-                    AddCapacity();
-                    break;
-                
-                case BurningName:
-                    Burning();
-                    break;
-                
-                case DamageUpName:
-                    DamageUp();
-                    break;
-                
-                case FreezeName:
-                    Freeze();
-                    break;
-                
-                case FullRecoveryName:
-                    FullRecovery();
-                    break;
-                
-                case MagnetName:
-                    Magnet();
-                    break;
-                
-                case MaxHealthName:
-                    MaxHealth();
-                    break;
-                
-                case RegenerationName:
-                    Regeneration();
-                    break;
-                
-                case ShootingName:
-                    Shooting();
-                    break;
-                
-                case SpeedUpName:
-                    SpeedUp();
-                    break;
-                
-                case VampirismName:
-                    Vampirism();
-                    break;
-            }
-        }
-
-        private void AddCapacity()
-        {
-            _bag.CreateClip(_weaponHandler.ClipCapacityBullets);
-        }
-
-        private void Burning() => 
-            print("Burning");
-
-        private void DamageUp() => 
-            print("DamageUp");
-
-        private void Freeze() => 
-            print("Freeze");
-
-        private void FullRecovery() =>
-            _health.Heal();
-
-        private void Magnet() => 
-            print("Magnet");
-
-        private void MaxHealth() => 
-            print("MaxHealth");
-
-        private void Regeneration() => 
-            print("Regeneration");
-
-        private void Shooting() => 
-            print("Shooting");
-
-        private void SpeedUp() => 
-            print("SpeedUp");
-
-        private void Vampirism() => 
-            print("Vampirism");
 
         private void OnCollected()
         {
