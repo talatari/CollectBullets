@@ -7,5 +7,6 @@ namespace Source.Scripts.SO
     {
         [field: SerializeField] public int Damage { get; private set; }
         [field: SerializeField] public int MaxHealth { get; private set; }
+        [field: SerializeField] public int ClipCapacity { get; private set; }
     }
 }
