@@ -1,4 +1,6 @@
 using System;
+using Source.Scripts.Players.PlayerStats;
+using Source.Scripts.Players.Weapons;
 using UnityEngine;
 
 namespace Source.Scripts.Players.CollisionHandlers
@@ -6,27 +8,44 @@ namespace Source.Scripts.Players.CollisionHandlers
     public class CollisionForBullets : CollisionHandler
     {
         [SerializeField] private LayerMask _bulletLayer;
-        [SerializeField] private float _radiusPickUpBullets = 2f;
-        
-        private Player _player;
+
         private Collider[] _bulletColliders = new Collider[MaxOverlap];
-        
+        private WeaponHandler _weaponHandler;
+        private CommonStats _commonStats;
+        private float _radiusPickUpBullets;
+        private int _collectedBullets;
+        private int _clipCapacity;
+
         public event Action BulletCollected;
         
-        public void Init(Player player)
+        public void Init(WeaponHandler weaponHandler, CommonStats commonStats)
         {
-            if (player == null) 
-                throw new ArgumentNullException(nameof(player));
-            
-            _player = player;
+            _weaponHandler = weaponHandler ? weaponHandler : throw new ArgumentNullException(nameof(weaponHandler));
+            _commonStats = commonStats ?? throw new ArgumentNullException(nameof(commonStats));
         }
-        
+
+        private void OnEnable()
+        {
+            _radiusPickUpBullets = _commonStats.Magnet;
+            _collectedBullets = _weaponHandler.CollectedBullets;
+            _clipCapacity = _weaponHandler.ClipCapacity;
+            _commonStats.MagnetChanged += OnMagnetChanged;
+        }
+
         private void Update() => 
             OverlapBullets();
 
+        private void OnDisable()
+        {
+            _commonStats.MagnetChanged -= OnMagnetChanged;
+        }
+
+        private void OnMagnetChanged(float newMagnet) => 
+            _radiusPickUpBullets = newMagnet;
+
         private void OverlapBullets()
         {
-            if (_player.CollectedBullets >= _player.ClipCapacityBullets)
+            if (_collectedBullets >= _clipCapacity)
                 return;
             
             int bulletsAmount = Physics.OverlapSphereNonAlloc(

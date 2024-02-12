@@ -61,7 +61,8 @@ namespace Source.Scripts.Infrastructure
                     _playerScriptableObject.Regeneration,
                     _playerScriptableObject.Vampirism),
                 new CommonStats(
-                    _playerScriptableObject.Magnet));
+                    _playerScriptableObject.Magnet,
+                    _playerScriptableObject.Speed));
             
             _player.Init(_stats);
             

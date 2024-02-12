@@ -17,11 +17,12 @@ namespace Source.Scripts.Players.Weapons
         private bool _isRealoding;
         private CooldownTimer _cooldownTimer;
         private DamageStats _damageStats;
+        private int _collectedBullets;
 
         public event Action Shoted;
 
-        public int ClipCapacityBullets => _weapon.ClipCapacityBullets;
-        public int CollectedBullets => _weapon.CollectedBullets;
+        public int ClipCapacity => _damageStats.ClipCapacity;
+        public int CollectedBullets => _collectedBullets;
 
         public void Init(DamageStats damageStats)
         {
@@ -31,7 +32,7 @@ namespace Source.Scripts.Players.Weapons
             _damageStats = damageStats;
             _projectilePrefab.Init(_damageStats.Damage);
         }
-
+        
         private void Awake()
         {
             _weapon = new Weapon(_damageStats);
@@ -41,11 +42,21 @@ namespace Source.Scripts.Players.Weapons
             // TODO: create pool projectile
         }
 
+        private void OnEnable()
+        {
+            _weapon.CollectedBulletsChanged += OnCollectedBulletsChanged;
+            _damageStats.ShootingDelayChanged += OnShootingDelayChanged;
+        }
+
         private void Update() => 
             _cooldownTimer.Tick(Time.deltaTime);
 
-        private void OnDisable() => 
+        private void OnDisable()
+        {
+            _weapon.CollectedBulletsChanged -= OnCollectedBulletsChanged;
+            _damageStats.ShootingDelayChanged -= OnShootingDelayChanged;
             StopShooting();
+        }
 
         public void StartShooting(Vector3 direction)
         {
@@ -68,6 +79,12 @@ namespace Source.Scripts.Players.Weapons
             
             _shootingCoroutine = null;
         }
+
+        private void OnShootingDelayChanged(float shootingDelay) => 
+            _cooldownTimer.SetCooldown(shootingDelay);
+
+        private void OnCollectedBulletsChanged(int collectedBullets) => 
+            _collectedBullets = collectedBullets;
 
         private IEnumerator Shooting()
         {

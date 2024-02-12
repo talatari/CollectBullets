@@ -15,5 +15,7 @@ namespace Source.Scripts.SO
         [field: SerializeField] public float Vampirism { get; private set; }
         
         [field: SerializeField] public float Magnet { get; private set; }
+        [field: SerializeField] public float Speed { get; private set; }
+        [field: SerializeField] public float Freeze { get; private set; }
     }
 }

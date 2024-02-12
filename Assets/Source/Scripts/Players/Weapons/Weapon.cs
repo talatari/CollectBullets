@@ -5,33 +5,42 @@ namespace Source.Scripts.Players.Weapons
 {
     public class Weapon
     {
-        private readonly DamageStats _damageStats;
+        private DamageStats _damageStats;
         private int _collectedBullets;
-        private int _clipCapacityBullets;
-        private float _shootingDelay;
+        private int _clipCapacity;
 
         public Weapon(DamageStats damageStats)
         {
             _damageStats = damageStats ?? throw new ArgumentNullException(nameof(damageStats));
             
-            _clipCapacityBullets = _damageStats.ClipCapacityBullets;
-            _shootingDelay = _damageStats.ShootingDelay;
+            _clipCapacity = _damageStats.ClipCapacity;
+            // TODO: где-то нужно отписаться
+            _damageStats.ClipCapacityChanged += OnClipCapacityChanged;
         }
-        
-        public int ClipCapacityBullets => _clipCapacityBullets;
+
+        public event Action<int> CollectedBulletsChanged;
+
         public int CollectedBullets => _collectedBullets;
-        public float ShootingDelay => _shootingDelay;
-        
+
         public void CollectBullet()
         {
-            if (_collectedBullets < _clipCapacityBullets)
+            if (_collectedBullets < _clipCapacity)
+            {
                 _collectedBullets++;
+                CollectedBulletsChanged?.Invoke(_collectedBullets);
+            }
         }
 
         public void Shoot()
         {
             if (_collectedBullets > 0)
+            {
                 _collectedBullets--;
+                CollectedBulletsChanged?.Invoke(_collectedBullets);
+            }
         }
+
+        private void OnClipCapacityChanged(int clipCapacity) => 
+            _clipCapacity = clipCapacity;
     }
 }

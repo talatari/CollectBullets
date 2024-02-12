@@ -1,3 +1,5 @@
+using System;
+using Source.Scripts.Players.PlayerStats;
 using UnityEngine;
 
 namespace Source.Scripts.Players.Movement
@@ -5,18 +7,22 @@ namespace Source.Scripts.Players.Movement
     [RequireComponent(typeof(CharacterController))]
     public class Mover : MonoBehaviour
     {
-        [SerializeField] private float _moveSpeed = 10.0f;
-
-        private CharacterController _characterController;
+        [SerializeField] private CharacterController _characterController;
+        
+        private float _speed;
+        private CommonStats _commonStats;
 
         [HideInInspector] public float CurrentAttractionCharacter;
 
-        private void Start() => 
-            _characterController = GetComponent<CharacterController>();
+        public void Init(CommonStats commonStats)
+        {
+            _commonStats = commonStats ?? throw new ArgumentNullException(nameof(commonStats));
+            _speed = _commonStats.Speed;
+        }
 
         public void Move(Vector3 moveDirection)
         {
-            moveDirection *= _moveSpeed;
+            moveDirection *= _speed;
             moveDirection.y = CurrentAttractionCharacter;
             _characterController.Move(moveDirection * Time.deltaTime);
         }
