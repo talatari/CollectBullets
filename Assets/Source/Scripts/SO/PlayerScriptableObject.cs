@@ -6,7 +6,14 @@ namespace Source.Scripts.SO
     public class PlayerScriptableObject : ScriptableObject
     {
         [field: SerializeField] public int Damage { get; private set; }
-        [field: SerializeField] public int MaxHealth { get; private set; }
         [field: SerializeField] public int ClipCapacity { get; private set; }
+        [field: SerializeField] public int Burning { get; private set; }
+        [field: SerializeField] public float ShootingDelay { get; private set; }
+        
+        [field: SerializeField] public int MaxHealth { get; private set; }
+        [field: SerializeField] public float Regeneration { get; private set; }
+        [field: SerializeField] public float Vampirism { get; private set; }
+        
+        [field: SerializeField] public float Magnet { get; private set; }
     }
 }
