@@ -9,7 +9,7 @@ namespace Source.Scripts.Players
         [SerializeField] private GameObject _collectedBulletPrefab;
         
         private float _offsetY = 0.35f;
-        private List<GameObject> _collectedBullets = new ();
+        private List<GameObject> _collectedBullets;
         private int _activatedBulletsCount;
        
         public void CreateClip(int capacity)
@@ -26,7 +26,8 @@ namespace Source.Scripts.Players
                 GameObject collectedBullet = Instantiate(_collectedBulletPrefab, transform);
                 collectedBullet.transform.position = newPosition;
                 collectedBullet.SetActive(false);
-                
+
+                _collectedBullets = new List<GameObject>();
                 _collectedBullets.Add(collectedBullet);
             }
         }

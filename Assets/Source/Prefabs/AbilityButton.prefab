@@ -645,8 +645,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4262c1c292a449f808f96f1335ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _abilityView: {fileID: 0}
+  _abilityViewCanvas: {fileID: 0}
   _buttonClick: {fileID: 7108459556149442143}
+  _abilityView: {fileID: 3225313104047554648}
 --- !u!222 &2288865260443848803
 CanvasRenderer:
   m_ObjectHideFlags: 0

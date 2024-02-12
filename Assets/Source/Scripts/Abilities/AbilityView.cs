@@ -43,5 +43,8 @@ namespace Source.Scripts.Abilities
                 _upgradedValue.text = "";
             }
         }
+
+        public string GetNameAbility() => 
+            _name.text;
     }
 }

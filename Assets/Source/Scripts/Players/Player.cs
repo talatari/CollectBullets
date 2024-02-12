@@ -3,6 +3,7 @@ using Source.Scripts.Behaviour;
 using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.Players.Joystick;
 using Source.Scripts.Players.Movement;
+using Source.Scripts.Players.PlayerStats;
 using Source.Scripts.Players.Weapons;
 using Source.Scripts.SO;
 using UnityEngine;
@@ -16,22 +17,42 @@ namespace Source.Scripts.Players
         [SerializeField] private JoystickForRotator _joystickForRotator;
         [SerializeField] private WeaponHandler _weaponHandler;
         [SerializeField] private Damageable _health;
-        [SerializeField] private PlayerScriptableObject _playerScriptableObject;
+        
+        // TODO: создать класс Stats, в котором будут храниться базовые и измененные характеристики
+        // 
+        private const string AddCapacityName = "ADD CAPACITY";
+        private const string BurningName = "BURNING";
+        private const string DamageUpName = "DAMAGE UP";
+        private const string FreezeName = "FREEZE";
+        private const string FullRecoveryName = "FULL RECOVERY";
+        private const string MagnetName = "MAGNET";
+        private const string MaxHealthName = "MAX HEALTH";
+        private const string RegenerationName = "REGENERATION";
+        private const string ShootingName = "SHOOTING";
+        private const string SpeedUpName = "SPEED UP";
+        private const string VampirismName = "VAMPIRISM";
         
         private CollisionForBullets _collisionForBullets;
         private CollisionForEnemies _collisionForEnemies;
-        
+        private Stats _stats;
+
         public int ClipCapacityBullets => _weaponHandler.ClipCapacityBullets;
         public int CollectedBullets => _weaponHandler.CollectedBullets;
-        
+
+        public void Init(Stats stats)
+        {
+            _stats = stats ?? throw new ArgumentNullException(nameof(stats));
+            
+            _weaponHandler.Init(_stats.DamageStats);
+            _health.Init(_stats.HealthStats.MaxHealth);
+        }
+
         private void Awake()
         {
             _collisionForBullets = GetComponent<CollisionForBullets>();
             _collisionForBullets.Init(this);
             _collisionForEnemies = GetComponentInChildren<CollisionForEnemies>();
             _collisionForEnemies.Init(this);
-            
-            _health.SetMaxHealth(_playerScriptableObject.MaxHealth);
         }
 
         private void Start() => 
@@ -56,7 +77,7 @@ namespace Source.Scripts.Players
             if (direction != Vector3.zero)
                 _weaponHandler.StartShooting(direction);
         }
-        
+
         public void StopShooting() => 
             _weaponHandler.StopShooting();
 
@@ -67,6 +88,91 @@ namespace Source.Scripts.Players
             
             _health.TakeDamage(damage);
         }
+
+        public void UpgradeAbility(string abilityName)
+        {
+            switch (abilityName)
+            {
+                case AddCapacityName:
+                    AddCapacity();
+                    break;
+                
+                case BurningName:
+                    Burning();
+                    break;
+                
+                case DamageUpName:
+                    DamageUp();
+                    break;
+                
+                case FreezeName:
+                    Freeze();
+                    break;
+                
+                case FullRecoveryName:
+                    FullRecovery();
+                    break;
+                
+                case MagnetName:
+                    Magnet();
+                    break;
+                
+                case MaxHealthName:
+                    MaxHealth();
+                    break;
+                
+                case RegenerationName:
+                    Regeneration();
+                    break;
+                
+                case ShootingName:
+                    Shooting();
+                    break;
+                
+                case SpeedUpName:
+                    SpeedUp();
+                    break;
+                
+                case VampirismName:
+                    Vampirism();
+                    break;
+            }
+        }
+
+        private void AddCapacity()
+        {
+            _bag.CreateClip(_weaponHandler.ClipCapacityBullets);
+        }
+
+        private void Burning() => 
+            print("Burning");
+
+        private void DamageUp() => 
+            print("DamageUp");
+
+        private void Freeze() => 
+            print("Freeze");
+
+        private void FullRecovery() =>
+            _health.Heal();
+
+        private void Magnet() => 
+            print("Magnet");
+
+        private void MaxHealth() => 
+            print("MaxHealth");
+
+        private void Regeneration() => 
+            print("Regeneration");
+
+        private void Shooting() => 
+            print("Shooting");
+
+        private void SpeedUp() => 
+            print("SpeedUp");
+
+        private void Vampirism() => 
+            print("Vampirism");
 
         private void OnCollected()
         {

@@ -505,7 +505,11 @@ PrefabInstance:
     - target: {fileID: 8793235033589353843, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: _abilityView
       value: 
-      objectReference: {fileID: 1959479329}
+      objectReference: {fileID: 682946774}
+    - target: {fileID: 8793235033589353843, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
+      propertyPath: _abilityViewCanvas
+      value: 
+      objectReference: {fileID: 1959479332}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -748,6 +752,17 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &970749447 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8793235033589353843, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
+  m_PrefabInstance: {fileID: 682946772}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4262c1c292a449f808f96f1335ea90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1014390593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -955,6 +970,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1906355671}
   - {fileID: 5392856617305189013}
   - {fileID: 1242412505}
   - {fileID: 5235903559368636686}
@@ -1423,6 +1439,55 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1462906521}
+--- !u!1 &1906355670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1906355671}
+  - component: {fileID: 1906355672}
+  m_Layer: 0
+  m_Name: Mediator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1906355671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906355670}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1446779389}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1906355672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906355670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb1f94b372e24e7184f02cfa7bb6eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 8761932229771576044}
+  _abilityViewCanvas: {fileID: 1959479332}
+  _abilityButtonLeft: {fileID: 770008348792158921}
+  _abilityButtonMiddle: {fileID: 970749447}
+  _abilityButtonRight: {fileID: 2107189023}
 --- !u!1 &1959479329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,7 +1523,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2047
 --- !u!114 &1959479331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1635,7 +1700,11 @@ PrefabInstance:
     - target: {fileID: 8793235033589353843, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: _abilityView
       value: 
-      objectReference: {fileID: 1959479329}
+      objectReference: {fileID: 2107189019}
+    - target: {fileID: 8793235033589353843, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
+      propertyPath: _abilityViewCanvas
+      value: 
+      objectReference: {fileID: 1959479332}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1655,6 +1724,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a28b1bb231c4aae88f35ee81d0818a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2107189023 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8793235033589353843, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
+  m_PrefabInstance: {fileID: 2107189017}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4262c1c292a449f808f96f1335ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2108983105
@@ -1786,9 +1866,9 @@ PrefabInstance:
       value: Left_Ability_Button+
       objectReference: {fileID: 0}
     - target: {fileID: 8793235033589353843, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
-      propertyPath: _abilityView
+      propertyPath: _abilityViewCanvas
       value: 
-      objectReference: {fileID: 1959479329}
+      objectReference: {fileID: 1959479332}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1799,6 +1879,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 177438853439275062, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
   m_PrefabInstance: {fileID: 637819209200351984}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &770008348792158921 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8793235033589353843, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
+  m_PrefabInstance: {fileID: 637819209200351984}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be4262c1c292a449f808f96f1335ea90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2601778896053762728 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3225313104047554648, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
@@ -2127,6 +2218,10 @@ PrefabInstance:
       propertyPath: _rotator
       value: 
       objectReference: {fileID: 5569014827955207575}
+    - target: {fileID: 4567933746442163989, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 2047
+      objectReference: {fileID: 0}
     - target: {fileID: 8804953029546196655, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
