@@ -3,9 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Abilities
+namespace Source.Scripts.Upgrades
 {
-    public class AbilityView : MonoBehaviour
+    public class UpgradeView : MonoBehaviour
     {
         [SerializeField] private Image _background;
         [SerializeField] private TMP_Text _name;
@@ -19,19 +19,19 @@ namespace Source.Scripts.Abilities
         private const string Separator = "=>";
         private const string LevelText = "LEVEL";
         
-        public void SetAbility(AbilitySriptableObject ability)
+        public void SetUpgrade(UpgradeSriptableObject _upgrades)
         {
-            _background.sprite = ability.Icon;
-            _name.text = ability.Name;
+            _background.sprite = _upgrades.Icon;
+            _name.text = _upgrades.Name;
 
-            if (ability.IsUpgradable)
+            if (_upgrades.IsUpgradable)
             {
                 _levelText.text = LevelText;
-                _level.text = ability.Level.ToString();
+                _level.text = _upgrades.Level.ToString();
 
-                _defaultValue.text = ability.DefaultValue + CharPercent;
+                _defaultValue.text = _upgrades.DefaultValue + CharPercent;
                 _separator.text = Separator;
-                _upgradedValue.text = ability.DefaultValue + ability.IncrementValue + CharPercent;
+                _upgradedValue.text = _upgrades.DefaultValue + _upgrades.IncrementValue + CharPercent;
             }
             else
             {

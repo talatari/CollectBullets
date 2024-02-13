@@ -38,7 +38,12 @@ namespace Source.Scripts.Players.Weapons
             }
         }
 
-        public void SetClipCapacity(int clipCapacity) => 
-            _clipCapacity = clipCapacity;
+        public void SetClipCapacity(int value)
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value));
+            
+            _clipCapacity = value;
+        }
     }
 }

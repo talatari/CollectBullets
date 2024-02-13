@@ -1011,6 +1011,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Health_Bar_Canvas+
       objectReference: {fileID: 0}
+    - target: {fileID: 7559638282746488451, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 2047
+      objectReference: {fileID: 0}
     - target: {fileID: 9005790142449330271, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
       propertyPath: m_Pivot.x
       value: 0
