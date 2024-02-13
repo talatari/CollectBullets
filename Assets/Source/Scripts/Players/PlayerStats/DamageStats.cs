@@ -5,16 +5,19 @@ namespace Source.Scripts.Players.PlayerStats
     public class DamageStats
     {
         private int _damage;
-        private int _burning;
+        private float _burning;
+        private float _vampirism;
         private int _clipCapacity;
         private float _shootingDelay;
 
-        public DamageStats(int damage, int burning, int clipCapacity, float shootingDelay)
+        public DamageStats(int damage, float burning, float vampirism, int clipCapacity, float shootingDelay)
         {
             if (damage <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
             if (burning < 0)
                 throw new ArgumentOutOfRangeException(nameof(burning));
+            if (vampirism < 0) 
+                throw new ArgumentOutOfRangeException(nameof(vampirism));
             if (clipCapacity <= 0)
                 throw new ArgumentOutOfRangeException(nameof(clipCapacity));
             if (shootingDelay <= 0)
@@ -22,17 +25,20 @@ namespace Source.Scripts.Players.PlayerStats
 
             _damage = damage;
             _burning = burning;
+            _vampirism = vampirism;
             _clipCapacity = clipCapacity;
             _shootingDelay = shootingDelay;
         }
 
         public event Action<int> DamageChanged;
-        public event Action<int> BurningChanged;
+        public event Action<float> BurningChanged;
+        public event Action<float> VampirismChanged;
         public event Action<int> ClipCapacityChanged;
         public event Action<float> ShootingDelayChanged;
 
         public int Damage => _damage;
-        public int Burning => _burning;
+        public float Burning => _burning;
+        public float Vampirism => _vampirism;
         public int ClipCapacity => _clipCapacity;
         public float ShootingDelay => _shootingDelay;
 
@@ -45,7 +51,7 @@ namespace Source.Scripts.Players.PlayerStats
             DamageChanged?.Invoke(_damage);
         }
 
-        public void ChangeBurning(int value)
+        public void ChangeBurning(float value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
@@ -54,6 +60,15 @@ namespace Source.Scripts.Players.PlayerStats
             BurningChanged?.Invoke(_burning);
         }
 
+        public void ChangeVampirism(float value)
+        {
+            if (value <= 0)
+                throw new ArgumentOutOfRangeException(nameof(value));
+            
+            _vampirism = value;
+            VampirismChanged?.Invoke(_vampirism);
+        }
+        
         public void ChangeClipCapacity(int value)
         {
             if (value <= 0)

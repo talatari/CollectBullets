@@ -12,6 +12,7 @@ namespace Source.Scripts.Behaviour
         private int _currentHealth;
         private float _regeneration;
         private HealthStats _healthStats;
+        private bool _isInit;
 
         public event Action Died;
         public event Action<int, int> HealthChanged;
@@ -32,6 +33,20 @@ namespace Source.Scripts.Behaviour
             
             Init(_healthStats.MaxHealth);
             _regeneration = _healthStats.Regeneration;
+
+            _isInit = true;
+            
+            _healthStats.MaxHealthChanged += OnSetMaxHealth;
+            _healthStats.RegenerationChanged += OnSetRegeneration;
+        }
+
+        private void OnDisable()
+        {
+            if (_isInit == false)
+                return;
+            
+            _healthStats.MaxHealthChanged -= OnSetMaxHealth;
+            _healthStats.RegenerationChanged -= OnSetRegeneration;
         }
 
         public void TakeDamage(int damage)
@@ -60,6 +75,12 @@ namespace Source.Scripts.Behaviour
             _currentHealth = Mathf.Clamp(_currentHealth += heal, _minHealth, _maxHealth);
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
+
+        private void OnSetMaxHealth(int maxHealth) => 
+            _maxHealth = maxHealth;
+
+        private void OnSetRegeneration(float regeneration) => 
+            _regeneration = regeneration;
 
         private IEnumerator Regeneration()
         {

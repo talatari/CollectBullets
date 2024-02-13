@@ -19,15 +19,16 @@ namespace Source.Scripts.Players.CollisionHandlers
 
         public event Action BulletCollected;
         
-        public void Init(WeaponHandler weaponHandler, CommonStats commonStats)
+        public void Init(WeaponHandler weaponHandler, float magnet)
         {
             _weaponHandler = weaponHandler ? weaponHandler : throw new ArgumentNullException(nameof(weaponHandler));
-            _commonStats = commonStats ?? throw new ArgumentNullException(nameof(commonStats));
             
-            _radiusPickUpBullets = _commonStats.Magnet;
+            if (magnet <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(magnet));
+
+            _radiusPickUpBullets = magnet;
             _collectedBullets = _weaponHandler.CollectedBullets;
             _clipCapacity = _weaponHandler.ClipCapacity;
-            _commonStats.MagnetChanged += OnMagnetChanged;
 
             _isInit = true;
         }
@@ -40,16 +41,13 @@ namespace Source.Scripts.Players.CollisionHandlers
             OverlapBullets();
         }
 
-        private void OnDisable()
+        public void SetMagnet(float value)
         {
-            if (_isInit == false)
-                return;
-            
-            _commonStats.MagnetChanged -= OnMagnetChanged;
-        }
+            if (value <= 0)
+                throw new ArgumentOutOfRangeException(nameof(value));
 
-        private void OnMagnetChanged(float newMagnet) => 
-            _radiusPickUpBullets = newMagnet;
+            _radiusPickUpBullets = value;
+        }
 
         private void OverlapBullets()
         {

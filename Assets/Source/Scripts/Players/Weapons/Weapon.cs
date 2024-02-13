@@ -17,6 +17,7 @@ namespace Source.Scripts.Players.Weapons
 
         public event Action<int> CollectedBulletsChanged;
 
+        public int ClipCapacity => _clipCapacity;
         public int CollectedBullets => _collectedBullets;
 
         public void CollectBullet()

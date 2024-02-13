@@ -53,16 +53,17 @@ namespace Source.Scripts.Infrastructure
             _stats = new Stats(
                 new DamageStats(
                     _playerScriptableObject.Damage, 
-                    _playerScriptableObject.ClipCapacity,
                     _playerScriptableObject.Burning,
+                    _playerScriptableObject.Vampirism,
+                    _playerScriptableObject.ClipCapacity,
                     _playerScriptableObject.ShootingDelay), 
                 new HealthStats(
                     _playerScriptableObject.MaxHealth,
-                    _playerScriptableObject.Regeneration,
-                    _playerScriptableObject.Vampirism),
+                    _playerScriptableObject.Regeneration),
                 new CommonStats(
                     _playerScriptableObject.Magnet,
-                    _playerScriptableObject.Speed));
+                    _playerScriptableObject.Speed,
+                    _playerScriptableObject.Freeze));
             
             _player.Init(_stats);
             

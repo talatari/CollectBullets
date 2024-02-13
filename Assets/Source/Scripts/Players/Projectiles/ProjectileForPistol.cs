@@ -14,39 +14,27 @@ namespace Source.Scripts.Players.Projectiles
         [SerializeField] private ProjectileScriptableObject _projectileScriptableObject;
 
         private int _damage;
-        private int _burning;
+        private float _burning;
+        private float _vampirism;
         private float _speed;
         private Vector3 _direction;
         private Collider[] _enemyColliders = new Collider[MaxOverlap];
         private float _radius;
 
-        public void Init(int damage, int burning)
+        public void Init(int damage, float burning, float vampirism)
         {
             if (damage <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
             if (burning < 0)
                 throw new ArgumentOutOfRangeException(nameof(burning));
-            
+            if (vampirism < 0) 
+                throw new ArgumentOutOfRangeException(nameof(vampirism));
+
             _damage = damage;
             _burning = burning;
+            _vampirism = vampirism;
         }
 
-        public void SetDamage(int damage)
-        {
-            if (damage <= 0) 
-                throw new ArgumentOutOfRangeException(nameof(damage));
-            
-            _damage = damage;
-        }
-
-        public void SetBurning(int burning)
-        {
-            if (burning < 0)
-                throw new ArgumentOutOfRangeException(nameof(burning));
-
-            _burning = burning;
-        }
-        
         private void Start()
         {
             _speed = _projectileScriptableObject.Speed;
@@ -62,6 +50,30 @@ namespace Source.Scripts.Players.Projectiles
             OverlapEnemies();
             
             Move();
+        }
+
+        public void SetDamage(int value)
+        {
+            if (value <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(value));
+            
+            _damage = value;
+        }
+
+        public void SetBurning(float value)
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value));
+
+            _burning = value;
+        }
+
+        public void SetVampirism(float value)
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value));
+
+            _vampirism = value;
         }
 
         public void SetDirection(Vector3 direction) => 
