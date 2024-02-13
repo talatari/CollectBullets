@@ -14,17 +14,21 @@ namespace Source.Scripts.Players.Projectiles
         [SerializeField] private ProjectileScriptableObject _projectileScriptableObject;
 
         private int _damage;
+        private int _burning;
         private float _speed;
         private Vector3 _direction;
         private Collider[] _enemyColliders = new Collider[MaxOverlap];
         private float _radius;
 
-        public void Init(int damage)
+        public void Init(int damage, int burning)
         {
             if (damage <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
+            if (burning < 0)
+                throw new ArgumentOutOfRangeException(nameof(burning));
             
             _damage = damage;
+            _burning = burning;
         }
 
         public void SetDamage(int damage)
@@ -34,10 +38,17 @@ namespace Source.Scripts.Players.Projectiles
             
             _damage = damage;
         }
+
+        public void SetBurning(int burning)
+        {
+            if (burning < 0)
+                throw new ArgumentOutOfRangeException(nameof(burning));
+
+            _burning = burning;
+        }
         
         private void Start()
         {
-            // _damage = _projectileScriptableObject.Damage;
             _speed = _projectileScriptableObject.Speed;
 
             float _diameter = transform.localScale.x;
@@ -63,7 +74,8 @@ namespace Source.Scripts.Players.Projectiles
             
             if (enemiesAmount == 0)
                 return;
-
+            
+            // TODO: проверить остальные Overlap методы на соответствие одному виду использования
             if (_enemyColliders.First(x => x != null).TryGetComponent(out Enemy enemy))
             {
                 enemy.TakeDamage(_damage);

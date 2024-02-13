@@ -9,7 +9,7 @@ namespace Source.Scripts.Players.PlayerStats
 
         public CommonStats(float magnet, float speed)
         {
-            if (magnet <= 0)
+            if (magnet < 0)
                 throw new ArgumentOutOfRangeException(nameof(magnet));
             if (speed <= 0)
                 throw new ArgumentOutOfRangeException(nameof(speed));

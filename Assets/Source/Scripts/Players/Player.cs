@@ -58,6 +58,7 @@ namespace Source.Scripts.Players
             if (_isInit == false)
                 return;
             
+            _mover.Dispose();
             _collisionForBullets.BulletCollected -= OnCollected;
             _weaponHandler.Shoted -= OnShoted;
         }
