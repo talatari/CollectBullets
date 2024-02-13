@@ -22,7 +22,7 @@ namespace Source.Scripts.Players.Weapons
 
         public event Action Shoted;
 
-        public int ClipCapacity => _damageStats.Damage2.Value;
+        public int ClipCapacity => _damageStats.ClipCapacity;
         public int CollectedBullets => _collectedBullets;
 
         public void Init(DamageStats damageStats)
@@ -32,7 +32,6 @@ namespace Source.Scripts.Players.Weapons
 
             _damageStats = damageStats;
             _projectilePrefab.Init(_damageStats.Damage);
-            _damageStats.Damage2.Changed += _projectilePrefab.SetDamage;
             
             _weapon = new Weapon(_damageStats);
             _cooldownTimer = new CooldownTimer(_damageStats.ShootingDelay);
@@ -59,7 +58,6 @@ namespace Source.Scripts.Players.Weapons
             
             _weapon.CollectedBulletsChanged -= OnCollectedBulletsChanged;
             _damageStats.ShootingDelayChanged -= OnShootingDelayChanged;
-            _damageStats.Damage2.Changed -= _projectilePrefab.SetDamage;
 
             StopShooting();
         }

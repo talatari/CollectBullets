@@ -21,8 +21,6 @@ namespace Source.Scripts.Players.PlayerStats
                 throw new ArgumentOutOfRangeException(nameof(shootingDelay));
 
             _damage = damage;
-            Damage2 = new Stat<int>(damage);
-            Damage2.Changed += value => { DamageChanged?.Invoke(value); };
             _clipCapacity = clipCapacity;
             _burning = burning;
             _shootingDelay = shootingDelay;
@@ -37,8 +35,6 @@ namespace Source.Scripts.Players.PlayerStats
         public int ClipCapacity => _clipCapacity;
         public int Burning => _burning;
         public float ShootingDelay => _shootingDelay;
-
-        public Stat<int> Damage2 { get; private set; }
 
         public void ChangeDamage(int value)
         {
