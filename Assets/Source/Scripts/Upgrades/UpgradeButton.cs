@@ -2,13 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Scripts.Abilities
+namespace Source.Scripts.Upgrades
 {
-    public class AbilityButton : MonoBehaviour
+    public class UpgradeButton : MonoBehaviour
     {
         [SerializeField] private Canvas _abilityViewCanvas;
         [SerializeField] private Button _buttonClick;
-        [SerializeField] private AbilityView _abilityView;
+        [SerializeField] private UpgradeView _upgradeView;
         
         public event Action<string> OnAbilityButtonClick; 
         
@@ -23,7 +23,7 @@ namespace Source.Scripts.Abilities
             if (_abilityViewCanvas == null)
                 return;
             
-            OnAbilityButtonClick?.Invoke(_abilityView.GetNameAbility());
+            OnAbilityButtonClick?.Invoke(_upgradeView.GetNameAbility());
             
             _abilityViewCanvas.gameObject.SetActive(false);
         }

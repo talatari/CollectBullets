@@ -77,6 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c1736630e9348ee89cb4508c1fa02c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _playerScriptableObject: {fileID: 11400000, guid: 7cb9d4abdaf8b44b79b3306356ed0349, type: 2}
   _startEnemyCount: 20
   _maxEnemySpawnCount: 100
   _spawnEnemyDelay: 1

@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace Source.Scripts.SO
 {
-    [CreateAssetMenu(menuName = "Create ScriptableObject/Ability", fileName = "Ability", order = 0)]
-    public class AbilitySriptableObject : ScriptableObject
+    [CreateAssetMenu(menuName = "Create ScriptableObject/Upgrade", fileName = "Upgrade", order = 0)]
+    public class UpgradeSriptableObject : ScriptableObject
     {
         [field: SerializeField] public Sprite Icon { get; private set; }
         [field: SerializeField] public string Name { get; private set; }

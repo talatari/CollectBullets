@@ -647,7 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _abilityViewCanvas: {fileID: 0}
   _buttonClick: {fileID: 7108459556149442143}
-  _abilityView: {fileID: 3225313104047554648}
+  _upgradeView: {fileID: 3225313104047554648}
 --- !u!222 &2288865260443848803
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -846,7 +846,7 @@ GameObject:
   - component: {fileID: 4583839577601900077}
   - component: {fileID: 3225313104047554648}
   m_Layer: 5
-  m_Name: Left_Ability_View+
+  m_Name: Left_Upgrade_View+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
