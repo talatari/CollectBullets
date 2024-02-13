@@ -15,26 +15,30 @@ namespace Source.Scripts.Players.PlayerStats
                 throw new ArgumentOutOfRangeException(nameof(damage));
             if (clipCapacity <= 0)
                 throw new ArgumentOutOfRangeException(nameof(clipCapacity));
-            if (burning <= 0)
+            if (burning < 0)
                 throw new ArgumentOutOfRangeException(nameof(burning));
             if (shootingDelay <= 0)
                 throw new ArgumentOutOfRangeException(nameof(shootingDelay));
 
             _damage = damage;
+            Damage2 = new Stat<int>(damage);
+            Damage2.Changed += value => { DamageChanged?.Invoke(value); };
             _clipCapacity = clipCapacity;
             _burning = burning;
             _shootingDelay = shootingDelay;
         }
-        
+
         public event Action<int> DamageChanged;
         public event Action<int> ClipCapacityChanged;
         public event Action<int> BurningChanged;
         public event Action<float> ShootingDelayChanged;
-        
+
         public int Damage => _damage;
         public int ClipCapacity => _clipCapacity;
         public int Burning => _burning;
         public float ShootingDelay => _shootingDelay;
+
+        public Stat<int> Damage2 { get; private set; }
 
         public void ChangeDamage(int value)
         {
@@ -44,7 +48,7 @@ namespace Source.Scripts.Players.PlayerStats
             _damage = value;
             DamageChanged?.Invoke(_damage);
         }
-        
+
         public void ChangeClipCapacity(int value)
         {
             if (value <= 0)

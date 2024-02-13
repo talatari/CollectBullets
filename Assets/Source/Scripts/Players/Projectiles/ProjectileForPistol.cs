@@ -26,6 +26,14 @@ namespace Source.Scripts.Players.Projectiles
             
             _damage = damage;
         }
+
+        public void SetDamage(int damage)
+        {
+            if (damage <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(damage));
+            
+            _damage = damage;
+        }
         
         private void Start()
         {

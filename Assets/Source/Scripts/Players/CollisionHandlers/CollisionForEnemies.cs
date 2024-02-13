@@ -12,17 +12,25 @@ namespace Source.Scripts.Players.CollisionHandlers
         private Player _player;
         private Collider[] _enemyColliders = new Collider[MaxOverlap];
         private Vector3 _rotateDirection;
-        
+        private bool _isInit;
+
         public void Init(Player player)
         {
             if (player == null) 
                 throw new ArgumentNullException(nameof(player));
             
             _player = player;
+
+            _isInit = true;
         }
 
-        private void Update() => 
+        private void Update()
+        {
+            if (_isInit == false)
+                return;
+            
             OverlapEnemies();
+        }
 
         private void OverlapEnemies()
         {
