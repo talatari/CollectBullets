@@ -12,14 +12,18 @@ namespace Source.Scripts.Players.CollisionHandlers
         private Player _player;
         private Collider[] _enemyColliders = new Collider[MaxOverlap];
         private Vector3 _rotateDirection;
+        private float _freeze;
         private bool _isInit;
 
-        public void Init(Player player)
+        public void Init(Player player, float freeze)
         {
             if (player == null) 
                 throw new ArgumentNullException(nameof(player));
-            
+            if (freeze < 0) 
+                throw new ArgumentOutOfRangeException(nameof(freeze));
+
             _player = player;
+            _freeze = freeze;
 
             _isInit = true;
         }
@@ -30,6 +34,14 @@ namespace Source.Scripts.Players.CollisionHandlers
                 return;
             
             OverlapEnemies();
+        }
+
+        public void SetFreeze(float value)
+        {
+            if (value < 0) 
+                throw new ArgumentOutOfRangeException(nameof(value));
+
+            _freeze = value;
         }
 
         private void OverlapEnemies()

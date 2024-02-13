@@ -30,6 +30,9 @@ namespace Source.Scripts.Players
                 _collectedBullets = new List<GameObject>();
                 _collectedBullets.Add(collectedBullet);
             }
+
+            for (int i = 0; i < _activatedBulletsCount; i++)
+                _collectedBullets[i].SetActive(true);
         }
 
         public void CollectBullet(int collectedBullets)

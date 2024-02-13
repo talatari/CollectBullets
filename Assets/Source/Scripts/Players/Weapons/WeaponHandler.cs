@@ -22,7 +22,7 @@ namespace Source.Scripts.Players.Weapons
 
         public event Action Shoted;
 
-        public int ClipCapacity => _damageStats.ClipCapacity;
+        public int ClipCapacity => _weapon.ClipCapacity;
         public int CollectedBullets => _collectedBullets;
 
         public void Init(DamageStats damageStats)
@@ -31,7 +31,7 @@ namespace Source.Scripts.Players.Weapons
                 throw new ArgumentNullException(nameof(damageStats));
 
             _damageStats = damageStats;
-            _projectilePrefab.Init(_damageStats.Damage, _damageStats.Burning);
+            _projectilePrefab.Init(_damageStats.Damage, _damageStats.Burning, _damageStats.Vampirism);
 
             _weapon = new Weapon(_damageStats.ClipCapacity);
             _cooldownTimer = new CooldownTimer(_damageStats.ShootingDelay);
@@ -40,6 +40,7 @@ namespace Source.Scripts.Players.Weapons
             
             _damageStats.DamageChanged += _projectilePrefab.SetDamage;
             _damageStats.BurningChanged += _projectilePrefab.SetBurning;
+            _damageStats.VampirismChanged += _projectilePrefab.SetVampirism;
             _damageStats.ClipCapacityChanged += _weapon.SetClipCapacity;
             _damageStats.ShootingDelayChanged += OnShootingDelayChanged;
             
@@ -63,6 +64,7 @@ namespace Source.Scripts.Players.Weapons
 
             _damageStats.DamageChanged -= _projectilePrefab.SetDamage;
             _damageStats.BurningChanged -= _projectilePrefab.SetBurning;
+            _damageStats.VampirismChanged -= _projectilePrefab.SetVampirism;
             _damageStats.ClipCapacityChanged -= _weapon.SetClipCapacity;
             _damageStats.ShootingDelayChanged -= OnShootingDelayChanged;
             

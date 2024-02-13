@@ -9,7 +9,6 @@ using UnityEngine;
 
 namespace Source.Scripts.Players
 {
-    [RequireComponent(typeof(CollisionForBullets))]
     public class Player : MonoBehaviour
     {
         [SerializeField] private Bag _bag;
@@ -21,17 +20,17 @@ namespace Source.Scripts.Players
         [SerializeField] private CollisionForEnemies _collisionForEnemies;
         
         // TODO: создать класс Stats, в котором будут храниться базовые и измененные характеристики
-        private const string AddCapacityName = "ADD CAPACITY";   // _weaponHandler._weapon.ClipCapacity
-        private const string BurningName = "BURNING";            // TODO: Burning - нужно реализовать таймер у врага который будет дамажить 1-4 сек
-        private const string DamageUpName = "DAMAGE UP";         // _weaponHandler._projectilePrefab.Damage
-        private const string FreezeName = "FREEZE";              // TODO: Freeze - нужно менять статы врагов
+        private const string AddCapacityName = "ADD CAPACITY";   // _weaponHandler._weapon._clipCapacity
+        private const string BurningName = "BURNING";            // _weaponHandler._projectilePrefab._burning
+        private const string DamageUpName = "DAMAGE UP";         // _weaponHandler._projectilePrefab._damage
+        private const string FreezeName = "FREEZE";              // _collisionForEnemies._freeze
         private const string FullRecoveryName = "FULL RECOVERY"; // _health.FullRecovery();
         private const string MagnetName = "MAGNET";              // _collisionForBullets._radiusPickUpBullets
         private const string MaxHealthName = "MAX HEALTH";       // _health._maxHealth
         private const string RegenerationName = "REGENERATION";  // _health._regeneration
         private const string ShootingName = "SHOOTING";          // _weaponHandler._weapon._shootingDelay
         private const string SpeedUpName = "SPEED UP";           // _mover._speed
-        private const string VampirismName = "VAMPIRISM";        // TODO: Vampirism - пока что не реализован
+        private const string VampirismName = "VAMPIRISM";        // _weaponHandler._projectilePrefab._vampirism
 
         private Stats _stats;
         private bool _isInit;
@@ -40,13 +39,17 @@ namespace Source.Scripts.Players
         {
             _stats = stats ?? throw new ArgumentNullException(nameof(stats));
 
-            _mover.Init(_stats.CommonStats);
+            _mover.Init(_stats.CommonStats.Speed);
             _weaponHandler.Init(_stats.DamageStats);
             _health.Init(_stats.HealthStats);
-            _collisionForBullets.Init(_weaponHandler, _stats.CommonStats);
-            _collisionForEnemies.Init(this);
+            _collisionForBullets.Init(_weaponHandler, _stats.CommonStats.Magnet);
+            _collisionForEnemies.Init(this, _stats.CommonStats.Freeze);
             _bag.CreateClip(_weaponHandler.ClipCapacity);
-            
+
+            _stats.CommonStats.SpeedChanged += _mover.SetSpeed;
+            _stats.CommonStats.MagnetChanged += _collisionForBullets.SetMagnet;
+            _stats.CommonStats.FreezeChanged += _collisionForEnemies.SetFreeze;
+            _stats.DamageStats.ClipCapacityChanged += _bag.CreateClip;
             _collisionForBullets.BulletCollected += OnCollected;
             _weaponHandler.Shoted += OnShoted;
 
@@ -58,7 +61,10 @@ namespace Source.Scripts.Players
             if (_isInit == false)
                 return;
             
-            _mover.Dispose();
+            _stats.CommonStats.SpeedChanged -= _mover.SetSpeed;
+            _stats.CommonStats.MagnetChanged -= _collisionForBullets.SetMagnet;
+            _stats.CommonStats.FreezeChanged -= _collisionForEnemies.SetFreeze;
+            _stats.DamageStats.ClipCapacityChanged -= _bag.CreateClip;
             _collisionForBullets.BulletCollected -= OnCollected;
             _weaponHandler.Shoted -= OnShoted;
         }
