@@ -18,10 +18,11 @@ namespace Source.Scripts.Players.Weapons
         private CooldownTimer _cooldownTimer;
         private DamageStats _damageStats;
         private int _collectedBullets;
+        private bool _isInit;
 
         public event Action Shoted;
 
-        public int ClipCapacity => _damageStats.ClipCapacity;
+        public int ClipCapacity => _damageStats.Damage2.Value;
         public int CollectedBullets => _collectedBullets;
 
         public void Init(DamageStats damageStats)
@@ -31,32 +32,40 @@ namespace Source.Scripts.Players.Weapons
 
             _damageStats = damageStats;
             _projectilePrefab.Init(_damageStats.Damage);
-        }
-        
-        private void Awake()
-        {
+            _damageStats.Damage2.Changed += _projectilePrefab.SetDamage;
+            
             _weapon = new Weapon(_damageStats);
             _cooldownTimer = new CooldownTimer(_damageStats.ShootingDelay);
-            
             // TODO: create IFactory<ProjectileForPistol> -> pool
             // TODO: create pool projectile
-        }
-
-        private void OnEnable()
-        {
             _weapon.CollectedBulletsChanged += OnCollectedBulletsChanged;
             _damageStats.ShootingDelayChanged += OnShootingDelayChanged;
-        }
 
-        private void Update() => 
+            _isInit = true;
+        }
+        
+        private void Update()
+        {
+            if (_isInit == false)
+                return;
+            
             _cooldownTimer.Tick(Time.deltaTime);
+        }
 
         private void OnDisable()
         {
+            if (_isInit == false)
+                return;
+            
             _weapon.CollectedBulletsChanged -= OnCollectedBulletsChanged;
             _damageStats.ShootingDelayChanged -= OnShootingDelayChanged;
+            _damageStats.Damage2.Changed -= _projectilePrefab.SetDamage;
+
             StopShooting();
         }
+
+        private void OnDestroy() => 
+            _weapon.Dispose();
 
         public void StartShooting(Vector3 direction)
         {

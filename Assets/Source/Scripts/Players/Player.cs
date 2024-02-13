@@ -34,6 +34,7 @@ namespace Source.Scripts.Players
         private const string VampirismName = "VAMPIRISM";        // TODO: Vampirism - пока что не реализован
 
         private Stats _stats;
+        private bool _isInit;
 
         public void Init(Stats stats)
         {
@@ -44,19 +45,19 @@ namespace Source.Scripts.Players
             _health.Init(_stats.HealthStats);
             _collisionForBullets.Init(_weaponHandler, _stats.CommonStats);
             _collisionForEnemies.Init(this);
-        }
-
-        private void Start() => 
             _bag.CreateClip(_weaponHandler.ClipCapacity);
-
-        private void OnEnable()
-        {
+            
             _collisionForBullets.BulletCollected += OnCollected;
             _weaponHandler.Shoted += OnShoted;
+
+            _isInit = true;
         }
 
         private void OnDisable()
         {
+            if (_isInit == false)
+                return;
+            
             _collisionForBullets.BulletCollected -= OnCollected;
             _weaponHandler.Shoted -= OnShoted;
         }

@@ -3,7 +3,7 @@ using Source.Scripts.Players.PlayerStats;
 
 namespace Source.Scripts.Players.Weapons
 {
-    public class Weapon
+    public class Weapon : IDisposable
     {
         private DamageStats _damageStats;
         private int _collectedBullets;
@@ -14,13 +14,15 @@ namespace Source.Scripts.Players.Weapons
             _damageStats = damageStats ?? throw new ArgumentNullException(nameof(damageStats));
             
             _clipCapacity = _damageStats.ClipCapacity;
-            // TODO: где-то нужно отписаться
             _damageStats.ClipCapacityChanged += OnClipCapacityChanged;
         }
 
         public event Action<int> CollectedBulletsChanged;
 
         public int CollectedBullets => _collectedBullets;
+
+        public void Dispose() => 
+            _damageStats.ClipCapacityChanged -= OnClipCapacityChanged;
 
         public void CollectBullet()
         {

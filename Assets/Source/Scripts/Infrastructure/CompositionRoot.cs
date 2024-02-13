@@ -45,7 +45,7 @@ namespace Source.Scripts.Infrastructure
         private Key _keyPrefab;
         private SpawnerKey _spawnerKey;
         
-        private void Start()
+        private void Awake()
         {
             if (_player == null)
                 throw new ArgumentNullException(nameof(_player));

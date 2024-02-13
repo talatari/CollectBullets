@@ -15,6 +15,7 @@ namespace Source.Scripts.Players.CollisionHandlers
         private float _radiusPickUpBullets;
         private int _collectedBullets;
         private int _clipCapacity;
+        private bool _isInit;
 
         public event Action BulletCollected;
         
@@ -22,21 +23,28 @@ namespace Source.Scripts.Players.CollisionHandlers
         {
             _weaponHandler = weaponHandler ? weaponHandler : throw new ArgumentNullException(nameof(weaponHandler));
             _commonStats = commonStats ?? throw new ArgumentNullException(nameof(commonStats));
-        }
-
-        private void OnEnable()
-        {
+            
             _radiusPickUpBullets = _commonStats.Magnet;
             _collectedBullets = _weaponHandler.CollectedBullets;
             _clipCapacity = _weaponHandler.ClipCapacity;
             _commonStats.MagnetChanged += OnMagnetChanged;
+
+            _isInit = true;
         }
 
-        private void Update() => 
+        private void Update()
+        {
+            if (_isInit == false)
+                return;
+            
             OverlapBullets();
+        }
 
         private void OnDisable()
         {
+            if (_isInit == false)
+                return;
+            
             _commonStats.MagnetChanged -= OnMagnetChanged;
         }
 

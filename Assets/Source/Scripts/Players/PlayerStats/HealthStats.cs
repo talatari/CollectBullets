@@ -12,9 +12,9 @@ namespace Source.Scripts.Players.PlayerStats
         {
             if (maxHealth <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(maxHealth));
-            if (regeneration <= 0) 
+            if (regeneration < 0) 
                 throw new ArgumentOutOfRangeException(nameof(regeneration));
-            if (vampirism <= 0) 
+            if (vampirism < 0) 
                 throw new ArgumentOutOfRangeException(nameof(vampirism));
 
             _maxHealth = maxHealth;
