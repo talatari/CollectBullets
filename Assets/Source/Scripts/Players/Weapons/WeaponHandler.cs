@@ -31,14 +31,19 @@ namespace Source.Scripts.Players.Weapons
                 throw new ArgumentNullException(nameof(damageStats));
 
             _damageStats = damageStats;
-            _projectilePrefab.Init(_damageStats.Damage);
-            
-            _weapon = new Weapon(_damageStats);
+            _projectilePrefab.Init(_damageStats.Damage, _damageStats.Burning);
+
+            _weapon = new Weapon(_damageStats.ClipCapacity);
             _cooldownTimer = new CooldownTimer(_damageStats.ShootingDelay);
             // TODO: create IFactory<ProjectileForPistol> -> pool
             // TODO: create pool projectile
-            _weapon.CollectedBulletsChanged += OnCollectedBulletsChanged;
+            
+            _damageStats.DamageChanged += _projectilePrefab.SetDamage;
+            _damageStats.BurningChanged += _projectilePrefab.SetBurning;
+            _damageStats.ClipCapacityChanged += _weapon.SetClipCapacity;
             _damageStats.ShootingDelayChanged += OnShootingDelayChanged;
+            
+            _weapon.CollectedBulletsChanged += OnCollectedBulletsChanged;
 
             _isInit = true;
         }
@@ -55,15 +60,16 @@ namespace Source.Scripts.Players.Weapons
         {
             if (_isInit == false)
                 return;
+
+            _damageStats.DamageChanged -= _projectilePrefab.SetDamage;
+            _damageStats.BurningChanged -= _projectilePrefab.SetBurning;
+            _damageStats.ClipCapacityChanged -= _weapon.SetClipCapacity;
+            _damageStats.ShootingDelayChanged -= OnShootingDelayChanged;
             
             _weapon.CollectedBulletsChanged -= OnCollectedBulletsChanged;
-            _damageStats.ShootingDelayChanged -= OnShootingDelayChanged;
 
             StopShooting();
         }
-
-        private void OnDestroy() => 
-            _weapon.Dispose();
 
         public void StartShooting(Vector3 direction)
         {

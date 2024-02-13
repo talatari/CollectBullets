@@ -1,28 +1,23 @@
 using System;
-using Source.Scripts.Players.PlayerStats;
 
 namespace Source.Scripts.Players.Weapons
 {
-    public class Weapon : IDisposable
+    public class Weapon
     {
-        private DamageStats _damageStats;
         private int _collectedBullets;
         private int _clipCapacity;
 
-        public Weapon(DamageStats damageStats)
+        public Weapon(int clipCapacity)
         {
-            _damageStats = damageStats ?? throw new ArgumentNullException(nameof(damageStats));
-            
-            _clipCapacity = _damageStats.ClipCapacity;
-            _damageStats.ClipCapacityChanged += OnClipCapacityChanged;
+            if (clipCapacity <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(clipCapacity));
+
+            _clipCapacity = clipCapacity;
         }
 
         public event Action<int> CollectedBulletsChanged;
 
         public int CollectedBullets => _collectedBullets;
-
-        public void Dispose() => 
-            _damageStats.ClipCapacityChanged -= OnClipCapacityChanged;
 
         public void CollectBullet()
         {
@@ -42,7 +37,7 @@ namespace Source.Scripts.Players.Weapons
             }
         }
 
-        private void OnClipCapacityChanged(int clipCapacity) => 
+        public void SetClipCapacity(int clipCapacity) => 
             _clipCapacity = clipCapacity;
     }
 }
