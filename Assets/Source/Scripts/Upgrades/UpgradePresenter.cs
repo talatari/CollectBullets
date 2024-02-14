@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using Source.Scripts.Infrastructure.SaveLoadData;
+using Source.Scripts.Players.PlayerStats;
 using Source.Scripts.SO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +22,15 @@ namespace Source.Scripts.Upgrades
         private int _upgradeIndexMiddle;
         private int _upgradeIndexRight;
         private int _maxRange;
+        private Stats _stats;
+        private UpgradeService _upgradeService;
+        private PlayerProgress _playerProgress;
+
+        public void Init(Stats stats, UpgradeService upgradeService)
+        {
+            _stats = stats ?? throw new ArgumentNullException(nameof(stats));
+            _upgradeService = upgradeService ?? throw new ArgumentNullException(nameof(upgradeService));
+        }
 
         private void OnEnable()
         {
@@ -44,6 +56,12 @@ namespace Source.Scripts.Upgrades
 
         private void OnSetUpgradesValue()
         {
+            _playerProgress = _upgradeService.Load();
+            
+            if (_playerProgress == null)
+                _upgradeService.Save(_stats);
+            
+            // TODO: remove
             LoadUpgrades();
             
             _upgradeLeftView.SetUpgrade(GetUpgades());
