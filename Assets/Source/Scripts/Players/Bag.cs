@@ -17,6 +17,8 @@ namespace Source.Scripts.Players
             if (capacity <= 0)
                 throw new ArgumentOutOfRangeException(nameof(capacity));
             
+            _collectedBullets = new List<GameObject>();
+            
             for (int i = 0; i < capacity; i++)
             {
                 Vector3 bagPosition = transform.position;
@@ -27,7 +29,6 @@ namespace Source.Scripts.Players
                 collectedBullet.transform.position = newPosition;
                 collectedBullet.SetActive(false);
 
-                _collectedBullets = new List<GameObject>();
                 _collectedBullets.Add(collectedBullet);
             }
 
