@@ -942,6 +942,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgrades_View_Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5139726310964357871, guid: bd35ec11dc839429f8497c6435e1436b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5363794705303802044, guid: bd35ec11dc839429f8497c6435e1436b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
