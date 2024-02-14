@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Factories;
 using Source.Scripts.Infrastructure.Pools;
+using Source.Scripts.Infrastructure.SaveLoadData;
 using Source.Scripts.Infrastructure.Spawners;
 using Source.Scripts.Keys;
 using Source.Scripts.Players;
 using Source.Scripts.Players.PlayerStats;
 using Source.Scripts.SO;
+using Source.Scripts.Upgrades;
 using UnityEngine;
 
 namespace Source.Scripts.Infrastructure
@@ -16,6 +18,7 @@ namespace Source.Scripts.Infrastructure
     {
         [SerializeField] private Player _player;
         [SerializeField] private PlayerScriptableObject _playerScriptableObject;
+        [SerializeField] private UpgradePresenter _upgradePresenter;
         
         [Header("Enemies")]
         [SerializeField] private int _startEnemyCount = 20;
@@ -38,7 +41,9 @@ namespace Source.Scripts.Infrastructure
         private const string PathToKeyPrefab = "Prefabs/Keys/Key+";
         
         private Stats _stats;
-        private List<Enemy> _enemyPrefabs = new ();
+        private SaveLoadService _saveLoadService = new();
+        private UpgradeService _upgradeService = new();
+        private List<Enemy> _enemyPrefabs = new();
         private SpawnerEnemy _spawnerEnemy;
         private Bullet _bulletPrefab;
         private SpawnerBullet _spawnerBullet;
@@ -50,22 +55,12 @@ namespace Source.Scripts.Infrastructure
             if (_player == null)
                 throw new ArgumentNullException(nameof(_player));
 
-            _stats = new Stats(
-                new DamageStats(
-                    _playerScriptableObject.Damage, 
-                    _playerScriptableObject.Burning,
-                    _playerScriptableObject.Vampirism,
-                    _playerScriptableObject.ClipCapacity,
-                    _playerScriptableObject.ShootingDelay), 
-                new HealthStats(
-                    _playerScriptableObject.MaxHealth,
-                    _playerScriptableObject.Regeneration),
-                new CommonStats(
-                    _playerScriptableObject.Magnet,
-                    _playerScriptableObject.Speed,
-                    _playerScriptableObject.Freeze));
+            CreateDefaultStats();
             
             _player.Init(_stats);
+            
+            _upgradeService.Init(_saveLoadService);
+            _upgradePresenter.Init(_stats, _upgradeService);
             
             TargetProvider targetProvider = new TargetProvider();
             targetProvider.SetTarget(_player.transform);
@@ -87,6 +82,24 @@ namespace Source.Scripts.Infrastructure
             _spawnerBullet = gameObject.AddComponent<SpawnerBullet>();
             _spawnerBullet.Construct(poolBullet, _spawnBulletDelay, _maxBulletSpawnCount, _distanceRange);
             _spawnerBullet.StartSpawn();
+        }
+
+        private void CreateDefaultStats()
+        {
+            _stats = new Stats(
+                new DamageStats(
+                    _playerScriptableObject.Damage, 
+                    _playerScriptableObject.Burning, 
+                    _playerScriptableObject.Vampirism,
+                    _playerScriptableObject.ClipCapacity, 
+                    _playerScriptableObject.ShootingDelay), 
+                new HealthStats(
+                    _playerScriptableObject.MaxHealth, 
+                    _playerScriptableObject.Regeneration),
+                new CommonStats(
+                    _playerScriptableObject.Magnet,
+                    _playerScriptableObject.Speed, 
+                    _playerScriptableObject.Freeze));
         }
 
         private void LoadPrefabs()

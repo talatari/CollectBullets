@@ -697,6 +697,17 @@ MonoBehaviour:
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
+--- !u!114 &1712213686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5088661976717172764, guid: bd35ec11dc839429f8497c6435e1436b, type: 3}
+  m_PrefabInstance: {fileID: 4982140572043664738}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d185032d85b7e4c759d3a9cc66eaefe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1848754415
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,6 +896,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 8761932229771576044}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _upgradePresenter
+      value: 
+      objectReference: {fileID: 1712213686}
     - target: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1000
