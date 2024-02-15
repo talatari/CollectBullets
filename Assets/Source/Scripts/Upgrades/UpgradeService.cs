@@ -13,10 +13,13 @@ namespace Source.Scripts.Upgrades
             _saveLoadService = saveLoadService ?? throw new ArgumentNullException(nameof(saveLoadService));
         }
 
-        public PlayerProgress Load() => 
+        public PlayerProgress LoadDefaultPlayerProgress() => 
+            _saveLoadService.LoadDefaultPlayerProgress();
+
+        public PlayerProgress LoadPlayerProgress() => 
             _saveLoadService.LoadPlayerProgress();
-        
-        public void Save(Stats stats)
+
+        public void SavePlayerProgress(Stats stats)
         {
             if (stats == null)
                 throw new ArgumentNullException(nameof(stats));

@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 5831540781371975001}
   - component: {fileID: 356748677024705508}
   m_Layer: 3
-  m_Name: Weapon_Handler+
+  m_Name: Weapon Handler+
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -321,7 +321,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 0.5
+  m_Height: 2
   m_Radius: 0.75
   m_SlopeLimit: 45
   m_StepOffset: 0.5
@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 3485947640546318935}
   - component: {fileID: 7462298407651650724}
   m_Layer: 3
-  m_Name: BlackSphere
+  m_Name: Black Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 662680661303302186}
   - component: {fileID: 5528442336961267885}
   m_Layer: 3
-  m_Name: WhiteSphere
+  m_Name: White Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -606,7 +606,7 @@ GameObject:
   - component: {fileID: 1842529774350651860}
   - component: {fileID: 7969837106788011712}
   m_Layer: 3
-  m_Name: Attack_Range+
+  m_Name: Attack Range+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -823,7 +823,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2047
 --- !u!1 &8885726530305518738
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,7 +836,7 @@ GameObject:
   - component: {fileID: 6614718982453342025}
   - component: {fileID: 4548687210299105336}
   m_Layer: 3
-  m_Name: BlackSphere
+  m_Name: Black Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -919,7 +919,7 @@ GameObject:
   - component: {fileID: 2154651261435292831}
   - component: {fileID: 1924058542223051080}
   m_Layer: 3
-  m_Name: WhiteSphere
+  m_Name: White Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1007,13 +1007,41 @@ PrefabInstance:
       propertyPath: _layerPlayerHealth
       value: 
       objectReference: {fileID: 4146685920099514370}
+    - target: {fileID: 723125117466033618, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
+      propertyPath: m_Name
+      value: Health Bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680220992375044009, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
+      propertyPath: m_Name
+      value: Health Bar Border
+      objectReference: {fileID: 0}
+    - target: {fileID: 3211037970277529311, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
+      propertyPath: m_Name
+      value: Health Bar Border
+      objectReference: {fileID: 0}
     - target: {fileID: 4524316191233897162, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
       propertyPath: m_Name
-      value: Player_Health_Bar_Canvas+
+      value: Player Health Bar Canvas+
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149584837380530163, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
+      propertyPath: m_Name
+      value: Health Bar Fill
       objectReference: {fileID: 0}
     - target: {fileID: 7559638282746488451, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
       propertyPath: m_BlockingMask.m_Bits
       value: 2047
+      objectReference: {fileID: 0}
+    - target: {fileID: 8646146548993607166, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
+      propertyPath: m_Name
+      value: Health Bar Border
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675404219419558652, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
+      propertyPath: m_Name
+      value: Health Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 8916537021958066542, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
+      propertyPath: m_Name
+      value: Health Bar Background
       objectReference: {fileID: 0}
     - target: {fileID: 9005790142449330271, guid: 2c51bf668db1247ff9a73777ef0ad739, type: 3}
       propertyPath: m_Pivot.x

@@ -6,7 +6,6 @@ namespace Source.Scripts.Infrastructure.SaveLoadData
     [Serializable]
     public class PlayerProgress
     {
-        private readonly Stats _stats;
         public int Damage;
         public float Burning;
         public float Vampirism;
@@ -17,6 +16,8 @@ namespace Source.Scripts.Infrastructure.SaveLoadData
         public float Magnet;
         public float Speed;
         public float Freeze;
+        
+        private Stats _stats;
 
         public PlayerProgress(Stats stats)
         {

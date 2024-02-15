@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 6299279471178622555}
   - component: {fileID: 3769713775663295594}
   m_Layer: 0
-  m_Name: MovementJoystickBackground
+  m_Name: Movement Joystick Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 765874710035489518}
   - component: {fileID: 1803883406426914073}
   m_Layer: 0
-  m_Name: MovementJoystickArea+
+  m_Name: Movement Joystick Area+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 7924610627798161610}
   - component: {fileID: 8874329881825926824}
   m_Layer: 0
-  m_Name: MovementJoystick
+  m_Name: Movement Joystick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

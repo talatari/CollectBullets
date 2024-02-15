@@ -56,17 +56,18 @@ namespace Source.Scripts.Upgrades
 
         private void OnSetUpgradesValue()
         {
-            _playerProgress = _upgradeService.Load();
-            
+            _playerProgress = _upgradeService.LoadPlayerProgress();
+
             if (_playerProgress == null)
-                _upgradeService.Save(_stats);
+                _playerProgress = _upgradeService.LoadDefaultPlayerProgress();
             
-            // TODO: remove
+            // TODO: refactoring to PlayerProgress
             LoadUpgrades();
             
             _upgradeLeftView.SetUpgrade(GetUpgades());
             _upgradeMiddleView.SetUpgrade(GetUpgades());
             _upgradeRightView.SetUpgrade(GetUpgades());
+            // // //
         }
 
         private void LoadUpgrades()
