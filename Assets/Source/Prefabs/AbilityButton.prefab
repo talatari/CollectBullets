@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 3176843878917718287}
   - component: {fileID: 5305921757619286035}
   m_Layer: 5
-  m_Name: IconAbility
+  m_Name: Icon Upgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 4284206273852648239}
   - component: {fileID: 5412691853766613450}
   m_Layer: 5
-  m_Name: NameAbilityText
+  m_Name: Name Upgrade Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 5381221179931848859}
   - component: {fileID: 4860052596643661028}
   m_Layer: 5
-  m_Name: CurrentValueAbilityText_1
+  m_Name: Separator Upgrade Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 6639181058518970969}
   - component: {fileID: 8611733564938794412}
   m_Layer: 5
-  m_Name: CurrentValueAbilityText
+  m_Name: Current Value Upgrade Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -712,7 +712,7 @@ GameObject:
   - component: {fileID: 6487567757332211915}
   - component: {fileID: 155318238507332155}
   m_Layer: 5
-  m_Name: LevelAbilityText
+  m_Name: Level Upgrade Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -846,7 +846,7 @@ GameObject:
   - component: {fileID: 4583839577601900077}
   - component: {fileID: 3225313104047554648}
   m_Layer: 5
-  m_Name: Left_Upgrade_View+
+  m_Name: Left Upgrade View+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -903,7 +903,7 @@ GameObject:
   - component: {fileID: 522284940282823664}
   - component: {fileID: 4824438317715617581}
   m_Layer: 5
-  m_Name: UpgradedValueAbilityText_2
+  m_Name: Upgraded Value Upgrade Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1037,7 +1037,7 @@ GameObject:
   - component: {fileID: 5992870534972615723}
   - component: {fileID: 8427578678155526672}
   m_Layer: 5
-  m_Name: LevelAbilityValueText
+  m_Name: Level Upgrade Value Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
