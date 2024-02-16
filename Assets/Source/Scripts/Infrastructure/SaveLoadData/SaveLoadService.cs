@@ -1,6 +1,6 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Source.Scripts.Players.PlayerStats;
+using Source.Scripts.Players.PlayerModels;
 using UnityEngine;
 
 namespace Source.Scripts.Infrastructure.SaveLoadData
@@ -16,6 +16,7 @@ namespace Source.Scripts.Infrastructure.SaveLoadData
             string path = Application.persistentDataPath + SaveFileName;
             FileStream stream = new FileStream(path, FileMode.Create);
             PlayerProgress playerProgress = new PlayerProgress(stats);
+            
             
             formatter.Serialize(stream, playerProgress);
             stream.Close();

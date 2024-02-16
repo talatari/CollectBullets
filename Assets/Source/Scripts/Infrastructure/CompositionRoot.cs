@@ -7,7 +7,7 @@ using Source.Scripts.Infrastructure.SaveLoadData;
 using Source.Scripts.Infrastructure.Spawners;
 using Source.Scripts.Keys;
 using Source.Scripts.Players;
-using Source.Scripts.Players.PlayerStats;
+using Source.Scripts.Players.PlayerModels;
 using Source.Scripts.SO;
 using Source.Scripts.Upgrades;
 using UnityEngine;
@@ -17,7 +17,8 @@ namespace Source.Scripts.Infrastructure
     public class CompositionRoot : MonoBehaviour
     {
         [SerializeField] private Player _player;
-        [SerializeField] private PlayerScriptableObject _playerScriptableObject;
+        [SerializeField] private PlayerScriptableObject _playerConfig;
+        [SerializeField] private UpgradeSriptableObject[] _upgradeConfigs;
         [SerializeField] private UpgradePresenter _upgradePresenter;
         
         [Header("Enemies")]
@@ -42,25 +43,37 @@ namespace Source.Scripts.Infrastructure
         
         private Stats _stats;
         private SaveLoadService _saveLoadService = new();
-        private UpgradeService _upgradeService = new();
+        private UpgradeService _upgradeService;
         private List<Enemy> _enemyPrefabs = new();
         private SpawnerEnemy _spawnerEnemy;
         private Bullet _bulletPrefab;
         private SpawnerBullet _spawnerBullet;
         private Key _keyPrefab;
         private SpawnerKey _spawnerKey;
-        
+        private List<UpgradeModel> _upgradeModels;
+        private UpgradeHandler _upgradeHandler;
+
         private void Awake()
         {
             if (_player == null)
                 throw new ArgumentNullException(nameof(_player));
 
-            CreateDefaultStats();
+            FactoryDefaultStats factoryDefaultStats = new(_playerConfig);
+            _stats = factoryDefaultStats.Create();
+
+            FactoryUpgradeModels factoryUpgradeModels = new(_upgradeConfigs);
+            _upgradeModels = factoryUpgradeModels.Create();
+
+            _upgradeHandler = new UpgradeHandler(_stats, _upgradeModels);
             
-            _player.Init(_stats);
+            _player.Init(_stats, _upgradeHandler);
+            _upgradeService = new UpgradeService(_saveLoadService, _upgradeModels);
             
-            _upgradeService.Init(_saveLoadService);
             _upgradePresenter.Init(_stats, _upgradeService);
+            // TODO: QUESTION: _upgradeService без ссылки на _upgradeHandler бесполезен?
+            // TODO: так как должен в презентер отдавать список моделей.
+            //
+            // TODO: QUESTION: _upgradeHandler или _upgradeService должен уметь обновлять модель?
             
             TargetProvider targetProvider = new TargetProvider();
             targetProvider.SetTarget(_player.transform);
@@ -83,25 +96,7 @@ namespace Source.Scripts.Infrastructure
             _spawnerBullet.Construct(poolBullet, _spawnBulletDelay, _maxBulletSpawnCount, _distanceRange);
             _spawnerBullet.StartSpawn();
         }
-
-        private void CreateDefaultStats()
-        {
-            _stats = new Stats(
-                new DamageStats(
-                    _playerScriptableObject.Damage, 
-                    _playerScriptableObject.Burning, 
-                    _playerScriptableObject.Vampirism,
-                    _playerScriptableObject.ClipCapacity, 
-                    _playerScriptableObject.ShootingDelay), 
-                new HealthStats(
-                    _playerScriptableObject.MaxHealth, 
-                    _playerScriptableObject.Regeneration),
-                new CommonStats(
-                    _playerScriptableObject.Magnet,
-                    _playerScriptableObject.Speed, 
-                    _playerScriptableObject.Freeze));
-        }
-
+        
         private void LoadPrefabs()
         {
             _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyMeleePrefab, typeof(Enemy)));

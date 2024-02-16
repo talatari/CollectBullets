@@ -1,5 +1,5 @@
 using System;
-using Source.Scripts.Players.PlayerStats;
+using Source.Scripts.Players.PlayerModels;
 
 namespace Source.Scripts.Infrastructure.SaveLoadData
 {
@@ -16,7 +16,7 @@ namespace Source.Scripts.Infrastructure.SaveLoadData
         public float Magnet;
         public float Speed;
         public float Freeze;
-        
+        // TODO: сохранять статистику игрока вместо статов
         private Stats _stats;
 
         public PlayerProgress(Stats stats)
