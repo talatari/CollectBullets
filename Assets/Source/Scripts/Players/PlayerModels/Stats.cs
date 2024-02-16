@@ -1,6 +1,7 @@
 using System;
+using Source.Scripts.Infrastructure.Pools.Interfaces;
 
-namespace Source.Scripts.Players.PlayerStats
+namespace Source.Scripts.Players.PlayerModels
 {
     public class Stats
     {

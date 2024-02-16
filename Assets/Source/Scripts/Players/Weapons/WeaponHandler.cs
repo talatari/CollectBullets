@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using Source.Scripts.Common;
-using Source.Scripts.Players.PlayerStats;
+using Source.Scripts.Players.PlayerModels;
 using Source.Scripts.Players.Projectiles;
 using UnityEngine;
 

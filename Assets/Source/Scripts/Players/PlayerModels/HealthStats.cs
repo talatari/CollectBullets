@@ -1,6 +1,6 @@
 using System;
 
-namespace Source.Scripts.Players.PlayerStats
+namespace Source.Scripts.Players.PlayerModels
 {
     public class HealthStats
     {
@@ -24,21 +24,21 @@ namespace Source.Scripts.Players.PlayerStats
         public int MaxHealth => _maxHealth;
         public float Regeneration => _regeneration;
         
-        public void ChangeMaxHealth(int value)
+        public void AddMaxHealth(int value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _maxHealth = value;
+            _maxHealth += value;
             MaxHealthChanged?.Invoke(_maxHealth);
         }
         
-        public void ChangeRegeneration(float value)
+        public void AddRegeneration(float value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _regeneration = value;
+            _regeneration += value;
             RegenerationChanged?.Invoke(_regeneration);
         }
     }

@@ -1,4 +1,4 @@
-using Source.Scripts.SO;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,44 +7,48 @@ namespace Source.Scripts.Upgrades
 {
     public class UpgradeView : MonoBehaviour
     {
+        private const string CharPercent = "%";
+        private const string LevelText = "LEVEL";
+        private const string Separator = "=>";
+        
         [SerializeField] private Image _background;
         [SerializeField] private TMP_Text _name;
         [SerializeField] private TMP_Text _levelText;
-        [SerializeField] private TMP_Text _level;
-        [SerializeField] private TMP_Text _defaultValue;
+        [SerializeField] private TMP_Text _currentLevel;
+        [SerializeField] private TMP_Text _value;
         [SerializeField] private TMP_Text _separator;
         [SerializeField] private TMP_Text _upgradedValue;
+        [SerializeField] private Canvas _abilityViewCanvas;
+        [SerializeField] private Button _buttonClick;
 
-        private const string CharPercent = "%";
-        private const string Separator = "=>";
-        private const string LevelText = "LEVEL";
+        private int _id;
         
-        public void SetUpgrade(UpgradeSriptableObject _upgrades)
+        public event Action<int> OnUpgradeButtonClick;
+        
+        private void Start() => 
+            _buttonClick.onClick.AddListener(OnClick);
+
+        private void OnDestroy() => 
+            _buttonClick.onClick.RemoveListener(OnClick);
+
+        public void SetUpgrade(UpgradeModel upgradeModel)
         {
-            _background.sprite = _upgrades.Icon;
-            _name.text = _upgrades.Name;
-
-            if (_upgrades.IsUpgradable)
-            {
-                _levelText.text = LevelText;
-                _level.text = _upgrades.Level.ToString();
-
-                _defaultValue.text = _upgrades.DefaultValue + CharPercent;
-                _separator.text = Separator;
-                _upgradedValue.text = _upgrades.DefaultValue + _upgrades.IncrementValue + CharPercent;
-            }
-            else
-            {
-                _levelText.text = "";
-                _level.text = "";
-
-                _defaultValue.text = "";
-                _separator.text = "";
-                _upgradedValue.text = "";
-            }
+            _background.sprite = upgradeModel.Config.Icon;
+            _id = upgradeModel.Id;
+            _name.text = upgradeModel.Name;
+            _value.text = upgradeModel.Value.ToString();
+            _currentLevel.text = upgradeModel.CurrentLevel.ToString();
+            _upgradedValue.text = upgradeModel.GetNextValue().ToString();
+            
+            _separator.text = Separator;
+            _levelText.text = LevelText;
         }
 
-        public string GetNameAbility() => 
-            _name.text;
+        private void OnClick()
+        {
+            OnUpgradeButtonClick?.Invoke(_id);
+            
+            _abilityViewCanvas.gameObject.SetActive(false);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using Source.Scripts.Upgrades;
 using UnityEngine;
 
 namespace Source.Scripts.SO
@@ -7,11 +8,13 @@ namespace Source.Scripts.SO
     {
         // TODO: QUESTION: если я все параметры продублирую для каждого параметра в PlayerProgress, то как быть с типом Sprite?
         [field: SerializeField] public Sprite Icon { get; private set; }
+
+        [field: SerializeField] public StatType StatType { get; private set; }
+        [field: SerializeField] public int Id { get; private set; }
         [field: SerializeField] public string Name { get; private set; }
-        [field: SerializeField] public bool IsUpgradable { get; private set; }
+        [field: SerializeField] public int Value { get; private set; }
         [field: SerializeField] public int Level { get; private set; }
         [field: SerializeField] public int MaxLevel { get; private set; }
-        [field: SerializeField] public int DefaultValue { get; private set; }
         [field: SerializeField] public int IncrementValue { get; private set; }
     }
 }

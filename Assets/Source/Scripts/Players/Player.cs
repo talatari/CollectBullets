@@ -3,7 +3,7 @@ using Source.Scripts.Behaviour;
 using Source.Scripts.Players.CollisionHandlers;
 using Source.Scripts.Players.Joystick;
 using Source.Scripts.Players.Movement;
-using Source.Scripts.Players.PlayerStats;
+using Source.Scripts.Players.PlayerModels;
 using Source.Scripts.Players.Weapons;
 using UnityEngine;
 
@@ -19,26 +19,17 @@ namespace Source.Scripts.Players
         [SerializeField] private CollisionForBullets _collisionForBullets;
         [SerializeField] private CollisionForEnemies _collisionForEnemies;
         
-        // TODO: создать класс Stats, в котором будут храниться базовые и измененные характеристики
-        private const string AddCapacityName = "ADD CAPACITY";   // _weaponHandler._weapon._clipCapacity
-        private const string BurningName = "BURNING";            // _weaponHandler._projectilePrefab._burning
-        private const string DamageUpName = "DAMAGE UP";         // _weaponHandler._projectilePrefab._damage
-        private const string FreezeName = "FREEZE";              // _collisionForEnemies._freeze
-        private const string FullRecoveryName = "FULL RECOVERY"; // _health.FullRecovery();
-        private const string MagnetName = "MAGNET";              // _collisionForBullets._radiusPickUpBullets
-        private const string MaxHealthName = "MAX HEALTH";       // _health._maxHealth
-        private const string RegenerationName = "REGENERATION";  // _health._regeneration
-        private const string ShootingName = "SHOOTING";          // _weaponHandler._weapon._shootingDelay
-        private const string SpeedUpName = "SPEED UP";           // _mover._speed
-        private const string VampirismName = "VAMPIRISM";        // _weaponHandler._projectilePrefab._vampirism
-
         private Stats _stats;
+        private UpgradeHandler _upgradeHandler;
         private bool _isInit;
 
-        public void Init(Stats stats)
+        public void Init(Stats stats, UpgradeHandler upgradeHandler)
         {
             _stats = stats ?? throw new ArgumentNullException(nameof(stats));
-
+            _upgradeHandler = upgradeHandler ?? throw new ArgumentNullException(nameof(upgradeHandler));
+            
+            _upgradeHandler.UpdateStats();
+            
             _mover.Init(_stats.CommonStats.Speed);
             _weaponHandler.Init(_stats.DamageStats);
             _health.Init(_stats.HealthStats);
@@ -67,6 +58,7 @@ namespace Source.Scripts.Players
             _stats.DamageStats.ClipCapacityChanged -= _bag.CreateClip;
             _collisionForBullets.BulletCollected -= OnCollected;
             _weaponHandler.Shoted -= OnShoted;
+            _upgradeHandler.Dispose();
         }
 
         public void RotateToEnemy(Vector3 direction)

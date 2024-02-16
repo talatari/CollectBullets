@@ -1,6 +1,6 @@
 using System;
 
-namespace Source.Scripts.Players.PlayerStats
+namespace Source.Scripts.Players.PlayerModels
 {
     public class DamageStats
     {
@@ -42,48 +42,48 @@ namespace Source.Scripts.Players.PlayerStats
         public int ClipCapacity => _clipCapacity;
         public float ShootingDelay => _shootingDelay;
 
-        public void ChangeDamage(int value)
+        public void AddDamage(int value)
         {
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _damage = value;
+            _damage += value;
             DamageChanged?.Invoke(_damage);
         }
 
-        public void ChangeBurning(float value)
+        public void AddBurning(float value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _burning = value;
+            _burning += value;
             BurningChanged?.Invoke(_burning);
         }
 
-        public void ChangeVampirism(float value)
+        public void AddVampirism(float value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _vampirism = value;
+            _vampirism += value;
             VampirismChanged?.Invoke(_vampirism);
         }
         
-        public void ChangeClipCapacity(int value)
+        public void AddClipCapacity(int value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _clipCapacity = value;
+            _clipCapacity += value;
             ClipCapacityChanged?.Invoke(_clipCapacity);
         }
 
-        public void ChangeShootingDelay(float value)
+        public void AddShootingDelay(float value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _shootingDelay = value;
+            _shootingDelay += value;
             ShootingDelayChanged?.Invoke(_shootingDelay);
         }
     }

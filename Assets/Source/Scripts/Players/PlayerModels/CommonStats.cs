@@ -1,6 +1,6 @@
 using System;
 
-namespace Source.Scripts.Players.PlayerStats
+namespace Source.Scripts.Players.PlayerModels
 {
     public class CommonStats
     {
@@ -30,30 +30,30 @@ namespace Source.Scripts.Players.PlayerStats
         public float Speed => _speed;
         public float Freeze => _freeze;
 
-        public void ChangeMagnet(float value)
+        public void AddMagnet(float value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _magnet = value;
+            _magnet += value;
             MagnetChanged?.Invoke(_magnet);
         }
         
-        public void ChangeSpeed(float value)
+        public void AddSpeed(float value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _speed = value;
+            _speed += value;
             SpeedChanged?.Invoke(_speed);
         }
         
-        public void ChangeFreeze(float value)
+        public void AddFreeze(float value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _freeze = value;
+            _freeze += value;
             FreezeChanged?.Invoke(_freeze);
         }
     }

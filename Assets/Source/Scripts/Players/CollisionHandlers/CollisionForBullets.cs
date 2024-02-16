@@ -1,5 +1,5 @@
 using System;
-using Source.Scripts.Players.PlayerStats;
+using Source.Scripts.Players.PlayerModels;
 using Source.Scripts.Players.Weapons;
 using UnityEngine;
 

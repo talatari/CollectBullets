@@ -1,5 +1,4 @@
 using System;
-using Source.Scripts.Players.PlayerStats;
 using UnityEngine;
 
 namespace Source.Scripts.Players.Movement
