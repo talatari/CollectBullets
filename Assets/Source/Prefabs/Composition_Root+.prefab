@@ -78,16 +78,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
-  _playerScriptableObject: {fileID: 11400000, guid: 7cb9d4abdaf8b44b79b3306356ed0349, type: 2}
+  _playerConfig: {fileID: 11400000, guid: 7cb9d4abdaf8b44b79b3306356ed0349, type: 2}
+  _upgradeConfigs:
+  - {fileID: 11400000, guid: d7f820bae397f4bd7acda55a31d17b44, type: 2}
+  - {fileID: 11400000, guid: 0c2f2d7317406472c9023b7d757242e5, type: 2}
+  - {fileID: 11400000, guid: 26353adcb80cb48cc988d46b0443855e, type: 2}
+  - {fileID: 11400000, guid: 34bff4c68499f4a3a9af24ce058b0907, type: 2}
+  - {fileID: 11400000, guid: 4dbe1308e573e42db91b67d6a02c740b, type: 2}
+  - {fileID: 11400000, guid: d614d66ee13694c859e9c5299fbee67b, type: 2}
+  - {fileID: 11400000, guid: cd81297e94c894e9a97b83039ba5b84e, type: 2}
+  - {fileID: 11400000, guid: c533250bc55354be8927e05d1211a4a3, type: 2}
+  - {fileID: 11400000, guid: 075abe86995814c4ea4ca2f94ef4e0e4, type: 2}
+  - {fileID: 11400000, guid: 44352b133c16a461ba5f10206c73d3b0, type: 2}
+  _upgradePresenter: {fileID: 0}
+  _enemyPrefabs:
+  - {fileID: 224845870481307363, guid: 5040fb2e155bb4b19b1847fe0f285212, type: 3}
+  - {fileID: 224845870481307363, guid: e90e2cfaf591a4dd394b52dbfce98c82, type: 3}
   _startEnemyCount: 20
   _maxEnemySpawnCount: 100
   _spawnEnemyDelay: 1
   _enemiesParent: {fileID: 4567002090889281664}
   _startBulletCount: 20
+  _bulletPrefab: {fileID: 10549068201496987, guid: 90ac860e88f0e4e97952795d80216ba2, type: 3}
   _maxBulletSpawnCount: 100
   _spawnBulletDelay: 1
   _bulletsParent: {fileID: 3293311338438183936}
   _distanceRange: 40
+  _keyPrefab: {fileID: 4690296610452820603, guid: 45065ee128bc74ffb84755eee459b71c, type: 3}
 --- !u!1 &5238816083930751559
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,9 +39,7 @@ namespace Source.Scripts.Upgrades
             _saveLoadService.SavePlayerProgress(stats);
         }
 
-        public void Upgrade(int id)
-        {
+        public void Upgrade(int id) => 
             _upgradeModels.First(model => model.Id == id).Upgrade();
-        }
     }
 }

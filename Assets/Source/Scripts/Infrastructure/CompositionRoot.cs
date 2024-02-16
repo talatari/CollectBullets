@@ -16,39 +16,35 @@ namespace Source.Scripts.Infrastructure
 {
     public class CompositionRoot : MonoBehaviour
     {
+        [Header("Player")]
         [SerializeField] private Player _player;
         [SerializeField] private PlayerScriptableObject _playerConfig;
         [SerializeField] private UpgradeSriptableObject[] _upgradeConfigs;
         [SerializeField] private UpgradePresenter _upgradePresenter;
-        
+
         [Header("Enemies")]
+        [SerializeField] private List<Enemy> _enemyPrefabs;
         [SerializeField] private int _startEnemyCount = 20;
         [SerializeField] private int _maxEnemySpawnCount = 100;
         [SerializeField] private float _spawnEnemyDelay = 1f;
         [SerializeField] private Transform _enemiesParent;
-        
+
         [Header("Bullets")]
         [SerializeField] private int _startBulletCount = 20;
+        [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private int _maxBulletSpawnCount = 100;
         [SerializeField] private float _spawnBulletDelay = 1f;
         [SerializeField] private Transform _bulletsParent;
-        
+
         [Header("Others")]
         [SerializeField] private float _distanceRange = 30f;
-        
-        private const string PathToEnemyMeleePrefab = "Prefabs/Enemies/Melee+";
-        private const string PathToEnemyRangePrefab = "Prefabs/Enemies/Range+";
-        private const string PathToBulletPrefab = "Prefabs/Bullets/Bullet+";
-        private const string PathToKeyPrefab = "Prefabs/Keys/Key+";
-        
+        [SerializeField] private Key _keyPrefab;
+
         private Stats _stats;
         private SaveLoadService _saveLoadService = new();
         private UpgradeService _upgradeService;
-        private List<Enemy> _enemyPrefabs = new();
         private SpawnerEnemy _spawnerEnemy;
-        private Bullet _bulletPrefab;
         private SpawnerBullet _spawnerBullet;
-        private Key _keyPrefab;
         private SpawnerKey _spawnerKey;
         private List<UpgradeModel> _upgradeModels;
         private UpgradeHandler _upgradeHandler;
@@ -57,6 +53,15 @@ namespace Source.Scripts.Infrastructure
         {
             if (_player == null)
                 throw new ArgumentNullException(nameof(_player));
+            
+            if (_enemyPrefabs == null)
+                throw new Exception($"{nameof(_enemyPrefabs)} not found.");
+            
+            if (_bulletPrefab == null)
+                throw new Exception($"{nameof(_bulletPrefab)} not found.");
+            
+            if (_keyPrefab == null)
+                throw new Exception($"{nameof(_keyPrefab)} not found.");
 
             FactoryDefaultStats factoryDefaultStats = new(_playerConfig);
             _stats = factoryDefaultStats.Create();
@@ -65,20 +70,13 @@ namespace Source.Scripts.Infrastructure
             _upgradeModels = factoryUpgradeModels.Create();
 
             _upgradeHandler = new UpgradeHandler(_stats, _upgradeModels);
-            
             _player.Init(_stats, _upgradeHandler);
-            _upgradeService = new UpgradeService(_saveLoadService, _upgradeModels);
             
+            _upgradeService = new UpgradeService(_saveLoadService, _upgradeModels);
             _upgradePresenter.Init(_stats, _upgradeService);
-            // TODO: QUESTION: _upgradeService без ссылки на _upgradeHandler бесполезен?
-            // TODO: так как должен в презентер отдавать список моделей.
-            //
-            // TODO: QUESTION: _upgradeHandler или _upgradeService должен уметь обновлять модель?
             
             TargetProvider targetProvider = new TargetProvider();
             targetProvider.SetTarget(_player.transform);
-            
-            LoadPrefabs();
             
             FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefabs, _enemiesParent, targetProvider);
             Pool<Enemy> poolEnemy = new Pool<Enemy>(factoryEnemy, _startEnemyCount);
@@ -95,23 +93,6 @@ namespace Source.Scripts.Infrastructure
             _spawnerBullet = gameObject.AddComponent<SpawnerBullet>();
             _spawnerBullet.Construct(poolBullet, _spawnBulletDelay, _maxBulletSpawnCount, _distanceRange);
             _spawnerBullet.StartSpawn();
-        }
-        
-        private void LoadPrefabs()
-        {
-            _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyMeleePrefab, typeof(Enemy)));
-            _enemyPrefabs.Add((Enemy)Resources.Load(PathToEnemyRangePrefab, typeof(Enemy)));
-            // TODO: переделать на загрузку префабов через SO
-            if (_enemyPrefabs == null)
-                throw new Exception("PathToEnemyPrefab not found.");
-            
-            _bulletPrefab = (Bullet)Resources.Load(PathToBulletPrefab, typeof(Bullet));
-            if (_bulletPrefab == null)
-                throw new Exception("PathToBulletPrefab not found.");
-            
-            _keyPrefab = (Key)Resources.Load(PathToKeyPrefab, typeof(Key));
-            if (_keyPrefab == null)
-                throw new Exception("PathToKeyPrefab not found.");
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Source.Scripts.Players.Movement
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
 
-            _speed = value;
+            _speed += value;
         }
     }
 }

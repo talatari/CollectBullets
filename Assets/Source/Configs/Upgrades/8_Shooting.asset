@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf9430f7f991246a8aa59c0797125901, type: 3}
-  m_Name: Add_Capacity
+  m_Name: 8_Shooting
   m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 21300000, guid: abcc3036f50eb4847ba2d5d7dd3bdd60, type: 3}
-  <Name>k__BackingField: ADD CAPACITY
-  <IsUpgradable>k__BackingField: 1
-  <Level>k__BackingField: 1
+  <Icon>k__BackingField: {fileID: 21300000, guid: 5e5d7deeb78d9435c8cb3e52e21fafb5, type: 3}
+  <StatType>k__BackingField: 4
+  <Id>k__BackingField: 8
+  <Name>k__BackingField: SHOOTING
+  <CurrentValue>k__BackingField: 0
+  <NextValue>k__BackingField: 1
+  <CurrentLevel>k__BackingField: 0
+  <NextLevel>k__BackingField: 1
   <MaxLevel>k__BackingField: 10
-  <DefaultValue>k__BackingField: 1
-  <IncrementValue>k__BackingField: 1

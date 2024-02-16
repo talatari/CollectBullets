@@ -5,6 +5,7 @@ using Source.Scripts.Players.Joystick;
 using Source.Scripts.Players.Movement;
 using Source.Scripts.Players.PlayerModels;
 using Source.Scripts.Players.Weapons;
+using Source.Scripts.Upgrades;
 using UnityEngine;
 
 namespace Source.Scripts.Players

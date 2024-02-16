@@ -62,73 +62,41 @@ namespace Source.Scripts.Upgrades
             _rerollOnAdv.onClick.RemoveListener(OnSetUpgradesValue);
         }
 
-        private void OnUpgradeButtonClick(int id)
-        {
+        private void OnUpgradeButtonClick(int id) => 
             _upgradeService.Upgrade(id);
-        }
 
         private void OnSetUpgradesValue()
         {
-            // _playerProgress = _upgradeService.LoadPlayerProgress();
-            //
-            // if (_playerProgress == null)
-            //     _playerProgress = _upgradeService.LoadDefaultPlayerProgress();
-
-
-            
             if (_upgradeService.TryGetUpgradeModels(out List<UpgradeModel> upgrades))
             {
-                
                 // TODO: сделать рандом
                 _upgradeLeftView.SetUpgrade(upgrades[0]);
                 _upgradeMiddleView.SetUpgrade(upgrades[1]);
                 _upgradeRightView.SetUpgrade(upgrades[2]);
             }
-            
-            // _upgradeLeftView.SetUpgrade(GetUpgades());
-            // _upgradeMiddleView.SetUpgrade(GetUpgades());
-            // _upgradeRightView.SetUpgrade(GetUpgades());
         }
 
         // private UpgradeModel GetUpgades() => 
         //     _upgradesQueue.Dequeue();
 
         // private void LoadUpgrades()
-
         // {
-
         //     _maxRange = _upgrades.Length;
-
         //     _upgradeIndexMiddle = Random.Range(0, _maxRange);
-
         //     _upgradeIndexRight = Random.Range(0, _maxRange);
-
         //     
-
         //     _upgradesQueue.Enqueue(_upgrades[Random.Range(0, _maxRange)]);
-
         //     
-
         //     SetRandomUniqueIndex(_upgradeIndexMiddle);
-
         //     SetRandomUniqueIndex(_upgradeIndexRight);
-
         // }
-
         //
-
         // private void SetRandomUniqueIndex(int index)
-
         // {
-
         //     while (_upgradesQueue.Contains(_upgrades[index]))
-
         //         index = Random.Range(0, _maxRange);
-
         //
-
         //     _upgradesQueue.Enqueue(_upgrades[index]);
-
         // }
     }
 }
