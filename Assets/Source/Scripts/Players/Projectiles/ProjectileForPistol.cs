@@ -57,7 +57,7 @@ namespace Source.Scripts.Players.Projectiles
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _damage = value;
+            _damage += value;
         }
 
         public void SetBurning(float value)
@@ -65,7 +65,7 @@ namespace Source.Scripts.Players.Projectiles
             if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
 
-            _burning = value;
+            _burning += value;
         }
 
         public void SetVampirism(float value)
@@ -73,7 +73,7 @@ namespace Source.Scripts.Players.Projectiles
             if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
 
-            _vampirism = value;
+            _vampirism += value;
         }
 
         public void SetDirection(Vector3 direction) => 

@@ -12,9 +12,12 @@ namespace Source.Scripts.SO
         [field: SerializeField] public StatType StatType { get; private set; }
         [field: SerializeField] public int Id { get; private set; }
         [field: SerializeField] public string Name { get; private set; }
-        [field: SerializeField] public int Value { get; private set; }
-        [field: SerializeField] public int Level { get; private set; }
+        
+        [field: SerializeField] public int CurrentValue { get; private set; }
+        [field: SerializeField] public int NextValue { get; private set; }
+
+        [field: SerializeField] public int CurrentLevel { get; private set; }
+        [field: SerializeField] public int NextLevel { get; private set; }
         [field: SerializeField] public int MaxLevel { get; private set; }
-        [field: SerializeField] public int IncrementValue { get; private set; }
     }
 }

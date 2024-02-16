@@ -36,7 +36,7 @@ namespace Source.Scripts.Upgrades
             _background.sprite = upgradeModel.Config.Icon;
             _id = upgradeModel.Id;
             _name.text = upgradeModel.Name;
-            _value.text = upgradeModel.Value.ToString();
+            _value.text = upgradeModel.CurrentValue.ToString();
             _currentLevel.text = upgradeModel.CurrentLevel.ToString();
             _upgradedValue.text = upgradeModel.GetNextValue().ToString();
             

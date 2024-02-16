@@ -53,7 +53,7 @@ namespace Source.Scripts.Players.PlayerModels
 
         public void AddBurning(float value)
         {
-            if (value <= 0)
+            if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
             _burning += value;
@@ -62,7 +62,7 @@ namespace Source.Scripts.Players.PlayerModels
 
         public void AddVampirism(float value)
         {
-            if (value <= 0)
+            if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
             _vampirism += value;
@@ -71,7 +71,7 @@ namespace Source.Scripts.Players.PlayerModels
         
         public void AddClipCapacity(int value)
         {
-            if (value <= 0)
+            if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
             _clipCapacity += value;
@@ -80,7 +80,7 @@ namespace Source.Scripts.Players.PlayerModels
 
         public void AddShootingDelay(float value)
         {
-            if (value <= 0)
+            if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
             _shootingDelay += value;

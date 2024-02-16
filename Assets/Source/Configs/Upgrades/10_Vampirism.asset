@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf9430f7f991246a8aa59c0797125901, type: 3}
-  m_Name: Freeze
+  m_Name: 10_Vampirism
   m_EditorClassIdentifier: 
-  <Icon>k__BackingField: {fileID: 21300000, guid: d2b3fb2d65ece4d5f861f7dc985bb3c7, type: 3}
-  <Name>k__BackingField: FREEZE
-  <IsUpgradable>k__BackingField: 1
-  <Level>k__BackingField: 1
+  <Icon>k__BackingField: {fileID: 21300000, guid: f7ca7bd4d223e4e718e302fbe7425bed, type: 3}
+  <StatType>k__BackingField: 2
+  <Id>k__BackingField: 10
+  <Name>k__BackingField: VAMPIRISM
+  <CurrentValue>k__BackingField: 0
+  <NextValue>k__BackingField: 1
+  <CurrentLevel>k__BackingField: 0
+  <NextLevel>k__BackingField: 1
   <MaxLevel>k__BackingField: 10
-  <DefaultValue>k__BackingField: 1
-  <IncrementValue>k__BackingField: 1

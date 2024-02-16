@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Source.Scripts.Players.PlayerModels;
-using Source.Scripts.Upgrades;
 
-namespace Source.Scripts.Players
+namespace Source.Scripts.Upgrades
 {
     public class UpgradeHandler : IDisposable
     {
@@ -33,49 +32,49 @@ namespace Source.Scripts.Players
 
         private void ApplyUpgrade(UpgradeModel upgradeModel)
         {
-            if (upgradeModel.Value == 0)
+            if (upgradeModel.CurrentValue == 0)
                 return;
             
             switch (upgradeModel.StatType)
             {
                 case StatType.Damage:
-                    _stats.DamageStats.AddDamage(upgradeModel.Value);
+                    _stats.DamageStats.AddDamage(upgradeModel.CurrentValue);
                     break;
                 
                 case StatType.Burning:
-                    _stats.DamageStats.AddBurning(upgradeModel.Value);
+                    _stats.DamageStats.AddBurning(upgradeModel.CurrentValue);
                     break;
                 
                 case StatType.Vampirism:
-                    _stats.DamageStats.AddVampirism(upgradeModel.Value);
+                    _stats.DamageStats.AddVampirism(upgradeModel.CurrentValue);
                     break;
                 
                 case StatType.ClipCapacity:
-                    _stats.DamageStats.AddClipCapacity(upgradeModel.Value);
+                    _stats.DamageStats.AddClipCapacity(upgradeModel.CurrentValue);
                     break;
                 
                 case StatType.ShootingDelay:
-                    _stats.DamageStats.AddShootingDelay(upgradeModel.Value);
+                    _stats.DamageStats.AddShootingDelay(upgradeModel.CurrentValue);
                     break;
                 
                 case StatType.MaxHealth:
-                    _stats.HealthStats.AddMaxHealth(upgradeModel.Value);
+                    _stats.HealthStats.AddMaxHealth(upgradeModel.CurrentValue);
                     break;
                 
                 case StatType.Regeneration:
-                    _stats.HealthStats.AddRegeneration(upgradeModel.Value);
+                    _stats.HealthStats.AddRegeneration(upgradeModel.CurrentValue);
                     break;
                 
                 case StatType.Magnet:
-                    _stats.CommonStats.AddMagnet(upgradeModel.Value);
+                    _stats.CommonStats.AddMagnet(upgradeModel.CurrentValue);
                     break;
                 
                 case StatType.Speed:
-                    _stats.CommonStats.AddSpeed(upgradeModel.Value);
+                    _stats.CommonStats.AddSpeed(upgradeModel.CurrentValue);
                     break;
                 
                 case StatType.Freeze:
-                    _stats.CommonStats.AddFreeze(upgradeModel.Value);
+                    _stats.CommonStats.AddFreeze(upgradeModel.CurrentValue);
                     break;
             }
         }

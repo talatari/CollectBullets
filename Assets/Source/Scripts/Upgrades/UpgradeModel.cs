@@ -11,10 +11,11 @@ namespace Source.Scripts.Upgrades
             StatType = upgradeConfig.StatType;
             Id = upgradeConfig.Id;
             Name = upgradeConfig.Name;
-            Value = upgradeConfig.Value;
-            CurrentLevel = upgradeConfig.Level;
+            CurrentValue = upgradeConfig.CurrentValue;
+            NextValue = upgradeConfig.NextValue;
+            CurrentLevel = upgradeConfig.CurrentLevel;
+            NextLevel = upgradeConfig.NextLevel;
             MaxLevel = upgradeConfig.MaxLevel;
-            IncrementValue = upgradeConfig.IncrementValue;
         }
 
         public event Action<UpgradeModel> Changed;
@@ -23,18 +24,20 @@ namespace Source.Scripts.Upgrades
         public StatType StatType { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Value { get; set; }
+        public int CurrentValue { get; set; }
+        public int NextValue { get; set; }
         public int CurrentLevel { get; set; }
+        public int NextLevel { get; set; }
         public int MaxLevel { get; set; }
-        public int IncrementValue { get; set; }
+        
         public bool IsUpgadeable => CurrentLevel < MaxLevel;
         
-        public int GetNextValue()
+        public float GetNextValue()
         {
             if (CurrentLevel >= MaxLevel)
-                return Value;
+                return CurrentValue;
             
-            return Value + IncrementValue;
+            return CurrentValue + NextValue;
         }
 
         public void Upgrade()
@@ -43,14 +46,14 @@ namespace Source.Scripts.Upgrades
                 throw new Exception("Upgrade not possible");
             
             CurrentLevel++;
-            Value = CurrentLevel * IncrementValue;
+            CurrentValue = CurrentLevel + NextValue;
             Changed?.Invoke(this);
         }
 
         public void SetLevel(int level)
         {
             CurrentLevel = level;
-            Value = CurrentLevel * IncrementValue;
+            CurrentValue = CurrentLevel * NextValue;
         }
     }
 }

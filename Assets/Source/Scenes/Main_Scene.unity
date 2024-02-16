@@ -1134,65 +1134,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8761932229771576044}
     - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _playerConfig
-      value: 
-      objectReference: {fileID: 11400000, guid: 7cb9d4abdaf8b44b79b3306356ed0349, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: _upgradePresenter
       value: 
       objectReference: {fileID: 5805688562948151286}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: d7f820bae397f4bd7acda55a31d17b44, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 0c2f2d7317406472c9023b7d757242e5, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 26353adcb80cb48cc988d46b0443855e, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 34bff4c68499f4a3a9af24ce058b0907, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[4]
-      value: 
-      objectReference: {fileID: 11400000, guid: 4dbe1308e573e42db91b67d6a02c740b, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[5]
-      value: 
-      objectReference: {fileID: 11400000, guid: d614d66ee13694c859e9c5299fbee67b, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[6]
-      value: 
-      objectReference: {fileID: 11400000, guid: cd81297e94c894e9a97b83039ba5b84e, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[7]
-      value: 
-      objectReference: {fileID: 11400000, guid: c533250bc55354be8927e05d1211a4a3, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[8]
-      value: 
-      objectReference: {fileID: 11400000, guid: 075abe86995814c4ea4ca2f94ef4e0e4, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[9]
-      value: 
-      objectReference: {fileID: 11400000, guid: 44352b133c16a461ba5f10206c73d3b0, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[10]
-      value: 
-      objectReference: {fileID: 11400000, guid: 44352b133c16a461ba5f10206c73d3b0, type: 2}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _upgradeConfigs.Array.data[11]
-      value: 
-      objectReference: {fileID: 11400000, guid: d7f820bae397f4bd7acda55a31d17b44, type: 2}
     - target: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1000
@@ -1629,6 +1573,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8571341646565727139, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 2047
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2043,7 +1991,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &7791783390327019394
 GameObject:
   m_ObjectHideFlags: 0
