@@ -69,7 +69,6 @@ namespace Source.Scripts.Upgrades
         {
             if (_upgradeService.TryGetUpgradeModels(out List<UpgradeModel> upgrades))
             {
-                // TODO: сделать рандом
                 _upgradeLeftView.SetUpgrade(upgrades[0]);
                 _upgradeMiddleView.SetUpgrade(upgrades[1]);
                 _upgradeRightView.SetUpgrade(upgrades[2]);
