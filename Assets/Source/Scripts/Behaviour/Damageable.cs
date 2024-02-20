@@ -76,8 +76,11 @@ namespace Source.Scripts.Behaviour
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
 
-        private void OnSetMaxHealth(int maxHealth) => 
+        private void OnSetMaxHealth(int maxHealth)
+        {
             _maxHealth = maxHealth;
+            HealthChanged?.Invoke(_currentHealth, _maxHealth);
+        }
 
         private void OnSetRegeneration(float regeneration) => 
             _regeneration = regeneration;

@@ -10,7 +10,7 @@ namespace Source.Scripts.UI
         [SerializeField] private TMP_Text _tmpText;
         [SerializeField] private Image _fillBar;
         [SerializeField] private Damageable _health;
-        
+
         private void OnEnable() => 
             _health.HealthChanged += OnRefreshHealthBar;
 

@@ -72,6 +72,8 @@ namespace Source.Scripts.Upgrades
                 
                 LoadUpgrades();
                 
+                // TODO: QUESTIONS: как сюда прокинуть текущее значения стата игрока для выбранного улучшения
+                // по типу свитча в UpgradeHandler?
                 _upgradeLeftView.SetUpgrade(GetUpgades());
                 _upgradeMiddleView.SetUpgrade(GetUpgades());
                 _upgradeRightView.SetUpgrade(GetUpgades());

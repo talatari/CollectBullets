@@ -7,7 +7,7 @@ namespace Source.Scripts.Upgrades
 {
     public class UpgradeView : MonoBehaviour
     {
-        private const string CharPercent = "%";
+        private const string CharPercent = "%"; // TODO: remove
         private const string LevelText = "LEVEL";
         
         [SerializeField] private Image _background;
@@ -34,7 +34,7 @@ namespace Source.Scripts.Upgrades
             _id = upgradeModel.Id;
             _name.text = upgradeModel.Name;
             _currentLevel.text = upgradeModel.CurrentLevel.ToString();
-            _currentValue.text = $"{upgradeModel.Value}{CharPercent} (+{upgradeModel.IncrementValue}{CharPercent})";
+            _currentValue.text = "{curVal} + " + upgradeModel.IncrementValue; // TODO:
             
             _levelText.text = LevelText;
         }
