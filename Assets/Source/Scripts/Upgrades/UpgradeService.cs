@@ -17,10 +17,9 @@ namespace Source.Scripts.Upgrades
             _upgradeModels = upgradeModels ?? throw new ArgumentNullException(nameof(upgradeModels));
         }
 
-        // TODO: подумать над названием метода
-        public bool TryGetUpgradeModels(out List<UpgradeModel> upgradeModels)
+        public bool TryGetUpgradeableModels(out List<UpgradeModel> upgradeModels)
         {
-            upgradeModels = _upgradeModels.Where(model => model.IsUpgadeable).ToList();
+            upgradeModels = _upgradeModels.Where(model => model.IsUpgradeable).ToList();
 
             return upgradeModels != null;
         }
