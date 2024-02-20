@@ -6,12 +6,12 @@ namespace Source.Scripts.Players.PlayerModels
     public class DamageStats
     {
         private int _damage;
-        private float _burning;
-        private float _vampirism;
+        private int _burning;
+        private int _vampirism;
         private int _clipCapacity;
-        private float _shootingDelay;
+        private int _shootingDelay;
 
-        public DamageStats(int damage, float burning, float vampirism, int clipCapacity, float shootingDelay)
+        public DamageStats(int damage, int burning, int vampirism, int clipCapacity, int shootingDelay)
         {
             if (damage <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
@@ -32,62 +32,70 @@ namespace Source.Scripts.Players.PlayerModels
         }
 
         public event Action<int> DamageChanged;
-        public event Action<float> BurningChanged;
-        public event Action<float> VampirismChanged;
+        public event Action<int> BurningChanged;
+        public event Action<int> VampirismChanged;
         public event Action<int> ClipCapacityChanged;
-        public event Action<float> ShootingDelayChanged;
+        public event Action<int> ShootingDelayChanged;
 
         public int Damage => _damage;
-        public float Burning => _burning;
-        public float Vampirism => _vampirism;
+        public int Burning => _burning;
+        public int Vampirism => _vampirism;
         public int ClipCapacity => _clipCapacity;
-        public float ShootingDelay => _shootingDelay;
+        public int ShootingDelay => _shootingDelay;
 
-        public void AddDamage(float value)
+        public int AddDamage(int value)
         {
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            // TODO: апкаст из-за целочисленного цикла спавна обоймы за спиной
-            _damage += (int)value;
+            _damage += value;
             DamageChanged?.Invoke(_damage);
+
+            return _damage;
         }
 
-        public void AddBurning(float value)
+        public int AddBurning(int value)
         {
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
             _burning += value;
             BurningChanged?.Invoke(_burning);
+            
+            return _burning;
         }
 
-        public void AddVampirism(float value)
+        public int AddVampirism(int value)
         {
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
             _vampirism += value;
             VampirismChanged?.Invoke(_vampirism);
+
+            return _vampirism;
         }
         
-        public void AddClipCapacity(float value)
+        public int AddClipCapacity(int value)
         {
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            // TODO: пришлось апкастить, т.к. на целочисленное значение обоймы завязан цикл спавна патронов за спиной
-            _clipCapacity += (int)value;
+            _clipCapacity += value;
             ClipCapacityChanged?.Invoke(_clipCapacity);
+
+            return _clipCapacity;
         }
 
-        public void AddShootingDelay(float value)
+        public int AddShootingDelay(int value)
         {
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _shootingDelay -= value;
+            _shootingDelay += value;
             ShootingDelayChanged?.Invoke(_shootingDelay);
+
+            return _shootingDelay;
         }
     }
 }

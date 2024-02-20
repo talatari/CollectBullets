@@ -94,7 +94,7 @@ namespace Source.Scripts.Players.Weapons
             _shootingCoroutine = null;
         }
 
-        private void OnShootingDelayChanged(float shootingDelay) => 
+        private void OnShootingDelayChanged(int shootingDelay) => 
             _cooldownTimer.SetCooldown(shootingDelay);
 
         private void OnCollectedBulletsChanged(int collectedBullets) => 

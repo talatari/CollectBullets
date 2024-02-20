@@ -34,7 +34,7 @@ namespace Source.Scripts.Upgrades
             _id = upgradeModel.Id;
             _name.text = upgradeModel.Name;
             _currentLevel.text = upgradeModel.CurrentLevel.ToString();
-            _currentValue.text = "{curVal} + " + upgradeModel.IncrementValue; // TODO:
+            _currentValue.text = $"{upgradeModel.CurrentValue} +" + upgradeModel.IncrementValue;
             
             _levelText.text = LevelText;
         }

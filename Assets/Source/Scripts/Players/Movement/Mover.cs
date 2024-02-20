@@ -20,6 +20,7 @@ namespace Source.Scripts.Players.Movement
             _speed = speed;
         }
 
+        // TODO: FIX: движение по диагонали два раза быстрее
         public void Move(Vector3 moveDirection)
         {
             moveDirection *= _speed;
@@ -27,7 +28,7 @@ namespace Source.Scripts.Players.Movement
             _characterController.Move(moveDirection * Time.deltaTime);
         }
 
-        public void SetSpeed(float value)
+        public void SetSpeed(int value)
         {
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));

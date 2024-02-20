@@ -36,7 +36,7 @@ namespace Source.Scripts.Players.CollisionHandlers
             OverlapEnemies();
         }
 
-        public void SetFreeze(float value)
+        public void SetFreeze(int value)
         {
             if (value < 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
