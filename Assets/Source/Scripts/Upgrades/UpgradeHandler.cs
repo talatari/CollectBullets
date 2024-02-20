@@ -32,49 +32,49 @@ namespace Source.Scripts.Upgrades
 
         private void ApplyUpgrade(UpgradeModel upgradeModel)
         {
-            if (upgradeModel.CurrentValue == 0)
+            if (upgradeModel.Value == 0)
                 return;
             
             switch (upgradeModel.StatType)
             {
                 case StatType.Damage:
-                    _stats.DamageStats.AddDamage(upgradeModel.CurrentValue);
+                    _stats.DamageStats.AddDamage(upgradeModel.Value);
                     break;
                 
                 case StatType.Burning:
-                    _stats.DamageStats.AddBurning(upgradeModel.CurrentValue);
+                    _stats.DamageStats.AddBurning(upgradeModel.Value);
                     break;
                 
                 case StatType.Vampirism:
-                    _stats.DamageStats.AddVampirism(upgradeModel.CurrentValue);
+                    _stats.DamageStats.AddVampirism(upgradeModel.Value);
                     break;
                 
                 case StatType.ClipCapacity:
-                    _stats.DamageStats.AddClipCapacity(upgradeModel.CurrentValue);
+                    _stats.DamageStats.AddClipCapacity(upgradeModel.Value);
                     break;
                 
                 case StatType.ShootingDelay:
-                    _stats.DamageStats.AddShootingDelay(upgradeModel.CurrentValue);
+                    _stats.DamageStats.AddShootingDelay(upgradeModel.Value);
                     break;
                 
                 case StatType.MaxHealth:
-                    _stats.HealthStats.AddMaxHealth(upgradeModel.CurrentValue);
+                    _stats.HealthStats.AddMaxHealth(upgradeModel.Value);
                     break;
                 
                 case StatType.Regeneration:
-                    _stats.HealthStats.AddRegeneration(upgradeModel.CurrentValue);
+                    _stats.HealthStats.AddRegeneration(upgradeModel.Value);
                     break;
                 
                 case StatType.Magnet:
-                    _stats.CommonStats.AddMagnet(upgradeModel.CurrentValue);
+                    _stats.CommonStats.AddMagnet(upgradeModel.Value);
                     break;
                 
                 case StatType.Speed:
-                    _stats.CommonStats.AddSpeed(upgradeModel.CurrentValue);
+                    _stats.CommonStats.AddSpeed(upgradeModel.Value);
                     break;
                 
                 case StatType.Freeze:
-                    _stats.CommonStats.AddFreeze(upgradeModel.CurrentValue);
+                    _stats.CommonStats.AddFreeze(upgradeModel.Value);
                     break;
             }
         }

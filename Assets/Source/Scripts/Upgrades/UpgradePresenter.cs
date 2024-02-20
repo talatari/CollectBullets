@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Source.Scripts.Infrastructure.SaveLoadData;
 using Source.Scripts.Players.PlayerModels;
-using Source.Scripts.SO;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -16,7 +15,7 @@ namespace Source.Scripts.Upgrades
         [SerializeField] private UpgradeView _upgradeRightView;
         [SerializeField] private Button _rerollOnAdv;
         
-        private Queue<UpgradeSriptableObject> _upgradesQueue = new ();
+        private Queue<UpgradeModel> _upgradesQueue = new ();
         private int _upgradeIndexLeft;
         private int _upgradeIndexMiddle;
         private int _upgradeIndexRight;
@@ -67,35 +66,39 @@ namespace Source.Scripts.Upgrades
 
         private void OnSetUpgradesValue()
         {
-            if (_upgradeService.TryGetUpgradeModels(out List<UpgradeModel> upgrades))
+            if (_upgradeService.TryGetUpgradeableModels(out List<UpgradeModel> upgradeModels))
             {
-                _upgradeLeftView.SetUpgrade(upgrades[0]);
-                _upgradeMiddleView.SetUpgrade(upgrades[1]);
-                _upgradeRightView.SetUpgrade(upgrades[2]);
+                _upgradeModels = upgradeModels;
+                
+                LoadUpgrades();
+                
+                _upgradeLeftView.SetUpgrade(GetUpgades());
+                _upgradeMiddleView.SetUpgrade(GetUpgades());
+                _upgradeRightView.SetUpgrade(GetUpgades());
             }
         }
 
-        // private UpgradeModel GetUpgades() => 
-        //     _upgradesQueue.Dequeue();
-
-        // private void LoadUpgrades()
-        // {
-        //     _maxRange = _upgrades.Length;
-        //     _upgradeIndexMiddle = Random.Range(0, _maxRange);
-        //     _upgradeIndexRight = Random.Range(0, _maxRange);
-        //     
-        //     _upgradesQueue.Enqueue(_upgrades[Random.Range(0, _maxRange)]);
-        //     
-        //     SetRandomUniqueIndex(_upgradeIndexMiddle);
-        //     SetRandomUniqueIndex(_upgradeIndexRight);
-        // }
-        //
-        // private void SetRandomUniqueIndex(int index)
-        // {
-        //     while (_upgradesQueue.Contains(_upgrades[index]))
-        //         index = Random.Range(0, _maxRange);
-        //
-        //     _upgradesQueue.Enqueue(_upgrades[index]);
-        // }
+        private UpgradeModel GetUpgades() => 
+            _upgradesQueue.Dequeue();
+        
+        private void LoadUpgrades()
+        {
+            _maxRange = _upgradeModels.Count;
+            _upgradeIndexMiddle = Random.Range(0, _maxRange);
+            _upgradeIndexRight = Random.Range(0, _maxRange);
+            
+            _upgradesQueue.Enqueue(_upgradeModels[Random.Range(0, _maxRange)]);
+            
+            SetRandomUniqueIndex(_upgradeIndexMiddle);
+            SetRandomUniqueIndex(_upgradeIndexRight);
+        }
+        
+        private void SetRandomUniqueIndex(int index)
+        {
+            while (_upgradesQueue.Contains(_upgradeModels[index]))
+                index = Random.Range(0, _maxRange);
+        
+            _upgradesQueue.Enqueue(_upgradeModels[index]);
+        }
     }
 }
