@@ -49,7 +49,7 @@ namespace Source.Scripts.Infrastructure
         private List<UpgradeModel> _upgradeModels;
         private UpgradeHandler _upgradeHandler;
 
-        private void Awake()
+        private void Start()
         {
             if (_player == null)
                 throw new ArgumentNullException(nameof(_player));
