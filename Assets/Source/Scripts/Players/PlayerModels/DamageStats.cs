@@ -2,6 +2,7 @@ using System;
 
 namespace Source.Scripts.Players.PlayerModels
 {
+    [Serializable]
     public class DamageStats
     {
         private int _damage;
@@ -42,12 +43,13 @@ namespace Source.Scripts.Players.PlayerModels
         public int ClipCapacity => _clipCapacity;
         public float ShootingDelay => _shootingDelay;
 
-        public void AddDamage(int value)
+        public void AddDamage(float value)
         {
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _damage += value;
+            // TODO: апкаст из-за целочисленного цикла спавна обоймы за спиной
+            _damage += (int)value;
             DamageChanged?.Invoke(_damage);
         }
 
@@ -69,12 +71,13 @@ namespace Source.Scripts.Players.PlayerModels
             VampirismChanged?.Invoke(_vampirism);
         }
         
-        public void AddClipCapacity(int value)
+        public void AddClipCapacity(float value)
         {
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _clipCapacity += value;
+            // TODO: пришлось апкастить, т.к. на целочисленное значение обоймы завязан цикл спавна патронов за спиной
+            _clipCapacity += (int)value;
             ClipCapacityChanged?.Invoke(_clipCapacity);
         }
 
@@ -83,7 +86,7 @@ namespace Source.Scripts.Players.PlayerModels
             if (value <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _shootingDelay += value;
+            _shootingDelay -= value;
             ShootingDelayChanged?.Invoke(_shootingDelay);
         }
     }

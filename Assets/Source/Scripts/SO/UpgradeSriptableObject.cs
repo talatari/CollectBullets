@@ -13,8 +13,8 @@ namespace Source.Scripts.SO
         [field: SerializeField] public int Id { get; private set; }
         [field: SerializeField] public string Name { get; private set; }
         
-        [field: SerializeField] public int Value { get; private set; }
-        [field: SerializeField] public int IncrementValue { get; private set; }
+        [field: SerializeField] public float Value { get; private set; }
+        [field: SerializeField] public float IncrementValue { get; private set; }
 
         [field: SerializeField] public int CurrentLevel { get; private set; }
         [field: SerializeField] public int MaxLevel { get; private set; }

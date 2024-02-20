@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e27faf5b6b142938e44de0da93b9c85, type: 3}
-  m_Name: Player
+  m_Name: DefaultStats
   m_EditorClassIdentifier: 
   <Damage>k__BackingField: 10
   <ClipCapacity>k__BackingField: 5

@@ -451,7 +451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 177638, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11496292, guid: 0abab5bb77339e4428787a870eb31bd3, type: 3}
       propertyPath: m_graphyMode
@@ -1272,7 +1272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2916196378260618822, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: m_Name
-      value: Right Upgrade Button+
+      value: Right Upgrade Button
       objectReference: {fileID: 0}
     - target: {fileID: 3225313104047554648, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: _abilityViewCanvas
@@ -1490,7 +1490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2916196378260618822, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: m_Name
-      value: Middle Upgrade Button+
+      value: Middle Upgrade Button
       objectReference: {fileID: 0}
     - target: {fileID: 3225313104047554648, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: _abilityViewCanvas

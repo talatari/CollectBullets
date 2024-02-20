@@ -2,6 +2,7 @@ using System;
 
 namespace Source.Scripts.Players.PlayerModels
 {
+    [Serializable]
     public class HealthStats
     {
         private int _maxHealth;
@@ -24,12 +25,13 @@ namespace Source.Scripts.Players.PlayerModels
         public int MaxHealth => _maxHealth;
         public float Regeneration => _regeneration;
         
-        public void AddMaxHealth(int value)
+        public void AddMaxHealth(float value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _maxHealth += value;
+            // TODO: апкаст из-за цикла спавна патронов за спиной
+            _maxHealth += (int)value;
             MaxHealthChanged?.Invoke(_maxHealth);
         }
         

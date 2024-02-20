@@ -23,8 +23,8 @@ namespace Source.Scripts.Upgrades
         public StatType StatType { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Value { get; set; }
-        public int IncrementValue { get; set; }
+        public float Value { get; set; }
+        public float IncrementValue { get; set; }
         public int CurrentLevel { get; set; }
         public int MaxLevel { get; set; }
         
