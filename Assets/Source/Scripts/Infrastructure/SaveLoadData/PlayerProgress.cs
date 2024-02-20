@@ -5,10 +5,14 @@ namespace Source.Scripts.Infrastructure.SaveLoadData
     [Serializable]
     public class PlayerProgress
     {
-        
-        public PlayerProgress()
+        public int CurrentLevel { get; private set; }
+
+        public void SetLevel(int value)
         {
-           
+            if (value <= 0)
+                throw new ArgumentOutOfRangeException(nameof(value));
+
+            CurrentLevel = value;
         }
     }
 }

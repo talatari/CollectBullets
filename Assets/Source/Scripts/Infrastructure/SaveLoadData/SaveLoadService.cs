@@ -17,7 +17,6 @@ namespace Source.Scripts.Infrastructure.SaveLoadData
             FileStream stream = new FileStream(path, FileMode.Create);
             PlayerProgress playerProgress = new PlayerProgress();
             
-            
             formatter.Serialize(stream, playerProgress);
             stream.Close();
         }
