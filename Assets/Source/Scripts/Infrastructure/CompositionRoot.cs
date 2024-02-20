@@ -73,6 +73,7 @@ namespace Source.Scripts.Infrastructure
             _player.Init(_stats, _upgradeHandler);
             
             _upgradeService = new UpgradeService(_saveLoadService, _upgradeModels);
+            _upgradeService.Init();
             _upgradePresenter.Init(_stats, _upgradeService);
             
             TargetProvider targetProvider = new TargetProvider();
@@ -81,7 +82,7 @@ namespace Source.Scripts.Infrastructure
             FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefabs, _enemiesParent, targetProvider);
             Pool<Enemy> poolEnemy = new Pool<Enemy>(factoryEnemy, _startEnemyCount);
             poolEnemy.Init();
-
+            
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
             _spawnerEnemy.Construct(poolEnemy, _spawnEnemyDelay, _maxEnemySpawnCount, _distanceRange);
             _spawnerEnemy.StartSpawn();

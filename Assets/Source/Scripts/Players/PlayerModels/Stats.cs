@@ -3,6 +3,7 @@ using Source.Scripts.Infrastructure.Pools.Interfaces;
 
 namespace Source.Scripts.Players.PlayerModels
 {
+    [Serializable]
     public class Stats
     {
         private DamageStats _damageStats;

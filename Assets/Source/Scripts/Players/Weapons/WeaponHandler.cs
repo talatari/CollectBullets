@@ -31,7 +31,6 @@ namespace Source.Scripts.Players.Weapons
                 throw new ArgumentNullException(nameof(damageStats));
 
             _damageStats = damageStats;
-            _projectilePrefab.Init(_damageStats.Damage, _damageStats.Burning, _damageStats.Vampirism);
 
             _weapon = new Weapon(_damageStats.ClipCapacity);
             _cooldownTimer = new CooldownTimer(_damageStats.ShootingDelay);
@@ -115,6 +114,8 @@ namespace Source.Scripts.Players.Weapons
                         _projectilePrefab, new Vector3(
                             transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
                     
+                    projectileForPistol.Init(_damageStats.Damage, _damageStats.Burning, _damageStats.Vampirism);
+
                     // TODO: использовать пул 
                     // ProjectileForPistol projectileForPistol = _projectilePool.Get();
                     

@@ -2,6 +2,7 @@ using System;
 
 namespace Source.Scripts.Players.PlayerModels
 {
+    [Serializable]
     public class CommonStats
     {
         private float _magnet;

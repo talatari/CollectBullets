@@ -111,7 +111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92b9385996944f50a44993ece3cf6021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
 --- !u!114 &2350820542180912140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +218,10 @@ PrefabInstance:
     - target: {fileID: 6214601415472691815, guid: cacf370e7830e44bc99d3af647058447, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559638282746488451, guid: cacf370e7830e44bc99d3af647058447, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 2047
       objectReference: {fileID: 0}
     - target: {fileID: 9005790142449330271, guid: cacf370e7830e44bc99d3af647058447, type: 3}
       propertyPath: m_Pivot.x

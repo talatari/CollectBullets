@@ -17,6 +17,11 @@ namespace Source.Scripts.Upgrades
             _upgradeModels = upgradeModels ?? throw new ArgumentNullException(nameof(upgradeModels));
         }
 
+        public void Init()
+        {
+            
+        }
+
         public bool TryGetUpgradeableModels(out List<UpgradeModel> upgradeModels)
         {
             upgradeModels = _upgradeModels.Where(model => model.IsUpgradeable).ToList();
@@ -30,13 +35,8 @@ namespace Source.Scripts.Upgrades
         public PlayerProgress LoadPlayerProgress() => 
             _saveLoadService.LoadPlayerProgress();
 
-        public void SavePlayerProgress(Stats stats)
-        {
-            if (stats == null)
-                throw new ArgumentNullException(nameof(stats));
-            
-            _saveLoadService.SavePlayerProgress(stats);
-        }
+        public void SavePlayerProgress() => 
+            _saveLoadService.SavePlayerProgress();
 
         public void Upgrade(int id) => 
             _upgradeModels.First(model => model.Id == id).Upgrade();
