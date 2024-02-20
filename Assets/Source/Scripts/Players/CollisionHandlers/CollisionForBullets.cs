@@ -41,7 +41,7 @@ namespace Source.Scripts.Players.CollisionHandlers
             OverlapBullets();
         }
 
-        public void SetMagnet(float value)
+        public void SetMagnet(int value)
         {
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));

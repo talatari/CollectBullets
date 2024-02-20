@@ -82,7 +82,7 @@ namespace Source.Scripts.Behaviour
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
 
-        private void OnSetRegeneration(float regeneration) => 
+        private void OnSetRegeneration(int regeneration) => 
             _regeneration = regeneration;
 
         private IEnumerator Regeneration()

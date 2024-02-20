@@ -73,7 +73,6 @@ namespace Source.Scripts.Infrastructure
             _player.Init(_stats, _upgradeHandler);
             
             _upgradeService = new UpgradeService(_saveLoadService, _upgradeModels);
-            _upgradeService.Init();
             _upgradePresenter.Init(_stats, _upgradeService);
             
             TargetProvider targetProvider = new TargetProvider();

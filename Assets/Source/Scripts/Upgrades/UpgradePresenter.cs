@@ -24,22 +24,27 @@ namespace Source.Scripts.Upgrades
         private UpgradeService _upgradeService;
         private PlayerProgress _playerProgress;
         private List<UpgradeModel> _upgradeModels;
+        private bool _isInit;
 
         public void Init(Stats stats, UpgradeService upgradeService)
         {
             _stats = stats ?? throw new ArgumentNullException(nameof(stats));
             _upgradeService = upgradeService ?? throw new ArgumentNullException(nameof(upgradeService));
+
+            _isInit = true;
         }
 
         private void OnEnable()
         {
+            // TODO: impl TimePauseService
             Time.timeScale = 0;
             
             _upgradeLeftView.OnUpgradeButtonClick += OnUpgradeButtonClick;
             _upgradeMiddleView.OnUpgradeButtonClick += OnUpgradeButtonClick;
             _upgradeRightView.OnUpgradeButtonClick += OnUpgradeButtonClick;
             
-            OnSetUpgradesValue();
+            if (_isInit)
+                OnSetUpgradesValue();
 
             if (_rerollOnAdv == null)
                 return;
@@ -49,6 +54,7 @@ namespace Source.Scripts.Upgrades
 
         private void OnDisable()
         {
+            // TODO: impl TimePauseService
             Time.timeScale = 1;
             
             _upgradeLeftView.OnUpgradeButtonClick -= OnUpgradeButtonClick;

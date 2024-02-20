@@ -29,7 +29,7 @@ namespace Source.Scripts.Players
             _stats = stats ?? throw new ArgumentNullException(nameof(stats));
             _upgradeHandler = upgradeHandler ?? throw new ArgumentNullException(nameof(upgradeHandler));
             
-            _upgradeHandler.UpdateStats();
+            _upgradeHandler.Init();
             
             _mover.Init(_stats.CommonStats.Speed);
             _weaponHandler.Init(_stats.DamageStats);

@@ -14,14 +14,14 @@ namespace Source.Scripts.Players.Projectiles
         [SerializeField] private ProjectileScriptableObject _projectileScriptableObject;
 
         private int _damage;
-        private float _burning;
-        private float _vampirism;
-        private float _speed;
+        private int _burning;
+        private int _vampirism;
+        private int _speed;
+        private float _radius;
         private Vector3 _direction;
         private Collider[] _enemyColliders = new Collider[MaxOverlap];
-        private float _radius;
 
-        public void Init(int damage, float burning, float vampirism)
+        public void Init(int damage, int burning, int vampirism)
         {
             if (damage <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
@@ -60,7 +60,7 @@ namespace Source.Scripts.Players.Projectiles
             _damage = value;
         }
 
-        public void SetBurning(float value)
+        public void SetBurning(int value)
         {
             if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
@@ -68,7 +68,7 @@ namespace Source.Scripts.Players.Projectiles
             _burning = value;
         }
 
-        public void SetVampirism(float value)
+        public void SetVampirism(int value)
         {
             if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));

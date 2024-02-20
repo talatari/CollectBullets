@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Source.Scripts.Infrastructure.SaveLoadData;
-using Source.Scripts.Players.PlayerModels;
 
 namespace Source.Scripts.Upgrades
 {
@@ -15,11 +14,6 @@ namespace Source.Scripts.Upgrades
         {
             _saveLoadService = saveLoadService ?? throw new ArgumentNullException(nameof(saveLoadService));
             _upgradeModels = upgradeModels ?? throw new ArgumentNullException(nameof(upgradeModels));
-        }
-
-        public void Init()
-        {
-            
         }
 
         public bool TryGetUpgradeableModels(out List<UpgradeModel> upgradeModels)
