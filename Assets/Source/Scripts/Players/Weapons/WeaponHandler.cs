@@ -102,6 +102,9 @@ namespace Source.Scripts.Players.Weapons
         private void OnShootingDelayChanged(int shootingDelay)
         {
             float newShootingDelay = _baseDelay - (shootingDelay - _baseDelay) * RatioDecrement;
+
+            if (newShootingDelay < RatioDecrement)
+                newShootingDelay = RatioDecrement;
             
             _cooldownTimer.SetCooldown(newShootingDelay);
         }
