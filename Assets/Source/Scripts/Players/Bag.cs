@@ -16,6 +16,8 @@ namespace Source.Scripts.Players
         {
             if (capacity <= 0)
                 throw new ArgumentOutOfRangeException(nameof(capacity));
+
+            ClearBag();
             
             _collectedBullets = new List<GameObject>();
             
@@ -34,6 +36,13 @@ namespace Source.Scripts.Players
 
             for (int i = 0; i < _activatedBulletsCount; i++)
                 _collectedBullets[i].SetActive(true);
+        }
+
+        private void ClearBag()
+        {
+            if (_collectedBullets != null)
+                foreach (GameObject collectedBullet in _collectedBullets)
+                    Destroy(collectedBullet);
         }
 
         public void CollectBullet(int collectedBullets)

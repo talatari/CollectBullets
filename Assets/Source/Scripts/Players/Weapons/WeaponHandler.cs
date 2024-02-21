@@ -57,8 +57,8 @@ namespace Source.Scripts.Players.Weapons
         {
             if (_isInit == false)
                 return;
-            
-            _cooldownTimer.Tick(Time.deltaTime);
+
+            _cooldownTimer?.Tick(Time.deltaTime);
         }
 
         private void OnDisable()

@@ -15,8 +15,6 @@ namespace Source.Scripts.Players.CollisionHandlers
         private WeaponHandler _weaponHandler;
         private CommonStats _commonStats;
         private float _radiusPickUpBullets;
-        private int _collectedBullets;
-        private int _clipCapacity;
         private int _baseMagnet;
         private bool _isInit;
 
@@ -31,8 +29,6 @@ namespace Source.Scripts.Players.CollisionHandlers
 
             _baseMagnet = magnet;
             _radiusPickUpBullets = _baseMagnet;
-            _collectedBullets = _weaponHandler.CollectedBullets;
-            _clipCapacity = _weaponHandler.ClipCapacity;
 
             _isInit = true;
         }
@@ -57,7 +53,7 @@ namespace Source.Scripts.Players.CollisionHandlers
 
         private void OverlapBullets()
         {
-            if (_collectedBullets >= _clipCapacity)
+            if (_weaponHandler.CollectedBullets >= _weaponHandler.ClipCapacity)
                 return;
             
             int bulletsAmount = Physics.OverlapSphereNonAlloc(

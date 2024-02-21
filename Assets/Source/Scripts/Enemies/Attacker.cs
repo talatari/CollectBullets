@@ -46,7 +46,7 @@ namespace Source.Scripts.Enemies
         {
             OverlapPlayer();
             
-            _cooldownTimer.Tick(Time.deltaTime);
+            _cooldownTimer?.Tick(Time.deltaTime);
         }
 
         private void OverlapPlayer()
