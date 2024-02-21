@@ -7,6 +7,8 @@ namespace Source.Scripts.Players.CollisionHandlers
 {
     public class CollisionForBullets : CollisionHandler
     {
+        private const float RatioIncrement = 0.5f;
+        
         [SerializeField] private LayerMask _bulletLayer;
 
         private Collider[] _bulletColliders = new Collider[MaxOverlap];
@@ -16,17 +18,19 @@ namespace Source.Scripts.Players.CollisionHandlers
         private int _collectedBullets;
         private int _clipCapacity;
         private bool _isInit;
+        private int _baseMagnet;
 
         public event Action BulletCollected;
         
-        public void Init(WeaponHandler weaponHandler, float magnet)
+        public void Init(WeaponHandler weaponHandler, int magnet)
         {
             _weaponHandler = weaponHandler ? weaponHandler : throw new ArgumentNullException(nameof(weaponHandler));
             
             if (magnet <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(magnet));
 
-            _radiusPickUpBullets = magnet;
+            _baseMagnet = magnet;
+            _radiusPickUpBullets = _baseMagnet;
             _collectedBullets = _weaponHandler.CollectedBullets;
             _clipCapacity = _weaponHandler.ClipCapacity;
 
@@ -41,12 +45,14 @@ namespace Source.Scripts.Players.CollisionHandlers
             OverlapBullets();
         }
 
-        public void SetMagnet(int value)
+        public void SetMagnet(int magnet)
         {
-            if (value <= 0)
-                throw new ArgumentOutOfRangeException(nameof(value));
+            if (magnet <= 0)
+                throw new ArgumentOutOfRangeException(nameof(magnet));
 
-            _radiusPickUpBullets = value;
+            float newMagnet = _baseMagnet + (magnet - _baseMagnet) * RatioIncrement;
+            
+            _radiusPickUpBullets = newMagnet;
         }
 
         private void OverlapBullets()
