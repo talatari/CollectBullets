@@ -17,8 +17,8 @@ namespace Source.Scripts.Players.CollisionHandlers
         private float _radiusPickUpBullets;
         private int _collectedBullets;
         private int _clipCapacity;
-        private bool _isInit;
         private int _baseMagnet;
+        private bool _isInit;
 
         public event Action BulletCollected;
         

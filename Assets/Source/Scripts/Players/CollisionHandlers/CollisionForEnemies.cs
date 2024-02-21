@@ -6,6 +6,8 @@ namespace Source.Scripts.Players.CollisionHandlers
 {
     public class CollisionForEnemies : CollisionHandler
     {
+        private const float RatioIncrement = 0.5f;
+        
         [SerializeField] private LayerMask _enemyLayer;
         [SerializeField] private RadiusEnemyDetectChanger _radiusEnemyDetectChanger;
         
@@ -13,9 +15,10 @@ namespace Source.Scripts.Players.CollisionHandlers
         private Collider[] _enemyColliders = new Collider[MaxOverlap];
         private Vector3 _rotateDirection;
         private float _freeze;
+        private int _baseFreeze;
         private bool _isInit;
 
-        public void Init(Player player, float freeze)
+        public void Init(Player player, int freeze)
         {
             if (player == null) 
                 throw new ArgumentNullException(nameof(player));
@@ -23,7 +26,9 @@ namespace Source.Scripts.Players.CollisionHandlers
                 throw new ArgumentOutOfRangeException(nameof(freeze));
 
             _player = player;
-            _freeze = freeze;
+            
+            _baseFreeze = freeze;
+            _freeze = _baseFreeze;
 
             _isInit = true;
         }
@@ -36,12 +41,14 @@ namespace Source.Scripts.Players.CollisionHandlers
             OverlapEnemies();
         }
 
-        public void SetFreeze(int value)
+        public void SetFreeze(int freeze)
         {
-            if (value < 0) 
-                throw new ArgumentOutOfRangeException(nameof(value));
+            if (freeze < 0) 
+                throw new ArgumentOutOfRangeException(nameof(freeze));
 
-            _freeze = value;
+            float newFreeze = _baseFreeze + (freeze - _baseFreeze) * RatioIncrement;
+            
+            _freeze = newFreeze;
         }
 
         private void OverlapEnemies()
