@@ -88,7 +88,7 @@ namespace Source.Scripts.Players.Projectiles
                 return;
             
             // TODO: проверить остальные Overlap методы на соответствие одному виду использования
-            if (_enemyColliders.First(x => x != null).TryGetComponent(out Enemy enemy))
+            if (_enemyColliders.First(enemyCollider => enemyCollider != null).TryGetComponent(out Enemy enemy))
             {
                 enemy.TakeDamage(_damage);
                 Destroy(gameObject);

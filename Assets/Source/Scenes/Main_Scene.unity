@@ -2122,6 +2122,10 @@ PrefabInstance:
       propertyPath: _rotator
       value: 
       objectReference: {fileID: 5569014827955207575}
+    - target: {fileID: 4567933746442163989, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 2047
+      objectReference: {fileID: 0}
     - target: {fileID: 8804953029546196655, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
       propertyPath: m_Pivot.x
       value: 0

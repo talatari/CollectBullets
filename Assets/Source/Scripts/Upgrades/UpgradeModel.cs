@@ -28,7 +28,7 @@ namespace Source.Scripts.Upgrades
         public int CurrentLevel { get; set; }
         public int MaxLevel { get; set; }
         
-        public bool IsUpgradeable => CurrentLevel < MaxLevel;
+        public bool IsUpgradeable => CurrentLevel <= MaxLevel;
         
         public void Upgrade()
         {
