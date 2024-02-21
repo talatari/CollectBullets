@@ -9,6 +9,9 @@ namespace Source.Scripts.Players.Weapons
 {
     public class WeaponHandler : MonoBehaviour
     {
+        private const float RatioDecrement = 0.05f;
+        private const int BaseDelay = 1;
+            
         [SerializeField] private ProjectileForPistol _projectilePrefab;
         
         private Weapon _weapon;
@@ -94,8 +97,12 @@ namespace Source.Scripts.Players.Weapons
             _shootingCoroutine = null;
         }
 
-        private void OnShootingDelayChanged(int shootingDelay) => 
-            _cooldownTimer.SetCooldown(shootingDelay);
+        private void OnShootingDelayChanged(int shootingDelay)
+        {
+            float newShootingDelay = BaseDelay - (shootingDelay - BaseDelay) * RatioDecrement;
+            
+            _cooldownTimer.SetCooldown(newShootingDelay);
+        }
 
         private void OnCollectedBulletsChanged(int collectedBullets) => 
             _collectedBullets = collectedBullets;
