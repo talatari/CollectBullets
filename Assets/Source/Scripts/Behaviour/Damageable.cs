@@ -7,14 +7,14 @@ namespace Source.Scripts.Behaviour
 {
     public class Damageable : MonoBehaviour
     {
-        private const float RatioIncrement = 0.5f;
+        private const float RegenerationDelay = 1f;
         
         private int _minHealth = 0;
         private int _maxHealth;
         private int _currentHealth;
-        private float _regeneration;
-        private int _baseRegeneration;
+        private int _regeneration;
         private HealthStats _healthStats;
+        private Coroutine _coroutineRegeneration;
         private bool _isInit;
 
         public event Action Died;
@@ -35,9 +35,7 @@ namespace Source.Scripts.Behaviour
             _healthStats = healthStats ?? throw new ArgumentNullException(nameof(healthStats));
             
             Init(_healthStats.MaxHealth);
-            
-            _baseRegeneration = _healthStats.Regeneration;
-            _regeneration = _baseRegeneration;
+            _regeneration = _healthStats.Regeneration;
 
             _isInit = true;
             
@@ -52,6 +50,8 @@ namespace Source.Scripts.Behaviour
             
             _healthStats.MaxHealthChanged -= OnSetMaxHealth;
             _healthStats.RegenerationChanged -= OnSetRegeneration;
+
+            StopRegeneration();
         }
 
         public void TakeDamage(int damage)
@@ -66,13 +66,14 @@ namespace Source.Scripts.Behaviour
                 Died?.Invoke();
         }
 
-        public void FullRecovery()
+        // TODO: use for complite level
+        private void FullRecovery()
         {
             _currentHealth = _maxHealth;
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
 
-        public void Heal(int heal)
+        private void Heal(int heal)
         {
             if (heal <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(heal));
@@ -89,15 +90,34 @@ namespace Source.Scripts.Behaviour
 
         private void OnSetRegeneration(int regeneration)
         {
-            float newRegeneration = _baseRegeneration + (regeneration - _baseRegeneration) * RatioIncrement;
-            
-            _regeneration = newRegeneration;
+            _regeneration = regeneration;
+
+            StartRegeneration();
+        }
+
+        private void StartRegeneration()
+        {
+            StopRegeneration();
+
+            _coroutineRegeneration = StartCoroutine(Regeneration());
+        }
+
+        private void StopRegeneration()
+        {
+            if (_coroutineRegeneration != null)
+                StopCoroutine(_coroutineRegeneration);
         }
 
         private IEnumerator Regeneration()
         {
-            // TODO: implement
-            return null;
+            WaitForSeconds regenerationDelay = new WaitForSeconds(RegenerationDelay);
+            
+            while (enabled)
+            {
+                Heal(_regeneration);
+                
+                yield return regenerationDelay;
+            }
         }
     }
 }
