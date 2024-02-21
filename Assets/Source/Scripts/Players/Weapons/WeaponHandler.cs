@@ -10,7 +10,6 @@ namespace Source.Scripts.Players.Weapons
     public class WeaponHandler : MonoBehaviour
     {
         private const float RatioDecrement = 0.05f;
-        private const int BaseDelay = 1;
             
         [SerializeField] private ProjectileForPistol _projectilePrefab;
         
@@ -21,6 +20,7 @@ namespace Source.Scripts.Players.Weapons
         private CooldownTimer _cooldownTimer;
         private DamageStats _damageStats;
         private int _collectedBullets;
+        private int _baseDelay;
         private bool _isInit;
 
         public event Action Shoted;
@@ -36,7 +36,9 @@ namespace Source.Scripts.Players.Weapons
             _damageStats = damageStats;
 
             _weapon = new Weapon(_damageStats.ClipCapacity);
-            _cooldownTimer = new CooldownTimer(_damageStats.ShootingDelay);
+
+            _baseDelay = _damageStats.ShootingDelay;
+            _cooldownTimer = new CooldownTimer(_baseDelay);
             // TODO: create IFactory<ProjectileForPistol> -> pool
             // TODO: create pool projectile
             
@@ -99,7 +101,7 @@ namespace Source.Scripts.Players.Weapons
 
         private void OnShootingDelayChanged(int shootingDelay)
         {
-            float newShootingDelay = BaseDelay - (shootingDelay - BaseDelay) * RatioDecrement;
+            float newShootingDelay = _baseDelay - (shootingDelay - _baseDelay) * RatioDecrement;
             
             _cooldownTimer.SetCooldown(newShootingDelay);
         }
