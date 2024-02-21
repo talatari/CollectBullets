@@ -7,10 +7,13 @@ namespace Source.Scripts.Behaviour
 {
     public class Damageable : MonoBehaviour
     {
+        private const float RatioIncrement = 0.5f;
+        
         private int _minHealth = 0;
         private int _maxHealth;
         private int _currentHealth;
         private float _regeneration;
+        private int _baseRegeneration;
         private HealthStats _healthStats;
         private bool _isInit;
 
@@ -32,7 +35,9 @@ namespace Source.Scripts.Behaviour
             _healthStats = healthStats ?? throw new ArgumentNullException(nameof(healthStats));
             
             Init(_healthStats.MaxHealth);
-            _regeneration = _healthStats.Regeneration;
+            
+            _baseRegeneration = _healthStats.Regeneration;
+            _regeneration = _baseRegeneration;
 
             _isInit = true;
             
@@ -82,8 +87,12 @@ namespace Source.Scripts.Behaviour
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
 
-        private void OnSetRegeneration(int regeneration) => 
-            _regeneration = regeneration;
+        private void OnSetRegeneration(int regeneration)
+        {
+            float newRegeneration = _baseRegeneration + (regeneration - _baseRegeneration) * RatioIncrement;
+            
+            _regeneration = newRegeneration;
+        }
 
         private IEnumerator Regeneration()
         {
