@@ -74,21 +74,27 @@ namespace Source.Scripts.Upgrades
         {
             if (_upgradeService.TryGetUpgradeableModels(out List<UpgradeModel> upgradeModels))
             {
+                if (upgradeModels.Count == 0)
+                    return;
+                
                 _upgradeModels = upgradeModels;
                 
                 LoadUpgrades();
                 
-                // TODO: QUESTIONS: как сюда прокинуть текущее значения стата игрока для выбранного улучшения
-                // по типу свитча в UpgradeHandler?
                 _upgradeLeftView.SetUpgrade(GetUpgades());
                 _upgradeMiddleView.SetUpgrade(GetUpgades());
                 _upgradeRightView.SetUpgrade(GetUpgades());
             }
         }
 
-        private UpgradeModel GetUpgades() => 
-            _upgradesQueue.Dequeue();
-        
+        private UpgradeModel GetUpgades()
+        {
+            if (_upgradesQueue.Count == 0)
+                return null;
+            
+            return _upgradesQueue.Dequeue();
+        }
+
         private void LoadUpgrades()
         {
             _maxRange = _upgradeModels.Count;
@@ -103,6 +109,9 @@ namespace Source.Scripts.Upgrades
         
         private void SetRandomUniqueIndex(int index)
         {
+            if (_upgradeModels.Count == _upgradesQueue.Count)
+                return;
+            
             while (_upgradesQueue.Contains(_upgradeModels[index]))
                 index = Random.Range(0, _maxRange);
         
