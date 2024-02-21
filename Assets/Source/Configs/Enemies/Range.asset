@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295fc083385649cca3b650b4a9b68145, type: 3}
   m_Name: Range
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 3
-  <MaxHealth>k__BackingField: 10
+  <Speed>k__BackingField: 0.005
+  <MaxHealth>k__BackingField: 60
   <Damage>k__BackingField: 5
   <DistanceAttack>k__BackingField: 2.5
   <AttackCooldown>k__BackingField: 2
