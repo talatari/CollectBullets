@@ -24,6 +24,7 @@ namespace Source.Scripts.Players.Weapons
         private bool _isInit;
 
         public event Action Shoted;
+        public event Action<int> Vampired; 
 
         public int ClipCapacity => _weapon.ClipCapacity;
         public int CollectedBullets => _collectedBullets;
@@ -41,18 +42,17 @@ namespace Source.Scripts.Players.Weapons
             _cooldownTimer = new CooldownTimer(_baseDelay);
             // TODO: create IFactory<ProjectileForPistol> -> pool
             // TODO: create pool projectile
-            
+
             _damageStats.DamageChanged += _projectilePrefab.SetDamage;
             _damageStats.BurningChanged += _projectilePrefab.SetBurning;
             _damageStats.VampirismChanged += _projectilePrefab.SetVampirism;
             _damageStats.ClipCapacityChanged += _weapon.SetClipCapacity;
             _damageStats.ShootingDelayChanged += OnShootingDelayChanged;
-            
             _weapon.CollectedBulletsChanged += OnCollectedBulletsChanged;
 
             _isInit = true;
         }
-        
+
         private void Update()
         {
             if (_isInit == false)
@@ -66,12 +66,12 @@ namespace Source.Scripts.Players.Weapons
             if (_isInit == false)
                 return;
 
+            _projectilePrefab.Vampired -= OnVampired;
             _damageStats.DamageChanged -= _projectilePrefab.SetDamage;
             _damageStats.BurningChanged -= _projectilePrefab.SetBurning;
             _damageStats.VampirismChanged -= _projectilePrefab.SetVampirism;
             _damageStats.ClipCapacityChanged -= _weapon.SetClipCapacity;
             _damageStats.ShootingDelayChanged -= OnShootingDelayChanged;
-            
             _weapon.CollectedBulletsChanged -= OnCollectedBulletsChanged;
 
             StopShooting();
@@ -97,6 +97,13 @@ namespace Source.Scripts.Players.Weapons
                 StopCoroutine(_shootingCoroutine);
             
             _shootingCoroutine = null;
+        }
+
+        private void OnVampired(ProjectileForPistol projectileForPistol, int vampirism)
+        {
+            Vampired?.Invoke(vampirism);
+            
+            projectileForPistol.Vampired -= OnVampired;
         }
 
         private void OnShootingDelayChanged(int shootingDelay)
@@ -127,6 +134,7 @@ namespace Source.Scripts.Players.Weapons
                             transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
                     
                     projectileForPistol.Init(_damageStats.Damage, _damageStats.Burning, _damageStats.Vampirism);
+                    projectileForPistol.Vampired += OnVampired;
 
                     // TODO: использовать пул 
                     // ProjectileForPistol projectileForPistol = _projectilePool.Get();

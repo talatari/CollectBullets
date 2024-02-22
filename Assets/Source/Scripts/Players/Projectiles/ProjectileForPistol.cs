@@ -21,6 +21,8 @@ namespace Source.Scripts.Players.Projectiles
         private Vector3 _direction;
         private Collider[] _enemyColliders = new Collider[MaxOverlap];
 
+        public event Action<ProjectileForPistol, int> Vampired; 
+
         public void Init(int damage, int burning, int vampirism)
         {
             if (damage <= 0) 
@@ -87,10 +89,13 @@ namespace Source.Scripts.Players.Projectiles
             if (enemiesAmount == 0)
                 return;
             
-            // TODO: проверить остальные Overlap методы на соответствие одному виду использования
             if (_enemyColliders.First(enemyCollider => enemyCollider != null).TryGetComponent(out Enemy enemy))
             {
                 enemy.TakeDamage(_damage);
+
+                if (_vampirism > 0)
+                    Vampired?.Invoke(this, _vampirism);
+                
                 Destroy(gameObject);
             }
         }

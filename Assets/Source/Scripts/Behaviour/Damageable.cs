@@ -66,19 +66,19 @@ namespace Source.Scripts.Behaviour
                 Died?.Invoke();
         }
 
-        // TODO: use for complite level
-        private void FullRecovery()
-        {
-            _currentHealth = _maxHealth;
-            HealthChanged?.Invoke(_currentHealth, _maxHealth);
-        }
-
-        private void Heal(int heal)
+        public void Heal(int heal)
         {
             if (heal <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(heal));
             
             _currentHealth = Mathf.Clamp(_currentHealth += heal, _minHealth, _maxHealth);
+            HealthChanged?.Invoke(_currentHealth, _maxHealth);
+        }
+
+        // TODO: use for complite level
+        private void FullRecovery()
+        {
+            _currentHealth = _maxHealth;
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
 
