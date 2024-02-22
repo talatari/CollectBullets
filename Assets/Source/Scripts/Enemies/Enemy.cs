@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Source.Scripts.Behaviour;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
 using Source.Scripts.SO;
@@ -9,6 +10,8 @@ namespace Source.Scripts.Enemies
     [RequireComponent(typeof(Mover))]
     public class Enemy : MonoBehaviour, IPoolable
     {
+        private const int BurningDuration = 5;
+        
         [SerializeField] private EnemyScriptableObject _enemyScriptableObject;
         [SerializeField] private Mover _mover;
         [SerializeField] private Damageable _health;
@@ -80,10 +83,25 @@ namespace Source.Scripts.Enemies
             _health.TakeDamage(damage);
         }
 
+        public void Burn(int damage) => 
+            StartCoroutine(Burning(damage));
+
         private void OnMoveStop() => 
             _mover.SetTarget(null);
 
         private void OnMoveContinue() => 
             _mover.SetTarget(_target);
+
+        private IEnumerator Burning(int damage)
+        {
+            WaitForSeconds delay = new WaitForSeconds(1);
+            
+            for (int i = 0; i < BurningDuration; i++)
+            {
+                _health.TakeDamage(damage);
+                
+                yield return delay;
+            }
+        }
     }
 }
