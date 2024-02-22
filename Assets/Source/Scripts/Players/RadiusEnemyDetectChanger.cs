@@ -7,7 +7,7 @@ namespace Source.Scripts.Players
     {
         [SerializeField] private Image _image;
         [SerializeField, Range(5f, 20f)] private float _diameter = 8f;
-
+ 
         private float _radius;
         
         public float Radius => _radius;

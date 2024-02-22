@@ -2,15 +2,17 @@ using System;
 using Source.Scripts.Players.PlayerModels;
 using Source.Scripts.Players.Weapons;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Source.Scripts.Players.CollisionHandlers
 {
     public class CollisionForBullets : CollisionHandler
     {
-        private const float RatioIncrement = 0.5f;
+        private const float RatioIncrement = 0.35f;
         
         [SerializeField] private LayerMask _bulletLayer;
-
+        [SerializeField] private Image _rangePickUpBulletsImage;
+        
         private Collider[] _bulletColliders = new Collider[MaxOverlap];
         private WeaponHandler _weaponHandler;
         private CommonStats _commonStats;
@@ -29,8 +31,10 @@ namespace Source.Scripts.Players.CollisionHandlers
 
             _baseMagnet = magnet;
             _radiusPickUpBullets = _baseMagnet;
-
+            
             _isInit = true;
+            
+            SetupPickUpBulletsDiameter();
         }
 
         private void Update()
@@ -49,6 +53,19 @@ namespace Source.Scripts.Players.CollisionHandlers
             float newMagnet = _baseMagnet + (magnet - _baseMagnet) * RatioIncrement;
             
             _radiusPickUpBullets = newMagnet;
+            
+            SetupPickUpBulletsDiameter();
+        }
+
+        private void SetupPickUpBulletsDiameter()
+        {
+            if (_rangePickUpBulletsImage == null)
+                return;
+            
+            float diameterPickUpBullets = _radiusPickUpBullets * 2;
+            
+            _rangePickUpBulletsImage.transform.localScale = new Vector3(
+                diameterPickUpBullets, diameterPickUpBullets, diameterPickUpBullets);
         }
 
         private void OverlapBullets()
