@@ -10,7 +10,8 @@ namespace Source.Scripts.Enemies
     [RequireComponent(typeof(Mover))]
     public class Enemy : MonoBehaviour, IPoolable
     {
-        private const int BurningDuration = 5;
+        // TODO: вынести в SO и прокидывать через метод вместе с уроном от горения
+        private const int BurningDuration = 3;
         
         [SerializeField] private EnemyScriptableObject _enemyScriptableObject;
         [SerializeField] private Mover _mover;
@@ -85,6 +86,9 @@ namespace Source.Scripts.Enemies
 
         public void Burn(int damage) => 
             StartCoroutine(Burning(damage));
+
+        public void Freeze(float freeze) => 
+            _mover.Freeze(freeze);
 
         private void OnMoveStop() => 
             _mover.SetTarget(null);

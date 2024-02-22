@@ -6,7 +6,7 @@ namespace Source.Scripts.Players.CollisionHandlers
 {
     public class CollisionForEnemies : CollisionHandler
     {
-        private const float RatioIncrement = 0.5f;
+        private const float RatioIncrement = 0.15f;
         
         [SerializeField] private LayerMask _enemyLayer;
         [SerializeField] private RadiusEnemyDetectChanger _radiusEnemyDetectChanger;
@@ -71,6 +71,9 @@ namespace Source.Scripts.Players.CollisionHandlers
             
                 if (_enemyColliders[i].TryGetComponent(out Enemy enemy))
                 {
+                    if (_freeze > _baseFreeze)
+                        enemy.Freeze(_freeze);
+                    
                     magnitude = (
                         _enemyColliders[i].ClosestPoint(transform.position) - _player.transform.position).magnitude;
                 
