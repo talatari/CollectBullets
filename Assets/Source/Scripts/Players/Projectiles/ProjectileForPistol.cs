@@ -92,6 +92,9 @@ namespace Source.Scripts.Players.Projectiles
             if (_enemyColliders.First(enemyCollider => enemyCollider != null).TryGetComponent(out Enemy enemy))
             {
                 enemy.TakeDamage(_damage);
+                
+                if (_burning > 0)
+                    enemy.Burn(_burning);
 
                 if (_vampirism > 0)
                     Vampired?.Invoke(this, _vampirism);
