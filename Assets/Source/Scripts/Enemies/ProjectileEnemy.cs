@@ -46,7 +46,7 @@ namespace Source.Scripts.Enemies
             if (playerColliders == 0)
                 return;
             
-            if (_playerColliders.First(x => x != null).TryGetComponent(out Player player))
+            if (_playerColliders.First(playerCollider => playerCollider != null).TryGetComponent(out Player player))
             {
                 player.TakeDamage(_damage);
                 Destroy(gameObject);

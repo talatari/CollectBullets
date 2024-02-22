@@ -44,6 +44,7 @@ namespace Source.Scripts.Players
             _stats.DamageStats.ClipCapacityChanged += _bag.CreateClip;
             _collisionForBullets.BulletCollected += OnCollected;
             _weaponHandler.Shoted += OnShoted;
+            _weaponHandler.Vampired += OnVampire;
 
             _isInit = true;
         }
@@ -59,6 +60,7 @@ namespace Source.Scripts.Players
             _stats.DamageStats.ClipCapacityChanged -= _bag.CreateClip;
             _collisionForBullets.BulletCollected -= OnCollected;
             _weaponHandler.Shoted -= OnShoted;
+            _weaponHandler.Vampired -= OnVampire;
             _upgradeHandler.Dispose();
         }
 
@@ -80,6 +82,9 @@ namespace Source.Scripts.Players
             
             _health.TakeDamage(damage);
         }
+
+        private void OnVampire(int vampirism) => 
+            _health.Heal(vampirism);
 
         private void OnCollected()
         {
