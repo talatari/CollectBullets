@@ -83,7 +83,7 @@ namespace Source.Scripts.Infrastructure
             poolEnemy.Init();
             
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
-            _spawnerEnemy.Construct(poolEnemy, _spawnEnemyDelay, _maxEnemySpawnCount, _distanceRange);
+            _spawnerEnemy.Init(poolEnemy, _spawnEnemyDelay, _maxEnemySpawnCount, _distanceRange);
             _spawnerEnemy.StartSpawn();
             
             FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent);
@@ -91,7 +91,7 @@ namespace Source.Scripts.Infrastructure
             poolBullet.Init();
             
             _spawnerBullet = gameObject.AddComponent<SpawnerBullet>();
-            _spawnerBullet.Construct(poolBullet, _spawnBulletDelay, _maxBulletSpawnCount, _distanceRange);
+            _spawnerBullet.Init(poolBullet, _spawnBulletDelay, _maxBulletSpawnCount, _distanceRange);
             _spawnerBullet.StartSpawn();
         }
     }

@@ -17,7 +17,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         private float _distanceRange;
         private int _spawnedCount;
 
-        public void Construct(Pool<Bullet> poolBullet, float spawnDelay, int maxBulletSpawnCount, float distanceRange)
+        public void Init(Pool<Bullet> poolBullet, float spawnDelay, int maxBulletSpawnCount, float distanceRange)
         {
             if (poolBullet == null) 
                 throw new ArgumentNullException(nameof(poolBullet));
