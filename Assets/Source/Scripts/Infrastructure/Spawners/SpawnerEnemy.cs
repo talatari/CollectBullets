@@ -16,16 +16,8 @@ namespace Source.Scripts.Infrastructure.Spawners
         private int _maxEnemySpawnCount;
         private float _distanceRange;
         private int _spawnedCount;
-        
-        private void OnEnable()
-        {
-            if (_poolEnemy == null)
-                return;
-            
-            _poolEnemy.Init();
-        }
 
-        public void Construct(IPool<Enemy> poolEnemy, float spawnDelay, int maxEnemySpawnCount, float distanceRange)
+        public void Init(IPool<Enemy> poolEnemy, float spawnDelay, int maxEnemySpawnCount, float distanceRange)
         {
             if (poolEnemy == null)
                 throw new ArgumentNullException(nameof(poolEnemy));
@@ -43,6 +35,14 @@ namespace Source.Scripts.Infrastructure.Spawners
             _spawnDelay = spawnDelay;
             _maxEnemySpawnCount = maxEnemySpawnCount;
             _distanceRange = distanceRange;
+        }
+
+        private void OnEnable()
+        {
+            if (_poolEnemy == null)
+                return;
+            
+            _poolEnemy.Init();
         }
 
         private void OnDisable() => 
