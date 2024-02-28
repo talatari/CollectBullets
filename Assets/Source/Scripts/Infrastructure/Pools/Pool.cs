@@ -17,7 +17,7 @@ namespace Source.Scripts.Infrastructure.Pools
         {
             _factoryItems = factoryItems ?? throw new ArgumentNullException(nameof(factoryItems));
             
-            if (startItemsCount < 0) 
+            if (startItemsCount <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(startItemsCount));
             
             _startItemsCount = startItemsCount;

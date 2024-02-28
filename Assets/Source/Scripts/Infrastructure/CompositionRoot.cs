@@ -24,7 +24,7 @@ namespace Source.Scripts.Infrastructure
 
         [Header("Enemies")]
         [SerializeField] private List<Enemy> _enemyPrefabs;
-        [SerializeField] private int _startEnemyCount = 20;
+        [SerializeField] private WaveScriptableObject _waveScriptableObject;
         [SerializeField] private int _maxEnemySpawnCount = 100;
         [SerializeField] private float _spawnEnemyDelay = 1f;
         [SerializeField] private Transform _enemiesParent;
@@ -63,6 +63,9 @@ namespace Source.Scripts.Infrastructure
             
             if (_keyPrefab == null)
                 throw new Exception($"{nameof(_keyPrefab)} not found.");
+            
+            if (_waveScriptableObject == null)
+                throw new ArgumentNullException(nameof(_waveScriptableObject));
 
             FactoryDefaultStats factoryDefaultStats = new(_playerConfig);
             _stats = factoryDefaultStats.Create();
@@ -80,12 +83,12 @@ namespace Source.Scripts.Infrastructure
             targetProvider.SetTarget(_player.transform);
             
             FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefabs, _enemiesParent, targetProvider);
-            Pool<Enemy> poolEnemy = new Pool<Enemy>(factoryEnemy, _startEnemyCount);
+            Pool<Enemy> poolEnemy = new Pool<Enemy>(factoryEnemy, _waveScriptableObject.DefaultCount);
             poolEnemy.Init();
             
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
             _spawnerEnemy.Init(poolEnemy, _spawnEnemyDelay, _maxEnemySpawnCount, _distanceRange);
-            _spawnerWave.Init(spawnerEnemy: _spawnerEnemy);
+            _spawnerWave = new SpawnerWave(_spawnerEnemy, _waveScriptableObject);
             _spawnerWave.StartSpawn();
             
             FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent);

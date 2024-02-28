@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 295fc083385649cca3b650b4a9b68145, type: 3}
-  m_Name: Range
+  m_Script: {fileID: 11500000, guid: f965c0107c57416299b95d8ee87c270a, type: 3}
+  m_Name: WaveEnemies
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 0.1
-  <MaxHealth>k__BackingField: 10
-  <Damage>k__BackingField: 5
-  <DistanceAttack>k__BackingField: 2.5
-  <AttackCooldown>k__BackingField: 2
+  <DefaultCount>k__BackingField: 8
+  <IncrementCount>k__BackingField: 3
+  <DefaultDelay>k__BackingField: 1.5
+  <DecrementDelay>k__BackingField: 0.01
