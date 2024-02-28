@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Source.Scripts.SO
 {
-    [CreateAssetMenu(menuName = "Create ScriptableObject/Upgrade", fileName = "Upgrade", order = 0)]
+    [CreateAssetMenu(menuName = "Create ScriptableObject/Upgrade", fileName = "Upgrade", order = 3)]
     public class UpgradeSriptableObject : ScriptableObject
     {
         [field: SerializeField] public StatType StatType { get; private set; }

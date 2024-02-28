@@ -41,23 +41,22 @@ namespace Source.Scripts.Infrastructure.Spawners
 
         public event Action SpawnEnded;
 
-        public float SpawnDelay => _spawnDelay;
-
         private void OnEnable() => 
             _poolEnemy?.Init();
 
         private void OnDisable() => 
             StopSpawn();
 
-        public void StartSpawn(int waveNumber, float spawnDelay)
+        public void StartSpawn(int waveNumber, int spawnCount, float spawnDelay)
         {
             StopSpawn();
 
             if (waveNumber <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(waveNumber));
+            if (spawnCount <= 0)
+                throw new ArgumentOutOfRangeException(nameof(spawnCount));
             if (spawnDelay <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(spawnDelay));
-
 
             _startItemCount *= waveNumber;
             _spawnDelay = spawnDelay;
@@ -96,7 +95,7 @@ namespace Source.Scripts.Infrastructure.Spawners
 
             while (enabled)
             {
-                if (_spawnedCount >= _poolEnemy.StartItemCount)
+                if (_spawnedCount >= _startItemCount)
                     SpawnEnded?.Invoke();
                 
                 Spawn();
