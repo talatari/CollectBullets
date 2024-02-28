@@ -30,11 +30,15 @@ namespace Source.Scripts.Infrastructure.Spawners
             _currentDelay = waveConfig.DefaultDelay;
             _decrementDelay = waveConfig.DecrementDelay;
             _spawnerEnemy.SpawnEnded += OnStopSpawn;
+            _spawnerEnemy.WaveCompleted += StartSpawn;
         }
         
-        public void Dispose() => 
+        public void Dispose()
+        {
             _spawnerEnemy.SpawnEnded -= OnStopSpawn;
-        
+            _spawnerEnemy.WaveCompleted -= StartSpawn;
+        }
+
         public void StartSpawn()
         {
             _waveNumber++;

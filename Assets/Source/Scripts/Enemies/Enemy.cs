@@ -41,6 +41,8 @@ namespace Source.Scripts.Enemies
             _health.Init(_enemyScriptableObject.MaxHealth);
         }
 
+        public event Action<Enemy> Died;
+        
         private void OnEnable()
         {
             _health.Died += OnReleaseToPool;
@@ -73,8 +75,11 @@ namespace Source.Scripts.Enemies
         public void Disable() => 
             gameObject.SetActive(false);
 
-        public void OnReleaseToPool() => 
+        public void OnReleaseToPool()
+        {
+            Died?.Invoke(this);
             _pool.Release(this);
+        }
 
         public void TakeDamage(int damage)
         {

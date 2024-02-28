@@ -33,6 +33,7 @@ namespace Source.Scripts.Infrastructure.Spawners
                 throw new ArgumentOutOfRangeException(nameof(distanceRange));
 
             _poolEnemy = poolEnemy;
+            _poolEnemy.Completed += OnWaveCompleted;
             _startItemCount = _poolEnemy.StartItemCount;
             _spawnDelay = spawnDelay;
             _maxEnemySpawnCount = maxEnemySpawnCount;
@@ -40,12 +41,16 @@ namespace Source.Scripts.Infrastructure.Spawners
         }
 
         public event Action SpawnEnded;
+        public event Action WaveCompleted;
 
         private void OnEnable() => 
             _poolEnemy?.Init();
 
         private void OnDisable() => 
             StopSpawn();
+
+        private void OnDestroy() => 
+            _poolEnemy.Completed -= OnWaveCompleted;
 
         public void StartSpawn(int waveNumber, int spawnCount, float spawnDelay)
         {
@@ -80,6 +85,9 @@ namespace Source.Scripts.Infrastructure.Spawners
             SetPosition(enemy);
             _spawnedCount++;
         }
+
+        private void OnWaveCompleted() => 
+            WaveCompleted?.Invoke();
 
         private void SetPosition(Enemy enemy)
         {
