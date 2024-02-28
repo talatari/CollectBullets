@@ -16,6 +16,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         private int _maxEnemySpawnCount;
         private float _distanceRange;
         private int _spawnedCount;
+        private int _startItemCount;
 
         public void Init(IPool<Enemy> poolEnemy, float spawnDelay, int maxEnemySpawnCount, float distanceRange)
         {
@@ -32,25 +33,35 @@ namespace Source.Scripts.Infrastructure.Spawners
                 throw new ArgumentOutOfRangeException(nameof(distanceRange));
 
             _poolEnemy = poolEnemy;
+            _startItemCount = _poolEnemy.StartItemCount;
             _spawnDelay = spawnDelay;
             _maxEnemySpawnCount = maxEnemySpawnCount;
             _distanceRange = distanceRange;
         }
 
-        private void OnEnable()
-        {
-            if (_poolEnemy == null)
-                return;
-            
-            _poolEnemy.Init();
-        }
+        public event Action SpawnEnded;
+
+        public float SpawnDelay => _spawnDelay;
+
+        private void OnEnable() => 
+            _poolEnemy?.Init();
 
         private void OnDisable() => 
             StopSpawn();
 
-        public void StartSpawn()
+        public void StartSpawn(int waveNumber, float spawnDelay)
         {
             StopSpawn();
+
+            if (waveNumber <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(waveNumber));
+            if (spawnDelay <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(spawnDelay));
+
+
+            _startItemCount *= waveNumber;
+            _spawnDelay = spawnDelay;
+            _spawnedCount = 0;
 
             _coroutineSpawnEnemy = StartCoroutine(SpawnEnemy());
         }
@@ -61,7 +72,7 @@ namespace Source.Scripts.Infrastructure.Spawners
                 StopCoroutine(_coroutineSpawnEnemy);
         }
 
-        private void Spawn()
+        public void Spawn()
         {
             if (_poolEnemy.AllItemsCount >= _maxEnemySpawnCount)
                 return;
@@ -86,7 +97,7 @@ namespace Source.Scripts.Infrastructure.Spawners
             while (enabled)
             {
                 if (_spawnedCount >= _poolEnemy.StartItemCount)
-                    break;
+                    SpawnEnded?.Invoke();
                 
                 Spawn();
 

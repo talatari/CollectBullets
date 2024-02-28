@@ -25,7 +25,7 @@ namespace Source.Scripts.Infrastructure.Pools
 
         public int StartItemCount => _startItemsCount;
         public int AllItemsCount => _activeItems.Count + _pool.Count;
-        public List<T> ActiveItems => _activeItems;
+        public List<T> ActiveItems => _activeItems; // TODO: используется? нужно ли где-то?
 
         public void Init()
         {

@@ -44,6 +44,7 @@ namespace Source.Scripts.Infrastructure
         private SaveLoadService _saveLoadService = new();
         private UpgradeService _upgradeService;
         private SpawnerEnemy _spawnerEnemy;
+        private SpawnerWave _spawnerWave;
         private SpawnerBullet _spawnerBullet;
         private SpawnerKey _spawnerKey;
         private List<UpgradeModel> _upgradeModels;
@@ -84,7 +85,8 @@ namespace Source.Scripts.Infrastructure
             
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
             _spawnerEnemy.Init(poolEnemy, _spawnEnemyDelay, _maxEnemySpawnCount, _distanceRange);
-            _spawnerEnemy.StartSpawn();
+            _spawnerWave.Init(spawnerEnemy: _spawnerEnemy);
+            _spawnerWave.StartSpawn();
             
             FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent);
             Pool<Bullet> poolBullet = new Pool<Bullet>(factoryBullet, _startBulletCount);
@@ -93,6 +95,11 @@ namespace Source.Scripts.Infrastructure
             _spawnerBullet = gameObject.AddComponent<SpawnerBullet>();
             _spawnerBullet.Init(poolBullet, _spawnBulletDelay, _maxBulletSpawnCount, _distanceRange);
             _spawnerBullet.StartSpawn();
+        }
+
+        private void OnDestroy()
+        {
+            _spawnerWave.Dispose();
         }
     }
 }
