@@ -26,7 +26,6 @@ namespace Source.Scripts.Infrastructure
         [SerializeField] private List<Enemy> _enemyPrefabs;
         [SerializeField] private WaveScriptableObject _waveScriptableObject;
         [SerializeField] private int _maxEnemySpawnCount = 100;
-        [SerializeField] private float _spawnEnemyDelay = 1f;
         [SerializeField] private Transform _enemiesParent;
 
         [Header("Bullets")]
@@ -87,7 +86,7 @@ namespace Source.Scripts.Infrastructure
             poolEnemy.Init();
             
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
-            _spawnerEnemy.Init(poolEnemy, _spawnEnemyDelay, _maxEnemySpawnCount, _distanceRange);
+            _spawnerEnemy.Init(poolEnemy, _maxEnemySpawnCount, _distanceRange);
             _spawnerWave = new SpawnerWave(_spawnerEnemy, _waveScriptableObject);
             _spawnerWave.StartSpawn();
             

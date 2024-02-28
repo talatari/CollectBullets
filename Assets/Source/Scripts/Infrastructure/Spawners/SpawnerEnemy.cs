@@ -16,15 +16,12 @@ namespace Source.Scripts.Infrastructure.Spawners
         private int _maxEnemySpawnCount;
         private float _distanceRange;
         private int _spawnedCount;
-        private int _startItemCount;
+        private int _spawCount;
 
-        public void Init(IPool<Enemy> poolEnemy, float spawnDelay, int maxEnemySpawnCount, float distanceRange)
+        public void Init(IPool<Enemy> poolEnemy, int maxEnemySpawnCount, float distanceRange)
         {
             if (poolEnemy == null)
                 throw new ArgumentNullException(nameof(poolEnemy));
-            
-            if (spawnDelay < 0)
-                throw new ArgumentOutOfRangeException(nameof(spawnDelay));
             
             if (maxEnemySpawnCount < 0)
                 throw new ArgumentOutOfRangeException(nameof(maxEnemySpawnCount));
@@ -34,8 +31,6 @@ namespace Source.Scripts.Infrastructure.Spawners
 
             _poolEnemy = poolEnemy;
             _poolEnemy.Completed += OnWaveCompleted;
-            _startItemCount = _poolEnemy.StartItemCount;
-            _spawnDelay = spawnDelay;
             _maxEnemySpawnCount = maxEnemySpawnCount;
             _distanceRange = distanceRange;
         }
@@ -54,8 +49,6 @@ namespace Source.Scripts.Infrastructure.Spawners
 
         public void StartSpawn(int waveNumber, int spawnCount, float spawnDelay)
         {
-            print($"spawnCount: {spawnCount}");
-            
             StopSpawn();
 
             if (waveNumber <= 0) 
@@ -65,7 +58,7 @@ namespace Source.Scripts.Infrastructure.Spawners
             if (spawnDelay <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(spawnDelay));
 
-            _startItemCount *= waveNumber;
+            _spawCount = spawnCount;
             _spawnDelay = spawnDelay;
             _spawnedCount = 0;
 
@@ -105,8 +98,12 @@ namespace Source.Scripts.Infrastructure.Spawners
 
             while (enabled)
             {
-                if (_spawnedCount >= _startItemCount)
+                if (_spawnedCount >= _spawCount)
+                {
                     SpawnEnded?.Invoke();
+                    
+                    break;
+                }
                 
                 Spawn();
 
