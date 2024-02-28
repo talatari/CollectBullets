@@ -54,6 +54,8 @@ namespace Source.Scripts.Infrastructure.Spawners
 
         public void StartSpawn(int waveNumber, int spawnCount, float spawnDelay)
         {
+            print($"spawnCount: {spawnCount}");
+            
             StopSpawn();
 
             if (waveNumber <= 0) 

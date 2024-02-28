@@ -42,7 +42,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         public void StartSpawn()
         {
             _waveNumber++;
-            _currentCount += _incrementCount;
+            _currentCount += (_currentCount / _incrementCount) * 100;
             _currentDelay = Mathf.Clamp(_currentDelay -= _decrementDelay, _decrementDelay, _currentDelay);
             
             _spawnerEnemy.StartSpawn(_waveNumber, _currentCount, _currentDelay);
