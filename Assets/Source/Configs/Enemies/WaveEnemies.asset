@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: WaveEnemies
   m_EditorClassIdentifier: 
   <DefaultCount>k__BackingField: 8
-  <IncrementCount>k__BackingField: 3
+  <IncrementCount>k__BackingField: 13
   <DefaultDelay>k__BackingField: 1.5
   <DecrementDelay>k__BackingField: 0.01
