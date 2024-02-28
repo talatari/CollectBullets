@@ -12,6 +12,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         private int _incrementCount;
         private float _currentDelay;
         private float _decrementDelay;
+        private float _hundredPercent = 100f;
         
         public SpawnerWave(SpawnerEnemy spawnerEnemy, WaveScriptableObject waveConfig)
         {
@@ -42,9 +43,9 @@ namespace Source.Scripts.Infrastructure.Spawners
         public void StartSpawn()
         {
             _waveNumber++;
-            _currentCount += (_currentCount / _incrementCount) * 100;
+            float increment = (_currentCount / _hundredPercent) * _incrementCount;
+            _currentCount += (int) increment;
             _currentDelay = Mathf.Clamp(_currentDelay -= _decrementDelay, _decrementDelay, _currentDelay);
-            
             _spawnerEnemy.StartSpawn(_waveNumber, _currentCount, _currentDelay);
         }
         
