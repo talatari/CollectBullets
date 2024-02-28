@@ -16,10 +16,7 @@ namespace Source.Scripts.Infrastructure.Factories
 
         public FactoryEnemy(List<Enemy> enemyPrefabses, Transform parent, TargetProvider targetProvider)
         {
-            if (enemyPrefabses == null) 
-                throw new ArgumentNullException(nameof(enemyPrefabses));
-            _enemyPrefabs = enemyPrefabses;
-            
+            _enemyPrefabs = enemyPrefabses ?? throw new ArgumentNullException(nameof(enemyPrefabses));
             _parent = parent ? parent : throw new ArgumentNullException(nameof(parent));
             _targetProvider = targetProvider ?? throw new ArgumentNullException(nameof(targetProvider));
         }

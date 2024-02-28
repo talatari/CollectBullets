@@ -53,7 +53,7 @@ namespace Source.Scripts.Infrastructure.Spawners
                 StopCoroutine(_coroutineSpawnKey);
         }
 
-        private void Spawn()
+        public void Spawn()
         {
             if (_poolKey.AllItemsCount >= _maxKeySpawnCount)
                 return;
