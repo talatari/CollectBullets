@@ -12,7 +12,7 @@ namespace Source.Scripts.Infrastructure.SaveLoadData
         public void SavePlayerProgress()
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            // TODO: QUESTION: будет ли работать Application.persistentDataPath на WebGL? или нужно использовать WebApplication?
+            // TODO: протестировать. скорей всего должно работать.
             string path = Application.persistentDataPath + SaveFileName;
             FileStream stream = new FileStream(path, FileMode.Create);
             PlayerProgress playerProgress = new PlayerProgress();

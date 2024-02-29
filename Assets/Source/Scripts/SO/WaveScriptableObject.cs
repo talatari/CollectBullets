@@ -10,6 +10,6 @@ namespace Source.Scripts.SO
         
         [field: SerializeField] public float DefaultDelay { get; private set; }
         [field: SerializeField] public float DecrementDelay { get; private set; }
-        [field: SerializeField] public float DelayBetweenWaves { get; private set; }
+        [field: SerializeField] public int DelayBetweenWaves { get; private set; }
     }
 }
