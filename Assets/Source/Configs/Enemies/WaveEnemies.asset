@@ -16,3 +16,4 @@ MonoBehaviour:
   <IncrementCount>k__BackingField: 13
   <DefaultDelay>k__BackingField: 1.5
   <DecrementDelay>k__BackingField: 0.01
+  <DelayBetweenWaves>k__BackingField: 3
