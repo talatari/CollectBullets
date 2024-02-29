@@ -17,6 +17,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         private float _distanceRange;
         private int _spawnedCount;
         private int _spawCount;
+        private float _delayBetweenWaves;
 
         public void Init(IPool<Enemy> poolEnemy, int maxEnemySpawnCount, float distanceRange)
         {
@@ -47,7 +48,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         private void OnDestroy() => 
             _poolEnemy.Completed -= OnWaveCompleted;
 
-        public void StartSpawn(int waveNumber, int spawnCount, float spawnDelay)
+        public void StartSpawn(int waveNumber, int spawnCount, float spawnDelay, float delayBetweenWaves)
         {
             StopSpawn();
 
@@ -57,11 +58,16 @@ namespace Source.Scripts.Infrastructure.Spawners
                 throw new ArgumentOutOfRangeException(nameof(spawnCount));
             if (spawnDelay <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(spawnDelay));
+            if (delayBetweenWaves <= 0)
+                throw new ArgumentOutOfRangeException(nameof(delayBetweenWaves));
 
             _spawCount = spawnCount;
             _spawnDelay = spawnDelay;
+            _delayBetweenWaves = delayBetweenWaves;
             _spawnedCount = 0;
 
+            print($"Started wave: {waveNumber} with {_spawCount} enemies");
+            
             _coroutineSpawnEnemy = StartCoroutine(SpawnEnemy());
         }
 
@@ -95,7 +101,10 @@ namespace Source.Scripts.Infrastructure.Spawners
         private IEnumerator SpawnEnemy()
         {
             WaitForSeconds delay = new WaitForSeconds(_spawnDelay);
-
+            WaitForSeconds delayBetweenWaves = new WaitForSeconds(_delayBetweenWaves);
+            
+            yield return delayBetweenWaves;
+            
             while (enabled)
             {
                 if (_spawnedCount >= _spawCount)

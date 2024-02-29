@@ -12,6 +12,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         private int _incrementCount;
         private float _currentDelay;
         private float _decrementDelay;
+        private float _delayBetweenWaves;
         private float _hundredPercent = 100f;
         
         public SpawnerWave(SpawnerEnemy spawnerEnemy, WaveScriptableObject waveConfig)
@@ -25,11 +26,14 @@ namespace Source.Scripts.Infrastructure.Spawners
                 throw new ArgumentOutOfRangeException(nameof(waveConfig.DefaultDelay));
             if (waveConfig.DecrementDelay <= 0)
                 throw new ArgumentOutOfRangeException(nameof(waveConfig.DecrementDelay));
+            if (waveConfig.DelayBetweenWaves <= 0)
+                throw new ArgumentOutOfRangeException(nameof(waveConfig.DelayBetweenWaves));
 
             _currentCount = waveConfig.DefaultCount;
             _incrementCount = waveConfig.IncrementCount;
             _currentDelay = waveConfig.DefaultDelay;
             _decrementDelay = waveConfig.DecrementDelay;
+            _delayBetweenWaves = waveConfig.DelayBetweenWaves;
             _spawnerEnemy.SpawnEnded += OnStopSpawn;
             _spawnerEnemy.WaveCompleted += StartSpawn;
         }
@@ -46,7 +50,7 @@ namespace Source.Scripts.Infrastructure.Spawners
             float increment = (_currentCount / _hundredPercent) * _incrementCount;
             _currentCount += (int) increment;
             _currentDelay = Mathf.Clamp(_currentDelay -= _decrementDelay, _decrementDelay, _currentDelay);
-            _spawnerEnemy.StartSpawn(_waveNumber, _currentCount, _currentDelay);
+            _spawnerEnemy.StartSpawn(_waveNumber, _currentCount, _currentDelay, _delayBetweenWaves);
         }
         
         private void OnStopSpawn() => 
