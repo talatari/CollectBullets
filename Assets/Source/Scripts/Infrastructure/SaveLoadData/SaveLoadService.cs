@@ -22,7 +22,7 @@ namespace Source.Scripts.Infrastructure.SaveLoadData
         }
 
         public PlayerProgress LoadDefaultPlayerProgress() => 
-            LoadPlayerProgress(); // TODO: load from SO?
+            LoadPlayerProgress(); // TODO: QUESTION: load from SO?
 
         public PlayerProgress LoadPlayerProgress()
         {

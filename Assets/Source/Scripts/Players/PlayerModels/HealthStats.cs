@@ -30,7 +30,6 @@ namespace Source.Scripts.Players.PlayerModels
             if (value <= 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            // TODO: апкаст из-за цикла спавна патронов за спиной
             _maxHealth += value;
             MaxHealthChanged?.Invoke(_maxHealth);
 

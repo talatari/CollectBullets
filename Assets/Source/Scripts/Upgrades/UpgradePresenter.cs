@@ -36,7 +36,6 @@ namespace Source.Scripts.Upgrades
 
         private void OnEnable()
         {
-            // TODO: impl TimePauseService
             Time.timeScale = 0;
             
             _upgradeLeftView.OnUpgradeButtonClick += OnUpgradeButtonClick;
@@ -54,7 +53,6 @@ namespace Source.Scripts.Upgrades
 
         private void OnDisable()
         {
-            // TODO: impl TimePauseService
             Time.timeScale = 1;
             
             _upgradeLeftView.OnUpgradeButtonClick -= OnUpgradeButtonClick;
