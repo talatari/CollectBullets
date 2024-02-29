@@ -971,7 +971,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7565150228742057564}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -1140,7 +1140,7 @@ PrefabInstance:
     - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: _upgradePresenter
       value: 
-      objectReference: {fileID: 5805688562948151286}
+      objectReference: {fileID: 9020550690892193592}
     - target: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1000
@@ -1277,6 +1277,10 @@ PrefabInstance:
     - target: {fileID: 2916196378260618822, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: m_Name
       value: Right Upgrade Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916196378260618822, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3225313104047554648, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: _abilityViewCanvas
@@ -1495,6 +1499,10 @@ PrefabInstance:
     - target: {fileID: 2916196378260618822, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: m_Name
       value: Middle Upgrade Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916196378260618822, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3225313104047554648, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: _abilityViewCanvas
@@ -1759,22 +1767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf3be0d34ef4379ab2567c729466144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5805688562948151286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7791783390327019394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d185032d85b7e4c759d3a9cc66eaefe9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _upgradeLeftView: {fileID: 2601778896053762728}
-  _upgradeMiddleView: {fileID: 682946774}
-  _upgradeRightView: {fileID: 2107189019}
-  _rerollOnAdv: {fileID: 4060845792152659277}
 --- !u!222 &5861848016666926734
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1883,6 +1875,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Left Upgrade Button
       objectReference: {fileID: 0}
+    - target: {fileID: 2916196378260618822, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3225313104047554648, guid: 447ad0559daf94c59b5a9d58543b63c8, type: 3}
       propertyPath: _abilityViewCanvas
       value: 
@@ -1982,6 +1978,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9020550690892193591}
+  - component: {fileID: 9020550690892193592}
   - component: {fileID: 1330698123517748517}
   - component: {fileID: 8705867146371682972}
   - component: {fileID: 781918443475462528}
@@ -1991,7 +1988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &7791783390327019394
 GameObject:
   m_ObjectHideFlags: 0
@@ -2001,7 +1998,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6620283284650952605}
-  - component: {fileID: 5805688562948151286}
   m_Layer: 5
   m_Name: List Upgrades+
   m_TagString: Untagged
@@ -2311,6 +2307,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &9020550690892193592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7565150228742057564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d185032d85b7e4c759d3a9cc66eaefe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _upgradeLeftView: {fileID: 2601778896053762728}
+  _upgradeMiddleView: {fileID: 682946774}
+  _upgradeRightView: {fileID: 2107189019}
+  _rerollOnAdv: {fileID: 4060845792152659277}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

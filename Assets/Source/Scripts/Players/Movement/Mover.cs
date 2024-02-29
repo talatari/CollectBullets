@@ -20,9 +20,9 @@ namespace Source.Scripts.Players.Movement
             _speed = speed;
         }
 
-        // TODO: FIX: движение по диагонали два раза быстрее
         public void Move(Vector3 moveDirection)
         {
+            moveDirection.Normalize();
             moveDirection *= _speed;
             moveDirection.y = CurrentAttractionCharacter;
             _characterController.Move(moveDirection * Time.deltaTime);

@@ -23,7 +23,7 @@ namespace Source.Scripts.Infrastructure.Pools
             _startItemsCount = startItemsCount;
         }
 
-        public event CompletedAction Completed;
+        public event Action Completed;
         
         public int StartItemCount => _startItemsCount;
         public int AllItemsCount => _activeItems.Count + _pool.Count;
