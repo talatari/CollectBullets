@@ -133,7 +133,11 @@ namespace Source.Scripts.Players.Weapons
                         _projectilePrefab, new Vector3(
                             transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
                     
-                    projectileForPistol.Init(_damageStats.Damage, _damageStats.Burning, _damageStats.Vampirism);
+                    projectileForPistol.Init(
+                        _damageStats.Damage, 
+                        _damageStats.Burning, 
+                        _damageStats.BurningDuration, 
+                        _damageStats.Vampirism);
                     projectileForPistol.Vampired += OnVampired;
 
                     // TODO: использовать пул 

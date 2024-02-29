@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: DefaultStats
   m_EditorClassIdentifier: 
   <Damage>k__BackingField: 10
-  <ClipCapacity>k__BackingField: 5
   <Burning>k__BackingField: 0
+  <BurningDuration>k__BackingField: 3
+  <Vampirism>k__BackingField: 0
+  <ClipCapacity>k__BackingField: 5
   <ShootingDelay>k__BackingField: 1
   <MaxHealth>k__BackingField: 100
   <Regeneration>k__BackingField: 0
-  <Vampirism>k__BackingField: 0
   <Magnet>k__BackingField: 1
   <Speed>k__BackingField: 10
   <Freeze>k__BackingField: 0
