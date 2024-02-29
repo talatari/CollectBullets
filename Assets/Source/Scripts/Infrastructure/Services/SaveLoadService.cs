@@ -1,9 +1,9 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Source.Scripts.Players.PlayerModels;
+using Source.Scripts.Infrastructure.SaveLoadData;
 using UnityEngine;
 
-namespace Source.Scripts.Infrastructure.SaveLoadData
+namespace Source.Scripts.Infrastructure.Services
 {
     public class SaveLoadService
     {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Factories.Interfaces;
+using Source.Scripts.Infrastructure.Providers;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;

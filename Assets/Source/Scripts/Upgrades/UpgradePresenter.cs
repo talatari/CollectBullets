@@ -11,6 +11,7 @@ namespace Source.Scripts.Upgrades
     public class UpgradePresenter : MonoBehaviour
     {
         // TODO: сериализовать канвас и управлять им тут
+        [SerializeField] private Canvas _upgradesViewCanvas;
         [SerializeField] private UpgradeView _upgradeLeftView;
         [SerializeField] private UpgradeView _upgradeMiddleView;
         [SerializeField] private UpgradeView _upgradeRightView;

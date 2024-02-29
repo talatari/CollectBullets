@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Source.Scripts.Infrastructure
+namespace Source.Scripts.Infrastructure.Providers
 {
     public class TargetProvider
     {

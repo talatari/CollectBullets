@@ -640,7 +640,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1906355671}
   - {fileID: 5392856617305189013}
   - {fileID: 1242412505}
   - {fileID: 5235903559368636686}
@@ -785,50 +784,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1462906521}
---- !u!1 &1906355670
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1906355671}
-  - component: {fileID: 1906355672}
-  m_Layer: 0
-  m_Name: Mediator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1906355671
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1906355670}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1446779389}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1906355672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1906355670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fb1f94b372e24e7184f02cfa7bb6eca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2072737332 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4247680334404842791, guid: b492af5df5d84422c9ff5d051b92d33e, type: 3}
@@ -971,7 +926,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7565150228742057564}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -1133,10 +1088,6 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 8761932229771576044}
-    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
-      propertyPath: _startBulletCount
-      value: 90
-      objectReference: {fileID: 0}
     - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: _upgradePresenter
       value: 
@@ -1983,7 +1934,7 @@ GameObject:
   - component: {fileID: 8705867146371682972}
   - component: {fileID: 781918443475462528}
   m_Layer: 5
-  m_Name: Upgrades View Canvas
+  m_Name: Upgrades View Canvas+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1999,7 +1950,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6620283284650952605}
   m_Layer: 5
-  m_Name: List Upgrades+
+  m_Name: List Upgrades
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2319,6 +2270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d185032d85b7e4c759d3a9cc66eaefe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _upgradesViewCanvas: {fileID: 1330698123517748517}
   _upgradeLeftView: {fileID: 2601778896053762728}
   _upgradeMiddleView: {fileID: 682946774}
   _upgradeRightView: {fileID: 2107189019}
