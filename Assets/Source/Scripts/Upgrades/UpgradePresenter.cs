@@ -34,9 +34,11 @@ namespace Source.Scripts.Upgrades
             _upgradeService = upgradeService ?? throw new ArgumentNullException(nameof(upgradeService));
 
             _isInit = true;
+
+            ShowViews();
         }
 
-        private void OnEnable()
+        private void ShowViews()
         {
             Time.timeScale = 0;
             
