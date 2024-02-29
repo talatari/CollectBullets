@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 9200395204532124333}
   - component: {fileID: 7998924138055907234}
   - component: {fileID: 2350820542180912140}
+  - component: {fileID: 5420603001338268190}
   - component: {fileID: 1645097043712434591}
   - component: {fileID: 8821495723421317471}
   - component: {fileID: 2285570193254179852}
@@ -87,6 +88,7 @@ MonoBehaviour:
   _mover: {fileID: 9200395204532124333}
   _health: {fileID: 7998924138055907234}
   _attacker: {fileID: 2350820542180912140}
+  _enemyPointer: {fileID: 5420603001338268190}
 --- !u!114 &9200395204532124333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +130,18 @@ MonoBehaviour:
     m_Bits: 8
   _projectilePrefab: {fileID: 9017081166837401508, guid: 8284d2afdb5d544a9ae22ed3a582d8a3, type: 3}
   _attackPoint: {fileID: 545983982618513760}
+--- !u!114 &5420603001338268190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4641851756526007412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 625abb5aa0614333b554f3d37582779d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &1645097043712434591
 MeshFilter:
   m_ObjectHideFlags: 0

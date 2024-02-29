@@ -14,6 +14,7 @@ namespace Source.Scripts.Enemies
         [SerializeField] private Mover _mover;
         [SerializeField] private Damageable _health;
         [SerializeField] private Attacker _attacker;
+        [SerializeField] private EnemyPointer _enemyPointer;
         
         private IPool<Enemy> _pool;
         private Transform _target;
@@ -62,9 +63,13 @@ namespace Source.Scripts.Enemies
             
             if (target == null) 
                 throw new ArgumentNullException(nameof(target));
+            
+            if (_enemyPointer == null)
+                throw new ArgumentNullException(nameof(_enemyPointer));
 
             _target = target;
             _mover.SetTarget(target);
+            _enemyPointer.SetTarget(_target);
         }
 
         public void Enable() => 
