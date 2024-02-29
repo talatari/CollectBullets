@@ -7,6 +7,7 @@ namespace Source.Scripts.SO
     {
         [field: SerializeField] public int Damage { get; private set; }
         [field: SerializeField] public int Burning { get; private set; }
+        [field: SerializeField] public int BurningDuration { get; private set; }
         [field: SerializeField] public int Vampirism { get; private set; }
         [field: SerializeField] public int ClipCapacity { get; private set; }
         [field: SerializeField] public int ShootingDelay { get; private set; }

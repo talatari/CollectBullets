@@ -7,16 +7,19 @@ namespace Source.Scripts.Players.PlayerModels
     {
         private int _damage;
         private int _burning;
+        private int _burningDuration;
         private int _vampirism;
         private int _clipCapacity;
         private int _shootingDelay;
 
-        public DamageStats(int damage, int burning, int vampirism, int clipCapacity, int shootingDelay)
+        public DamageStats(int damage, int burning, int burningDuration, int vampirism, int clipCapacity, int shootingDelay)
         {
             if (damage <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
             if (burning < 0)
                 throw new ArgumentOutOfRangeException(nameof(burning));
+            if (burningDuration < 0)
+                throw new ArgumentOutOfRangeException(nameof(burningDuration));
             if (vampirism < 0) 
                 throw new ArgumentOutOfRangeException(nameof(vampirism));
             if (clipCapacity <= 0)
@@ -26,6 +29,7 @@ namespace Source.Scripts.Players.PlayerModels
 
             _damage = damage;
             _burning = burning;
+            _burningDuration = burningDuration;
             _vampirism = vampirism;
             _clipCapacity = clipCapacity;
             _shootingDelay = shootingDelay;
@@ -39,6 +43,7 @@ namespace Source.Scripts.Players.PlayerModels
 
         public int Damage => _damage;
         public int Burning => _burning;
+        public int BurningDuration => _burningDuration;
         public int Vampirism => _vampirism;
         public int ClipCapacity => _clipCapacity;
         public int ShootingDelay => _shootingDelay;

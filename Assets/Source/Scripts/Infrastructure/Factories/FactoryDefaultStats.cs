@@ -19,7 +19,8 @@ namespace Source.Scripts.Infrastructure.Factories
             new(
                 new DamageStats(
                     _playerScriptableObject.Damage, 
-                    _playerScriptableObject.Burning, 
+                    _playerScriptableObject.Burning,
+                    _playerScriptableObject.BurningDuration,
                     _playerScriptableObject.Vampirism, 
                     _playerScriptableObject.ClipCapacity, 
                     _playerScriptableObject.ShootingDelay), 

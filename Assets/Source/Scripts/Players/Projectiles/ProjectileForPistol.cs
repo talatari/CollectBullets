@@ -15,6 +15,7 @@ namespace Source.Scripts.Players.Projectiles
 
         private int _damage;
         private int _burning;
+        private int _burningDuration;
         private int _vampirism;
         private int _speed;
         private float _radius;
@@ -23,17 +24,20 @@ namespace Source.Scripts.Players.Projectiles
 
         public event Action<ProjectileForPistol, int> Vampired; 
 
-        public void Init(int damage, int burning, int vampirism)
+        public void Init(int damage, int burning, int burningDuration, int vampirism)
         {
             if (damage <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
             if (burning < 0)
                 throw new ArgumentOutOfRangeException(nameof(burning));
+            if (burningDuration < 0)
+                throw new ArgumentOutOfRangeException(nameof(burningDuration));
             if (vampirism < 0) 
                 throw new ArgumentOutOfRangeException(nameof(vampirism));
 
             _damage = damage;
             _burning = burning;
+            _burningDuration = burningDuration;
             _vampirism = vampirism;
         }
 
@@ -94,7 +98,7 @@ namespace Source.Scripts.Players.Projectiles
                 enemy.TakeDamage(_damage);
                 
                 if (_burning > 0)
-                    enemy.Burn(_burning);
+                    enemy.Burn(_burning, _burningDuration);
 
                 if (_vampirism > 0)
                     Vampired?.Invoke(this, _vampirism);

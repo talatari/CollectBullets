@@ -10,9 +10,6 @@ namespace Source.Scripts.Enemies
     [RequireComponent(typeof(Mover))]
     public class Enemy : MonoBehaviour, IPoolable
     {
-        // TODO: вынести в SO и прокидывать через метод вместе с уроном от горения
-        private const int BurningDuration = 3;
-        
         [SerializeField] private EnemyScriptableObject _enemyScriptableObject;
         [SerializeField] private Mover _mover;
         [SerializeField] private Damageable _health;
@@ -20,6 +17,7 @@ namespace Source.Scripts.Enemies
         
         private IPool<Enemy> _pool;
         private Transform _target;
+        private int _burningDelay = 1;
 
         public void Init<T>(IPool<T> pool) where T : IPoolable
         {
@@ -89,8 +87,15 @@ namespace Source.Scripts.Enemies
             _health.TakeDamage(damage);
         }
 
-        public void Burn(int damage) => 
-            StartCoroutine(Burning(damage));
+        public void Burn(int damage, int burningDuration)
+        {
+            if (damage <= 0)
+                throw new ArgumentOutOfRangeException(nameof(damage));
+            if (burningDuration <= 0)
+                throw new ArgumentOutOfRangeException(nameof(burningDuration));
+            
+            StartCoroutine(Burning(damage, burningDuration));
+        }
 
         public void Freeze(float freeze) => 
             _mover.Freeze(freeze);
@@ -101,15 +106,15 @@ namespace Source.Scripts.Enemies
         private void OnMoveContinue() => 
             _mover.SetTarget(_target);
 
-        private IEnumerator Burning(int damage)
+        private IEnumerator Burning(int damage, int burningDuration)
         {
-            WaitForSeconds delay = new WaitForSeconds(1);
+            WaitForSeconds burningDelay = new WaitForSeconds(_burningDelay);
             
-            for (int i = 0; i < BurningDuration; i++)
+            for (int i = 0; i < burningDuration; i++)
             {
                 _health.TakeDamage(damage);
                 
-                yield return delay;
+                yield return burningDelay;
             }
         }
     }
