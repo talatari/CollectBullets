@@ -5,6 +5,8 @@ namespace Source.Scripts.Enemies
 {
     public class EnemyPointer : MonoBehaviour
     {
+        private const int ScreenBorderCount = 4;
+        
         [SerializeField] private Transform _enemyPointer;
         
         private Transform _player;
@@ -28,8 +30,8 @@ namespace Source.Scripts.Enemies
 
             float rayMinDistance = Mathf.Infinity;
 
-            for (int p = 0; p < 4; p++)
-                if (planes[p].Raycast(ray, out float distance))
+            for (int i = 0; i < ScreenBorderCount; i++)
+                if (planes[i].Raycast(ray, out float distance))
                     if (distance < rayMinDistance)
                         rayMinDistance = distance;
 
@@ -60,6 +62,7 @@ namespace Source.Scripts.Enemies
         private void SetPosition(Ray ray)
         {
             Vector3 worldPosition = ray.GetPoint(_radius);
+            
             _enemyPointer.position = Vector3.Lerp(
                 _enemyPointer.position, _camera.WorldToScreenPoint(worldPosition), _speed * Time.deltaTime);
         }
