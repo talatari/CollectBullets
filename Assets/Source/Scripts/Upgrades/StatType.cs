@@ -11,6 +11,7 @@ namespace Source.Scripts.Upgrades
         Regeneration,
         Magnet,
         Speed,
-        Freeze
+        Freeze,
+        RadiusAttack
     }
 }

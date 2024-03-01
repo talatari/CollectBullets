@@ -18,5 +18,6 @@ namespace Source.Scripts.SO
         [field: SerializeField] public int Magnet { get; private set; }
         [field: SerializeField] public int Speed { get; private set; }
         [field: SerializeField] public int Freeze { get; private set; }
+        [field: SerializeField] public int RadiusAttack { get; private set; }
     }
 }

@@ -30,6 +30,7 @@ namespace Source.Scripts.Infrastructure.Factories
                 new CommonStats(
                     _playerScriptableObject.Magnet, 
                     _playerScriptableObject.Speed, 
-                    _playerScriptableObject.Freeze));
+                    _playerScriptableObject.Freeze,
+                    _playerScriptableObject.RadiusAttack));
     }
 }

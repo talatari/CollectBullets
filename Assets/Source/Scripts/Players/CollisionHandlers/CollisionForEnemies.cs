@@ -1,5 +1,6 @@
 using System;
 using Source.Scripts.Enemies;
+using Source.Scripts.Players.PlayerModels;
 using UnityEngine;
 
 namespace Source.Scripts.Players.CollisionHandlers
@@ -18,17 +19,19 @@ namespace Source.Scripts.Players.CollisionHandlers
         private int _baseFreeze;
         private bool _isInit;
 
-        public void Init(Player player, int freeze)
+        public void Init(Player player, CommonStats commonStats)
         {
             if (player == null) 
                 throw new ArgumentNullException(nameof(player));
-            if (freeze < 0) 
-                throw new ArgumentOutOfRangeException(nameof(freeze));
+            if (commonStats == null)
+                throw new ArgumentNullException(nameof(commonStats));
+            if (commonStats.Freeze < 0) 
+                throw new ArgumentOutOfRangeException(nameof(commonStats.Freeze));
 
             _player = player;
-            
-            _baseFreeze = freeze;
+            _baseFreeze = commonStats.Freeze;
             _freeze = _baseFreeze;
+            _radiusEnemyDetectChanger.Init(commonStats);
 
             _isInit = true;
         }

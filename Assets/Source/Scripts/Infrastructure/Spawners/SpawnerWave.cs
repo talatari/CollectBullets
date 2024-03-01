@@ -9,7 +9,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         private readonly SpawnerEnemy _spawnerEnemy;
         private int _waveNumber;
         private int _currentCount;
-        private int _incrementCount;
+        private int _incrementPercent;
         private float _currentDelay;
         private float _decrementDelay;
         private float _delayBetweenWaves;
@@ -20,8 +20,8 @@ namespace Source.Scripts.Infrastructure.Spawners
             _spawnerEnemy = spawnerEnemy ? spawnerEnemy : throw new ArgumentNullException(nameof(spawnerEnemy));
             if (waveConfig.DefaultCount <= 0)
                 throw new ArgumentOutOfRangeException(nameof(waveConfig.DefaultCount));
-            if (waveConfig.IncrementCount <= 0)
-                throw new ArgumentOutOfRangeException(nameof(waveConfig.IncrementCount));
+            if (waveConfig.IncrementPercent <= 0)
+                throw new ArgumentOutOfRangeException(nameof(waveConfig.IncrementPercent));
             if (waveConfig.DefaultDelay <= 0)
                 throw new ArgumentOutOfRangeException(nameof(waveConfig.DefaultDelay));
             if (waveConfig.DecrementDelay <= 0)
@@ -30,7 +30,7 @@ namespace Source.Scripts.Infrastructure.Spawners
                 throw new ArgumentOutOfRangeException(nameof(waveConfig.DelayBetweenWaves));
 
             _currentCount = waveConfig.DefaultCount;
-            _incrementCount = waveConfig.IncrementCount;
+            _incrementPercent = waveConfig.IncrementPercent;
             _currentDelay = waveConfig.DefaultDelay;
             _decrementDelay = waveConfig.DecrementDelay;
             _delayBetweenWaves = waveConfig.DelayBetweenWaves;
@@ -47,7 +47,7 @@ namespace Source.Scripts.Infrastructure.Spawners
         public void StartSpawn()
         {
             _waveNumber++;
-            float increment = (_currentCount / _hundredPercent) * _incrementCount;
+            float increment = (_currentCount / _hundredPercent) * _incrementPercent;
             _currentCount += (int) increment;
             _currentDelay = Mathf.Clamp(_currentDelay -= _decrementDelay, _decrementDelay, _currentDelay);
             _spawnerEnemy.StartSpawn(_waveNumber, _currentCount, _currentDelay, _delayBetweenWaves);

@@ -35,7 +35,7 @@ namespace Source.Scripts.Players
             _weaponHandler.Init(_stats.DamageStats);
             _health.Init(_stats.HealthStats);
             _collisionForBullets.Init(_weaponHandler, _stats.CommonStats.Magnet);
-            _collisionForEnemies.Init(this, _stats.CommonStats.Freeze);
+            _collisionForEnemies.Init(this, _stats.CommonStats);
             _bag.CreateClip(_weaponHandler.ClipCapacity);
 
             _stats.CommonStats.SpeedChanged += _mover.SetSpeed;

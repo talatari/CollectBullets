@@ -15,7 +15,6 @@ namespace Source.Scripts.Upgrades
         [SerializeField] private TMP_Text _levelText;
         [SerializeField] private TMP_Text _currentLevel;
         [SerializeField] private TMP_Text _currentValue;
-        [SerializeField] private Canvas _abilityViewCanvas;
         [SerializeField] private Button _buttonClick;
 
         private UpgradeModel _upgradeModel;
@@ -48,8 +47,6 @@ namespace Source.Scripts.Upgrades
                 OnUpgradeButtonClick?.Invoke(_upgradeModel.Id);
             
             ClearView();
-            
-            _abilityViewCanvas.gameObject.SetActive(false);
         }
 
         private void ClearView()

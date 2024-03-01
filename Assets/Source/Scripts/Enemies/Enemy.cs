@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Source.Scripts.Behaviour;
 using Source.Scripts.Infrastructure.Pools.Interfaces;
+using Source.Scripts.Players.PlayerModels;
 using Source.Scripts.SO;
 using UnityEngine;
 
@@ -17,8 +18,9 @@ namespace Source.Scripts.Enemies
         [SerializeField] private EnemyPointer _enemyPointer;
         
         private IPool<Enemy> _pool;
-        private Transform _target;
+        private Transform _player;
         private int _burningDelay = 1;
+        private CommonStats _commonStats;
 
         public void Init<T>(IPool<T> pool) where T : IPoolable
         {
@@ -56,20 +58,26 @@ namespace Source.Scripts.Enemies
             _attacker.PlayerLost -= OnMoveContinue;
         }
 
-        public void SetTarget(Transform target)
+        private void OnDestroy() => 
+            _commonStats.RadiusAttackChanged -= OnSetRadius;
+
+        public void SetTarget(Transform player, CommonStats commonStats)
         {
+            if (player == null) 
+                throw new ArgumentNullException(nameof(player));
+            if (commonStats == null)
+                throw new ArgumentNullException(nameof(commonStats));
             if (_mover == null)
                 throw new ArgumentNullException(nameof(_mover));
-            
-            if (target == null) 
-                throw new ArgumentNullException(nameof(target));
-            
             if (_enemyPointer == null)
                 throw new ArgumentNullException(nameof(_enemyPointer));
-
-            _target = target;
-            _mover.SetTarget(target);
-            _enemyPointer.SetTarget(_target);
+            
+            _player = player;
+            _commonStats = commonStats;
+            _mover.SetTarget(_player);
+            _enemyPointer.SetTarget(_player);
+            _enemyPointer.SetRadius(_commonStats.RadiusAttack);
+            _commonStats.RadiusAttackChanged += OnSetRadius;
         }
 
         public void Enable() => 
@@ -80,6 +88,7 @@ namespace Source.Scripts.Enemies
 
         public void OnReleaseToPool()
         {
+            StopAllCoroutines();
             Died?.Invoke(this);
             _pool.Release(this);
         }
@@ -98,8 +107,9 @@ namespace Source.Scripts.Enemies
                 throw new ArgumentOutOfRangeException(nameof(damage));
             if (burningDuration <= 0)
                 throw new ArgumentOutOfRangeException(nameof(burningDuration));
-            
-            StartCoroutine(Burning(damage, burningDuration));
+
+            if (gameObject.activeSelf)
+                StartCoroutine(Burning(damage, burningDuration));
         }
 
         public void Freeze(float freeze) => 
@@ -109,7 +119,10 @@ namespace Source.Scripts.Enemies
             _mover.SetTarget(null);
 
         private void OnMoveContinue() => 
-            _mover.SetTarget(_target);
+            _mover.SetTarget(_player);
+
+        private void OnSetRadius(int radiusAttack) => 
+            _enemyPointer.SetRadius(radiusAttack);
 
         private IEnumerator Burning(int damage, int burningDuration)
         {

@@ -1,3 +1,5 @@
+using System;
+using Source.Scripts.Players.PlayerModels;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,25 +8,34 @@ namespace Source.Scripts.Players
     public class RadiusEnemyDetectChanger : MonoBehaviour
     {
         [SerializeField] private Image _image;
-        [SerializeField, Range(5f, 20f)] private float _diameter = 8f;
- 
+        
+        private float _diameter;
         private float _radius;
-        
+        private CommonStats _commonStats;
+
         public float Radius => _radius;
-        
-        private void OnValidate()
+
+        public void Init(CommonStats commonStats)
         {
-            if (_image == null)
-                return;
-            
-            _image.transform.localScale = new Vector3(_diameter, _diameter, _diameter);
-            SetRadius();
+            _commonStats = commonStats ?? throw new ArgumentNullException(nameof(commonStats));
+            _radius = commonStats.RadiusAttack;
+            SetDiameter();
+            _commonStats.RadiusAttackChanged += OnSetRadius;
         }
 
-        private void Awake() => 
-            SetRadius();
+        private void OnDestroy() => 
+            _commonStats.RadiusAttackChanged -= OnSetRadius;
 
-        private void SetRadius() => 
-            _radius = _diameter / 2;
+        private void OnSetRadius(int radiusAttack)
+        {
+            _radius = radiusAttack;
+            SetDiameter();
+        }
+        
+        private void SetDiameter()
+        {
+            _diameter = _radius * 2;
+            _image.transform.localScale = new Vector3(_diameter, _diameter, _diameter);
+        }
     }
 }

@@ -75,6 +75,10 @@ namespace Source.Scripts.Upgrades
                 case StatType.Freeze:
                     upgradeModel.SetCurrentValue(_stats.CommonStats.AddFreeze(upgradeModel.IncrementValue));
                     break;
+                
+                case StatType.RadiusAttack:
+                    upgradeModel.SetCurrentValue(_stats.CommonStats.AddRadiusAttack(upgradeModel.IncrementValue));
+                    break;
             }
         }
         
@@ -120,6 +124,10 @@ namespace Source.Scripts.Upgrades
 
                 case StatType.Freeze:
                     upgradeModel.SetCurrentValue(_stats.CommonStats.Freeze);
+                    break;
+                
+                case StatType.RadiusAttack:
+                    upgradeModel.SetCurrentValue(_stats.CommonStats.RadiusAttack);
                     break;
             }
         }

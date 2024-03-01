@@ -10,7 +10,6 @@ namespace Source.Scripts.Upgrades
 {
     public class UpgradePresenter : MonoBehaviour
     {
-        // TODO: сериализовать канвас и управлять им тут
         [SerializeField] private Canvas _upgradesViewCanvas;
         [SerializeField] private UpgradeView _upgradeLeftView;
         [SerializeField] private UpgradeView _upgradeMiddleView;
@@ -54,7 +53,7 @@ namespace Source.Scripts.Upgrades
             
             _rerollOnAdv.onClick.AddListener(OnSetUpgradesValue);
         }
-
+        
         private void OnDisable()
         {
             Time.timeScale = 1;
@@ -69,8 +68,13 @@ namespace Source.Scripts.Upgrades
             _rerollOnAdv.onClick.RemoveListener(OnSetUpgradesValue);
         }
 
-        private void OnUpgradeButtonClick(int id) => 
+        private void OnUpgradeButtonClick(int id)
+        {
             _upgradeService.Upgrade(id);
+            _upgradesViewCanvas.enabled = false;
+            
+            OnDisable();
+        }
 
         private void OnSetUpgradesValue()
         {
