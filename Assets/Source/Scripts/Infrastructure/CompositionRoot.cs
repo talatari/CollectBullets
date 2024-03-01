@@ -4,7 +4,6 @@ using Source.Scripts.Enemies;
 using Source.Scripts.Infrastructure.Factories;
 using Source.Scripts.Infrastructure.Pools;
 using Source.Scripts.Infrastructure.Providers;
-using Source.Scripts.Infrastructure.SaveLoadData;
 using Source.Scripts.Infrastructure.Services;
 using Source.Scripts.Infrastructure.Spawners;
 using Source.Scripts.Keys;
@@ -28,7 +27,7 @@ namespace Source.Scripts.Infrastructure
         [SerializeField] private List<Enemy> _enemyPrefabs;
         [SerializeField] private WaveScriptableObject _waveScriptableObject;
         [SerializeField] private int _maxEnemySpawnCount = 100;
-        [SerializeField] private Transform _enemiesParent;
+        [SerializeField] private Transform _container;
 
         [Header("Bullets")]
         [SerializeField] private int _startBulletCount = 20;
@@ -83,7 +82,7 @@ namespace Source.Scripts.Infrastructure
             TargetProvider targetProvider = new TargetProvider();
             targetProvider.SetTarget(_player.transform);
             
-            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefabs, _enemiesParent, targetProvider);
+            FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefabs, _container, targetProvider, _stats.CommonStats);
             Pool<Enemy> poolEnemy = new Pool<Enemy>(factoryEnemy, _waveScriptableObject.DefaultCount);
             poolEnemy.Init();
             

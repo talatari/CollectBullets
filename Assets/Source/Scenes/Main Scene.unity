@@ -1085,6 +1085,10 @@ PrefabInstance:
       value: Composition Root+
       objectReference: {fileID: 0}
     - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 8761932229771576044}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 8761932229771576044}

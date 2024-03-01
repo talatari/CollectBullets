@@ -6,7 +6,7 @@ namespace Source.Scripts.SO
     public class WaveScriptableObject : ScriptableObject
     {
         [field: SerializeField] public int DefaultCount { get; private set; }
-        [field: SerializeField] public int IncrementCount { get; private set; }
+        [field: SerializeField] public int IncrementPercent { get; private set; }
         
         [field: SerializeField] public float DefaultDelay { get; private set; }
         [field: SerializeField] public float DecrementDelay { get; private set; }
