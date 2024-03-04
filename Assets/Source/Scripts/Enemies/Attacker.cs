@@ -29,8 +29,8 @@ namespace Source.Scripts.Enemies
         {
             if (damage <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
-            if (distanceAttack < 0)
-                distanceAttack = 0;
+            if (distanceAttack < 0) 
+                throw new ArgumentOutOfRangeException(nameof(distanceAttack));
             if (attackCooldown <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(attackCooldown));
             

@@ -5,17 +5,19 @@ using Source.Scripts.Infrastructure.Pools.Interfaces;
 using Source.Scripts.Players.PlayerModels;
 using Source.Scripts.SO;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Source.Scripts.Enemies
 {
     [RequireComponent(typeof(Mover))]
     public class Enemy : MonoBehaviour, IPoolable
     {
-        [SerializeField] private EnemyScriptableObject _enemyScriptableObject;
-        [SerializeField] private Mover _mover;
+        [SerializeField] private EnemyScriptableObject _config;
         [SerializeField] private Damageable _health;
+        [SerializeField] private Mover _mover;
         [SerializeField] private Attacker _attacker;
         [SerializeField] private EnemyPointer _enemyPointer;
+        [SerializeField] private NavMeshAgent _agent;
         
         private IPool<Enemy> _pool;
         private Transform _player;
@@ -31,15 +33,10 @@ namespace Source.Scripts.Enemies
             
             if (_pool == null)
                 throw new ArgumentException("Pool must be of type IPool<Enemy>");
-            
-            _mover.SetSpeed(_enemyScriptableObject.Speed);
-            
-            _attacker.Init(
-                _enemyScriptableObject.Damage,
-                _enemyScriptableObject.DistanceAttack, 
-                _enemyScriptableObject.AttackCooldown);
-            
-            _health.Init(_enemyScriptableObject.MaxHealth);
+
+            _health.Init(_config.MaxHealth);
+            _mover.Init(_config.Speed, _config.DistanceAttack);
+            _attacker.Init(_config.Damage, _config.DistanceAttack, _config.AttackCooldown);
         }
 
         public event Action<Enemy> Died;
@@ -95,9 +92,12 @@ namespace Source.Scripts.Enemies
 
         public void TakeDamage(int damage)
         {
+            if (damage < 0) 
+                throw new ArgumentOutOfRangeException(nameof(damage));
+            
             if (_health == null)
                 return;
-            
+
             _health.TakeDamage(damage);
         }
 
@@ -112,8 +112,16 @@ namespace Source.Scripts.Enemies
                 StartCoroutine(Burning(damage, burningDuration));
         }
 
-        public void Freeze(float freeze) => 
+        public void Freeze(float freeze)
+        {
+            if (freeze < 0)
+                throw new ArgumentOutOfRangeException(nameof(freeze));
+            
             _mover.Freeze(freeze);
+        }
+
+        public void NavMeshAgentActive() => 
+            _agent.enabled = true;
 
         private void OnMoveStop() => 
             _mover.SetTarget(null);

@@ -84,6 +84,7 @@ namespace Source.Scripts.Infrastructure.Spawners
             
             Enemy enemy = _poolEnemy.Get();
             SetPosition(enemy);
+            enemy.NavMeshAgentActive();
             _spawnedCount++;
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Source.Scripts.Infrastructure.SaveLoadData;
+using Source.Scripts.Infrastructure.Services;
 using Source.Scripts.Players.PlayerModels;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Source.Scripts.Upgrades
 {
-    public class UpgradePresenter : MonoBehaviour
+    public class UpgradePresenter : MonoBehaviour, IGamePauseListener
     {
         [SerializeField] private Canvas _upgradesViewCanvas;
         [SerializeField] private UpgradeView _upgradeLeftView;
@@ -25,21 +26,21 @@ namespace Source.Scripts.Upgrades
         private UpgradeService _upgradeService;
         private PlayerProgress _playerProgress;
         private List<UpgradeModel> _upgradeModels;
+        private GamePauseService _gamePauseService;
         private bool _isInit;
 
-        public void Init(Stats stats, UpgradeService upgradeService)
+        public void Init(Stats stats, UpgradeService upgradeService, GamePauseService gamePauseService)
         {
             _stats = stats ?? throw new ArgumentNullException(nameof(stats));
             _upgradeService = upgradeService ?? throw new ArgumentNullException(nameof(upgradeService));
+            _gamePauseService = gamePauseService ?? throw new ArgumentNullException(nameof(gamePauseService));
 
             _isInit = true;
-
-            ShowViews();
         }
 
-        private void ShowViews()
+        public void OnGamePaused()
         {
-            Time.timeScale = 0;
+            _upgradesViewCanvas.enabled = true;
             
             _upgradeLeftView.OnUpgradeButtonClick += OnUpgradeButtonClick;
             _upgradeMiddleView.OnUpgradeButtonClick += OnUpgradeButtonClick;
@@ -54,10 +55,8 @@ namespace Source.Scripts.Upgrades
             _rerollOnAdv.onClick.AddListener(OnSetUpgradesValue);
         }
         
-        private void OnDisable()
+        public void OnGameResumed()
         {
-            Time.timeScale = 1;
-            
             _upgradeLeftView.OnUpgradeButtonClick -= OnUpgradeButtonClick;
             _upgradeMiddleView.OnUpgradeButtonClick -= OnUpgradeButtonClick;
             _upgradeRightView.OnUpgradeButtonClick -= OnUpgradeButtonClick;
@@ -67,13 +66,14 @@ namespace Source.Scripts.Upgrades
             
             _rerollOnAdv.onClick.RemoveListener(OnSetUpgradesValue);
         }
-
+        
         private void OnUpgradeButtonClick(int id)
         {
             _upgradeService.Upgrade(id);
             _upgradesViewCanvas.enabled = false;
-            
-            OnDisable();
+
+            OnGameResumed();
+            _gamePauseService.ResumeGame();
         }
 
         private void OnSetUpgradesValue()
