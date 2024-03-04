@@ -33,10 +33,7 @@ namespace Source.Scripts.Infrastructure.Services
                 Time.timeScale = 0;
                 
                 foreach (var listener in _pauseListeners.Keys)
-                {
                     listener.OnGamePaused();
-                    _pauseListeners[listener] = true;
-                }
                 
                 Debug.Log("Game paused");
             }
@@ -50,10 +47,7 @@ namespace Source.Scripts.Infrastructure.Services
                 Time.timeScale = 1;
                 
                 foreach (var listener in _pauseListeners.Keys)
-                {
                     listener.OnGameResumed();
-                    _pauseListeners[listener] = false;
-                }
                 
                 Debug.Log("Game resumed");
             }
