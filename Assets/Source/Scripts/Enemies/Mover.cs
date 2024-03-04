@@ -25,20 +25,6 @@ namespace Source.Scripts.Enemies
             _distanceAttack = distanceAttack;
         }
 
-        // private void Update()
-        // {
-        //     if (_target == null)
-        //         return;
-        //     if (_speed == 0)
-        //         return;
-        //     Vector3 position = transform.position;
-        //     position = Vector3.MoveTowards(
-        //         position, 
-        //         new Vector3(_target.position.x, position.y, _target.position.z), 
-        //         (_speed - _freeze) * Time.deltaTime);
-        //     transform.position = position;
-        // }
-
         private void Update()
         {
             if (_target == null)
