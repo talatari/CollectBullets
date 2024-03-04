@@ -926,7 +926,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7565150228742057564}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -1098,7 +1098,7 @@ PrefabInstance:
       objectReference: {fileID: 9020550690892193592}
     - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: _enemyPrefabs.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: _enemyPrefabs.Array.data[1]

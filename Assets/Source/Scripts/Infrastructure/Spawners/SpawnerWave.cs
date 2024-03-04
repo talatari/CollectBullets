@@ -1,4 +1,5 @@
 using System;
+using Source.Scripts.Infrastructure.Services;
 using Source.Scripts.SO;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Source.Scripts.Infrastructure.Spawners
     public class SpawnerWave : IDisposable
     {
         private readonly SpawnerEnemy _spawnerEnemy;
+        private readonly GamePauseService _gamePauseService;
         private int _waveNumber;
         private int _currentCount;
         private int _incrementPercent;
@@ -15,9 +17,14 @@ namespace Source.Scripts.Infrastructure.Spawners
         private float _delayBetweenWaves;
         private float _hundredPercent = 100f;
         
-        public SpawnerWave(SpawnerEnemy spawnerEnemy, WaveScriptableObject waveConfig)
+        public SpawnerWave(
+            SpawnerEnemy spawnerEnemy, GamePauseService gamePauseService, WaveScriptableObject waveConfig)
         {
             _spawnerEnemy = spawnerEnemy ? spawnerEnemy : throw new ArgumentNullException(nameof(spawnerEnemy));
+            _gamePauseService = gamePauseService ?? throw new ArgumentNullException(nameof(gamePauseService));
+            
+            if (waveConfig == null)
+                throw new ArgumentNullException(nameof(waveConfig));
             if (waveConfig.DefaultCount <= 0)
                 throw new ArgumentOutOfRangeException(nameof(waveConfig.DefaultCount));
             if (waveConfig.IncrementPercent <= 0)
@@ -46,6 +53,9 @@ namespace Source.Scripts.Infrastructure.Spawners
 
         public void StartSpawn()
         {
+            if (_waveNumber > 0)
+                _gamePauseService.PauseGame();
+            
             _waveNumber++;
             float increment = (_currentCount / _hundredPercent) * _incrementPercent;
             _currentCount += (int) increment;

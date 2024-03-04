@@ -49,6 +49,7 @@ namespace Source.Scripts.Infrastructure
         private SpawnerKey _spawnerKey;
         private List<UpgradeModel> _upgradeModels;
         private UpgradeHandler _upgradeHandler;
+        private GamePauseService _gamePauseService;
 
         private void Start()
         {
@@ -77,7 +78,9 @@ namespace Source.Scripts.Infrastructure
             _player.Init(_stats, _upgradeHandler);
             
             _upgradeService = new UpgradeService(_saveLoadService, _upgradeModels);
-            _upgradePresenter.Init(_stats, _upgradeService);
+            _gamePauseService = new GamePauseService();
+            _gamePauseService.AddPauseListener(_upgradePresenter);
+            _upgradePresenter.Init(_stats, _upgradeService, _gamePauseService);
             
             TargetProvider targetProvider = new TargetProvider();
             targetProvider.SetTarget(_player.transform);
@@ -88,7 +91,7 @@ namespace Source.Scripts.Infrastructure
             
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
             _spawnerEnemy.Init(poolEnemy, _maxEnemySpawnCount, _distanceRange);
-            _spawnerWave = new SpawnerWave(_spawnerEnemy, _waveScriptableObject);
+            _spawnerWave = new SpawnerWave(_spawnerEnemy, _gamePauseService, _waveScriptableObject);
             _spawnerWave.StartSpawn();
             
             FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent);

@@ -1,43 +1,64 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Source.Scripts.Enemies
 {
     public class Mover : MonoBehaviour
     {
+        [SerializeField] private NavMeshAgent _agent;
+        
         private float _speed;
+        private float _distanceAttack;
         private float _freeze;
         private Transform _target;
+
+        public void Init(float speed, float distanceAttack)
+        {
+            if (speed <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(speed));
+            if (distanceAttack < 0) 
+                throw new ArgumentOutOfRangeException(nameof(distanceAttack));
+
+            _speed = speed;
+            _distanceAttack = distanceAttack;
+        }
+
+        // private void Update()
+        // {
+        //     if (_target == null)
+        //         return;
+        //     if (_speed == 0)
+        //         return;
+        //     Vector3 position = transform.position;
+        //     position = Vector3.MoveTowards(
+        //         position, 
+        //         new Vector3(_target.position.x, position.y, _target.position.z), 
+        //         (_speed - _freeze) * Time.deltaTime);
+        //     transform.position = position;
+        // }
 
         private void Update()
         {
             if (_target == null)
                 return;
             
-            if (_speed == 0)
+            if (_agent == null)
                 return;
-
-            Vector3 position = transform.position;
             
-            position = Vector3.MoveTowards(
-                position, 
-                new Vector3(_target.position.x, position.y, _target.position.z), 
-                (_speed - _freeze) * Time.deltaTime);
+            if (_agent.isActiveAndEnabled && _agent.isOnNavMesh)
+            {
+                _agent.SetDestination(_target.position);
+                _agent.speed = _speed - _freeze;
+                _agent.stoppingDistance = _distanceAttack;
+            }
             
-            transform.position = position;
+            _agent.transform.rotation = Quaternion.identity;
         }
 
         public void SetTarget(Transform target) => 
             _target = target;
-
-        public void SetSpeed(float speed)
-        {
-            if (speed <= 0) 
-                throw new ArgumentOutOfRangeException(nameof(speed));
-            
-            _speed = speed;
-        }
 
         public void Freeze(float freeze)
         {
@@ -51,7 +72,7 @@ namespace Source.Scripts.Enemies
         {
             _freeze = freeze;
             
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1f);
 
             _freeze = 0;
         }
