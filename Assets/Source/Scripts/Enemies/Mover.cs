@@ -7,6 +7,8 @@ namespace Source.Scripts.Enemies
 {
     public class Mover : MonoBehaviour
     {
+        private const float FreezeDuration = 1f;
+        
         [SerializeField] private NavMeshAgent _agent;
         
         private float _speed;
@@ -23,6 +25,9 @@ namespace Source.Scripts.Enemies
 
             _speed = speed;
             _distanceAttack = distanceAttack;
+            
+            _agent.updateRotation = false;
+            _agent.stoppingDistance = _distanceAttack;
         }
 
         private void Update()
@@ -37,10 +42,7 @@ namespace Source.Scripts.Enemies
             {
                 _agent.SetDestination(_target.position);
                 _agent.speed = _speed - _freeze;
-                _agent.stoppingDistance = _distanceAttack;
             }
-            
-            _agent.transform.rotation = Quaternion.identity;
         }
 
         public void SetTarget(Transform target) => 
@@ -58,7 +60,7 @@ namespace Source.Scripts.Enemies
         {
             _freeze = freeze;
             
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(FreezeDuration);
 
             _freeze = 0;
         }
