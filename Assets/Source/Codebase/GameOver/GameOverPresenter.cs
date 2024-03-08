@@ -14,14 +14,14 @@ namespace Source.Codebase.GameOver
             _gameLoopService = gameLoopService ?? throw new ArgumentNullException(nameof(gameLoopService));
             _player = player ? player : throw new ArgumentNullException(nameof(player));
 
-            _gameLoopService.GameRestarted += OnGameRestarted;
+            _gameLoopService.GameRestarting += OnGameRestarting;
             _player.Died += OnDied;
         }
 
         public void Dispose() => 
             _player.Died -= OnDied;
 
-        private void OnGameRestarted() => 
+        private void OnGameRestarting() => 
             _player.FullRecovery();
 
         private void OnDied() => 

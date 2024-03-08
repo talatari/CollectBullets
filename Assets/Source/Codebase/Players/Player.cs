@@ -91,15 +91,23 @@ namespace Source.Codebase.Players
             _health.TakeDamage(damage);
         }
         
-        public void FullRecovery() => 
+        public void FullRecovery()
+        {
+            print("FullRecovery._health.FullRecovery");
+            
             _health.FullRecovery();
-        
+        }
+
+        private void OnWaveCompleted()
+        {
+            print("OnWaveCompleted._health.FullRecovery");
+
+            _health.FullRecovery();
+        }
+
         private void OnDied() => 
             Died?.Invoke();
 
-        private void OnWaveCompleted() =>
-            FullRecovery();
-        
         private void OnVampire(int vampirism) => 
             _health.Heal(vampirism);
         

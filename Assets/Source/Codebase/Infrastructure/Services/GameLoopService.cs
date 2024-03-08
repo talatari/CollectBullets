@@ -7,7 +7,7 @@ namespace Source.Codebase.Infrastructure.Services
         public event Action GameStarted;
         public event Action WaveCompleted;
         public event Action GameOver;
-        public event Action GameRestarted;
+        public event Action GameRestarting;
 
         public void StartGame()
         {
@@ -26,7 +26,7 @@ namespace Source.Codebase.Infrastructure.Services
 
         public void NotifyRestartGame()
         {
-            GameRestarted?.Invoke();
+            GameRestarting?.Invoke();
         }
     }
 }
