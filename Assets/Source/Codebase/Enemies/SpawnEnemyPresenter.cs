@@ -14,13 +14,13 @@ namespace Source.Codebase.Enemies
             _gameLoopService = gameLoopService ?? throw new ArgumentNullException(nameof(gameLoopService));
             _spawnerEnemy = spawnerEnemy ? spawnerEnemy : throw new ArgumentNullException(nameof(spawnerEnemy));
             
-            _gameLoopService.GameRestarted += OnGameRestarted;
+            _gameLoopService.GameRestarting += OnGameRestarting;
         }
 
         public void Dispose() => 
-            _gameLoopService.GameRestarted -= OnGameRestarted;
+            _gameLoopService.GameRestarting -= OnGameRestarting;
 
-        private void OnGameRestarted() => 
+        private void OnGameRestarting() => 
             _spawnerEnemy.ResetPool();
     }
 }

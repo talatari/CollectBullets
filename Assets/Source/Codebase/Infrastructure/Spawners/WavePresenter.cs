@@ -14,21 +14,21 @@ namespace Source.Codebase.Infrastructure.Spawners
             _spawnerWave = spawnerWave ?? throw new ArgumentNullException(nameof(spawnerWave));
             
             _gameLoopService.GameStarted += OnGameStarted;
-            _gameLoopService.GameRestarted += OnGameRestarted;
+            _gameLoopService.GameRestarting += OnGameRestarting;
             _spawnerWave.Completed += OnCompleted;
         }
 
         public void Dispose()
         {
             _gameLoopService.GameStarted -= OnGameStarted;
-            _gameLoopService.GameRestarted -= OnGameRestarted;
+            _gameLoopService.GameRestarting -= OnGameRestarting;
             _spawnerWave.Completed -= OnCompleted;
         }
 
         private void OnGameStarted() => 
             _spawnerWave.StartSpawnWave();
 
-        private void OnGameRestarted() => 
+        private void OnGameRestarting() => 
             _spawnerWave.RestartWave();
 
         private void OnCompleted() => 
