@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using Source.Codebase.Enemies;
 using Source.Codebase.Infrastructure.Pools.Interfaces;
+using Source.Codebase.Infrastructure.Spawners.Interfaces;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Source.Codebase.Infrastructure.Spawners
 {
-    public class SpawnerEnemy : MonoBehaviour
+    public class SpawnerEnemy : MonoBehaviour, ISpawner
     {
         private IPool<Enemy> _poolEnemy;
         private Coroutine _coroutineSpawnEnemy;

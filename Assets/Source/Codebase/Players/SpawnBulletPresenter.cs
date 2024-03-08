@@ -15,12 +15,19 @@ namespace Source.Codebase.Players
             _spawnerBullet = spawnerBullet ? spawnerBullet : throw new ArgumentNullException(nameof(spawnerBullet));
 
             _gameLoopService.GameStarted += OnSpawnBullets;
+            _gameLoopService.GameRestarted += OnGameRestarted;
         }
 
-        public void Dispose() => 
+        public void Dispose()
+        {
             _gameLoopService.GameStarted -= OnSpawnBullets;
+            _gameLoopService.GameRestarted -= OnGameRestarted;
+        }
 
         private void OnSpawnBullets() => 
             _spawnerBullet.StartSpawn();
+
+        private void OnGameRestarted() => 
+            _spawnerBullet.ResetPool();
     }
 }

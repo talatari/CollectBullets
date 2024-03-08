@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using Source.Codebase.Infrastructure.Pools;
+using Source.Codebase.Infrastructure.Spawners.Interfaces;
 using Source.Codebase.Players;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Source.Codebase.Infrastructure.Spawners
 {
-    public class SpawnerBullet : MonoBehaviour
+    public class SpawnerBullet : MonoBehaviour, ISpawner
     {
         private Pool<Bullet> _poolBullet;
         private Coroutine _coroutineSpawnBullet;
@@ -51,6 +52,9 @@ namespace Source.Codebase.Infrastructure.Spawners
             if (_coroutineSpawnBullet != null)
                 StopCoroutine(_coroutineSpawnBullet);
         }
+
+        public void ResetPool() => 
+            _poolBullet.ReleaseAll();
 
         private void Spawn()
         {
