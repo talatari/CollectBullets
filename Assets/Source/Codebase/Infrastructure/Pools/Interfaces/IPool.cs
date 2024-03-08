@@ -5,7 +5,6 @@ namespace Source.Codebase.Infrastructure.Pools.Interfaces
 {
     public interface IPool<T> where T : IPoolable
     {
-        event Action Emptied;
         event Action Completed;
         
         int StartItemCount { get; }

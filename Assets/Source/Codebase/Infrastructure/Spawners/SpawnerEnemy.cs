@@ -20,8 +20,6 @@ namespace Source.Codebase.Infrastructure.Spawners
 
         public void Init(IPool<Enemy> poolEnemy, int maxEnemySpawnCount, float distanceRange)
         {
-            print("SpawnerEnemy.Init");
-
             if (poolEnemy == null)
                 throw new ArgumentNullException(nameof(poolEnemy));
             
@@ -35,28 +33,17 @@ namespace Source.Codebase.Infrastructure.Spawners
             _maxEnemySpawnCount = maxEnemySpawnCount;
             _distanceRange = distanceRange;
             
-            _poolEnemy.Emptied += OnEmptied;
             _poolEnemy.Completed += OnCompleted;
         }
 
         public event Action SpawnEnded;
-        public event Action Emptied;
         public event Action Completed;
-
-        private void OnEnable()
-        {
-            // TODO: нужен ли здесь вызов при включении?
-            // print("SpawnerEnemy.OnEnable -> _poolEnemy?.Init();");
-            // _poolEnemy?.Init();
-        }
-
-        private void OnDisable() => 
-            StopSpawn();
-
+        
         private void OnDestroy()
         {
-            _poolEnemy.Emptied -= OnEmptied;
             _poolEnemy.Completed -= OnCompleted;
+            
+            StopSpawn();
         }
 
         public void StartSpawn(int waveNumber, int spawnCount, float spawnDelay, float delayBetweenWaves)
@@ -90,11 +77,6 @@ namespace Source.Codebase.Infrastructure.Spawners
 
         public void ResetPool() => 
             _poolEnemy.ReleaseAll();
-
-        private void OnEmptied()
-        {
-            Emptied?.Invoke();
-        }
 
         private void OnCompleted()
         {

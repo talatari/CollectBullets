@@ -1680,6 +1680,18 @@ PrefabInstance:
       propertyPath: _upgradePresenter
       value: 
       objectReference: {fileID: 9020550690892193592}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _enemyPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _enemyPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 224845870481307363, guid: 5040fb2e155bb4b19b1847fe0f285212, type: 3}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _enemyPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 224845870481307363, guid: e90e2cfaf591a4dd394b52dbfce98c82, type: 3}
     - target: {fileID: 3501383144508363256, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1000
@@ -2083,6 +2095,18 @@ PrefabInstance:
     - target: {fileID: 1992340296186183984, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
       propertyPath: m_Name
       value: Player+
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522842146740572652, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7675277420051463128, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
+      propertyPath: m_Radius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7675277420051463128, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7914356212811610726, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
       propertyPath: m_LocalPosition.x

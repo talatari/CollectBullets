@@ -1,7 +1,6 @@
 using System;
 using Source.Codebase.Infrastructure.Services;
 using Source.Codebase.Infrastructure.Spawners;
-using UnityEngine;
 
 namespace Source.Codebase.Enemies
 {

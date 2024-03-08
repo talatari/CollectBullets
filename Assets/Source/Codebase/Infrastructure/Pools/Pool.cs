@@ -25,7 +25,6 @@ namespace Source.Codebase.Infrastructure.Pools
             _startItemsCount = startItemsCount;
         }
 
-        public event Action Emptied;
         public event Action Completed;
 
         public int StartItemCount => _startItemsCount;
@@ -47,8 +46,6 @@ namespace Source.Codebase.Infrastructure.Pools
             }
             
             _activeItems.Clear();
-            
-            Emptied?.Invoke();
         }
 
         public T Get()

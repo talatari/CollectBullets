@@ -19,7 +19,9 @@ namespace Source.Codebase.Players
         {
             _commonStats = commonStats ?? throw new ArgumentNullException(nameof(commonStats));
             _radius = commonStats.RadiusAttack;
+            
             SetDiameter();
+            
             _commonStats.RadiusAttackChanged += OnSetRadius;
         }
 
@@ -29,6 +31,7 @@ namespace Source.Codebase.Players
         private void OnSetRadius(int radiusAttack)
         {
             _radius = radiusAttack;
+            
             SetDiameter();
         }
         
