@@ -38,6 +38,14 @@ namespace Source.Codebase.Players
                 _collectedBullets[i].SetActive(true);
         }
 
+        public void Reset()
+        {
+            _activatedBulletsCount = 0;
+            
+            foreach (GameObject collectedBullet in _collectedBullets)
+                collectedBullet.SetActive(false);
+        }
+
         private void ClearBag()
         {
             if (_collectedBullets != null)

@@ -6,8 +6,8 @@ namespace Source.Codebase.Upgrades
 {
     public class UpgradeHandler : IDisposable
     {
-        private readonly Stats _stats;
-        private readonly List<UpgradeModel> _upgradeModels;
+        private Stats _stats;
+        private List<UpgradeModel> _upgradeModels;
 
         public UpgradeHandler(Stats stats, List<UpgradeModel> upgradeModels)
         {

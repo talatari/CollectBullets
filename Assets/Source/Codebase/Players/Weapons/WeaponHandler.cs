@@ -91,6 +91,12 @@ namespace Source.Codebase.Players.Weapons
         public void CollectBullet() => 
             _weapon.CollectBullet();
 
+        public void ResetCollectedBullets()
+        {
+            _weapon.ResetCollectedBullets();
+            _collectedBullets = 0;
+        }
+
         public void StopShooting()
         {
             if (_shootingCoroutine != null)
