@@ -20,7 +20,7 @@ namespace Source.Codebase.Enemies
         {
             if (speed <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(speed));
-            if (distanceAttack < 0) 
+            if (distanceAttack <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(distanceAttack));
 
             _speed = speed;

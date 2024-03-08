@@ -17,7 +17,7 @@ namespace Source.Codebase.Enemies
         private Collider[] _playerColliders = new Collider[MaxOverlap];
         private CooldownTimer _cooldownTimer;
         private Coroutine _attackCoroutine;
-        private float _distanceAttack;
+        private float _radiusAttack;
         private float _attackCooldown;
         private bool _isRealoding;
         private int _damage;
@@ -29,13 +29,13 @@ namespace Source.Codebase.Enemies
         {
             if (damage <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
-            if (distanceAttack < 0) 
+            if (distanceAttack <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(distanceAttack));
             if (attackCooldown <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(attackCooldown));
             
             _damage = damage;
-            _distanceAttack = distanceAttack; // TODO: implement random range for distance
+            _radiusAttack = distanceAttack / 2f;
             _attackCooldown = attackCooldown;
         }
 
@@ -48,11 +48,11 @@ namespace Source.Codebase.Enemies
             
             _cooldownTimer?.Tick(Time.deltaTime);
         }
-
+        
         private void OverlapPlayer()
         {
             int playerColliders = Physics.OverlapSphereNonAlloc(
-                transform.position, _distanceAttack, _playerColliders, _playerLayer);
+                transform.position, _radiusAttack, _playerColliders, _playerLayer);
 
             if (playerColliders == 0)
             {
