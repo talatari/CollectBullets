@@ -91,19 +91,15 @@ namespace Source.Codebase.Players
             _health.TakeDamage(damage);
         }
         
-        public void FullRecovery()
+        public void Restart()
         {
-            print("FullRecovery._health.FullRecovery");
-            
             _health.FullRecovery();
+            _weaponHandler.ResetCollectedBullets();
+            _bag.Reset();
         }
 
-        private void OnWaveCompleted()
-        {
-            print("OnWaveCompleted._health.FullRecovery");
-
+        private void OnWaveCompleted() => 
             _health.FullRecovery();
-        }
 
         private void OnDied() => 
             Died?.Invoke();

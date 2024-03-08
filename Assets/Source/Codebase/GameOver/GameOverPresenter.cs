@@ -22,7 +22,7 @@ namespace Source.Codebase.GameOver
             _player.Died -= OnDied;
 
         private void OnGameRestarting() => 
-            _player.FullRecovery();
+            _player.Restart();
 
         private void OnDied() => 
             _gameLoopService.NotifyGameOver();

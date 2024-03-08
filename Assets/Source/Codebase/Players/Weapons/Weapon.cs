@@ -45,5 +45,8 @@ namespace Source.Codebase.Players.Weapons
             
             _clipCapacity = value;
         }
+        
+        public void ResetCollectedBullets() => 
+            _collectedBullets = 0;
     }
 }
