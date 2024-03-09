@@ -84,11 +84,7 @@ namespace Source.Codebase.Behaviour
         private void OnSetMaxHealth(int maxHealth)
         {
             _maxHealth = maxHealth;
-            
-            if (_currentHealth >= _maxHealth)
-                _currentHealth = _maxHealth;
-            
-            HealthChanged?.Invoke(_currentHealth, _maxHealth);
+            FullRecovery();
         }
 
         private void OnSetRegeneration(int regeneration)
