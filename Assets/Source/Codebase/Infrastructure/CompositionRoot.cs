@@ -25,22 +25,23 @@ namespace Source.Codebase.Infrastructure
         
         [Header("Enemies")]
         [SerializeField] private List<Enemy> _enemyPrefabs;
-        [SerializeField] private WaveScriptableObject _waveScriptableObject;
-        [SerializeField] private int _maxEnemySpawnCount = 100;
+        [SerializeField] private WaveScriptableObject _waveConfig;
+        [SerializeField] private int _maxEnemySpawnCount;
         [SerializeField] private Transform _container;
         
         [Header("Bullets")]
-        [SerializeField] private int _startBulletCount = 20;
+        [SerializeField] private int _startBulletCount;
+        [SerializeField] private int _maxBulletSpawnCount;
         [SerializeField] private Bullet _bulletPrefab;
-        [SerializeField] private int _maxBulletSpawnCount = 100;
-        [SerializeField] private float _spawnBulletDelay = 1f;
+        [SerializeField] private float _spawnBulletDelay;
         [SerializeField] private Transform _bulletsParent;
         
         [Header("Others")]
-        [SerializeField] private float _distanceRange = 30f;
+        [SerializeField] private float _distanceRange;
         [SerializeField] private Key _keyPrefab;
         [SerializeField] private RestartGameView _restartView;
-        
+
+        private FactoryDefaultStats _factoryDefaultStats;
         private Stats _stats;
         private List<UpgradeModel> _upgradeModels;
         private UpgradeHandler _upgradeHandler;
@@ -84,8 +85,8 @@ namespace Source.Codebase.Infrastructure
             if (_enemyPrefabs == null)
                 throw new Exception($"{nameof(_enemyPrefabs)} not found.");
             
-            if (_waveScriptableObject == null)
-                throw new ArgumentNullException(nameof(_waveScriptableObject));
+            if (_waveConfig == null)
+                throw new ArgumentNullException(nameof(_waveConfig));
             
             if (_bulletPrefab == null)
                 throw new Exception($"{nameof(_bulletPrefab)} not found.");
@@ -108,8 +109,8 @@ namespace Source.Codebase.Infrastructure
         
         private void CreateStats()
         {
-            FactoryDefaultStats factoryDefaultStats = new(_playerConfig);
-            _stats = factoryDefaultStats.Create();
+            _factoryDefaultStats = new(_playerConfig);
+            _stats = _factoryDefaultStats.Create();
         }
         
         private void CreateUpgradeModels()
@@ -136,12 +137,12 @@ namespace Source.Codebase.Infrastructure
         private void InitSpawners()
         {
             FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefabs, _container, _targetProvider, _stats.CommonStats);
-            _poolEnemy = new Pool<Enemy>(factoryEnemy, _waveScriptableObject.DefaultCount);
+            _poolEnemy = new Pool<Enemy>(factoryEnemy, _waveConfig.DefaultCount);
             _poolEnemy.Init();
             
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
             _spawnerEnemy.Init(_poolEnemy, _maxEnemySpawnCount, _distanceRange);
-            _spawnerWave = new SpawnerWave(_spawnerEnemy, _waveScriptableObject);
+            _spawnerWave = new SpawnerWave(_spawnerEnemy, _waveConfig);
             
             FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent);
             Pool<Bullet> poolBullet = new Pool<Bullet>(factoryBullet, _startBulletCount);

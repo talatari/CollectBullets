@@ -5,14 +5,20 @@ namespace Source.Codebase.Players.PlayerModels
     [Serializable]
     public class DamageStats
     {
+        private int _defaultDamage;
         private int _damage;
+        private int _defaultBurning;
         private int _burning;
         private int _burningDuration;
+        private int _defaultVampirism;
         private int _vampirism;
+        private int _defaultClipCapacity;
         private int _clipCapacity;
+        private int _defaultShootingDelay;
         private int _shootingDelay;
 
-        public DamageStats(int damage, int burning, int burningDuration, int vampirism, int clipCapacity, int shootingDelay)
+        public DamageStats(
+            int damage, int burning, int burningDuration, int vampirism, int clipCapacity, int shootingDelay)
         {
             if (damage <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
@@ -26,13 +32,15 @@ namespace Source.Codebase.Players.PlayerModels
                 throw new ArgumentOutOfRangeException(nameof(clipCapacity));
             if (shootingDelay <= 0)
                 throw new ArgumentOutOfRangeException(nameof(shootingDelay));
-
-            _damage = damage;
-            _burning = burning;
+            
+            _defaultDamage = damage;
+            _defaultBurning = burning;
             _burningDuration = burningDuration;
-            _vampirism = vampirism;
-            _clipCapacity = clipCapacity;
-            _shootingDelay = shootingDelay;
+            _defaultVampirism = vampirism;
+            _defaultClipCapacity = clipCapacity;
+            _defaultShootingDelay = shootingDelay;
+
+            SetDefaultValues();
         }
 
         public event Action<int> DamageChanged;
@@ -48,6 +56,24 @@ namespace Source.Codebase.Players.PlayerModels
         public int ClipCapacity => _clipCapacity;
         public int ShootingDelay => _shootingDelay;
 
+        public void SetDefaultValues()
+        {
+            _damage = _defaultDamage;
+            DamageChanged?.Invoke(_damage);
+            
+            _burning = _defaultBurning;
+            BurningChanged?.Invoke(_burning);
+            
+            _vampirism = _defaultVampirism;
+            VampirismChanged?.Invoke(_vampirism);
+
+            _clipCapacity = _defaultClipCapacity;
+            ClipCapacityChanged?.Invoke(_clipCapacity);
+            
+            _shootingDelay = _defaultShootingDelay;
+            ShootingDelayChanged?.Invoke(_shootingDelay);
+        }
+        
         public int AddDamage(int value)
         {
             if (value <= 0) 

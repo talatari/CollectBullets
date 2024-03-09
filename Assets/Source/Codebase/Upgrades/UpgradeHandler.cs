@@ -4,6 +4,7 @@ using Source.Codebase.Players.PlayerModels;
 
 namespace Source.Codebase.Upgrades
 {
+    [Serializable]
     public class UpgradeHandler : IDisposable
     {
         private Stats _stats;
@@ -28,6 +29,19 @@ namespace Source.Codebase.Upgrades
         {
             foreach (UpgradeModel upgradeModel in _upgradeModels)
                 upgradeModel.Changed -= ApplyUpgrade;
+        }
+
+        public void SetDefaultValues()
+        {
+            _stats.DamageStats.SetDefaultValues();
+            _stats.HealthStats.SetDefaultValues();
+            _stats.CommonStats.SetDefaultValues();
+            
+            foreach (UpgradeModel upgradeModel in _upgradeModels)
+            {
+                upgradeModel.ResetProgress();
+                SetCurrentValue(upgradeModel);
+            }
         }
         
         private void ApplyUpgrade(UpgradeModel upgradeModel)

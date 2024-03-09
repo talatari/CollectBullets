@@ -36,7 +36,7 @@ namespace Source.Codebase.Behaviour
             
             Init(_healthStats.MaxHealth);
             _regeneration = _healthStats.Regeneration;
-
+            
             _isInit = true;
             
             _healthStats.MaxHealthChanged += OnSetMaxHealth;
@@ -84,21 +84,25 @@ namespace Source.Codebase.Behaviour
         private void OnSetMaxHealth(int maxHealth)
         {
             _maxHealth = maxHealth;
+            
+            if (_currentHealth >= _maxHealth)
+                _currentHealth = _maxHealth;
+            
             HealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
 
         private void OnSetRegeneration(int regeneration)
         {
             _regeneration = regeneration;
-
             StartRegeneration();
         }
 
         private void StartRegeneration()
         {
             StopRegeneration();
-
-            _coroutineRegeneration = StartCoroutine(Regeneration());
+            
+            if (_regeneration > 0)
+                _coroutineRegeneration = StartCoroutine(Regeneration());
         }
 
         private void StopRegeneration()

@@ -43,7 +43,7 @@ namespace Source.Codebase.Infrastructure.Spawners
         public void StartSpawn()
         {
             StopSpawn();
-
+            
             _coroutineSpawnBullet = StartCoroutine(SpawnBullet());
         }
 
@@ -53,8 +53,12 @@ namespace Source.Codebase.Infrastructure.Spawners
                 StopCoroutine(_coroutineSpawnBullet);
         }
 
-        public void ResetPool() => 
+        public void ResetPool()
+        {
+            _spawnedCount = 0;
             _poolBullet.ReleaseAll();
+            StartSpawn();
+        }
 
         private void Spawn()
         {

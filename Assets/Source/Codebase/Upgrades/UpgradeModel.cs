@@ -8,25 +8,25 @@ namespace Source.Codebase.Upgrades
         public UpgradeModel(UpgradeSriptableObject upgradeConfig)
         {
             Config = upgradeConfig;
-            StatType = upgradeConfig.StatType;
-            Id = upgradeConfig.Id;
-            Name = upgradeConfig.Name;
-            CurrentValue = upgradeConfig.CurrentValue;
-            IncrementValue = upgradeConfig.IncrementValue;
-            CurrentLevel = upgradeConfig.CurrentLevel;
-            MaxLevel = upgradeConfig.MaxLevel;
+            StatType = Config.StatType;
+            Id = Config.Id;
+            Name = Config.Name;
+            CurrentValue = Config.CurrentValue;
+            IncrementValue = Config.IncrementValue;
+            CurrentLevel = Config.CurrentLevel;
+            MaxLevel = Config.MaxLevel;
         }
 
         public event Action<UpgradeModel> Changed;
         
-        public UpgradeSriptableObject Config { get; set; }
-        public StatType StatType { get; set; }
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public UpgradeSriptableObject Config { get; }
+        public StatType StatType { get; }
+        public int Id { get; }
+        public string Name { get; }
         public int CurrentValue { get; set; }
-        public int IncrementValue { get; set; }
+        public int IncrementValue { get; }
         public int CurrentLevel { get; set; }
-        public int MaxLevel { get; set; }
+        public int MaxLevel { get; }
         
         public bool IsUpgradeable => CurrentLevel <= MaxLevel;
         
@@ -45,6 +45,12 @@ namespace Source.Codebase.Upgrades
                 throw new ArgumentOutOfRangeException(nameof(value));
 
             CurrentValue = value;
+        }
+        
+        public void ResetProgress()
+        {
+            CurrentValue = Config.CurrentValue;
+            CurrentLevel = Config.CurrentLevel;
         }
     }
 }

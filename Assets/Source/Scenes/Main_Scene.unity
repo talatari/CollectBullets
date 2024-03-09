@@ -1673,13 +1673,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8761932229771576044}
     - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _waveConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: 499461964aa574595951651c6bc3f1f9, type: 2}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: _restartView
       value: 
       objectReference: {fileID: 787481464}
     - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _startBulletCount
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: _upgradePresenter
       value: 
       objectReference: {fileID: 9020550690892193592}
+    - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+      propertyPath: _maxBulletSpawnCount
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 3088185229750564446, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
       propertyPath: _enemyPrefabs.Array.size
       value: 2
@@ -2096,18 +2108,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player+
       objectReference: {fileID: 0}
-    - target: {fileID: 7522842146740572652, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7675277420051463128, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
-      propertyPath: m_Radius
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7675277420051463128, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7914356212811610726, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2149,9 +2149,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 8774358219192627739, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
-    - {fileID: 608339068071824610, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
