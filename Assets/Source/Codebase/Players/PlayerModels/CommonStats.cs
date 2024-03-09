@@ -5,9 +5,13 @@ namespace Source.Codebase.Players.PlayerModels
     [Serializable]
     public class CommonStats
     {
+        private int _defaultMagnet;
         private int _magnet;
+        private int _defaultSpeed;
         private int _speed;
+        private int _defaultFreeze;
         private int _freeze;
+        private int _defaultRadiusAttack;
         private int _radiusAttack;
         
         public CommonStats(int magnet, int speed, int freeze, int radiusAttack)
@@ -20,11 +24,13 @@ namespace Source.Codebase.Players.PlayerModels
                 throw new ArgumentOutOfRangeException(nameof(freeze));
             if (radiusAttack <= 0)
                 throw new ArgumentOutOfRangeException(nameof(radiusAttack));
-            
-            _magnet = magnet;
-            _speed = speed;
-            _freeze = freeze;
-            _radiusAttack = radiusAttack;
+
+            _defaultMagnet = magnet;
+            _defaultSpeed = speed;
+            _defaultFreeze = freeze;
+            _defaultRadiusAttack = radiusAttack;
+
+            SetDefaultValues();
         }
         
         public event Action<int> MagnetChanged;
@@ -37,6 +43,21 @@ namespace Source.Codebase.Players.PlayerModels
         public int Freeze => _freeze;
         public int RadiusAttack => _radiusAttack;
 
+        public void SetDefaultValues()
+        {
+            _magnet = _defaultMagnet;
+            MagnetChanged?.Invoke(_magnet);
+            
+            _speed = _defaultSpeed;
+            SpeedChanged?.Invoke(_speed);
+
+            _freeze = _defaultFreeze;
+            FreezeChanged?.Invoke(_freeze);
+            
+            _radiusAttack = _defaultRadiusAttack;
+            RadiusAttackChanged?.Invoke(_radiusAttack);
+        }
+        
         public int AddMagnet(int value)
         {
             if (value <= 0)

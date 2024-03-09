@@ -96,6 +96,7 @@ namespace Source.Codebase.Players
             _health.FullRecovery();
             _weaponHandler.ResetCollectedBullets();
             _bag.Reset();
+            _upgradeHandler.SetDefaultValues();
         }
 
         private void OnWaveCompleted() => 

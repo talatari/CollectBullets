@@ -6,31 +6,27 @@ namespace Source.Codebase.Infrastructure.Factories
 {
     public class FactoryDefaultStats
     {
-        private readonly PlayerScriptableObject _playerScriptableObject;
+        private readonly PlayerScriptableObject _playerConfig;
 
-        public FactoryDefaultStats(PlayerScriptableObject playerScriptableObject)
-        {
-            _playerScriptableObject = playerScriptableObject
-                ? playerScriptableObject
-                : throw new ArgumentNullException(nameof(playerScriptableObject));
-        }
-        
+        public FactoryDefaultStats(PlayerScriptableObject playerConfig) => 
+            _playerConfig = playerConfig ? playerConfig : throw new ArgumentNullException(nameof(playerConfig));
+
         public Stats Create() =>
             new(
                 new DamageStats(
-                    _playerScriptableObject.Damage, 
-                    _playerScriptableObject.Burning,
-                    _playerScriptableObject.BurningDuration,
-                    _playerScriptableObject.Vampirism, 
-                    _playerScriptableObject.ClipCapacity, 
-                    _playerScriptableObject.ShootingDelay), 
+                    _playerConfig.Damage, 
+                    _playerConfig.Burning,
+                    _playerConfig.BurningDuration,
+                    _playerConfig.Vampirism, 
+                    _playerConfig.ClipCapacity, 
+                    _playerConfig.ShootingDelay), 
                 new HealthStats(
-                    _playerScriptableObject.MaxHealth, 
-                    _playerScriptableObject.Regeneration),
+                    _playerConfig.MaxHealth, 
+                    _playerConfig.Regeneration),
                 new CommonStats(
-                    _playerScriptableObject.Magnet, 
-                    _playerScriptableObject.Speed, 
-                    _playerScriptableObject.Freeze,
-                    _playerScriptableObject.RadiusAttack));
+                    _playerConfig.Magnet, 
+                    _playerConfig.Speed, 
+                    _playerConfig.Freeze,
+                    _playerConfig.RadiusAttack));
     }
 }

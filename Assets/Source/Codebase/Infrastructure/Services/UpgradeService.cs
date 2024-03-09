@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Source.Codebase.Infrastructure.SaveLoadData;
+using Source.Codebase.Players.PlayerModels;
 using Source.Codebase.Upgrades;
 
 namespace Source.Codebase.Infrastructure.Services
@@ -9,13 +10,16 @@ namespace Source.Codebase.Infrastructure.Services
     public class UpgradeService
     {
         private readonly SaveLoadService _saveLoadService;
-        private readonly List<UpgradeModel> _upgradeModels;
+        private List<UpgradeModel> _upgradeModels;
 
         public UpgradeService(SaveLoadService saveLoadService, List<UpgradeModel> upgradeModels)
         {
             _saveLoadService = saveLoadService ?? throw new ArgumentNullException(nameof(saveLoadService));
             _upgradeModels = upgradeModels ?? throw new ArgumentNullException(nameof(upgradeModels));
         }
+
+        public void Upgrade(int id) => 
+            _upgradeModels.First(model => model.Id == id).Upgrade();
 
         public bool TryGetUpgradeableModels(out List<UpgradeModel> upgradeModels)
         {
@@ -32,8 +36,5 @@ namespace Source.Codebase.Infrastructure.Services
 
         public void SavePlayerProgress() => 
             _saveLoadService.SavePlayerProgress();
-
-        public void Upgrade(int id) => 
-            _upgradeModels.First(model => model.Id == id).Upgrade();
     }
 }

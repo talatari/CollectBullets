@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f965c0107c57416299b95d8ee87c270a, type: 3}
   m_Name: WaveEnemies
   m_EditorClassIdentifier: 
-  <DefaultCount>k__BackingField: 8
+  <DefaultCount>k__BackingField: 2
   <IncrementPercent>k__BackingField: 13
   <DefaultDelay>k__BackingField: 1.5
   <DecrementDelay>k__BackingField: 0.01
