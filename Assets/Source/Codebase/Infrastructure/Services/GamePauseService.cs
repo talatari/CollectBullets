@@ -14,12 +14,6 @@ namespace Source.Codebase.Infrastructure.Services
             _multiCallHandler.Released += OnResumed;
         }
 
-        private void OnPaused() => 
-            Paused?.Invoke();
-        
-        private void OnResumed() =>
-            Resumed?.Invoke();
-
         public event Action Paused;
         public event Action Resumed;
 
@@ -37,7 +31,13 @@ namespace Source.Codebase.Infrastructure.Services
 
         public void InvokeByFocusChanging(bool isCall) =>
             HandleInvoke(nameof(InvokeByFocusChanging), isCall);
-
+        
+        private void OnPaused() => 
+            Paused?.Invoke();
+        
+        private void OnResumed() =>
+            Resumed?.Invoke();
+        
         private void HandleInvoke(string invokeBy, bool isCall)
         {
             if (isCall)

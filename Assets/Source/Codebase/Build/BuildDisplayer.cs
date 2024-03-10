@@ -7,14 +7,19 @@ namespace Source.Codebase.Build
     {
         [SerializeField] private TMP_Text _textBuildNumber;
 
+        private ResourceRequest _request;
+        
         private void Awake()
         {
             if (_textBuildNumber.TryGetComponent(out TMP_Text textBuildLabel))
                 _textBuildNumber = textBuildLabel;
 
-            ResourceRequest request = Resources.LoadAsync("Build", typeof(BuildScriptableObject));
-            request.completed += Request_completed;
+            _request = Resources.LoadAsync("Build", typeof(BuildScriptableObject));
+            _request.completed += Request_completed;
         }
+
+        private void OnDestroy() => 
+            _request.completed -= Request_completed;
 
         private void Request_completed(AsyncOperation obj)
         {

@@ -95,12 +95,12 @@ MonoBehaviour:
   _enemyPrefabs:
   - {fileID: 224845870481307363, guid: 5040fb2e155bb4b19b1847fe0f285212, type: 3}
   - {fileID: 224845870481307363, guid: e90e2cfaf591a4dd394b52dbfce98c82, type: 3}
-  _waveScriptableObject: {fileID: 11400000, guid: 499461964aa574595951651c6bc3f1f9, type: 2}
+  _waveConfig: {fileID: 11400000, guid: 499461964aa574595951651c6bc3f1f9, type: 2}
   _maxEnemySpawnCount: 100
   _container: {fileID: 4567002090889281664}
-  _startBulletCount: 90
+  _startBulletCount: 300
+  _maxBulletSpawnCount: 500
   _bulletPrefab: {fileID: 10549068201496987, guid: 90ac860e88f0e4e97952795d80216ba2, type: 3}
-  _maxBulletSpawnCount: 100
   _spawnBulletDelay: 1
   _bulletsParent: {fileID: 3293311338438183936}
   _distanceRange: 40
