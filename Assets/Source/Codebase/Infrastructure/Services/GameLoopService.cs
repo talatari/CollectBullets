@@ -9,24 +9,16 @@ namespace Source.Codebase.Infrastructure.Services
         public event Action GameOver;
         public event Action GameRestarting;
 
-        public void StartGame()
-        {
+        public void StartGame() => 
             GameStarted?.Invoke();
-        }
 
-        public void NotifyWaveCompleted()
-        {
+        public void NotifyWaveCompleted() => 
             WaveCompleted?.Invoke();
-        }
 
-        public void NotifyGameOver()
-        {
+        public void NotifyGameOver() => 
             GameOver?.Invoke();
-        }
 
-        public void NotifyRestartGame()
-        {
+        public void NotifyRestartGame() => 
             GameRestarting?.Invoke();
-        }
     }
 }

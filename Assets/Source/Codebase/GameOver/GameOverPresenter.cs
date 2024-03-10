@@ -18,8 +18,11 @@ namespace Source.Codebase.GameOver
             _player.Died += OnDied;
         }
 
-        public void Dispose() => 
+        public void Dispose()
+        {
+            _gameLoopService.GameRestarting -= OnGameRestarting;
             _player.Died -= OnDied;
+        }
 
         private void OnGameRestarting() => 
             _player.Restart();
