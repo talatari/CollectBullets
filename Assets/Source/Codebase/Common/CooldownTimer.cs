@@ -15,7 +15,7 @@ namespace Source.Codebase.Common
             _cooldownInSeconds = cooldownInSeconds;
         }
         
-        public bool CanShoot => _remainingDuration == 0;
+        public bool IsFinished => _remainingDuration == 0;
 
         public void Run() => 
             _remainingDuration = _cooldownInSeconds;

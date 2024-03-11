@@ -15,7 +15,6 @@ namespace Source.Codebase.Infrastructure.Spawners
         private float _spawnDelay;
         private int _maxBulletSpawnCount;
         private float _distanceRange;
-        private int _spawnedCount;
 
         public void Init(Pool<Bullet> poolBullet, float spawnDelay, int maxBulletSpawnCount, float distanceRange)
         {
@@ -55,7 +54,6 @@ namespace Source.Codebase.Infrastructure.Spawners
 
         public void ResetPool()
         {
-            _spawnedCount = 0;
             _poolBullet.ReleaseAll();
             StartSpawn();
         }
@@ -67,7 +65,6 @@ namespace Source.Codebase.Infrastructure.Spawners
             
             Bullet bullet = _poolBullet.Get();
             SetPosition(bullet);
-            _spawnedCount++;
         }
 
         private void SetPosition(Bullet bullet)
@@ -89,9 +86,6 @@ namespace Source.Codebase.Infrastructure.Spawners
 
             while (enabled)
             {
-                if (_spawnedCount >= _poolBullet.StartItemCount)
-                    break;
-                
                 Spawn();
 
                 yield return delay;
