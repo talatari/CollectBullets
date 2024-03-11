@@ -12,7 +12,7 @@ namespace Source.Codebase.Players.Weapons
         private const float RatioDecrement = 0.05f;
             
         [SerializeField] private ProjectileForPistol _projectilePrefab;
-        
+        // test
         private Weapon _weapon;
         private Coroutine _shootingCoroutine;
         private Vector3 _direction;
