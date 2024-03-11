@@ -1,38 +1,35 @@
 using System;
+using Source.Codebase.SO;
 
 namespace Source.Codebase.Players.PlayerModels
 {
     [Serializable]
     public class CommonStats
     {
-        private int _defaultMagnet;
+        private readonly PlayerScriptableObject _playerConfig;
         private int _magnet;
-        private int _defaultSpeed;
         private int _speed;
-        private int _defaultFreeze;
         private int _freeze;
-        private int _defaultRadiusAttack;
         private int _radiusAttack;
-        
-        public CommonStats(int magnet, int speed, int freeze, int radiusAttack)
+
+        public CommonStats(PlayerScriptableObject playerConfig)
         {
-            if (magnet <= 0)
-                throw new ArgumentOutOfRangeException(nameof(magnet));
-            if (speed <= 0)
-                throw new ArgumentOutOfRangeException(nameof(speed));
-            if (freeze < 0) 
-                throw new ArgumentOutOfRangeException(nameof(freeze));
-            if (radiusAttack <= 0)
-                throw new ArgumentOutOfRangeException(nameof(radiusAttack));
+            _playerConfig = playerConfig ? playerConfig : throw new ArgumentNullException(nameof(playerConfig));
+            if (_playerConfig.Magnet <= 0)
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.Magnet));
+            if (_playerConfig.Speed <= 0)
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.Speed));
+            if (_playerConfig.Freeze < 0) 
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.Freeze));
+            if (_playerConfig.RadiusAttack <= 0)
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.RadiusAttack));
 
-            _defaultMagnet = magnet;
-            _defaultSpeed = speed;
-            _defaultFreeze = freeze;
-            _defaultRadiusAttack = radiusAttack;
-
-            SetDefaultValues();
+            _magnet = _playerConfig.Magnet;
+            _speed = _playerConfig.Speed;
+            _freeze = _playerConfig.Freeze;
+            _radiusAttack = _playerConfig.RadiusAttack;
         }
-        
+
         public event Action<int> MagnetChanged;
         public event Action<int> SpeedChanged;
         public event Action<int> FreezeChanged;
@@ -45,16 +42,16 @@ namespace Source.Codebase.Players.PlayerModels
 
         public void SetDefaultValues()
         {
-            _magnet = _defaultMagnet;
+            _magnet = _playerConfig.Magnet;
             MagnetChanged?.Invoke(_magnet);
             
-            _speed = _defaultSpeed;
+            _speed = _playerConfig.Speed;
             SpeedChanged?.Invoke(_speed);
 
-            _freeze = _defaultFreeze;
+            _freeze = _playerConfig.Freeze;
             FreezeChanged?.Invoke(_freeze);
             
-            _radiusAttack = _defaultRadiusAttack;
+            _radiusAttack = _playerConfig.RadiusAttack;
             RadiusAttackChanged?.Invoke(_radiusAttack);
         }
         

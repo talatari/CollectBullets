@@ -1,26 +1,25 @@
 using System;
+using Source.Codebase.SO;
 
 namespace Source.Codebase.Players.PlayerModels
 {
     [Serializable]
     public class HealthStats
     {
-        private int _defaultMaxHealth;
+        private readonly PlayerScriptableObject _playerConfig;
         private int _maxHealth;
-        private int _defaultRegeneration;
         private int _regeneration;
-        
-        public HealthStats(int maxHealth, int regeneration)
-        {
-            if (maxHealth <= 0) 
-                throw new ArgumentOutOfRangeException(nameof(maxHealth));
-            if (regeneration < 0) 
-                throw new ArgumentOutOfRangeException(nameof(regeneration));
 
-            _defaultMaxHealth = maxHealth;
-            _defaultRegeneration = regeneration;
-            
-            SetDefaultValues();
+        public HealthStats(PlayerScriptableObject playerConfig)
+        {
+            _playerConfig = playerConfig ? playerConfig : throw new ArgumentNullException(nameof(playerConfig));
+            if (_playerConfig.MaxHealth <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.MaxHealth));
+            if (_playerConfig.Regeneration < 0) 
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.Regeneration));
+
+            _maxHealth = _playerConfig.MaxHealth;
+            _regeneration = _playerConfig.Regeneration;
         }
 
         public event Action<int> MaxHealthChanged;
@@ -31,10 +30,10 @@ namespace Source.Codebase.Players.PlayerModels
         
         public void SetDefaultValues()
         {
-            _maxHealth = _defaultMaxHealth;
+            _maxHealth = _playerConfig.MaxHealth;
             MaxHealthChanged?.Invoke(_maxHealth);
             
-            _regeneration = _defaultRegeneration;
+            _regeneration = _playerConfig.Regeneration;
             RegenerationChanged?.Invoke(_regeneration);
         }
         

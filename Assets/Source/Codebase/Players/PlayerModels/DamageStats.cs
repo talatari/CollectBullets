@@ -1,46 +1,41 @@
 using System;
+using Source.Codebase.SO;
 
 namespace Source.Codebase.Players.PlayerModels
 {
     [Serializable]
     public class DamageStats
     {
-        private int _defaultDamage;
+        private readonly PlayerScriptableObject _playerConfig;
         private int _damage;
-        private int _defaultBurning;
         private int _burning;
         private int _burningDuration;
-        private int _defaultVampirism;
         private int _vampirism;
-        private int _defaultClipCapacity;
         private int _clipCapacity;
-        private int _defaultShootingDelay;
         private int _shootingDelay;
 
-        public DamageStats(
-            int damage, int burning, int burningDuration, int vampirism, int clipCapacity, int shootingDelay)
+        public DamageStats(PlayerScriptableObject playerConfig)
         {
-            if (damage <= 0) 
-                throw new ArgumentOutOfRangeException(nameof(damage));
-            if (burning < 0)
-                throw new ArgumentOutOfRangeException(nameof(burning));
-            if (burningDuration < 0)
-                throw new ArgumentOutOfRangeException(nameof(burningDuration));
-            if (vampirism < 0) 
-                throw new ArgumentOutOfRangeException(nameof(vampirism));
-            if (clipCapacity <= 0)
-                throw new ArgumentOutOfRangeException(nameof(clipCapacity));
-            if (shootingDelay <= 0)
-                throw new ArgumentOutOfRangeException(nameof(shootingDelay));
+            _playerConfig = playerConfig ? playerConfig : throw new ArgumentNullException(nameof(playerConfig));
+            if (_playerConfig.Damage <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.Damage));
+            if (_playerConfig.Burning < 0)
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.Burning));
+            if (_playerConfig.BurningDuration <= 0)
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.BurningDuration));
+            if (_playerConfig.Vampirism < 0) 
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.Vampirism));
+            if (_playerConfig.ClipCapacity <= 0)
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.ClipCapacity));
+            if (_playerConfig.ShootingDelay <= 0)
+                throw new ArgumentOutOfRangeException(nameof(_playerConfig.ShootingDelay));
             
-            _defaultDamage = damage;
-            _defaultBurning = burning;
-            _burningDuration = burningDuration;
-            _defaultVampirism = vampirism;
-            _defaultClipCapacity = clipCapacity;
-            _defaultShootingDelay = shootingDelay;
-
-            SetDefaultValues();
+            _damage = _playerConfig.Damage;
+            _burning = _playerConfig.Burning;
+            _burningDuration = _playerConfig.BurningDuration;
+            _vampirism = _playerConfig.Vampirism;
+            _clipCapacity = _playerConfig.ClipCapacity;
+            _shootingDelay = _playerConfig.ShootingDelay;
         }
 
         public event Action<int> DamageChanged;
@@ -58,19 +53,19 @@ namespace Source.Codebase.Players.PlayerModels
 
         public void SetDefaultValues()
         {
-            _damage = _defaultDamage;
+            _damage = _playerConfig.Damage;
             DamageChanged?.Invoke(_damage);
             
-            _burning = _defaultBurning;
+            _burning = _playerConfig.Burning;
             BurningChanged?.Invoke(_burning);
             
-            _vampirism = _defaultVampirism;
+            _vampirism = _playerConfig.Vampirism;
             VampirismChanged?.Invoke(_vampirism);
 
-            _clipCapacity = _defaultClipCapacity;
+            _clipCapacity = _playerConfig.ClipCapacity;
             ClipCapacityChanged?.Invoke(_clipCapacity);
             
-            _shootingDelay = _defaultShootingDelay;
+            _shootingDelay = _playerConfig.ShootingDelay;
             ShootingDelayChanged?.Invoke(_shootingDelay);
         }
         

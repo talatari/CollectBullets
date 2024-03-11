@@ -12,21 +12,9 @@ namespace Source.Codebase.Infrastructure.Factories
             _playerConfig = playerConfig ? playerConfig : throw new ArgumentNullException(nameof(playerConfig));
 
         public Stats Create() =>
-            new(
-                new DamageStats(
-                    _playerConfig.Damage, 
-                    _playerConfig.Burning,
-                    _playerConfig.BurningDuration,
-                    _playerConfig.Vampirism, 
-                    _playerConfig.ClipCapacity, 
-                    _playerConfig.ShootingDelay), 
-                new HealthStats(
-                    _playerConfig.MaxHealth, 
-                    _playerConfig.Regeneration),
-                new CommonStats(
-                    _playerConfig.Magnet, 
-                    _playerConfig.Speed, 
-                    _playerConfig.Freeze,
-                    _playerConfig.RadiusAttack));
+            new (
+                new DamageStats(_playerConfig), 
+                new HealthStats(_playerConfig), 
+                new CommonStats(_playerConfig));
     }
 }
