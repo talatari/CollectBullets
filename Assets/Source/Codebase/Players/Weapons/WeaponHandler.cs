@@ -129,7 +129,7 @@ namespace Source.Codebase.Players.Weapons
         {
             while (enabled)
             {
-                if (_weapon.CollectedBullets > 0 && _cooldownTimer.CanShoot)
+                if (_weapon.CollectedBullets > 0 && _cooldownTimer.IsFinished)
                 {
                     _weapon.Shoot();
                     Shoted?.Invoke();

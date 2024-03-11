@@ -87,7 +87,7 @@ namespace Source.Codebase.Enemies
         {
             while (enabled)
             {
-                if (_cooldownTimer.CanShoot)
+                if (_cooldownTimer.IsFinished)
                 {
                     if (_projectilePrefab == null)
                         player.TakeDamage(_damage);
