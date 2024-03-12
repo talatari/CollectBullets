@@ -99,13 +99,15 @@ MonoBehaviour:
   _waveConfig: {fileID: 11400000, guid: 499461964aa574595951651c6bc3f1f9, type: 2}
   _maxEnemySpawnCount: 100
   _container: {fileID: 4567002090889281664}
-  _startBulletCount: 30
+  _startBulletCount: 20
   _maxBulletSpawnCount: 100
   _bulletPrefab: {fileID: 10549068201496987, guid: 90ac860e88f0e4e97952795d80216ba2, type: 3}
   _spawnBulletDelay: 0.75
   _bulletsParent: {fileID: 3293311338438183936}
   _keyPrefab: {fileID: 4690296610452820603, guid: 45065ee128bc74ffb84755eee459b71c, type: 3}
   _keysParent: {fileID: 737692056669576270}
+  _keyCount: 4
+  _spawnInterval: 3
   _distanceRange: 40
   _restartView: {fileID: 0}
 --- !u!1 &5238816083930751559

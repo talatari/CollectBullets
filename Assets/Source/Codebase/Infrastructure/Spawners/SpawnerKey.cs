@@ -9,26 +9,38 @@ namespace Source.Codebase.Infrastructure.Spawners
     public class SpawnerKey : MonoBehaviour
     {
         private Pool<Key> _poolKey;
-        private Coroutine _coroutineSpawnKey;
+        private int _maxKeySpawnCount;
         private float _distanceRange;
 
-        public void Init(Pool<Key> poolKey, float distanceRange)
+        public void Init(Pool<Key> poolKey, int maxKeySpawnCount, float distanceRange)
         {
             if (poolKey == null) 
                 throw new ArgumentNullException(nameof(poolKey));
             
-            if (distanceRange <= 0)
+            if (maxKeySpawnCount <= 0) 
+                throw new ArgumentOutOfRangeException(nameof(maxKeySpawnCount));
+            
+            if (distanceRange <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(distanceRange));
             
             _poolKey = poolKey;
+            _maxKeySpawnCount = maxKeySpawnCount;
             _distanceRange = distanceRange;
         }
 
         public void Spawn()
         {
+            if (_poolKey.ActiveItems.Count == _maxKeySpawnCount) 
+                return;
+            
+            print("Spawned key");
+            
             Key key = _poolKey.Get();
             SetPosition(key);
         }
+        
+        public void ResetPool() => 
+            _poolKey.ReleaseAll();
 
         private void SetPosition(Key key)
         {

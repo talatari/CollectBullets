@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Source.Codebase.Enemies;
+using Source.Codebase.Enemies.Waves;
 using Source.Codebase.GameOver;
 using Source.Codebase.Infrastructure.Factories;
 using Source.Codebase.Infrastructure.Pools;
@@ -39,7 +40,8 @@ namespace Source.Codebase.Infrastructure
         [Header("Keys")]
         [SerializeField] private Key _keyPrefab;
         [SerializeField] private Transform _keysParent;
-        [SerializeField] private int _startKeyCount;
+        [SerializeField] private int _keyCount;
+        [SerializeField] private int _spawnInterval;
 
         [Header("Others")]
         [SerializeField] private float _distanceRange;
@@ -53,6 +55,7 @@ namespace Source.Codebase.Infrastructure
         private GameLoopService _gameLoopService;
         private SaveLoadService _saveLoadService;
         private UpgradeService _upgradeService;
+        private KeyService _keyService;
         private TargetProvider _targetProvider;
         private SpawnEnemyPresenter _spawnEnemyPresenter;
         private SpawnBulletPresenter _spawnBulletPresenter;
@@ -72,8 +75,6 @@ namespace Source.Codebase.Infrastructure
             CreateModels();
             
             CreateServices();
-
-            InitTargetProvider();
 
             InitSpawners();
 
@@ -126,15 +127,12 @@ namespace Source.Codebase.Infrastructure
         
         private void CreateServices()
         {
-            MultiCallHandler multiCallHandler = new MultiCallHandler();
-            _gamePauseService = new GamePauseService(multiCallHandler);
+            _gamePauseService = new GamePauseService();
+            _gamePauseService.Init();
             _gameLoopService = new GameLoopService();
             _saveLoadService = new SaveLoadService();
             _upgradeService = new UpgradeService(_saveLoadService, _upgradeModels);
-        }
-        
-        private void InitTargetProvider()
-        {
+            _keyService = new KeyService();
             _targetProvider = new TargetProvider();
             _targetProvider.SetTarget(_player.transform);
         }
@@ -172,11 +170,12 @@ namespace Source.Codebase.Infrastructure
         private void InitKeySpawner()
         {
             FactoryKey factoryKey = new FactoryKey(_keyPrefab, _keysParent);
-            Pool<Key> poolKey = new Pool<Key>(factoryKey, _startKeyCount);
+            Pool<Key> poolKey = new Pool<Key>(factoryKey, _keyCount);
             poolKey.Init();
             
             _spawnerKey = gameObject.AddComponent<SpawnerKey>();
-            _spawnerKey.Init(poolKey, _distanceRange);
+            _spawnerKey.Init(poolKey, _keyCount, _distanceRange);
+            _keyService.Init(_spawnerKey, _spawnInterval);
         }
 
         private void InitPresenters()
@@ -188,12 +187,12 @@ namespace Source.Codebase.Infrastructure
             _upgradePresenter.Init(_stats, _upgradeService, _gameLoopService, _gamePauseService);
             _gameOverPresenter = new GameOverPresenter(_gameLoopService, _player);
             _restartPresenter = new RestartGamePresenter(_gameLoopService, _gamePauseService, _restartView);
-            _wavePresenter = new WavePresenter(_gameLoopService, _spawnerWave);
+            _wavePresenter = new WavePresenter(_gameLoopService, _spawnerWave, _keyService);
         }
         
         private void OnDestroy()
         {
-            _gamePauseService.Dispose();
+            _gamePauseService?.Dispose();
             _spawnerWave.Dispose();
             _spawnEnemyPresenter.Dispose();
             _spawnBulletPresenter.Dispose();

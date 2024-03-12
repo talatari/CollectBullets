@@ -18,8 +18,13 @@ namespace Source.Codebase.Build
             _request.completed += Request_completed;
         }
 
-        private void OnDestroy() => 
+        private void OnDestroy()
+        {
+            if (_request == null)
+                return;
+            
             _request.completed -= Request_completed;
+        }
 
         private void Request_completed(AsyncOperation obj)
         {

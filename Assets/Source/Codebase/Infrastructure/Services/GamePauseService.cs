@@ -4,19 +4,17 @@ namespace Source.Codebase.Infrastructure.Services
 {
     public class GamePauseService : IDisposable
     {
-        private readonly MultiCallHandler _multiCallHandler;
-
-        public GamePauseService(MultiCallHandler multiCallHandler)
-        {
-            _multiCallHandler = multiCallHandler;
-
-            _multiCallHandler.Called += OnPaused;
-            _multiCallHandler.Released += OnResumed;
-        }
+        private MultiCallHandler _multiCallHandler = new ();
 
         public event Action Paused;
         public event Action Resumed;
 
+        public void Init()
+        {
+            _multiCallHandler.Called += OnPaused;
+            _multiCallHandler.Released += OnResumed;
+        }
+        
         public void Dispose()
         {
             _multiCallHandler.Called -= OnPaused;
