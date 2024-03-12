@@ -60,6 +60,7 @@ namespace Source.Codebase.Infrastructure
         private SpawnerEnemy _spawnerEnemy;
         private SpawnerWave _spawnerWave;
         private SpawnerBullet _spawnerBullet;
+        private SpawnerKey _spawnerKey;
         private GameOverPresenter _gameOverPresenter;
         private RestartGamePresenter _restartPresenter;
         private WavePresenter _wavePresenter;
@@ -174,8 +175,8 @@ namespace Source.Codebase.Infrastructure
             Pool<Key> poolKey = new Pool<Key>(factoryKey, _startKeyCount);
             poolKey.Init();
             
-            // _spawnerKey = gameObject.AddComponent<SpawnerKey>();
-            // _spawnerKey.Init(poolKey, _maxKeySpawnCount, _distanceRange);
+            _spawnerKey = gameObject.AddComponent<SpawnerKey>();
+            _spawnerKey.Init(poolKey, _distanceRange);
         }
 
         private void InitPresenters()
