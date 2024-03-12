@@ -41,14 +41,19 @@ namespace Source.Codebase.Upgrades
             _gameLoopService = gameLoopService ?? throw new ArgumentNullException(nameof(gameLoopService));
             _gamePauseService = gamePauseService ?? throw new ArgumentNullException(nameof(gamePauseService));
             
-            _gameLoopService.WaveCompleted += OnShowUpgradeViews;
+            // _gameLoopService.WaveCompleted += OnShowUpgradeViews;
 
             _isInit = true;
         }
         
-        private void OnDestroy() => 
-            _gameLoopService.WaveCompleted -= OnShowUpgradeViews;
-        
+        private void OnDestroy()
+        {
+            if (_gameLoopService == null)
+                return;
+            
+            // _gameLoopService.WaveCompleted -= OnShowUpgradeViews;
+        }
+
         public void OnShowUpgradeViews()
         {
             _gamePauseService.InvokeByUI(true);

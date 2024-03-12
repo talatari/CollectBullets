@@ -25,8 +25,13 @@ namespace Source.Codebase.Players
             _commonStats.RadiusAttackChanged += OnSetRadius;
         }
 
-        private void OnDestroy() => 
+        private void OnDestroy()
+        {
+            if (_commonStats == null)
+                return;
+
             _commonStats.RadiusAttackChanged -= OnSetRadius;
+        }
 
         private void OnSetRadius(int radiusAttack)
         {
