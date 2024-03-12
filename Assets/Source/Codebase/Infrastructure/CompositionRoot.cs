@@ -36,10 +36,10 @@ namespace Source.Codebase.Infrastructure
         [SerializeField] private float _spawnBulletDelay;
         [SerializeField] private Transform _bulletsParent;
 
-
         [Header("Keys")]
         [SerializeField] private Key _keyPrefab;
         [SerializeField] private Transform _keysParent;
+        [SerializeField] private int _startKeyCount;
 
         [Header("Others")]
         [SerializeField] private float _distanceRange;
@@ -171,9 +171,9 @@ namespace Source.Codebase.Infrastructure
         private void InitKeySpawner()
         {
             FactoryKey factoryKey = new FactoryKey(_keyPrefab, _keysParent);
-            // Pool<Key> poolKey = new Pool<Key>(factoryKey, _startKeyCount);
-            // poolKey.Init();
-            //
+            Pool<Key> poolKey = new Pool<Key>(factoryKey, _startKeyCount);
+            poolKey.Init();
+            
             // _spawnerKey = gameObject.AddComponent<SpawnerKey>();
             // _spawnerKey.Init(poolKey, _maxKeySpawnCount, _distanceRange);
         }
