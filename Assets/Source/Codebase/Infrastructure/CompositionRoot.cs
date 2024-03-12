@@ -35,10 +35,14 @@ namespace Source.Codebase.Infrastructure
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private float _spawnBulletDelay;
         [SerializeField] private Transform _bulletsParent;
-        
+
+
+        [Header("Keys")]
+        [SerializeField] private Key _keyPrefab;
+        [SerializeField] private Transform _keysParent;
+
         [Header("Others")]
         [SerializeField] private float _distanceRange;
-        [SerializeField] private Key _keyPrefab;
         [SerializeField] private RestartGameView _restartView;
 
         private FactoryDefaultStats _factoryDefaultStats;
@@ -136,6 +140,15 @@ namespace Source.Codebase.Infrastructure
         
         private void InitSpawners()
         {
+            InitEnemySpawner();
+
+            InitBulletSpawner();
+            
+            InitKeySpawner();
+        }
+
+        private void InitEnemySpawner()
+        {
             FactoryEnemy factoryEnemy = new FactoryEnemy(_enemyPrefabs, _container, _targetProvider, _stats.CommonStats);
             _poolEnemy = new Pool<Enemy>(factoryEnemy, _waveConfig.DefaultCount);
             _poolEnemy.Init();
@@ -143,7 +156,10 @@ namespace Source.Codebase.Infrastructure
             _spawnerEnemy = gameObject.AddComponent<SpawnerEnemy>();
             _spawnerEnemy.Init(_poolEnemy, _maxEnemySpawnCount, _distanceRange);
             _spawnerWave = new SpawnerWave(_spawnerEnemy, _waveConfig);
-            
+        }
+
+        private void InitBulletSpawner()
+        {
             FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent);
             Pool<Bullet> poolBullet = new Pool<Bullet>(factoryBullet, _startBulletCount);
             poolBullet.Init();
@@ -151,7 +167,17 @@ namespace Source.Codebase.Infrastructure
             _spawnerBullet = gameObject.AddComponent<SpawnerBullet>();
             _spawnerBullet.Init(poolBullet, _spawnBulletDelay, _maxBulletSpawnCount, _distanceRange);
         }
-        
+
+        private void InitKeySpawner()
+        {
+            FactoryKey factoryKey = new FactoryKey(_keyPrefab, _keysParent);
+            // Pool<Key> poolKey = new Pool<Key>(factoryKey, _startKeyCount);
+            // poolKey.Init();
+            //
+            // _spawnerKey = gameObject.AddComponent<SpawnerKey>();
+            // _spawnerKey.Init(poolKey, _maxKeySpawnCount, _distanceRange);
+        }
+
         private void InitPresenters()
         {
             // TODO: разделить класс игрока на презентер-вью и модель (убрать зависимоcть в _gameOverPresenter от плеера)
