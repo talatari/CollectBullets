@@ -7,6 +7,7 @@ namespace Source.Codebase.Infrastructure.Services
     {
         private SpawnerKey _spawnerKey;
         private int _spawnInterval;
+        private int _countWaveCompleted;
 
         public void Init(SpawnerKey spawnerKey, int spawnInterval)
         {
@@ -25,12 +26,12 @@ namespace Source.Codebase.Infrastructure.Services
 
         private void SpawnKey()
         {
-            _spawnInterval++;
+            _countWaveCompleted++;
 
-            if (_spawnInterval == 2)
+            if (_countWaveCompleted == _spawnInterval)
             {
                 _spawnerKey.Spawn();
-                _spawnInterval = 0;
+                _countWaveCompleted = 0;
             }
         }
     }
