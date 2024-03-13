@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 6001024232803642620}
   - component: {fileID: 304490133779044870}
   - component: {fileID: 4176175042378283165}
+  - component: {fileID: 8503062376105158237}
   - component: {fileID: 7646452602729401742}
   - component: {fileID: 3922545070107881589}
   - component: {fileID: 7522842146740572652}
@@ -186,6 +187,7 @@ MonoBehaviour:
   _health: {fileID: 4146685920099514370}
   _collisionForBullets: {fileID: 4176175042378283165}
   _collisionForEnemies: {fileID: 1842529774350651860}
+  _collisionForKeys: {fileID: 8503062376105158237}
 --- !u!114 &4146685920099514370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +256,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _rangePickUpBulletsImage: {fileID: 4152694158135971915}
+--- !u!114 &8503062376105158237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992340296186183984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320a3ec9c3694219b9c56b2d8b273701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _keyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!33 &7646452602729401742
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -396,6 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collectedBulletPrefab: {fileID: 2251718402828340361, guid: 96ed8629b0d32443caf2113f5a08250a, type: 3}
+  _collectedKeyPrefab: {fileID: 2251718402828340361, guid: 27d262135ece94b2ea34fdb39face867, type: 3}
 --- !u!1 &3234456345520575766
 GameObject:
   m_ObjectHideFlags: 0

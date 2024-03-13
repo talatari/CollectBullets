@@ -7,10 +7,13 @@ namespace Source.Codebase.Players
     public class Bag : MonoBehaviour
     {
         [SerializeField] private GameObject _collectedBulletPrefab;
+        [SerializeField] private GameObject _collectedKeyPrefab;
         
         private float _offsetY = 0.35f;
         private List<GameObject> _collectedBullets;
         private int _activatedBulletsCount;
+        private Transform _parent;
+        private GameObject _collectedKey;
        
         public void CreateClip(int capacity)
         {
@@ -20,19 +23,29 @@ namespace Source.Codebase.Players
             ClearBag();
             
             _collectedBullets = new List<GameObject>();
+            _parent = transform;
             
             for (int i = 0; i < capacity; i++)
             {
-                Vector3 bagPosition = transform.position;
-                Vector3 newPosition = new Vector3(
-                    bagPosition.x, bagPosition.y + i * _offsetY, bagPosition.z);
+                Vector3 bagPosition = _parent.position;
+                Vector3 newPosition = new Vector3(bagPosition.x, bagPosition.y + i * _offsetY, bagPosition.z);
             
-                GameObject collectedBullet = Instantiate(_collectedBulletPrefab, transform);
+                GameObject collectedBullet = Instantiate(_collectedBulletPrefab, _parent);
                 collectedBullet.transform.position = newPosition;
                 collectedBullet.SetActive(false);
 
                 _collectedBullets.Add(collectedBullet);
             }
+            
+            Vector3 bagKeyPosition = _parent.position;
+            Vector3 newKeyPosition = new Vector3(
+                bagKeyPosition.x, bagKeyPosition.y + _collectedBullets.Count * _offsetY, bagKeyPosition.z);
+            
+            _collectedKey = Instantiate(_collectedKeyPrefab, _parent);
+            _collectedKey.transform.position = newKeyPosition;
+            _collectedKey.SetActive(false);
+            
+            _collectedBullets.Add(_collectedKey);
 
             for (int i = 0; i < _activatedBulletsCount; i++)
                 _collectedBullets[i].SetActive(true);
@@ -75,6 +88,11 @@ namespace Source.Codebase.Players
 
             if (_activatedBulletsCount < _collectedBullets.Count)
                 HideMaxLabel();
+        }
+
+        public void CollecteKey()
+        {
+            _collectedKey.SetActive(true);
         }
 
         private void ShowMaxLabel()

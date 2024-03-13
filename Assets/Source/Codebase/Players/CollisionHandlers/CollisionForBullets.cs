@@ -15,9 +15,8 @@ namespace Source.Codebase.Players.CollisionHandlers
         
         private Collider[] _bulletColliders = new Collider[MaxOverlap];
         private WeaponHandler _weaponHandler;
-        private CommonStats _commonStats;
-        private float _radiusPickUpBullets;
-        private int _baseMagnet;
+        private float _radiusPickUp;
+        private int _baseRadiusMagnet;
         private bool _isInit;
 
         public event Action BulletCollected;
@@ -29,8 +28,8 @@ namespace Source.Codebase.Players.CollisionHandlers
             if (magnet <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(magnet));
 
-            _baseMagnet = magnet;
-            _radiusPickUpBullets = _baseMagnet;
+            _baseRadiusMagnet = magnet;
+            _radiusPickUp = _baseRadiusMagnet;
             
             _isInit = true;
             
@@ -45,14 +44,13 @@ namespace Source.Codebase.Players.CollisionHandlers
             OverlapBullets();
         }
 
-        public void SetMagnet(int magnet)
+        public void SetRadiusPickUp(int radius)
         {
-            if (magnet <= 0)
-                throw new ArgumentOutOfRangeException(nameof(magnet));
+            if (radius <= 0)
+                throw new ArgumentOutOfRangeException(nameof(radius));
 
-            float newMagnet = _baseMagnet + (magnet - _baseMagnet) * RatioIncrement;
-            
-            _radiusPickUpBullets = newMagnet;
+            float radiusPickUp = _baseRadiusMagnet + (radius - _baseRadiusMagnet) * RatioIncrement;
+            _radiusPickUp = radiusPickUp;
             
             SetupPickUpBulletsDiameter();
         }
@@ -62,10 +60,8 @@ namespace Source.Codebase.Players.CollisionHandlers
             if (_rangePickUpBulletsImage == null)
                 return;
             
-            float diameterPickUpBullets = _radiusPickUpBullets * 2;
-            
-            _rangePickUpBulletsImage.transform.localScale = new Vector3(
-                diameterPickUpBullets, diameterPickUpBullets, diameterPickUpBullets);
+            float diameterPickUp = _radiusPickUp * 2;
+            _rangePickUpBulletsImage.transform.localScale = new Vector3(diameterPickUp, diameterPickUp, diameterPickUp);
         }
 
         private void OverlapBullets()
@@ -74,7 +70,7 @@ namespace Source.Codebase.Players.CollisionHandlers
                 return;
             
             int bulletsAmount = Physics.OverlapSphereNonAlloc(
-                transform.position, _radiusPickUpBullets, _bulletColliders, _bulletLayer);
+                transform.position, _radiusPickUp, _bulletColliders, _bulletLayer);
 
             for (int i = 0; i < bulletsAmount; i++)
                 if (_bulletColliders[i].TryGetComponent(out Bullet bullet))

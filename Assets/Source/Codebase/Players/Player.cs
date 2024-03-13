@@ -20,6 +20,7 @@ namespace Source.Codebase.Players
         [SerializeField] private Damageable _health;
         [SerializeField] private CollisionForBullets _collisionForBullets;
         [SerializeField] private CollisionForEnemies _collisionForEnemies;
+        [SerializeField] private CollisionForKeys _collisionForKeys;
         
         private Stats _stats;
         private UpgradeHandler _upgradeHandler;
@@ -41,15 +42,17 @@ namespace Source.Codebase.Players
             _health.Init(_stats.HealthStats);
             _collisionForBullets.Init(_weaponHandler, _stats.CommonStats.Magnet);
             _collisionForEnemies.Init(this, _stats.CommonStats);
+            _collisionForKeys.Init(_stats.CommonStats.Magnet);
             _bag.CreateClip(_weaponHandler.ClipCapacity);
 
             _gameLoopService.WaveCompleted += OnWaveCompleted;
             _health.Died += OnDied;
             _stats.CommonStats.SpeedChanged += _mover.SetSpeed;
-            _stats.CommonStats.MagnetChanged += _collisionForBullets.SetMagnet;
+            _stats.CommonStats.MagnetChanged += OnSetMagnet;
             _stats.CommonStats.FreezeChanged += _collisionForEnemies.SetFreeze;
             _stats.DamageStats.ClipCapacityChanged += _bag.CreateClip;
-            _collisionForBullets.BulletCollected += OnCollected;
+            _collisionForBullets.BulletCollected += OnBulletCollected;
+            _collisionForKeys.KeyCollected += OnKeyCollected;
             _weaponHandler.Shoted += OnShoted;
             _weaponHandler.Vampired += OnVampire;
 
@@ -63,10 +66,11 @@ namespace Source.Codebase.Players
             
             _health.Died -= OnDied;
             _stats.CommonStats.SpeedChanged -= _mover.SetSpeed;
-            _stats.CommonStats.MagnetChanged -= _collisionForBullets.SetMagnet;
+            _stats.CommonStats.MagnetChanged -= OnSetMagnet;
             _stats.CommonStats.FreezeChanged -= _collisionForEnemies.SetFreeze;
             _stats.DamageStats.ClipCapacityChanged -= _bag.CreateClip;
-            _collisionForBullets.BulletCollected -= OnCollected;
+            _collisionForBullets.BulletCollected -= OnBulletCollected;
+            _collisionForKeys.KeyCollected -= OnKeyCollected;
             _weaponHandler.Shoted -= OnShoted;
             _weaponHandler.Vampired -= OnVampire;
             _upgradeHandler.Dispose();
@@ -79,10 +83,10 @@ namespace Source.Codebase.Players
             if (direction != Vector3.zero)
                 _weaponHandler.StartShooting(direction);
         }
-        
+
         public void StopShooting() => 
             _weaponHandler.StopShooting();
-        
+
         public void TakeDamage(int damage)
         {
             if (damage <= 0)
@@ -90,7 +94,7 @@ namespace Source.Codebase.Players
             
             _health.TakeDamage(damage);
         }
-        
+
         public void Restart()
         {
             _health.FullRecovery();
@@ -107,14 +111,25 @@ namespace Source.Codebase.Players
 
         private void OnVampire(int vampirism) => 
             _health.Heal(vampirism);
-        
-        private void OnCollected()
+
+        private void OnShoted() => 
+            _bag.UseCollectedBullets(_weaponHandler.CollectedBullets);
+
+        private void OnSetMagnet(int magnet)
+        {
+            _collisionForBullets.SetRadiusPickUp(magnet);
+            _collisionForKeys.SetRadiusPickUp(magnet);
+        }
+
+        private void OnBulletCollected()
         {
             _weaponHandler.CollectBullet();
             _bag.CollectBullet(_weaponHandler.CollectedBullets);
         }
-        
-        private void OnShoted() => 
-            _bag.UseCollectedBullets(_weaponHandler.CollectedBullets);
+
+        private void OnKeyCollected()
+        {
+            _bag.CollecteKey();
+        }
     }
 }
