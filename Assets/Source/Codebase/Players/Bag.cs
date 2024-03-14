@@ -74,6 +74,9 @@ namespace Source.Codebase.Players
             _collectedBullets[collectedBullets - 1].SetActive(true);
             _activatedBulletsCount++;
             
+            if (_collectedKey.activeSelf)
+                SetKeyPosition();
+            
             if (_activatedBulletsCount >= _collectedBullets.Count)
                 ShowMaxLabel();
         }
@@ -85,6 +88,9 @@ namespace Source.Codebase.Players
             
             _collectedBullets[collectedBullets].SetActive(false);
             _activatedBulletsCount--;
+            
+            if (_collectedKey.activeSelf)
+                SetKeyPosition();
 
             if (_activatedBulletsCount < _collectedBullets.Count)
                 HideMaxLabel();
@@ -92,7 +98,18 @@ namespace Source.Codebase.Players
 
         public void CollecteKey()
         {
+            SetKeyPosition();
+
             _collectedKey.SetActive(true);
+        }
+
+        private void SetKeyPosition()
+        {
+            Vector3 bagKeyPosition = _parent.position;
+            Vector3 newKeyPosition = new Vector3(
+                bagKeyPosition.x, bagKeyPosition.y + _activatedBulletsCount * _offsetY, bagKeyPosition.z);
+
+            _collectedKey.transform.position = newKeyPosition;
         }
 
         private void ShowMaxLabel()
