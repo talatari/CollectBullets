@@ -46,6 +46,9 @@ namespace Source.Codebase.Players.CollisionHandlers
             _radiusPickUp = radiusPickUp;
         }
 
+        public void DropKey() => 
+            _isKeyCollected = false;
+
         private void OverlapBullets()
         {
             int bulletsAmount = Physics.OverlapSphereNonAlloc(
