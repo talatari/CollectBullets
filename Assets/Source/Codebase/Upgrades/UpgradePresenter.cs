@@ -26,19 +26,19 @@ namespace Source.Codebase.Upgrades
         private UpgradeService _upgradeService;
         private PlayerProgress _playerProgress;
         private List<UpgradeModel> _upgradeModels;
-        private GameLoopService _gameLoopService;
+        private GameLoopMediator _gameLoopMediator;
         private bool _isInit;
         private GamePauseService _gamePauseService;
         
         public void Init(
             Stats stats,
             UpgradeService upgradeService,
-            GameLoopService gameLoopService,
+            GameLoopMediator _gameLoopMediator,
             GamePauseService gamePauseService)
         {
             _stats = stats ?? throw new ArgumentNullException(nameof(stats));
             _upgradeService = upgradeService ?? throw new ArgumentNullException(nameof(upgradeService));
-            _gameLoopService = gameLoopService ?? throw new ArgumentNullException(nameof(gameLoopService));
+            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
             _gamePauseService = gamePauseService ?? throw new ArgumentNullException(nameof(gamePauseService));
             
             // _gameLoopService.WaveCompleted += OnShowUpgradeViews;
@@ -48,7 +48,7 @@ namespace Source.Codebase.Upgrades
         
         private void OnDestroy()
         {
-            if (_gameLoopService == null)
+            if (_gameLoopMediator == null)
                 return;
             
             // _gameLoopService.WaveCompleted -= OnShowUpgradeViews;

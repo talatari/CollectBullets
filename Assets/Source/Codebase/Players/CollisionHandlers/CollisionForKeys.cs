@@ -46,7 +46,7 @@ namespace Source.Codebase.Players.CollisionHandlers
             _radiusPickUp = radiusPickUp;
         }
 
-        public void DropKey() => 
+        public void UseKey() => 
             _isKeyCollected = false;
 
         private void OverlapBullets()

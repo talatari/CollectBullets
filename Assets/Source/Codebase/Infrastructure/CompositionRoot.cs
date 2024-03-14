@@ -48,19 +48,19 @@ namespace Source.Codebase.Infrastructure
         [Header("Others")]
         [SerializeField] private float _distanceRange;
         [SerializeField] private RestartGameView _restartView;
-        [SerializeField] private ChestPresenter _chestPresenter;
+        [SerializeField] private CompositeChestView _chestView;
 
         private FactoryDefaultStats _factoryDefaultStats;
         private Stats _stats;
         private List<UpgradeModel> _upgradeModels;
         private UpgradeHandler _upgradeHandler;
         private GamePauseService _gamePauseService;
-        private GameLoopService _gameLoopService;
+        private GameLoopMediator _gameLoopMediator;
         private SaveLoadService _saveLoadService;
         private UpgradeService _upgradeService;
         private KeyService _keyService;
         private TargetProvider _targetProvider;
-        private ChestService _chestService;
+        private ChestPresenter _chestPresenter;
         private SpawnEnemyPresenter _spawnEnemyPresenter;
         private SpawnBulletPresenter _spawnBulletPresenter;
         private Pool<Enemy> _poolEnemy;
@@ -84,7 +84,7 @@ namespace Source.Codebase.Infrastructure
 
             InitPresenters();
             
-            _gameLoopService.StartGame();
+            _gameLoopMediator.NotifyStartGame();
         }
         
         private void CheckSerializedFields()
@@ -133,14 +133,14 @@ namespace Source.Codebase.Infrastructure
         {
             _gamePauseService = new GamePauseService();
             _gamePauseService.Init();
-            _gameLoopService = new GameLoopService();
+            _gameLoopMediator = new GameLoopMediator();
             _saveLoadService = new SaveLoadService();
             _upgradeService = new UpgradeService(_saveLoadService, _upgradeModels);
             _keyService = new KeyService();
             _targetProvider = new TargetProvider();
             _targetProvider.SetTarget(_player.transform);
-            _chestService = new ChestService();
-            _chestService.Init(_chestPresenter, _keyService);
+            _chestPresenter = new ChestPresenter();
+            _chestPresenter.Init(_chestView, _gameLoopMediator);
         }
         
         private void InitSpawners()
@@ -181,25 +181,25 @@ namespace Source.Codebase.Infrastructure
             
             _spawnerKey = gameObject.AddComponent<SpawnerKey>();
             _spawnerKey.Init(poolKey, _keyCount, _distanceRange);
-            _keyService.Init(_spawnerKey, _spawnInterval, _gameLoopService);
+            _keyService.Init(_spawnerKey, _spawnInterval, _gameLoopMediator);
         }
 
         private void InitPresenters()
         {
             // TODO: разделить класс игрока на презентер-вью и модель (убрать зависимоcть в _gameOverPresenter от плеера)
-            _player.Init(_stats, _upgradeHandler, _gameLoopService);
-            _spawnEnemyPresenter = new SpawnEnemyPresenter(_gameLoopService, _spawnerEnemy);
-            _spawnBulletPresenter = new SpawnBulletPresenter(_gameLoopService, _spawnerBullet);
-            _upgradePresenter.Init(_stats, _upgradeService, _gameLoopService, _gamePauseService);
-            _gameOverPresenter = new GameOverPresenter(_gameLoopService, _player);
-            _restartPresenter = new RestartGamePresenter(_gameLoopService, _gamePauseService, _restartView);
-            _wavePresenter = new WavePresenter(_gameLoopService, _spawnerWave, _keyService);
+            _player.Init(_stats, _upgradeHandler, _gameLoopMediator);
+            _spawnEnemyPresenter = new SpawnEnemyPresenter(_gameLoopMediator, _spawnerEnemy);
+            _spawnBulletPresenter = new SpawnBulletPresenter(_gameLoopMediator, _spawnerBullet);
+            _upgradePresenter.Init(_stats, _upgradeService, _gameLoopMediator, _gamePauseService);
+            _gameOverPresenter = new GameOverPresenter(_gameLoopMediator, _player);
+            _restartPresenter = new RestartGamePresenter(_gameLoopMediator, _gamePauseService, _restartView);
+            _wavePresenter = new WavePresenter(_gameLoopMediator, _spawnerWave, _keyService);
         }
         
         private void OnDestroy()
         {
             _gamePauseService?.Dispose();
-            _chestService?.Dispose();
+            _chestPresenter?.Dispose();
             _spawnerWave?.Dispose();
             _spawnEnemyPresenter?.Dispose();
             _spawnBulletPresenter?.Dispose();

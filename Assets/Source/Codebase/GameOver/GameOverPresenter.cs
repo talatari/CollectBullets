@@ -6,21 +6,21 @@ namespace Source.Codebase.GameOver
 {
     public class GameOverPresenter : IDisposable
     {
-        private readonly GameLoopService _gameLoopService;
+        private readonly GameLoopMediator _gameLoopMediator;
         private readonly Player _player;
 
-        public GameOverPresenter(GameLoopService gameLoopService, Player player)
+        public GameOverPresenter(GameLoopMediator _gameLoopMediator, Player player)
         {
-            _gameLoopService = gameLoopService ?? throw new ArgumentNullException(nameof(gameLoopService));
+            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
             _player = player ? player : throw new ArgumentNullException(nameof(player));
 
-            _gameLoopService.GameRestarting += OnGameRestarting;
+            this._gameLoopMediator.GameRestarting += OnGameRestarting;
             _player.Died += OnDied;
         }
 
         public void Dispose()
         {
-            _gameLoopService.GameRestarting -= OnGameRestarting;
+            _gameLoopMediator.GameRestarting -= OnGameRestarting;
             _player.Died -= OnDied;
         }
 
@@ -28,6 +28,6 @@ namespace Source.Codebase.GameOver
             _player.Restart();
 
         private void OnDied() => 
-            _gameLoopService.NotifyGameOver();
+            _gameLoopMediator.NotifyGameOver();
     }
 }

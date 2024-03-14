@@ -103,7 +103,7 @@ namespace Source.Codebase.Players
             _collectedKey.SetActive(true);
         }
 
-        public void DropKey() => 
+        public void UseKey() => 
             _collectedKey.SetActive(false);
 
         private void SetKeyPosition()

@@ -6,24 +6,24 @@ namespace Source.Codebase.Players
 {
     public class SpawnBulletPresenter : IDisposable
     {
-        private readonly GameLoopService _gameLoopService;
+        private readonly GameLoopMediator _gameLoopMediator;
         private readonly SpawnerBullet _spawnerBullet;
 
-        public SpawnBulletPresenter(GameLoopService gameLoopService, SpawnerBullet spawnerBullet)
+        public SpawnBulletPresenter(GameLoopMediator _gameLoopMediator, SpawnerBullet spawnerBullet)
         {
-            _gameLoopService = gameLoopService ?? throw new ArgumentNullException(nameof(gameLoopService));
+            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
             _spawnerBullet = spawnerBullet ? spawnerBullet : throw new ArgumentNullException(nameof(spawnerBullet));
 
-            _gameLoopService.GameStarted += OnSpawnBullets;
-            _gameLoopService.GameRestarting += OnResetBulletPool;
-            _gameLoopService.WaveCompleted += OnResetBulletPool;
+            this._gameLoopMediator.GameStarted += OnSpawnBullets;
+            this._gameLoopMediator.GameRestarting += OnResetBulletPool;
+            this._gameLoopMediator.WaveCompleted += OnResetBulletPool;
         }
 
         public void Dispose()
         {
-            _gameLoopService.GameStarted -= OnSpawnBullets;
-            _gameLoopService.GameRestarting -= OnResetBulletPool;
-            _gameLoopService.WaveCompleted += OnResetBulletPool;
+            _gameLoopMediator.GameStarted -= OnSpawnBullets;
+            _gameLoopMediator.GameRestarting -= OnResetBulletPool;
+            _gameLoopMediator.WaveCompleted += OnResetBulletPool;
         }
 
         private void OnSpawnBullets() => 

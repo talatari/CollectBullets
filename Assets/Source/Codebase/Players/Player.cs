@@ -24,16 +24,16 @@ namespace Source.Codebase.Players
         
         private Stats _stats;
         private UpgradeHandler _upgradeHandler;
-        private GameLoopService _gameLoopService;
+        private GameLoopMediator _gameLoopMediator;
         private bool _isInit;
 
         public event Action Died;
 
-        public void Init(Stats stats, UpgradeHandler upgradeHandler, GameLoopService gameLoopService)
+        public void Init(Stats stats, UpgradeHandler upgradeHandler, GameLoopMediator gameLoopMediator)
         {
             _stats = stats ?? throw new ArgumentNullException(nameof(stats));
             _upgradeHandler = upgradeHandler ?? throw new ArgumentNullException(nameof(upgradeHandler));
-            _gameLoopService = gameLoopService ?? throw new ArgumentNullException(nameof(gameLoopService));
+            _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
             
             _upgradeHandler.Init();
             
@@ -45,7 +45,7 @@ namespace Source.Codebase.Players
             _collisionForKeys.Init(_stats.CommonStats.Magnet);
             _bag.CreateClip(_weaponHandler.ClipCapacity);
 
-            _gameLoopService.WaveCompleted += OnWaveCompleted;
+            _gameLoopMediator.WaveCompleted += OnWaveCompleted;
             _health.Died += OnDied;
             _stats.CommonStats.SpeedChanged += _mover.SetSpeed;
             _stats.CommonStats.MagnetChanged += OnSetMagnet;
@@ -101,16 +101,16 @@ namespace Source.Codebase.Players
             _weaponHandler.ResetCollectedBullets();
             _bag.Reset();
             _upgradeHandler.SetDefaultValues();
-            DropKey();
+            UseKey();
         }
 
         public bool HaveCollectedKey() => 
             _collisionForKeys.IsKeyCollected;
 
-        public void DropKey()
+        public void UseKey()
         {
-            _bag.DropKey();
-            _collisionForKeys.DropKey();
+            _bag.UseKey();
+            _collisionForKeys.UseKey();
         }
 
         private void OnWaveCompleted() => 
@@ -140,6 +140,7 @@ namespace Source.Codebase.Players
         private void OnKeyCollected()
         {
             _bag.CollecteKey();
+            _gameLoopMediator.NotifyKeyCollected();
         }
     }
 }

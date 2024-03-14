@@ -6,19 +6,19 @@ namespace Source.Codebase.Enemies
 {
     public class SpawnEnemyPresenter : IDisposable
     {
-        private readonly GameLoopService _gameLoopService;
+        private readonly GameLoopMediator _gameLoopMediator;
         private readonly SpawnerEnemy _spawnerEnemy;
 
-        public SpawnEnemyPresenter(GameLoopService gameLoopService, SpawnerEnemy spawnerEnemy)
+        public SpawnEnemyPresenter(GameLoopMediator _gameLoopMediator, SpawnerEnemy spawnerEnemy)
         {
-            _gameLoopService = gameLoopService ?? throw new ArgumentNullException(nameof(gameLoopService));
+            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
             _spawnerEnemy = spawnerEnemy ? spawnerEnemy : throw new ArgumentNullException(nameof(spawnerEnemy));
             
-            _gameLoopService.GameRestarting += OnGameRestarting;
+            this._gameLoopMediator.GameRestarting += OnGameRestarting;
         }
 
         public void Dispose() => 
-            _gameLoopService.GameRestarting -= OnGameRestarting;
+            _gameLoopMediator.GameRestarting -= OnGameRestarting;
 
         private void OnGameRestarting() => 
             _spawnerEnemy.ResetPool();
