@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Source.Codebase.Chests;
 using Source.Codebase.Enemies;
 using Source.Codebase.Enemies.Waves;
 using Source.Codebase.GameOver;
@@ -12,6 +13,7 @@ using Source.Codebase.Players;
 using Source.Codebase.Players.PlayerModels;
 using Source.Codebase.SO;
 using Source.Codebase.Upgrades;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Source.Codebase.Infrastructure
@@ -46,6 +48,7 @@ namespace Source.Codebase.Infrastructure
         [Header("Others")]
         [SerializeField] private float _distanceRange;
         [SerializeField] private RestartGameView _restartView;
+        [SerializeField] private ChestPresenter _chestPresenter;
 
         private FactoryDefaultStats _factoryDefaultStats;
         private Stats _stats;
@@ -57,6 +60,7 @@ namespace Source.Codebase.Infrastructure
         private UpgradeService _upgradeService;
         private KeyService _keyService;
         private TargetProvider _targetProvider;
+        private ChestService _chestService;
         private SpawnEnemyPresenter _spawnEnemyPresenter;
         private SpawnBulletPresenter _spawnBulletPresenter;
         private Pool<Enemy> _poolEnemy;
@@ -135,6 +139,8 @@ namespace Source.Codebase.Infrastructure
             _keyService = new KeyService();
             _targetProvider = new TargetProvider();
             _targetProvider.SetTarget(_player.transform);
+            _chestService = new ChestService();
+            _chestService.Init(_chestPresenter, _keyService);
         }
         
         private void InitSpawners()
@@ -175,7 +181,7 @@ namespace Source.Codebase.Infrastructure
             
             _spawnerKey = gameObject.AddComponent<SpawnerKey>();
             _spawnerKey.Init(poolKey, _keyCount, _distanceRange);
-            _keyService.Init(_spawnerKey, _spawnInterval);
+            _keyService.Init(_spawnerKey, _spawnInterval, _gameLoopService);
         }
 
         private void InitPresenters()
@@ -193,12 +199,14 @@ namespace Source.Codebase.Infrastructure
         private void OnDestroy()
         {
             _gamePauseService?.Dispose();
-            _spawnerWave.Dispose();
-            _spawnEnemyPresenter.Dispose();
-            _spawnBulletPresenter.Dispose();
-            _gameOverPresenter.Dispose();
-            _restartPresenter.Dispose();
-            _wavePresenter.Dispose();
+            _chestService?.Dispose();
+            _spawnerWave?.Dispose();
+            _spawnEnemyPresenter?.Dispose();
+            _spawnBulletPresenter?.Dispose();
+            _gameOverPresenter?.Dispose();
+            _restartPresenter?.Dispose();
+            _wavePresenter?.Dispose();
+            _keyService?.Dispose();
         }
     }
 }

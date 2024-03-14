@@ -101,6 +101,16 @@ namespace Source.Codebase.Players
             _weaponHandler.ResetCollectedBullets();
             _bag.Reset();
             _upgradeHandler.SetDefaultValues();
+            DropKey();
+        }
+
+        public bool HaveCollectedKey() => 
+            _collisionForKeys.IsKeyCollected;
+
+        public void DropKey()
+        {
+            _bag.DropKey();
+            _collisionForKeys.DropKey();
         }
 
         private void OnWaveCompleted() => 

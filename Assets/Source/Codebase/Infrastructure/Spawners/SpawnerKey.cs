@@ -11,7 +11,7 @@ namespace Source.Codebase.Infrastructure.Spawners
         private Pool<Key> _poolKey;
         private int _maxKeySpawnCount;
         private float _distanceRange;
-
+        
         public void Init(Pool<Key> poolKey, int maxKeySpawnCount, float distanceRange)
         {
             if (poolKey == null) 
@@ -27,7 +27,7 @@ namespace Source.Codebase.Infrastructure.Spawners
             _maxKeySpawnCount = maxKeySpawnCount;
             _distanceRange = distanceRange;
         }
-
+        
         public void Spawn()
         {
             if (_poolKey.ActiveItems.Count == _maxKeySpawnCount) 
@@ -36,14 +36,17 @@ namespace Source.Codebase.Infrastructure.Spawners
             if (_poolKey.IsKeyCollected && _poolKey.ActiveItems.Count == _maxKeySpawnCount - 1)
                 return;
             
-            print("Spawned key");
-            
             Key key = _poolKey.Get();
             SetPosition(key);
+            
+            print("Key spawned");
         }
         
         public void ResetPool() => 
             _poolKey.ReleaseAll();
+
+        public void DropKey() => 
+            _poolKey.DropKey();
 
         private void SetPosition(Key key)
         {

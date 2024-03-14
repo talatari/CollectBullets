@@ -103,6 +103,9 @@ namespace Source.Codebase.Players
             _collectedKey.SetActive(true);
         }
 
+        public void DropKey() => 
+            _collectedKey.SetActive(false);
+
         private void SetKeyPosition()
         {
             Vector3 bagKeyPosition = _parent.position;

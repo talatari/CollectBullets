@@ -92,5 +92,8 @@ namespace Source.Codebase.Infrastructure.Pools
 
         public void SetKeyCollected() => 
             IsKeyCollected = true;
+
+        public void DropKey() => 
+            IsKeyCollected = false;
     }
 }
