@@ -6,25 +6,25 @@ namespace Source.Codebase.Enemies.Waves
 {
     public class WavePresenter : IDisposable
     {
-        private readonly GameLoopService _gameLoopService;
+        private readonly GameLoopMediator _gameLoopMediator;
         private readonly SpawnerWave _spawnerWave;
         private readonly KeyService _keyService;
 
-        public WavePresenter(GameLoopService gameLoopService, SpawnerWave spawnerWave, KeyService keyService)
+        public WavePresenter(GameLoopMediator _gameLoopMediator, SpawnerWave spawnerWave, KeyService keyService)
         {
-            _gameLoopService = gameLoopService ?? throw new ArgumentNullException(nameof(gameLoopService));
+            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
             _spawnerWave = spawnerWave ?? throw new ArgumentNullException(nameof(spawnerWave));
             _keyService = keyService ?? throw new ArgumentNullException(nameof(keyService));
             
-            _gameLoopService.GameStarted += OnGameStarted;
-            _gameLoopService.GameRestarting += OnGameRestarting;
+            this._gameLoopMediator.GameStarted += OnGameStarted;
+            this._gameLoopMediator.GameRestarting += OnGameRestarting;
             _spawnerWave.Completed += OnCompleted;
         }
 
         public void Dispose()
         {
-            _gameLoopService.GameStarted -= OnGameStarted;
-            _gameLoopService.GameRestarting -= OnGameRestarting;
+            _gameLoopMediator.GameStarted -= OnGameStarted;
+            _gameLoopMediator.GameRestarting -= OnGameRestarting;
             _spawnerWave.Completed -= OnCompleted;
         }
 
@@ -39,8 +39,8 @@ namespace Source.Codebase.Enemies.Waves
         
         private void OnCompleted()
         {
-            _gameLoopService.NotifyWaveCompleted();
-            _keyService.NotifyWaveCompleted();
+            _gameLoopMediator.NotifyWaveCompleted();
+            _keyService.SpawnKey();
         }
     }
 }

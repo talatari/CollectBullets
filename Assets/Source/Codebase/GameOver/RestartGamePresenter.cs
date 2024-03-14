@@ -5,24 +5,24 @@ namespace Source.Codebase.GameOver
 {
     public class RestartGamePresenter : IDisposable
     {
-        private readonly GameLoopService _gameLoopService;
+        private readonly GameLoopMediator _gameLoopMediator;
         private readonly GamePauseService _gamePauseService;
         private readonly RestartGameView _restartView;
 
-        public RestartGamePresenter(GameLoopService gameLoopService, GamePauseService gamePauseService,
+        public RestartGamePresenter(GameLoopMediator _gameLoopMediator, GamePauseService gamePauseService,
             RestartGameView restartView)
         {
-            _gameLoopService = gameLoopService ?? throw new ArgumentNullException(nameof(gameLoopService));
+            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
             _gamePauseService = gamePauseService ?? throw new ArgumentNullException(nameof(gamePauseService));
             _restartView = restartView ? restartView : throw new ArgumentNullException(nameof(restartView));
 
-            _gameLoopService.GameOver += OnShowRestartView;
+            this._gameLoopMediator.GameOver += OnShowRestartView;
             _restartView.RestartButton.onClick.AddListener(RestartGame);
         }
 
         public void Dispose()
         {
-            _gameLoopService.GameOver -= OnShowRestartView;
+            _gameLoopMediator.GameOver -= OnShowRestartView;
             _restartView.RestartButton.onClick.RemoveListener(RestartGame);
         }
 
@@ -30,7 +30,7 @@ namespace Source.Codebase.GameOver
         {
             _gamePauseService.InvokeByUI(false);
             _restartView.Hide();
-            _gameLoopService.NotifyRestartGame();
+            _gameLoopMediator.NotifyRestartGame();
         }
 
         private void OnShowRestartView()

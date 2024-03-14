@@ -13,7 +13,7 @@ namespace Source.Codebase.Infrastructure.Pools
 
         private Queue<T> _pool = new();
         private List<T> _activeItems = new();
-        private GameLoopService _gameLoopService;
+        private GameLoopMediator _gameLoopMediator;
 
         public Pool(IFactory<T> factoryItems, int startItemsCount)
         {
@@ -30,7 +30,7 @@ namespace Source.Codebase.Infrastructure.Pools
         public int StartItemCount => _startItemsCount;
         public int AllItemsCount => _activeItems.Count + _pool.Count;
         public List<T> ActiveItems => _activeItems;
-        public bool IsKeyCollected { get; private set; }
+        // public bool IsKeyCollected { get; private set; }
 
         public void Init()
         {
@@ -90,10 +90,10 @@ namespace Source.Codebase.Infrastructure.Pools
             item.Init(this);
         }
 
-        public void SetKeyCollected() => 
-            IsKeyCollected = true;
-
-        public void DropKey() => 
-            IsKeyCollected = false;
+        // public void SetKeyCollected() => 
+        //     IsKeyCollected = true;
+        //
+        // public void DropKey() => 
+        //     IsKeyCollected = false;
     }
 }
