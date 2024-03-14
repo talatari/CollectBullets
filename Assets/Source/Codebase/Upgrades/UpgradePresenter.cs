@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Source.Codebase.Infrastructure.SaveLoadData;
 using Source.Codebase.Infrastructure.Services;
-using Source.Codebase.Players.PlayerModels;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -23,12 +22,12 @@ namespace Source.Codebase.Upgrades
         private int _upgradeIndexRight;
         private int _maxRange;
         private UpgradeService _upgradeService;
+        private GameLoopMediator _gameLoopMediator;
+        private GamePauseService _gamePauseService;
         private PlayerProgress _playerProgress;
         private List<UpgradeModel> _upgradeModels;
-        private GameLoopMediator _gameLoopMediator;
         private bool _isInit;
-        private GamePauseService _gamePauseService;
-        
+
         public void Init(
             UpgradeService upgradeService, GameLoopMediator gameLoopMediator, GamePauseService gamePauseService)
         {
