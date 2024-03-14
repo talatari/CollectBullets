@@ -25,7 +25,10 @@ namespace Source.Codebase.Keys
         public void Disable() => 
             gameObject.SetActive(false);
 
-        public void OnReleaseToPool() => 
+        public void OnReleaseToPool()
+        {
             _pool.Release(this);
+            _pool.SetKeyCollected();
+        }
     }
 }

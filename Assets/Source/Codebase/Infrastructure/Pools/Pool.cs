@@ -30,6 +30,7 @@ namespace Source.Codebase.Infrastructure.Pools
         public int StartItemCount => _startItemsCount;
         public int AllItemsCount => _activeItems.Count + _pool.Count;
         public List<T> ActiveItems => _activeItems;
+        public bool IsKeyCollected { get; private set; }
 
         public void Init()
         {
@@ -88,5 +89,8 @@ namespace Source.Codebase.Infrastructure.Pools
             _activeItems.Add(item);
             item.Init(this);
         }
+
+        public void SetKeyCollected() => 
+            IsKeyCollected = true;
     }
 }
