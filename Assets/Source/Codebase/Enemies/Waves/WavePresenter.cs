@@ -10,14 +10,14 @@ namespace Source.Codebase.Enemies.Waves
         private readonly SpawnerWave _spawnerWave;
         private readonly KeyService _keyService;
 
-        public WavePresenter(GameLoopMediator _gameLoopMediator, SpawnerWave spawnerWave, KeyService keyService)
+        public WavePresenter(GameLoopMediator gameLoopMediator, SpawnerWave spawnerWave, KeyService keyService)
         {
-            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
+            _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
             _spawnerWave = spawnerWave ?? throw new ArgumentNullException(nameof(spawnerWave));
             _keyService = keyService ?? throw new ArgumentNullException(nameof(keyService));
             
-            this._gameLoopMediator.GameStarted += OnGameStarted;
-            this._gameLoopMediator.GameRestarting += OnGameRestarting;
+            _gameLoopMediator.GameStarted += OnGameStarted;
+            _gameLoopMediator.GameRestarting += OnGameRestarting;
             _spawnerWave.Completed += OnCompleted;
         }
 

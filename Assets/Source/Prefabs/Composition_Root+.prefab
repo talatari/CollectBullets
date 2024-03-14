@@ -107,9 +107,10 @@ MonoBehaviour:
   _keyPrefab: {fileID: 4690296610452820603, guid: 45065ee128bc74ffb84755eee459b71c, type: 3}
   _keysParent: {fileID: 737692056669576270}
   _keyCount: 4
-  _spawnInterval: 3
+  _spawnInterval: 2
   _distanceRange: 40
   _restartView: {fileID: 0}
+  _chestView: {fileID: 0}
 --- !u!1 &5238816083930751559
 GameObject:
   m_ObjectHideFlags: 0

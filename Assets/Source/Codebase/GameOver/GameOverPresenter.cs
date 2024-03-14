@@ -9,12 +9,12 @@ namespace Source.Codebase.GameOver
         private readonly GameLoopMediator _gameLoopMediator;
         private readonly Player _player;
 
-        public GameOverPresenter(GameLoopMediator _gameLoopMediator, Player player)
+        public GameOverPresenter(GameLoopMediator gameLoopMediator, Player player)
         {
-            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
+            _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
             _player = player ? player : throw new ArgumentNullException(nameof(player));
 
-            this._gameLoopMediator.GameRestarting += OnGameRestarting;
+            _gameLoopMediator.GameRestarting += OnGameRestarting;
             _player.Died += OnDied;
         }
 

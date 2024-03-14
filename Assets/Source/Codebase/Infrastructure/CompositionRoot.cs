@@ -13,7 +13,6 @@ using Source.Codebase.Players;
 using Source.Codebase.Players.PlayerModels;
 using Source.Codebase.SO;
 using Source.Codebase.Upgrades;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Source.Codebase.Infrastructure
@@ -181,7 +180,7 @@ namespace Source.Codebase.Infrastructure
             
             _spawnerKey = gameObject.AddComponent<SpawnerKey>();
             _spawnerKey.Init(poolKey, _keyCount, _distanceRange);
-            _keyService.Init(_spawnerKey, _spawnInterval, _gameLoopMediator);
+            _keyService.Init(_spawnerKey, _gameLoopMediator, _spawnInterval);
         }
 
         private void InitPresenters()
@@ -190,7 +189,7 @@ namespace Source.Codebase.Infrastructure
             _player.Init(_stats, _upgradeHandler, _gameLoopMediator);
             _spawnEnemyPresenter = new SpawnEnemyPresenter(_gameLoopMediator, _spawnerEnemy);
             _spawnBulletPresenter = new SpawnBulletPresenter(_gameLoopMediator, _spawnerBullet);
-            _upgradePresenter.Init(_stats, _upgradeService, _gameLoopMediator, _gamePauseService);
+            _upgradePresenter.Init(_upgradeService, _gameLoopMediator, _gamePauseService);
             _gameOverPresenter = new GameOverPresenter(_gameLoopMediator, _player);
             _restartPresenter = new RestartGamePresenter(_gameLoopMediator, _gamePauseService, _restartView);
             _wavePresenter = new WavePresenter(_gameLoopMediator, _spawnerWave, _keyService);

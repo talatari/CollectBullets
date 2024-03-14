@@ -37,12 +37,8 @@ namespace Source.Codebase.Players
                 _collectedBullets.Add(collectedBullet);
             }
             
-            Vector3 bagKeyPosition = _parent.position;
-            Vector3 newKeyPosition = new Vector3(
-                bagKeyPosition.x, bagKeyPosition.y + _collectedBullets.Count * _offsetY, bagKeyPosition.z);
-            
             _collectedKey = Instantiate(_collectedKeyPrefab, _parent);
-            _collectedKey.transform.position = newKeyPosition;
+            SetKeyPosition();
             _collectedKey.SetActive(false);
             
             _collectedBullets.Add(_collectedKey);
