@@ -33,6 +33,9 @@ namespace Source.Codebase.Infrastructure.Spawners
             if (_poolKey.ActiveItems.Count == _maxKeySpawnCount) 
                 return;
             
+            if (_poolKey.IsKeyCollected && _poolKey.ActiveItems.Count == _maxKeySpawnCount - 1)
+                return;
+            
             print("Spawned key");
             
             Key key = _poolKey.Get();

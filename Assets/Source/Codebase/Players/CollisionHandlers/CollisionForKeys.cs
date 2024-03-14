@@ -15,6 +15,8 @@ namespace Source.Codebase.Players.CollisionHandlers
 
         public event Action KeyCollected;
 
+        public bool IsKeyCollected => _isKeyCollected;
+
         public void Init(float radiusPickUp)
         {
             if (radiusPickUp <= 0) 
