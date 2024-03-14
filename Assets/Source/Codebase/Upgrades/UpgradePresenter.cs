@@ -22,7 +22,6 @@ namespace Source.Codebase.Upgrades
         private int _upgradeIndexMiddle;
         private int _upgradeIndexRight;
         private int _maxRange;
-        private Stats _stats;
         private UpgradeService _upgradeService;
         private PlayerProgress _playerProgress;
         private List<UpgradeModel> _upgradeModels;
@@ -31,17 +30,13 @@ namespace Source.Codebase.Upgrades
         private GamePauseService _gamePauseService;
         
         public void Init(
-            Stats stats,
-            UpgradeService upgradeService,
-            GameLoopMediator _gameLoopMediator,
-            GamePauseService gamePauseService)
+            UpgradeService upgradeService, GameLoopMediator gameLoopMediator, GamePauseService gamePauseService)
         {
-            _stats = stats ?? throw new ArgumentNullException(nameof(stats));
             _upgradeService = upgradeService ?? throw new ArgumentNullException(nameof(upgradeService));
-            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
+            _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
             _gamePauseService = gamePauseService ?? throw new ArgumentNullException(nameof(gamePauseService));
             
-            // _gameLoopService.WaveCompleted += OnShowUpgradeViews;
+            _gameLoopMediator.KeyUsed += OnShowUpgradeViews;
 
             _isInit = true;
         }
@@ -51,7 +46,7 @@ namespace Source.Codebase.Upgrades
             if (_gameLoopMediator == null)
                 return;
             
-            // _gameLoopService.WaveCompleted -= OnShowUpgradeViews;
+            _gameLoopMediator.KeyUsed -= OnShowUpgradeViews;
         }
 
         public void OnShowUpgradeViews()

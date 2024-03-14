@@ -9,14 +9,14 @@ namespace Source.Codebase.GameOver
         private readonly GamePauseService _gamePauseService;
         private readonly RestartGameView _restartView;
 
-        public RestartGamePresenter(GameLoopMediator _gameLoopMediator, GamePauseService gamePauseService,
+        public RestartGamePresenter(GameLoopMediator gameLoopMediator, GamePauseService gamePauseService,
             RestartGameView restartView)
         {
-            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
+            _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
             _gamePauseService = gamePauseService ?? throw new ArgumentNullException(nameof(gamePauseService));
             _restartView = restartView ? restartView : throw new ArgumentNullException(nameof(restartView));
 
-            this._gameLoopMediator.GameOver += OnShowRestartView;
+            _gameLoopMediator.GameOver += OnShowRestartView;
             _restartView.RestartButton.onClick.AddListener(RestartGame);
         }
 

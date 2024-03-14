@@ -9,14 +9,14 @@ namespace Source.Codebase.Players
         private readonly GameLoopMediator _gameLoopMediator;
         private readonly SpawnerBullet _spawnerBullet;
 
-        public SpawnBulletPresenter(GameLoopMediator _gameLoopMediator, SpawnerBullet spawnerBullet)
+        public SpawnBulletPresenter(GameLoopMediator gameLoopMediator, SpawnerBullet spawnerBullet)
         {
-            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
+            _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
             _spawnerBullet = spawnerBullet ? spawnerBullet : throw new ArgumentNullException(nameof(spawnerBullet));
 
-            this._gameLoopMediator.GameStarted += OnSpawnBullets;
-            this._gameLoopMediator.GameRestarting += OnResetBulletPool;
-            this._gameLoopMediator.WaveCompleted += OnResetBulletPool;
+            _gameLoopMediator.GameStarted += OnSpawnBullets;
+            _gameLoopMediator.GameRestarting += OnResetBulletPool;
+            _gameLoopMediator.WaveCompleted += OnResetBulletPool;
         }
 
         public void Dispose()

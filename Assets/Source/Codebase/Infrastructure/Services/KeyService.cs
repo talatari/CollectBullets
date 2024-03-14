@@ -6,19 +6,20 @@ namespace Source.Codebase.Infrastructure.Services
     public class KeyService : IDisposable
     {
         private SpawnerKey _spawnerKey;
+        private GameLoopMediator _gameLoopMediator;
         private int _spawnInterval;
         private int _countWaveCompleted;
-        private GameLoopMediator _gameLoopMediator;
         private bool _isKeyCollected;
 
-        public void Init(SpawnerKey spawnerKey, int spawnInterval, GameLoopMediator gameLoopMediator)
+        public void Init(SpawnerKey spawnerKey, GameLoopMediator gameLoopMediator, int spawnInterval)
         {
             _spawnerKey = spawnerKey ? spawnerKey : throw new ArgumentNullException(nameof(spawnerKey));
+            _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
             if (spawnInterval <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(spawnInterval));
-            _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
-            
+
             _spawnInterval = spawnInterval;
+            
             _gameLoopMediator.GameOver += OnResetCountWave;
             _gameLoopMediator.KeyCollected += OnKeyCollected;
             _gameLoopMediator.KeyUsed += OnKeyUsed;
@@ -33,9 +34,6 @@ namespace Source.Codebase.Infrastructure.Services
 
         public void ResetKeyPool() =>
             _spawnerKey.ResetPool();
-
-        // public void DropKey() => 
-        //     _spawnerKey.DropKey();
 
         public void SpawnKey()
         {

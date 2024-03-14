@@ -9,12 +9,12 @@ namespace Source.Codebase.Enemies
         private readonly GameLoopMediator _gameLoopMediator;
         private readonly SpawnerEnemy _spawnerEnemy;
 
-        public SpawnEnemyPresenter(GameLoopMediator _gameLoopMediator, SpawnerEnemy spawnerEnemy)
+        public SpawnEnemyPresenter(GameLoopMediator gameLoopMediator, SpawnerEnemy spawnerEnemy)
         {
-            this._gameLoopMediator = _gameLoopMediator ?? throw new ArgumentNullException(nameof(_gameLoopMediator));
+            _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
             _spawnerEnemy = spawnerEnemy ? spawnerEnemy : throw new ArgumentNullException(nameof(spawnerEnemy));
             
-            this._gameLoopMediator.GameRestarting += OnGameRestarting;
+            _gameLoopMediator.GameRestarting += OnGameRestarting;
         }
 
         public void Dispose() => 
