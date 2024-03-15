@@ -16,6 +16,7 @@ namespace Source.Codebase.Enemies
         private Vector3 _direction;
         private Collider[] _playerColliders = new Collider[MaxOverlap];
         private float _radius;
+        private GameObject _gameObject;
 
         private void Start()
         {
@@ -24,8 +25,9 @@ namespace Source.Codebase.Enemies
             
             float _diameter = transform.localScale.x;
             _radius = _diameter / 2;
-            
-            Destroy(gameObject, _projectileScriptableObject.LifeTime);
+
+            _gameObject = gameObject;
+            Destroy(_gameObject, _projectileScriptableObject.LifeTime);
         }
 
         private void Update()
@@ -33,6 +35,12 @@ namespace Source.Codebase.Enemies
             OverlapEnemies();
             
             Move();
+        }
+        
+        public void Destroy()
+        {
+            if (_gameObject != null)
+                Destroy(gameObject);
         }
 
         public void SetDirection(Vector3 direction) => 

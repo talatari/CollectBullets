@@ -17,6 +17,7 @@ namespace Source.Codebase.Enemies
         private Collider[] _playerColliders = new Collider[MaxOverlap];
         private CooldownTimer _cooldownTimer;
         private Coroutine _attackCoroutine;
+        private ProjectileEnemy _projectileEnemy;
         private float _radiusAttack;
         private float _attackCooldown;
         private bool _isRealoding;
@@ -48,7 +49,13 @@ namespace Source.Codebase.Enemies
             
             _cooldownTimer?.Tick(Time.deltaTime);
         }
-        
+
+        public void DestroyProjectileEnemy()
+        {
+            _projectileEnemy?.Destroy();
+            _projectileEnemy = null;
+        }
+
         private void OverlapPlayer()
         {
             int playerColliders = Physics.OverlapSphereNonAlloc(
@@ -92,7 +99,7 @@ namespace Source.Codebase.Enemies
                     if (_projectilePrefab == null)
                         player.TakeDamage(_damage);
                     else
-                        CreateProjectile(player);
+                        _projectileEnemy = CreateProjectile(player);
                     
                     _cooldownTimer.Run();
                 }
@@ -101,7 +108,7 @@ namespace Source.Codebase.Enemies
             }
         }
 
-        private void CreateProjectile(Player player)
+        private ProjectileEnemy CreateProjectile(Player player)
         {
             ProjectileEnemy projectileEnemy = Instantiate(
                 _projectilePrefab, _attackPoint.transform.position, Quaternion.identity);
@@ -109,6 +116,8 @@ namespace Source.Codebase.Enemies
             Vector3 rotateDirection = player.transform.position - transform.position;
             rotateDirection.y = 0;
             projectileEnemy.SetDirection(rotateDirection);
+
+            return projectileEnemy;
         }
     }
 }

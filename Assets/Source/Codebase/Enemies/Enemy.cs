@@ -85,6 +85,7 @@ namespace Source.Codebase.Enemies
         {
             StopAllCoroutines();
             _pool.Release(this);
+            _attacker.DestroyProjectileEnemy();
         }
 
         public void TakeDamage(int damage)
