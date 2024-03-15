@@ -16,14 +16,12 @@ namespace Source.Codebase.Players
 
             _gameLoopMediator.GameStarted += OnSpawnBullets;
             _gameLoopMediator.GameRestarting += OnResetBulletPool;
-            _gameLoopMediator.WaveCompleted += OnResetBulletPool;
         }
 
         public void Dispose()
         {
             _gameLoopMediator.GameStarted -= OnSpawnBullets;
             _gameLoopMediator.GameRestarting -= OnResetBulletPool;
-            _gameLoopMediator.WaveCompleted += OnResetBulletPool;
         }
 
         private void OnSpawnBullets() => 
