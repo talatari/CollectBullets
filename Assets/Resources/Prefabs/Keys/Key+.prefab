@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _keyPointer: {fileID: 5521592664950774175}
-  _radius: 5
+  _radius: 2
 --- !u!114 &5521592664950774175
 MonoBehaviour:
   m_ObjectHideFlags: 0
