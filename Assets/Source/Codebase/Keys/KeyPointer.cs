@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Source.Codebase.Enemies
+namespace Source.Codebase.Keys
 {
-    public class EnemyPointer : MonoBehaviour
+    public class KeyPointer : MonoBehaviour
     {
         private const int ScreenBorderCount = 4;
         

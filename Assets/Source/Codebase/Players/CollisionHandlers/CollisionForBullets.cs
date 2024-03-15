@@ -1,4 +1,5 @@
 using System;
+using Source.Codebase.Bullets;
 using Source.Codebase.Players.PlayerModels;
 using Source.Codebase.Players.Weapons;
 using UnityEngine;

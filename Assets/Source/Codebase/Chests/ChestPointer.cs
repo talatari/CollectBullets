@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Source.Codebase.Enemies
+namespace Source.Codebase.Chests
 {
-    public class EnemyPointer : MonoBehaviour
+    public class ChestPointer : MonoBehaviour
     {
         private const int ScreenBorderCount = 4;
         
@@ -13,6 +13,7 @@ namespace Source.Codebase.Enemies
         private Camera _camera;
         private float _radius;
         private float _speed = 20f;
+        private bool _isKeyCollected;
 
         private void Start() => 
             _camera = Camera.main;
@@ -21,6 +22,13 @@ namespace Source.Codebase.Enemies
         {
             if (_player == null)
                 return;
+
+            if (_isKeyCollected == false)
+            {
+                _pointer.gameObject.SetActive(false);
+                
+                return;
+            }
             
             Vector3 playerPosition = _player.position;
             Vector3 toPointer = transform.position - playerPosition;
@@ -58,6 +66,12 @@ namespace Source.Codebase.Enemies
 
             _radius = radius;
         }
+
+        public void CollectKey() => 
+            _isKeyCollected = true;
+        
+        public void UseKey() =>
+            _isKeyCollected = false;
 
         private void SetPosition(Ray ray)
         {

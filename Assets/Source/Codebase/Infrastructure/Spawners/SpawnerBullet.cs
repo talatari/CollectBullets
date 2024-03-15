@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
+using Source.Codebase.Bullets;
 using Source.Codebase.Infrastructure.Pools;
 using Source.Codebase.Infrastructure.Spawners.Interfaces;
-using Source.Codebase.Players;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

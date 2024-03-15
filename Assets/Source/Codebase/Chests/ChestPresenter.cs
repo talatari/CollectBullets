@@ -15,6 +15,7 @@ namespace Source.Codebase.Chests
             _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
 
             _chestView.KeyUsed += OnKeyUsed;
+            _gameLoopMediator.KeyCollected += OnKeyCollected;
         }
 
         public void Dispose()
@@ -23,9 +24,13 @@ namespace Source.Codebase.Chests
                 return;
             
             _chestView.KeyUsed -= OnKeyUsed;
+            _gameLoopMediator.KeyCollected -= OnKeyCollected;
         }
 
         private void OnKeyUsed() => 
             _gameLoopMediator.NotityKeyUsed();
+
+        private void OnKeyCollected() => 
+            _chestView.CollectKey();
     }
 }

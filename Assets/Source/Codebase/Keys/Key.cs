@@ -6,6 +6,9 @@ namespace Source.Codebase.Keys
 {
     public class Key : MonoBehaviour, IPoolable
     {
+        [SerializeField] private KeyPointer _keyPointer;
+        [SerializeField] private float _radius;
+        
         private IPool<Key> _pool;
 
         public void Init<T>(IPool<T> pool) where T : IPoolable
@@ -27,5 +30,16 @@ namespace Source.Codebase.Keys
 
         public void OnReleaseToPool() => 
             _pool.Release(this);
+
+        public void SetTarget(Transform player)
+        {
+            if (player == null) 
+                throw new ArgumentNullException(nameof(player));
+            if (_keyPointer == null)
+                throw new ArgumentNullException(nameof(_keyPointer));
+            
+            _keyPointer.SetTarget(player);
+            _keyPointer.SetRadius(_radius);
+        }
     }
 }
