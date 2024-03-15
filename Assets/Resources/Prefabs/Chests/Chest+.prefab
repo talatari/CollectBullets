@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chestPointer: {fileID: 7689159890613810662}
-  _radius: 5
+  _radius: 3
 --- !u!114 &7689159890613810662
 MonoBehaviour:
   m_ObjectHideFlags: 0
