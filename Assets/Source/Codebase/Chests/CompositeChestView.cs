@@ -1,5 +1,6 @@
 using System;
 using Source.Codebase.Chests.Interfaces;
+using Source.Codebase.Infrastructure.Services;
 using UnityEngine;
 
 namespace Source.Codebase.Chests
@@ -7,13 +8,21 @@ namespace Source.Codebase.Chests
     public class CompositeChestView : MonoBehaviour, IChestView
     {
         [SerializeField] private ChestView[] _chestViews;
-        
+
+        private TargetProvider _targetProvider;
+
         public event Action KeyUsed;
+
+        public void Init(TargetProvider targetProvider) => 
+            _targetProvider = targetProvider ?? throw new ArgumentNullException(nameof(targetProvider));
 
         private void Start()
         {
             foreach (ChestView chestView in _chestViews)
+            {
+                chestView.SetTarget(_targetProvider.Target);
                 chestView.KeyUsed += OnKeyUsed;
+            }
         }
 
         private void OnDestroy()
@@ -22,7 +31,18 @@ namespace Source.Codebase.Chests
                 chestView.KeyUsed -= OnKeyUsed;
         }
 
-        private void OnKeyUsed() => 
+        public void CollectKey()
+        {
+            foreach (ChestView chestView in _chestViews)
+                chestView.CollectKey();
+        }
+
+        private void OnKeyUsed()
+        {
+            foreach (ChestView chestView in _chestViews)
+                chestView.UseKey();
+            
             KeyUsed?.Invoke();
+        }
     }
 }

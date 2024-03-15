@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Source.Codebase.Bullets;
 using Source.Codebase.Chests;
 using Source.Codebase.Enemies;
 using Source.Codebase.Enemies.Waves;
@@ -13,6 +14,7 @@ using Source.Codebase.Players;
 using Source.Codebase.Players.PlayerModels;
 using Source.Codebase.SO;
 using Source.Codebase.Upgrades;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Source.Codebase.Infrastructure
@@ -47,7 +49,7 @@ namespace Source.Codebase.Infrastructure
         [Header("Others")]
         [SerializeField] private float _distanceRange;
         [SerializeField] private RestartGameView _restartView;
-        [SerializeField] private CompositeChestView _chestView;
+        [SerializeField] private CompositeChestView _compositeChestView;
 
         private FactoryDefaultStats _factoryDefaultStats;
         private Stats _stats;
@@ -105,6 +107,9 @@ namespace Source.Codebase.Infrastructure
             
             if (_restartView == null)
                 throw new ArgumentNullException(nameof(_restartView));
+            
+            if (_compositeChestView == null)
+                throw new ArgumentNullException(nameof(_compositeChestView));
         }
         
         private void CreateModels()
@@ -138,8 +143,9 @@ namespace Source.Codebase.Infrastructure
             _keyService = new KeyService();
             _targetProvider = new TargetProvider();
             _targetProvider.SetTarget(_player.transform);
+            _compositeChestView.Init(_targetProvider);
             _chestPresenter = new ChestPresenter();
-            _chestPresenter.Init(_chestView, _gameLoopMediator);
+            _chestPresenter.Init(_compositeChestView, _gameLoopMediator);
         }
         
         private void InitSpawners()
@@ -164,7 +170,7 @@ namespace Source.Codebase.Infrastructure
 
         private void InitBulletSpawner()
         {
-            FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent);
+            FactoryBullet factoryBullet = new FactoryBullet(_bulletPrefab, _bulletsParent, _targetProvider);
             Pool<Bullet> poolBullet = new Pool<Bullet>(factoryBullet, _startBulletCount);
             poolBullet.Init();
             
@@ -174,7 +180,7 @@ namespace Source.Codebase.Infrastructure
 
         private void InitKeySpawner()
         {
-            FactoryKey factoryKey = new FactoryKey(_keyPrefab, _keysParent);
+            FactoryKey factoryKey = new FactoryKey(_keyPrefab, _keysParent, _targetProvider);
             Pool<Key> poolKey = new Pool<Key>(factoryKey, _keyCount);
             poolKey.Init();
             

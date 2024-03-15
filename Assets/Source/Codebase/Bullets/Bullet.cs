@@ -4,11 +4,13 @@ using Source.Codebase.Common;
 using Source.Codebase.Infrastructure.Pools.Interfaces;
 using UnityEngine;
 
-namespace Source.Codebase.Players
+namespace Source.Codebase.Bullets
 {
     public class Bullet : MonoBehaviour, IPoolable
     {
         [SerializeField] private MeshRenderer _meshRenderer;
+        [SerializeField] private BulletPointer _bulletPointer;
+        [SerializeField] private float _radius;
         
         private IPool<Bullet> _pool;
         private CooldownTimer _timerToBlink;
@@ -55,6 +57,17 @@ namespace Source.Codebase.Players
 
         public void OnReleaseToPool() => 
             _pool.Release(this);
+        
+        public void SetTarget(Transform player)
+        {
+            if (player == null) 
+                throw new ArgumentNullException(nameof(player));
+            if (_bulletPointer == null)
+                throw new ArgumentNullException(nameof(_bulletPointer));
+            
+            _bulletPointer.SetTarget(player);
+            _bulletPointer.SetRadius(_radius);
+        }
 
         private IEnumerator StartBlink()
         {

@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Source.Codebase.Enemies
+namespace Source.Codebase.Bullets
 {
-    public class EnemyPointer : MonoBehaviour
+    public class BulletPointer : MonoBehaviour
     {
         private const int ScreenBorderCount = 4;
         
@@ -13,6 +13,7 @@ namespace Source.Codebase.Enemies
         private Camera _camera;
         private float _radius;
         private float _speed = 20f;
+        private float _ground = 0.75f;
 
         private void Start() => 
             _camera = Camera.main;
@@ -21,6 +22,15 @@ namespace Source.Codebase.Enemies
         {
             if (_player == null)
                 return;
+            
+            if (transform.position.y > _ground)
+            {
+                _pointer.gameObject.SetActive(false);
+                
+                return;
+            }
+            
+            _pointer.gameObject.SetActive(true);
             
             Vector3 playerPosition = _player.position;
             Vector3 toPointer = transform.position - playerPosition;
