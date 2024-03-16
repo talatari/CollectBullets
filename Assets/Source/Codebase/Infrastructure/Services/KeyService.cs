@@ -19,7 +19,8 @@ namespace Source.Codebase.Infrastructure.Services
                 throw new ArgumentOutOfRangeException(nameof(spawnInterval));
 
             _spawnInterval = spawnInterval;
-            
+
+            _spawnerKey.KeySpawned += OnKeySpawned;
             _gameLoopMediator.GameOver += OnResetCountWave;
             _gameLoopMediator.KeyCollected += OnKeyCollected;
             _gameLoopMediator.KeyUsed += OnKeyUsed;
@@ -27,6 +28,7 @@ namespace Source.Codebase.Infrastructure.Services
 
         public void Dispose()
         {
+            _spawnerKey.KeySpawned -= OnKeySpawned;
             _gameLoopMediator.GameOver -= OnResetCountWave;
             _gameLoopMediator.KeyCollected -= OnKeyCollected;
             _gameLoopMediator.KeyUsed -= OnKeyUsed;
@@ -48,6 +50,9 @@ namespace Source.Codebase.Infrastructure.Services
             _spawnerKey.Spawn();
             _countWaveCompleted = 0;
         }
+
+        private void OnKeySpawned() => 
+            _gameLoopMediator.NotifyKeySpawned();
 
         private void OnKeyCollected() => 
             _isKeyCollected = true;

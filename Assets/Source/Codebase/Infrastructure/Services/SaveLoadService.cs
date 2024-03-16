@@ -1,47 +1,34 @@
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using Source.Codebase.Infrastructure.SaveLoadData;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace Source.Codebase.Infrastructure.Services
 {
     public class SaveLoadService
     {
-        private const string SaveFileName = "/Player.data";
+        private PlayerProgress _playerProgress = new();
+        private string _pathToSave = Application.persistentDataPath + "/Player.json";
 
         public void SavePlayerProgress()
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            // TODO: протестировать. скорей всего должно работать.
-            string path = Application.persistentDataPath + SaveFileName;
-            FileStream stream = new FileStream(path, FileMode.Create);
-            PlayerProgress playerProgress = new PlayerProgress();
-            
-            formatter.Serialize(stream, playerProgress);
-            stream.Close();
+            string json = JsonConvert.SerializeObject(_playerProgress);
+            File.WriteAllText(_pathToSave, json);
         }
-
-        public PlayerProgress LoadDefaultPlayerProgress() => 
-            LoadPlayerProgress(); // TODO: QUESTION: load from SO?
 
         public PlayerProgress LoadPlayerProgress()
         {
-            string path = Application.persistentDataPath + SaveFileName;
-
-            if (File.Exists(path) == false)
+            if (File.Exists(_pathToSave) == false)
             {
-                Debug.Log($"Save file not found in {path}");
-            
-                return null;
+                Debug.Log($"Save file not found in {_pathToSave}");
+                
+                return _playerProgress;
             }
             
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
-            PlayerProgress playerProgress = formatter.Deserialize(stream) as PlayerProgress;
-
-            stream.Close();
-
-            return playerProgress;
+            string json = File.ReadAllText(_pathToSave);
+            _playerProgress = JsonConvert.DeserializeObject<PlayerProgress>(json);
+            
+            return _playerProgress;
         }
     }
 }

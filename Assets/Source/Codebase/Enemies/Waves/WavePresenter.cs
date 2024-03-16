@@ -18,14 +18,14 @@ namespace Source.Codebase.Enemies.Waves
             
             _gameLoopMediator.GameStarted += OnGameStarted;
             _gameLoopMediator.GameRestarting += OnGameRestarting;
-            _spawnerWave.Completed += OnCompleted;
+            _spawnerWave.WaveNumberCompleted += OnWaveNumberCompleted;
         }
 
         public void Dispose()
         {
             _gameLoopMediator.GameStarted -= OnGameStarted;
             _gameLoopMediator.GameRestarting -= OnGameRestarting;
-            _spawnerWave.Completed -= OnCompleted;
+            _spawnerWave.WaveNumberCompleted -= OnWaveNumberCompleted;
         }
 
         private void OnGameStarted() => 
@@ -36,10 +36,10 @@ namespace Source.Codebase.Enemies.Waves
             _spawnerWave.RestartWave();
             _keyService.ResetKeyPool();
         }
-        
-        private void OnCompleted()
+
+        private void OnWaveNumberCompleted(int numberWave)
         {
-            _gameLoopMediator.NotifyWaveCompleted();
+            _gameLoopMediator.NotifyWaveCompleted(numberWave);
             _keyService.SpawnKey();
         }
     }
