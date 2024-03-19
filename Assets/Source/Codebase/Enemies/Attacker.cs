@@ -90,6 +90,18 @@ namespace Source.Codebase.Enemies
                 _attackCoroutine = StartCoroutine(Attacking(player));
         }
 
+        private ProjectileEnemy CreateProjectile(Player player)
+        {
+            ProjectileEnemy projectileEnemy = Instantiate(
+                _projectilePrefab, _attackPoint.transform.position, Quaternion.identity);
+                
+            Vector3 rotateDirection = player.transform.position - transform.position;
+            rotateDirection.y = 0;
+            projectileEnemy.SetDirection(rotateDirection);
+
+            return projectileEnemy;
+        }
+
         private IEnumerator Attacking(Player player)
         {
             while (enabled)
@@ -106,18 +118,6 @@ namespace Source.Codebase.Enemies
 
                 yield return null;
             }
-        }
-
-        private ProjectileEnemy CreateProjectile(Player player)
-        {
-            ProjectileEnemy projectileEnemy = Instantiate(
-                _projectilePrefab, _attackPoint.transform.position, Quaternion.identity);
-                
-            Vector3 rotateDirection = player.transform.position - transform.position;
-            rotateDirection.y = 0;
-            projectileEnemy.SetDirection(rotateDirection);
-
-            return projectileEnemy;
         }
     }
 }

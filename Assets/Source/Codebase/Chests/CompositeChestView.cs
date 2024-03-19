@@ -37,6 +37,12 @@ namespace Source.Codebase.Chests
                 chestView.CollectKey();
         }
 
+        public void UseKey()
+        {
+            foreach (ChestView chestView in _chestViews)
+                chestView.UseKey();
+        }
+
         private void OnKeyUsed()
         {
             foreach (ChestView chestView in _chestViews)

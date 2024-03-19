@@ -36,21 +36,30 @@ namespace Source.Codebase.Upgrades
                 throw new Exception("Upgrade not possible");
             
             CurrentLevel++;
+            CurrentValue += IncrementValue;
             Changed?.Invoke(this);
         }
 
-        public void SetCurrentValue(int value)
-        {
-            if (value < 0)
-                throw new ArgumentOutOfRangeException(nameof(value));
-
-            CurrentValue = value;
-        }
+        // public void SetCurrentValue(int value)
+        // {
+        //     if (value < 0)
+        //         throw new ArgumentOutOfRangeException(nameof(value));
+        //
+        //     CurrentValue = value;
+        // }
         
         public void ResetProgress()
         {
             CurrentValue = Config.CurrentValue;
             CurrentLevel = Config.CurrentLevel;
+            Changed?.Invoke(this);
+        }
+
+        public void UpgradeTo(int upgradeLevel)
+        {
+            CurrentLevel = upgradeLevel;
+            CurrentValue = (CurrentLevel - 1) * IncrementValue;
+            Changed?.Invoke(this);
         }
     }
 }

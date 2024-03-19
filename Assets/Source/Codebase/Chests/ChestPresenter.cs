@@ -16,6 +16,7 @@ namespace Source.Codebase.Chests
 
             _chestView.KeyUsed += OnKeyUsed;
             _gameLoopMediator.KeyCollected += OnKeyCollected;
+            _gameLoopMediator.GameOver += OnKeyPointerReset;
         }
 
         public void Dispose()
@@ -25,6 +26,7 @@ namespace Source.Codebase.Chests
             
             _chestView.KeyUsed -= OnKeyUsed;
             _gameLoopMediator.KeyCollected -= OnKeyCollected;
+            _gameLoopMediator.GameOver -= OnKeyPointerReset;
         }
 
         private void OnKeyUsed() => 
@@ -32,5 +34,8 @@ namespace Source.Codebase.Chests
 
         private void OnKeyCollected() => 
             _chestView.CollectKey();
+
+        private void OnKeyPointerReset() => 
+            _chestView.UseKey();
     }
 }

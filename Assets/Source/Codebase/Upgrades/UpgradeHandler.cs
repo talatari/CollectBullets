@@ -19,10 +19,7 @@ namespace Source.Codebase.Upgrades
         public void Init()
         {
             foreach (UpgradeModel upgradeModel in _upgradeModels)
-            {
-                SetCurrentValue(upgradeModel);
                 upgradeModel.Changed += ApplyUpgrade;
-            }
         }
 
         public void Dispose()
@@ -36,112 +33,54 @@ namespace Source.Codebase.Upgrades
             _stats.DamageStats.SetDefaultValues();
             _stats.HealthStats.SetDefaultValues();
             _stats.CommonStats.SetDefaultValues();
-            
-            foreach (UpgradeModel upgradeModel in _upgradeModels)
-            {
-                upgradeModel.ResetProgress();
-                SetCurrentValue(upgradeModel);
-            }
         }
         
         private void ApplyUpgrade(UpgradeModel upgradeModel)
         {
-            // TODO: прокинуть сюда ссылку на UpgradeService или на SaveLoadService и сохранять значение upgradeModel.Save(upgradeModel);
-            // под капотом сохранить как UpgradeProgress
             switch (upgradeModel.StatType)
             {
                 case StatType.Damage:
-                    upgradeModel.SetCurrentValue(_stats.DamageStats.AddDamage(upgradeModel.IncrementValue));
+                    _stats.DamageStats.AddDamage(upgradeModel.CurrentValue);
                     break;
 
                 case StatType.Burning:
-                    upgradeModel.SetCurrentValue(_stats.DamageStats.AddBurning(upgradeModel.IncrementValue));
+                    _stats.DamageStats.AddBurning(upgradeModel.CurrentValue);
                     break;
 
                 case StatType.Vampirism:
-                    upgradeModel.SetCurrentValue(_stats.DamageStats.AddVampirism(upgradeModel.IncrementValue));
+                    _stats.DamageStats.AddVampirism(upgradeModel.CurrentValue);
                     break;
 
                 case StatType.ClipCapacity:
-                    upgradeModel.SetCurrentValue(_stats.DamageStats.AddClipCapacity(upgradeModel.IncrementValue));
+                    _stats.DamageStats.AddClipCapacity(upgradeModel.CurrentValue);
                     break;
 
                 case StatType.ShootingDelay:
-                    upgradeModel.SetCurrentValue(_stats.DamageStats.AddShootingDelay(upgradeModel.IncrementValue));
+                    _stats.DamageStats.AddShootingDelay(upgradeModel.CurrentValue);
                     break;
 
                 case StatType.MaxHealth:
-                    upgradeModel.SetCurrentValue(_stats.HealthStats.AddMaxHealth(upgradeModel.IncrementValue));
+                    _stats.HealthStats.AddMaxHealth(upgradeModel.CurrentValue);
                     break;
 
                 case StatType.Regeneration:
-                    upgradeModel.SetCurrentValue(_stats.HealthStats.AddRegeneration(upgradeModel.IncrementValue));
+                    _stats.HealthStats.AddRegeneration(upgradeModel.CurrentValue);
                     break;
 
                 case StatType.Magnet:
-                    upgradeModel.SetCurrentValue(_stats.CommonStats.AddMagnet(upgradeModel.IncrementValue));
+                    _stats.CommonStats.AddMagnet(upgradeModel.CurrentValue);
                     break;
 
                 case StatType.Speed:
-                    upgradeModel.SetCurrentValue(_stats.CommonStats.AddSpeed(upgradeModel.IncrementValue));
+                    _stats.CommonStats.AddSpeed(upgradeModel.CurrentValue);
                     break;
 
                 case StatType.Freeze:
-                    upgradeModel.SetCurrentValue(_stats.CommonStats.AddFreeze(upgradeModel.IncrementValue));
+                    _stats.CommonStats.AddFreeze(upgradeModel.CurrentValue);
                     break;
                 
                 case StatType.RadiusAttack:
-                    upgradeModel.SetCurrentValue(_stats.CommonStats.AddRadiusAttack(upgradeModel.IncrementValue));
-                    break;
-            }
-        }
-        
-        private void SetCurrentValue(UpgradeModel upgradeModel)
-        {
-            switch (upgradeModel.StatType)
-            {
-                case StatType.Damage:
-                    upgradeModel.SetCurrentValue(_stats.DamageStats.Damage);
-                    break;
-
-                case StatType.Burning:
-                    upgradeModel.SetCurrentValue(_stats.DamageStats.Burning);
-                    break;
-
-                case StatType.Vampirism:
-                    upgradeModel.SetCurrentValue(_stats.DamageStats.Vampirism);
-                    break;
-
-                case StatType.ClipCapacity:
-                    upgradeModel.SetCurrentValue(_stats.DamageStats.ClipCapacity);
-                    break;
-
-                case StatType.ShootingDelay:
-                    upgradeModel.SetCurrentValue(_stats.DamageStats.ShootingDelay);
-                    break;
-
-                case StatType.MaxHealth:
-                    upgradeModel.SetCurrentValue(_stats.HealthStats.MaxHealth);
-                    break;
-
-                case StatType.Regeneration:
-                    upgradeModel.SetCurrentValue(_stats.HealthStats.Regeneration);
-                    break;
-
-                case StatType.Magnet:
-                    upgradeModel.SetCurrentValue(_stats.CommonStats.Magnet);
-                    break;
-
-                case StatType.Speed:
-                    upgradeModel.SetCurrentValue(_stats.CommonStats.Speed);
-                    break;
-
-                case StatType.Freeze:
-                    upgradeModel.SetCurrentValue(_stats.CommonStats.Freeze);
-                    break;
-                
-                case StatType.RadiusAttack:
-                    upgradeModel.SetCurrentValue(_stats.CommonStats.RadiusAttack);
+                    _stats.CommonStats.AddRadiusAttack(upgradeModel.CurrentValue);
                     break;
             }
         }

@@ -1,47 +1,100 @@
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Agava.YandexGames;
 using Source.Codebase.Infrastructure.SaveLoadData;
+using Source.Codebase.Upgrades;
 using UnityEngine;
 
 namespace Source.Codebase.Infrastructure.Services
 {
     public class SaveLoadService
     {
-        private const string SaveFileName = "/Player.data";
+        private const string DataKey = "PlayerProgress_Test_1";
+        
+        private readonly List<UpgradeModel> _upgradeModels;
+
+        private PlayerProgress _playerProgress;
+        private string _dataValue;
+
+        public SaveLoadService(List<UpgradeModel> upgradeModels) => 
+            _upgradeModels = upgradeModels ?? throw new ArgumentNullException(nameof(upgradeModels));
+
+        public void Init()
+        {
+            if (PlayerPrefs.HasKey(DataKey))
+                return;
+            
+            CreateNewPlayerProgress();
+        }
+
+        public PlayerProgress CreateNewPlayerProgress()
+        {
+            Debug.Log("+++ CREATE NEW PLAYER PROGRESS");
+            
+            _playerProgress = new PlayerProgress();
+            
+            foreach (UpgradeModel upgradeModel in _upgradeModels)
+                upgradeModel.ResetProgress();
+            
+            _playerProgress.SetUpgradeProgresses(
+                _upgradeModels.Select(upgradeModel => UpgradeProgress.FromModel(upgradeModel)).ToList());
+            
+            SavePlayerProgress();
+
+            return _playerProgress;
+        }
 
         public void SavePlayerProgress()
         {
-            BinaryFormatter formatter = new BinaryFormatter();
-            // TODO: протестировать. скорей всего должно работать.
-            string path = Application.persistentDataPath + SaveFileName;
-            FileStream stream = new FileStream(path, FileMode.Create);
-            PlayerProgress playerProgress = new PlayerProgress();
+            _dataValue = JsonUtility.ToJson(_playerProgress);
             
-            formatter.Serialize(stream, playerProgress);
-            stream.Close();
-        }
+#if UNITY_WEBGL && !UNITY_EDITOR
+            // Agava.YandexGames.Utility.PlayerPrefs.SetString(DataKey, _dataValue);
+            // Agava.YandexGames.Utility.PlayerPrefs.Save();
+            //
+            // Debug.Log($"+++ SAVE AGAVA DataKey: {DataKey}");
+            // Debug.Log($"+++ SAVE AGAVA _dataValue: {_dataValue}");
 
-        public PlayerProgress LoadDefaultPlayerProgress() => 
-            LoadPlayerProgress(); // TODO: QUESTION: load from SO?
+            PlayerAccount.SetCloudSaveData(_dataValue);
+#endif
+            Debug.Log($"+++ SAVE DataKey: {DataKey}");
+            Debug.Log($"+++ SAVE _dataValue: {_dataValue}");
+            
+            PlayerPrefs.SetString(DataKey, _dataValue);
+            PlayerPrefs.Save();
+
+            _dataValue = "";
+        }
 
         public PlayerProgress LoadPlayerProgress()
         {
-            string path = Application.persistentDataPath + SaveFileName;
-
-            if (File.Exists(path) == false)
-            {
-                Debug.Log($"Save file not found in {path}");
+#if UNITY_WEBGL && !UNITY_EDITOR
+            PlayerAccount.GetCloudSaveData((data) => _dataValue = data);
+            Debug.Log($"+++ _dataValue: {_dataValue}");
             
-                return null;
+            // Debug.Log($"+++ Agava.YandexGames.Utility.PlayerPrefs.HasKey(DataKey): {Agava.YandexGames.Utility.PlayerPrefs.HasKey(DataKey)}");
+            // Debug.Log($"+++ _dataValue: {_dataValue}");
+            //
+            // Agava.YandexGames.PlayerAccount.GetCloudSaveData();
+            //
+            // if (Agava.YandexGames.Utility.PlayerPrefs.HasKey(DataKey))
+            //     _dataValue = Agava.YandexGames.Utility.PlayerPrefs.GetString(DataKey);
+            //
+            // Debug.Log($"+++ LOAD AGAVA DataKey: {DataKey}");
+            // Debug.Log($"+++ LOAD AGAVA _dataValue: {_dataValue}");
+#endif
+            if (string.IsNullOrEmpty(_dataValue))
+            {
+                _dataValue = PlayerPrefs.GetString(DataKey);
+                
+                Debug.Log($"+++ LOAD DataKey: {DataKey}");
+                Debug.Log($"+++ LOAD _dataValue: {_dataValue}");
             }
             
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
-            PlayerProgress playerProgress = formatter.Deserialize(stream) as PlayerProgress;
-
-            stream.Close();
-
-            return playerProgress;
+            _playerProgress = JsonUtility.FromJson<PlayerProgress>(_dataValue);
+            
+            return _playerProgress;
         }
     }
 }

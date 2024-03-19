@@ -57,10 +57,10 @@ namespace Source.Codebase.Players.PlayerModels
         
         public int AddMagnet(int value)
         {
-            if (value <= 0)
+            if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _magnet += value;
+            _magnet = _playerConfig.Magnet + value;
             MagnetChanged?.Invoke(_magnet);
 
             return _magnet;
@@ -68,10 +68,10 @@ namespace Source.Codebase.Players.PlayerModels
         
         public int AddSpeed(int value)
         {
-            if (value <= 0)
+            if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _speed += value;
+            _speed = _playerConfig.Speed + value;
             SpeedChanged?.Invoke(_speed);
 
             return _speed;
@@ -79,10 +79,10 @@ namespace Source.Codebase.Players.PlayerModels
         
         public int AddFreeze(int value)
         {
-            if (value <= 0)
+            if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _freeze += value;
+            _freeze = _playerConfig.Freeze + value;
             FreezeChanged?.Invoke(_freeze);
 
             return _freeze;
@@ -90,10 +90,10 @@ namespace Source.Codebase.Players.PlayerModels
         
         public int AddRadiusAttack(int value)
         {
-            if (value <= 0)
+            if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _radiusAttack += value;
+            _radiusAttack = _playerConfig.RadiusAttack + value;
             RadiusAttackChanged?.Invoke(_radiusAttack);
             
             return _radiusAttack;

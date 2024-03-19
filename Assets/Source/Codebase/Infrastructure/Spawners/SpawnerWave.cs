@@ -46,7 +46,7 @@ namespace Source.Codebase.Infrastructure.Spawners
             _spawnerEnemy.SpawnEnded += OnStopSpawn;
         }
 
-        public event Action Completed;
+        public event Action<int> WaveNumberCompleted;
 
         public void Dispose()
         {
@@ -72,10 +72,17 @@ namespace Source.Codebase.Infrastructure.Spawners
             StartSpawnWave();
         }
 
+        public void SetWaveNumber(int waveNumber)
+        {
+            if (waveNumber < 0) 
+                throw new ArgumentOutOfRangeException(nameof(waveNumber));
+            
+            _waveNumber = waveNumber;
+        }
+
         private void OnSpawn()
         {
-            Completed?.Invoke();
-
+            WaveNumberCompleted?.Invoke(_waveNumber);
             StartSpawnWave();
         }
 

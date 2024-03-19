@@ -1,25 +1,34 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Source.Codebase.Infrastructure.SaveLoadData;
-using Source.Codebase.Players.PlayerModels;
 using Source.Codebase.Upgrades;
 
 namespace Source.Codebase.Infrastructure.Services
 {
     public class UpgradeService
     {
-        private readonly SaveLoadService _saveLoadService;
+        private readonly ProgressService _progressService;
         private List<UpgradeModel> _upgradeModels;
 
-        public UpgradeService(SaveLoadService saveLoadService, List<UpgradeModel> upgradeModels)
+        public UpgradeService(ProgressService progressService, List<UpgradeModel> upgradeModels)
         {
-            _saveLoadService = saveLoadService ?? throw new ArgumentNullException(nameof(saveLoadService));
+            _progressService = progressService ?? throw new ArgumentNullException(nameof(progressService));
             _upgradeModels = upgradeModels ?? throw new ArgumentNullException(nameof(upgradeModels));
         }
 
-        public void Upgrade(int id) => 
+        public void Init()
+        {
+            foreach (UpgradeModel upgradeModel in _upgradeModels)
+                if (_progressService.TryGetUpgradeProgress(upgradeModel.Id, out UpgradeProgress upgradeProgress))
+                    upgradeModel.UpgradeTo(upgradeProgress.CurrentLevel);
+        }
+
+        public void Upgrade(int id)
+        {
             _upgradeModels.First(model => model.Id == id).Upgrade();
+
+            _progressService.SaveUpgrades(_upgradeModels);
+        }
 
         public bool TryGetUpgradeableModels(out List<UpgradeModel> upgradeModels)
         {
@@ -27,14 +36,5 @@ namespace Source.Codebase.Infrastructure.Services
 
             return upgradeModels != null;
         }
-
-        public PlayerProgress LoadDefaultPlayerProgress() => 
-            _saveLoadService.LoadDefaultPlayerProgress();
-
-        public PlayerProgress LoadPlayerProgress() => 
-            _saveLoadService.LoadPlayerProgress();
-
-        public void SavePlayerProgress() => 
-            _saveLoadService.SavePlayerProgress();
     }
 }

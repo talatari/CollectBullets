@@ -14,7 +14,7 @@ using Source.Codebase.Players;
 using Source.Codebase.Players.PlayerModels;
 using Source.Codebase.SO;
 using Source.Codebase.Upgrades;
-using Unity.VisualScripting;
+using Unity.Services.Core;
 using UnityEngine;
 
 namespace Source.Codebase.Infrastructure
@@ -58,6 +58,7 @@ namespace Source.Codebase.Infrastructure
         private GamePauseService _gamePauseService;
         private GameLoopMediator _gameLoopMediator;
         private SaveLoadService _saveLoadService;
+        private ProgressService _progressService;
         private UpgradeService _upgradeService;
         private KeyService _keyService;
         private TargetProvider _targetProvider;
@@ -81,13 +82,18 @@ namespace Source.Codebase.Infrastructure
             
             CreateServices();
 
+            InitServices();
+
             InitSpawners();
 
             InitPresenters();
             
+            _progressService.Init();
+            _upgradeService.Init();
+
             _gameLoopMediator.NotifyStartGame();
         }
-        
+
         private void CheckSerializedFields()
         {
             if (_player == null)
@@ -111,7 +117,7 @@ namespace Source.Codebase.Infrastructure
             if (_compositeChestView == null)
                 throw new ArgumentNullException(nameof(_compositeChestView));
         }
-        
+
         private void CreateModels()
         {
             CreateStats();
@@ -120,34 +126,40 @@ namespace Source.Codebase.Infrastructure
 
             _upgradeHandler = new UpgradeHandler(_stats, _upgradeModels);
         }
-        
+
         private void CreateStats()
         {
             _factoryDefaultStats = new(_playerConfig);
             _stats = _factoryDefaultStats.Create();
         }
-        
+
         private void CreateUpgradeModels()
         {
             FactoryUpgradeModels factoryUpgradeModels = new(_upgradeConfigs);
             _upgradeModels = factoryUpgradeModels.Create();
         }
-        
+
         private void CreateServices()
         {
             _gamePauseService = new GamePauseService();
-            _gamePauseService.Init();
             _gameLoopMediator = new GameLoopMediator();
-            _saveLoadService = new SaveLoadService();
-            _upgradeService = new UpgradeService(_saveLoadService, _upgradeModels);
+            _saveLoadService = new SaveLoadService(_upgradeModels);
+            _progressService = new ProgressService(_saveLoadService, _gameLoopMediator, _upgradeModels);
+            _upgradeService = new UpgradeService(_progressService, _upgradeModels);
             _keyService = new KeyService();
             _targetProvider = new TargetProvider();
-            _targetProvider.SetTarget(_player.transform);
-            _compositeChestView.Init(_targetProvider);
             _chestPresenter = new ChestPresenter();
+        }
+
+        private void InitServices()
+        {
+            _gamePauseService.Init();
+            _saveLoadService.Init();
+            _targetProvider.Init(_player.transform);
+            _compositeChestView.Init(_targetProvider);
             _chestPresenter.Init(_compositeChestView, _gameLoopMediator);
         }
-        
+
         private void InitSpawners()
         {
             InitEnemySpawner();
@@ -191,7 +203,6 @@ namespace Source.Codebase.Infrastructure
 
         private void InitPresenters()
         {
-            // TODO: разделить класс игрока на презентер-вью и модель (убрать зависимоcть в _gameOverPresenter от плеера)
             _player.Init(_stats, _upgradeHandler, _gameLoopMediator);
             _spawnEnemyPresenter = new SpawnEnemyPresenter(_gameLoopMediator, _spawnerEnemy);
             _spawnBulletPresenter = new SpawnBulletPresenter(_gameLoopMediator, _spawnerBullet);
@@ -204,6 +215,7 @@ namespace Source.Codebase.Infrastructure
         private void OnDestroy()
         {
             _gamePauseService?.Dispose();
+            _progressService?.Dispose();
             _chestPresenter?.Dispose();
             _spawnerWave?.Dispose();
             _spawnEnemyPresenter?.Dispose();

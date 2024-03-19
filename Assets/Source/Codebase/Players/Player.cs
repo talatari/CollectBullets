@@ -113,7 +113,7 @@ namespace Source.Codebase.Players
             _collisionForKeys.UseKey();
         }
 
-        private void OnWaveCompleted() => 
+        private void OnWaveCompleted(int numberWave) => 
             _health.FullRecovery();
 
         private void OnDied() => 
