@@ -7,5 +7,6 @@ namespace Source.Codebase.Chests.Interfaces
         event Action KeyUsed;
 
         void CollectKey();
+        void UseKey();
     }
 }

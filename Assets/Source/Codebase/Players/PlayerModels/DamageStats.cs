@@ -71,10 +71,10 @@ namespace Source.Codebase.Players.PlayerModels
         
         public int AddDamage(int value)
         {
-            if (value <= 0) 
+            if (value < 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _damage += value;
+            _damage = _playerConfig.Damage + value;
             DamageChanged?.Invoke(_damage);
 
             return _damage;
@@ -82,10 +82,10 @@ namespace Source.Codebase.Players.PlayerModels
 
         public int AddBurning(int value)
         {
-            if (value <= 0) 
+            if (value < 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _burning += value;
+            _burning = _playerConfig.Burning + value;
             BurningChanged?.Invoke(_burning);
             
             return _burning;
@@ -93,10 +93,10 @@ namespace Source.Codebase.Players.PlayerModels
 
         public int AddVampirism(int value)
         {
-            if (value <= 0) 
+            if (value < 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _vampirism += value;
+            _vampirism = _playerConfig.Vampirism + value;
             VampirismChanged?.Invoke(_vampirism);
 
             return _vampirism;
@@ -104,10 +104,10 @@ namespace Source.Codebase.Players.PlayerModels
         
         public int AddClipCapacity(int value)
         {
-            if (value <= 0) 
+            if (value < 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _clipCapacity += value;
+            _clipCapacity = _playerConfig.ClipCapacity + value;
             ClipCapacityChanged?.Invoke(_clipCapacity);
 
             return _clipCapacity;
@@ -115,10 +115,10 @@ namespace Source.Codebase.Players.PlayerModels
 
         public int AddShootingDelay(int value)
         {
-            if (value <= 0) 
+            if (value < 0) 
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _shootingDelay += value;
+            _shootingDelay = _playerConfig.ShootingDelay + value;
             ShootingDelayChanged?.Invoke(_shootingDelay);
 
             return _shootingDelay;

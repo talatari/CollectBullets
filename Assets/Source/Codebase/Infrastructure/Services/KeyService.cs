@@ -20,7 +20,6 @@ namespace Source.Codebase.Infrastructure.Services
 
             _spawnInterval = spawnInterval;
 
-            _spawnerKey.KeySpawned += OnKeySpawned;
             _gameLoopMediator.GameOver += OnResetCountWave;
             _gameLoopMediator.KeyCollected += OnKeyCollected;
             _gameLoopMediator.KeyUsed += OnKeyUsed;
@@ -28,7 +27,6 @@ namespace Source.Codebase.Infrastructure.Services
 
         public void Dispose()
         {
-            _spawnerKey.KeySpawned -= OnKeySpawned;
             _gameLoopMediator.GameOver -= OnResetCountWave;
             _gameLoopMediator.KeyCollected -= OnKeyCollected;
             _gameLoopMediator.KeyUsed -= OnKeyUsed;
@@ -48,12 +46,30 @@ namespace Source.Codebase.Infrastructure.Services
                 return;
             
             _spawnerKey.Spawn();
+            _gameLoopMediator.NotifyKeySpawned();
             _countWaveCompleted = 0;
         }
 
-        private void OnKeySpawned() => 
-            _gameLoopMediator.NotifyKeySpawned();
+        public void SpawnKey(int amountKey)
+        {
+            if (amountKey < 0) 
+                throw new ArgumentOutOfRangeException(nameof(amountKey));
 
+            for (int i = 0; i < amountKey; i++)
+                _spawnerKey.Spawn();
+        }
+
+        public void SetCountWaveCompleted(int countWaveCompleted)
+        {
+            if (countWaveCompleted < 0)
+                throw new ArgumentOutOfRangeException(nameof(countWaveCompleted));
+
+            if (countWaveCompleted >= _spawnInterval)
+                _countWaveCompleted = countWaveCompleted % _spawnInterval;
+            else
+                _countWaveCompleted = countWaveCompleted;
+        }
+        
         private void OnKeyCollected() => 
             _isKeyCollected = true;
 

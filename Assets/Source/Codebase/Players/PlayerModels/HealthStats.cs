@@ -39,10 +39,10 @@ namespace Source.Codebase.Players.PlayerModels
         
         public int AddMaxHealth(int value)
         {
-            if (value <= 0)
+            if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _maxHealth += value;
+            _maxHealth = _playerConfig.MaxHealth + value;
             MaxHealthChanged?.Invoke(_maxHealth);
 
             return _maxHealth;
@@ -50,10 +50,10 @@ namespace Source.Codebase.Players.PlayerModels
         
         public int AddRegeneration(int value)
         {
-            if (value <= 0)
+            if (value < 0)
                 throw new ArgumentOutOfRangeException(nameof(value));
             
-            _regeneration += value;
+            _regeneration = _playerConfig.Regeneration + value;
             RegenerationChanged?.Invoke(_regeneration);
             
             return _regeneration;

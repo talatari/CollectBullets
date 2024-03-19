@@ -72,10 +72,17 @@ namespace Source.Codebase.Infrastructure.Spawners
             StartSpawnWave();
         }
 
+        public void SetWaveNumber(int waveNumber)
+        {
+            if (waveNumber < 0) 
+                throw new ArgumentOutOfRangeException(nameof(waveNumber));
+            
+            _waveNumber = waveNumber;
+        }
+
         private void OnSpawn()
         {
             WaveNumberCompleted?.Invoke(_waveNumber);
-
             StartSpawnWave();
         }
 

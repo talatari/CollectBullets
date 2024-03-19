@@ -65,7 +65,7 @@ namespace Source.Codebase.Infrastructure.Spawners
             _delayBetweenWaves = delayBetweenWaves;
             _spawnedCount = 0;
 
-            print($"Started wave: {waveNumber} with {_spawCount} enemies");
+            print($"+++ SpawnerEnemy.StartSpawn(): Started WAVE: {waveNumber} with {_spawCount} enemies");
             
             _coroutineSpawnEnemy = StartCoroutine(SpawnEnemy());
         }

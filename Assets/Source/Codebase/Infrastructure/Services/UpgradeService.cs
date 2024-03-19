@@ -16,11 +16,18 @@ namespace Source.Codebase.Infrastructure.Services
             _upgradeModels = upgradeModels ?? throw new ArgumentNullException(nameof(upgradeModels));
         }
 
+        public void Init()
+        {
+            foreach (UpgradeModel upgradeModel in _upgradeModels)
+                if (_progressService.TryGetUpgradeProgress(upgradeModel.Id, out UpgradeProgress upgradeProgress))
+                    upgradeModel.UpgradeTo(upgradeProgress.CurrentLevel);
+        }
+
         public void Upgrade(int id)
         {
             _upgradeModels.First(model => model.Id == id).Upgrade();
 
-            _progressService.SaveUpgradesPlayerProgress(_upgradeModels);
+            _progressService.SaveUpgrades(_upgradeModels);
         }
 
         public bool TryGetUpgradeableModels(out List<UpgradeModel> upgradeModels)
@@ -28,13 +35,6 @@ namespace Source.Codebase.Infrastructure.Services
             upgradeModels = _upgradeModels.Where(model => model.IsUpgradeable).ToList();
 
             return upgradeModels != null;
-        }
-
-        public void LoadFromPlayerProgress()
-        {
-            foreach (UpgradeModel upgradeModel in _upgradeModels)
-                if (_progressService.TryGetUpgradeProgress(upgradeModel.Id, out UpgradeProgress upgradeProgress))
-                    upgradeModel.UpgradeTo(upgradeProgress.CurrentLevel);
         }
     }
 }

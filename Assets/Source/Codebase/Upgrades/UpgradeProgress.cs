@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Source.Codebase.Upgrades
 {
@@ -24,7 +25,7 @@ namespace Source.Codebase.Upgrades
             CurrentLevel = currentLevel;
         }
 
-        public int Id { get; private set; }
-        public int CurrentLevel { get; private set; }
+        [field: SerializeField] public int Id { get; private set; }
+        [field: SerializeField] public int CurrentLevel { get; private set; }
     }
 }
