@@ -11,12 +11,12 @@ namespace Source.Codebase.Enemies
         
         [SerializeField] private NavMeshAgent _agent;
         
-        private float _speed;
-        private float _distanceAttack;
+        private int _speed;
+        private int _distanceAttack;
         private float _freeze;
         private Transform _target;
 
-        public void Init(float speed, float distanceAttack)
+        public void Init(int speed, int distanceAttack)
         {
             if (speed <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(speed));
