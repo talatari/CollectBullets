@@ -18,15 +18,15 @@ namespace Source.Codebase.Enemies
         private CooldownTimer _cooldownTimer;
         private Coroutine _attackCoroutine;
         private ProjectileEnemy _projectileEnemy;
-        private float _radiusAttack;
-        private float _attackCooldown;
+        private int _radiusAttack;
+        private int _attackCooldown;
         private bool _isRealoding;
         private int _damage;
 
         public event Action PlayerDetected;
         public event Action PlayerLost;
 
-        public void Init(int damage, float distanceAttack, float attackCooldown)
+        public void Init(int damage, int distanceAttack, int attackCooldown)
         {
             if (damage <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(damage));
@@ -36,7 +36,7 @@ namespace Source.Codebase.Enemies
                 throw new ArgumentOutOfRangeException(nameof(attackCooldown));
             
             _damage = damage;
-            _radiusAttack = distanceAttack / 2f;
+            _radiusAttack = distanceAttack / 2;
             _attackCooldown = attackCooldown;
         }
 
