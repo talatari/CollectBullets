@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Agava.YandexGames;
 using Source.Codebase.Bullets;
 using Source.Codebase.Chests;
 using Source.Codebase.Enemies;
@@ -92,6 +93,8 @@ namespace Source.Codebase.Infrastructure
             _upgradeService.Init();
 
             _gameLoopMediator.NotifyStartGame();
+            
+            YandexGamesSdk.GameReady();
         }
 
         private void CheckSerializedFields()

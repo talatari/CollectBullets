@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Agava.YandexGames;
 using Source.Codebase.Infrastructure.SaveLoadData;
 using Source.Codebase.Upgrades;
@@ -17,6 +16,8 @@ namespace Source.Codebase.Infrastructure.Services
 
         private PlayerProgress _playerProgress;
         private string _dataValue;
+        private bool _isCloudLoaded;
+        private bool _isCloudLoadedFailed;
 
         public SaveLoadService(List<UpgradeModel> upgradeModels) => 
             _upgradeModels = upgradeModels ?? throw new ArgumentNullException(nameof(upgradeModels));
@@ -59,6 +60,9 @@ namespace Source.Codebase.Infrastructure.Services
         
         public PlayerProgress LoadPlayerProgress()
         {
+#if UNITY_WEBGL && !UNITY_EDITOR
+            CloudDataLoaded();
+#endif
             LoadLocalPlayerProgress();
             
             _playerProgress = JsonUtility.FromJson<PlayerProgress>(_dataValue);
@@ -66,21 +70,17 @@ namespace Source.Codebase.Infrastructure.Services
             return _playerProgress;
         }
 
-        private async Task CloudLoadSync()
+        private void CloudDataLoaded()
         {
-            bool cloudDataLoaded = false;
-            
             PlayerAccount.GetCloudSaveData(
-                (data) => { OnGetCloudSaveDataSuccess(data); cloudDataLoaded = true; }, 
-                (errorData) => { OnGetCloudSaveDataError(errorData); cloudDataLoaded = true; });
-            
-            await Task.Run(() => cloudDataLoaded);
+                sucessData => OnGetCloudSaveDataSuccess(sucessData), 
+                errorData =>  OnGetCloudSaveDataError(errorData));
         }
 
-        private void OnGetCloudSaveDataSuccess(string data)
+        private void OnGetCloudSaveDataSuccess(string sucessData)
         {
-            Debug.Log($"+++ Callback SUCCESS: {data}");
-            _dataValue = data;
+            Debug.Log($"+++ Callback SUCCESS: {sucessData}");
+            _dataValue = sucessData;
         }
 
         private void OnGetCloudSaveDataError(string errorData)
