@@ -67,8 +67,6 @@ namespace Source.Codebase.Infrastructure.Services
                 if (TryGetUpgradeProgress(upgradeModel.Id, out UpgradeProgress upgradeProgress))
                     upgradeModel.UpgradeTo(upgradeProgress.CurrentLevel);
             
-            // upgradeModel.UpgradeTo(_playerProgress.UpgradeProgresses[upgradeModel.Id - 1].CurrentLevel);
-
             _waveNumberCompleted = _playerProgress.CountWaveCompleted;
             _countKeySpawned = _playerProgress.CountKeySpawned;
 

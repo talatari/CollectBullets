@@ -17,12 +17,7 @@ namespace Source.Codebase.Yandex
             yield return YandexGamesSdk.Initialize(OnInitialized);
         }
 
-        private void OnInitialized()
-        {
-            // TODO: remove to MainScene when load all resoureces
-            YandexGamesSdk.GameReady();
-            
+        private void OnInitialized() => 
             SceneManager.LoadScene(MainScene);
-        }
     }
 }
