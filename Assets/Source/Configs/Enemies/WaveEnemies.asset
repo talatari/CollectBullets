@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DefaultCount>k__BackingField: 1
   <IncrementPercent>k__BackingField: 13
-  <DefaultDelay>k__BackingField: 1.5
-  <DecrementDelay>k__BackingField: 0.01
+  <DefaultDelay>k__BackingField: 150
+  <DecrementDelay>k__BackingField: 1
   <DelayBetweenWaves>k__BackingField: 3

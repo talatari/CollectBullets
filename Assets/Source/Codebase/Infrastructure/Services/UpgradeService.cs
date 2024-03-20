@@ -5,7 +5,7 @@ using Source.Codebase.Upgrades;
 
 namespace Source.Codebase.Infrastructure.Services
 {
-    public class UpgradeService
+    public class UpgradeService : IDisposable
     {
         private readonly ProgressService _progressService;
         private List<UpgradeModel> _upgradeModels;
@@ -14,14 +14,14 @@ namespace Source.Codebase.Infrastructure.Services
         {
             _progressService = progressService ?? throw new ArgumentNullException(nameof(progressService));
             _upgradeModels = upgradeModels ?? throw new ArgumentNullException(nameof(upgradeModels));
+            
+            _progressService.PlayerProgressLoaded += OnPlayerProgressLoaded;
         }
+        
+        public event Action UpgradeServiceInited;
 
-        public void Init()
-        {
-            foreach (UpgradeModel upgradeModel in _upgradeModels)
-                if (_progressService.TryGetUpgradeProgress(upgradeModel.Id, out UpgradeProgress upgradeProgress))
-                    upgradeModel.UpgradeTo(upgradeProgress.CurrentLevel);
-        }
+        public void Dispose() => 
+            _progressService.PlayerProgressLoaded -= OnPlayerProgressLoaded;
 
         public void Upgrade(int id)
         {
@@ -35,6 +35,18 @@ namespace Source.Codebase.Infrastructure.Services
             upgradeModels = _upgradeModels.Where(model => model.IsUpgradeable).ToList();
 
             return upgradeModels != null;
+        }
+
+        private void OnPlayerProgressLoaded() => 
+            Init();
+
+        private void Init()
+        {
+            foreach (UpgradeModel upgradeModel in _upgradeModels)
+                if (_progressService.TryGetUpgradeProgress(upgradeModel.Id, out UpgradeProgress upgradeProgress))
+                    upgradeModel.UpgradeTo(upgradeProgress.CurrentLevel);
+            
+            UpgradeServiceInited?.Invoke();
         }
     }
 }

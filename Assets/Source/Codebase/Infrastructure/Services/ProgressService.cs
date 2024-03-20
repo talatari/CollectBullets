@@ -22,15 +22,19 @@ namespace Source.Codebase.Infrastructure.Services
             _saveLoadService = saveLoadService ?? throw new ArgumentNullException(nameof(saveLoadService));
             _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
             _upgradeModels = upgradeModels ?? throw new ArgumentNullException(nameof(upgradeModels));
-
+            
+            _saveLoadService.PlayerProgressLoaded += OnLoadPlayerProgress;
             _gameLoopMediator.WaveCompleted += OnSetCountWaveCompleted;
             _gameLoopMediator.KeySpawned += OnKeySpawned;
             _gameLoopMediator.KeyUsed += OnKeyUsed;
             _gameLoopMediator.GameOver += OnSaveResetProgress;
         }
 
+        public event Action PlayerProgressLoaded;
+
         public void Dispose()
         {
+            _saveLoadService.PlayerProgressLoaded -= OnLoadPlayerProgress;
             _gameLoopMediator.WaveCompleted -= OnSetCountWaveCompleted;
             _gameLoopMediator.KeySpawned -= OnKeySpawned;
             _gameLoopMediator.KeyUsed -= OnKeyUsed;
@@ -59,10 +63,13 @@ namespace Source.Codebase.Infrastructure.Services
             return upgradeProgress.Id != default;
         }
 
-        private void LoadPlayerProgress()
-        {
-            _playerProgress = _saveLoadService.LoadPlayerProgress();
+        private void LoadPlayerProgress() => 
+            _saveLoadService.LoadPlayerProgress();
 
+        private void OnLoadPlayerProgress(PlayerProgress playerProgress)
+        {
+            _playerProgress = playerProgress;
+            
             foreach (UpgradeModel upgradeModel in _upgradeModels)
                 if (TryGetUpgradeProgress(upgradeModel.Id, out UpgradeProgress upgradeProgress))
                     upgradeModel.UpgradeTo(upgradeProgress.CurrentLevel);
@@ -72,6 +79,9 @@ namespace Source.Codebase.Infrastructure.Services
 
             _gameLoopMediator.NotifyWaveNumberCompletedLoaded(_waveNumberCompleted);
             _gameLoopMediator.NotifyCountKeySpawnedLoaded(_countKeySpawned);
+            
+            PlayerProgressLoaded?.Invoke();
+            
         }
 
         private void OnSetCountWaveCompleted(int waveNumberCompleted)

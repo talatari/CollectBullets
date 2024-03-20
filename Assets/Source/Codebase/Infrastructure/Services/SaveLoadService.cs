@@ -22,6 +22,8 @@ namespace Source.Codebase.Infrastructure.Services
         public SaveLoadService(List<UpgradeModel> upgradeModels) => 
             _upgradeModels = upgradeModels ?? throw new ArgumentNullException(nameof(upgradeModels));
 
+        public event Action<PlayerProgress> PlayerProgressLoaded;
+        
         public void Init()
         {
             if (PlayerPrefs.HasKey(DataKey))
@@ -52,25 +54,20 @@ namespace Source.Codebase.Infrastructure.Services
 #if UNITY_WEBGL && !UNITY_EDITOR
             PlayerAccount.SetCloudSaveData(_dataValue);
 #endif
-            PlayerPrefs.SetString(DataKey, _dataValue);
-            PlayerPrefs.Save();
-
-            _dataValue = "";
+            SaveLocalPlayerPrefs();
         }
-        
-        public PlayerProgress LoadPlayerProgress()
+
+        public void LoadPlayerProgress()
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
-            CloudDataLoaded();
+            RequestCloadPlayerPrefs();
 #endif
-            LoadLocalPlayerProgress();
-            
-            _playerProgress = JsonUtility.FromJson<PlayerProgress>(_dataValue);
-            
-            return _playerProgress;
+#if UNITY_EDITOR
+            GetPlayerProgress();
+#endif
         }
 
-        private void CloudDataLoaded()
+        private void RequestCloadPlayerPrefs()
         {
             PlayerAccount.GetCloudSaveData(
                 sucessData => OnGetCloudSaveDataSuccess(sucessData), 
@@ -81,18 +78,38 @@ namespace Source.Codebase.Infrastructure.Services
         {
             Debug.Log($"+++ Callback SUCCESS: {sucessData}");
             _dataValue = sucessData;
+
+            GetPlayerProgress();
         }
 
         private void OnGetCloudSaveDataError(string errorData)
         {
             Debug.Log($"+++ Callback ERROR: {errorData}");
-            LoadLocalPlayerProgress();
+            
+            GetPlayerProgress();
         }
 
-        private void LoadLocalPlayerProgress()
+        private void GetPlayerProgress()
+        {
+            ValidatePlayerProgress();
+            
+            _playerProgress = JsonUtility.FromJson<PlayerProgress>(_dataValue);
+            
+            PlayerProgressLoaded?.Invoke(_playerProgress);
+            
+            SaveLocalPlayerPrefs();
+        }
+
+        private void ValidatePlayerProgress()
         {
             if (string.IsNullOrEmpty(_dataValue))
                 _dataValue = PlayerPrefs.GetString(DataKey);
+        }
+
+        private void SaveLocalPlayerPrefs()
+        {
+            PlayerPrefs.SetString(DataKey, _dataValue);
+            PlayerPrefs.Save();
         }
     }
 }
