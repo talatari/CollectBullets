@@ -14,6 +14,7 @@ namespace Source.Codebase.Infrastructure.Spawners
         private float _decrementDelay;
         private float _delayBetweenWaves;
         private float _hundredPercent = 100f;
+        private float _miltiplyer = 100f;
         private readonly int _defaultCount;
         private readonly float _defaultDelay;
 
@@ -34,12 +35,13 @@ namespace Source.Codebase.Infrastructure.Spawners
             if (waveConfig.DelayBetweenWaves <= 0)
                 throw new ArgumentOutOfRangeException(nameof(waveConfig.DelayBetweenWaves));
 
+            // TODO: QUESTIONS: не считается действия ниже логикой? стоит вынести в Init?
             _defaultCount = waveConfig.DefaultCount;
             _currentCount = _defaultCount;
             _incrementPercent = waveConfig.IncrementPercent;
-            _defaultDelay = waveConfig.DefaultDelay;
+            _defaultDelay = waveConfig.DefaultDelay / _miltiplyer; // TODO: QUESTIONS: появилась такая грязюка из-за того, чтобы в SO не было float
             _currentDelay = _defaultDelay;
-            _decrementDelay = waveConfig.DecrementDelay;
+            _decrementDelay = waveConfig.DecrementDelay / _miltiplyer; // TODO: QUESTIONS: как можно исправить?
             _delayBetweenWaves = waveConfig.DelayBetweenWaves;
 
             _spawnerEnemy.Completed += OnSpawn;
