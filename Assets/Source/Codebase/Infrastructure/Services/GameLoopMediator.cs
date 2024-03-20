@@ -2,8 +2,10 @@ using System;
 
 namespace Source.Codebase.Infrastructure.Services
 {
-    public class GameLoopMediator
+    public class GameLoopMediator : IDisposable
     {
+        private UpgradeService _upgradeService;
+        
         public event Action GameStarted;
         public event Action GameOver;
         public event Action GameRestarting;
@@ -14,8 +16,15 @@ namespace Source.Codebase.Infrastructure.Services
         public event Action<int> WaveNumberCompletedLoaded;
         public event Action<int> CountKeySpawnedLoaded;
 
-        public void NotifyStartGame() => 
-            GameStarted?.Invoke();
+        public void Init(UpgradeService upgradeService)
+        {
+            _upgradeService = upgradeService ?? throw new ArgumentNullException(nameof(upgradeService));
+
+            _upgradeService.UpgradeServiceInited += NotifyStartGame;
+        }
+
+        public void Dispose() => 
+            _upgradeService.UpgradeServiceInited -= NotifyStartGame;
 
         public void NotifyGameOver() => 
             GameOver?.Invoke();
@@ -55,5 +64,8 @@ namespace Source.Codebase.Infrastructure.Services
             
             CountKeySpawnedLoaded?.Invoke(countKeySpawned);
         }
+
+        private void NotifyStartGame() => 
+            GameStarted?.Invoke();
     }
 }

@@ -89,9 +89,9 @@ namespace Source.Codebase.Infrastructure
             InitPresenters();
             
             _progressService.Init();
-            _upgradeService.Init();
 
-            _gameLoopMediator.NotifyStartGame();
+            // _upgradeService.Init();
+            // _gameLoopMediator.NotifyStartGame();
             
 #if UNITY_WEBGL && !UNITY_EDITOR
             YandexGamesSdk.GameReady();
@@ -150,6 +150,7 @@ namespace Source.Codebase.Infrastructure
             _saveLoadService = new SaveLoadService(_upgradeModels);
             _progressService = new ProgressService(_saveLoadService, _gameLoopMediator, _upgradeModels);
             _upgradeService = new UpgradeService(_progressService, _upgradeModels);
+            _gameLoopMediator.Init(_upgradeService);
             _keyService = new KeyService();
             _targetProvider = new TargetProvider();
             _chestPresenter = new ChestPresenter();
@@ -219,6 +220,7 @@ namespace Source.Codebase.Infrastructure
         private void OnDestroy()
         {
             _gamePauseService?.Dispose();
+            _gameLoopMediator?.Dispose();
             _progressService?.Dispose();
             _chestPresenter?.Dispose();
             _spawnerWave?.Dispose();
@@ -227,6 +229,7 @@ namespace Source.Codebase.Infrastructure
             _gameOverPresenter?.Dispose();
             _restartPresenter?.Dispose();
             _wavePresenter?.Dispose();
+            _upgradeService?.Dispose();
             _keyService?.Dispose();
         }
     }
