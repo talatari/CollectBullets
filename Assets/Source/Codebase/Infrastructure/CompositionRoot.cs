@@ -94,7 +94,9 @@ namespace Source.Codebase.Infrastructure
 
             _gameLoopMediator.NotifyStartGame();
             
+#if UNITY_WEBGL && !UNITY_EDITOR
             YandexGamesSdk.GameReady();
+#endif
         }
 
         private void CheckSerializedFields()
