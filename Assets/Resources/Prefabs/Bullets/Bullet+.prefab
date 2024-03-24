@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 6349211035552566660}
   - component: {fileID: 6920761099554953658}
   - component: {fileID: 6709636330604525947}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 7370280967932087101}
   - component: {fileID: 189443161195558511}
   - component: {fileID: 947470624927373049}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8035294338649048247}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: BulletPointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
