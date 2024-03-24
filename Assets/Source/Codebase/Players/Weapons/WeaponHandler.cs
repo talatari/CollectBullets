@@ -19,7 +19,7 @@ namespace Source.Codebase.Players.Weapons
         private CooldownTimer _cooldownTimer;
         private DamageStats _damageStats;
         private int _baseDelay;
-        private bool _isRealoding => _cooldownTimer.IsFinished == false;
+        private bool _isRealoding; //=> _cooldownTimer.IsFinished == false;
         private bool _isInit;
 
         public event Action Shoted;
@@ -75,8 +75,8 @@ namespace Source.Codebase.Players.Weapons
 
         public void StartShooting(Vector3 direction)
         {
-            if (_isRealoding)
-                return;
+            // if (_isRealoding)
+            //     return;
             
             _direction = direction;
             
@@ -119,8 +119,8 @@ namespace Source.Codebase.Players.Weapons
         {
             while (enabled)
             {
-                if (_isRealoding)
-                    yield return null;
+                // if (_isRealoding)
+                //     yield return null;
                 
                 if (_weapon.CollectedBullets > 0 && _cooldownTimer.IsFinished)
                 {
