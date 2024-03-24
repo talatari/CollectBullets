@@ -102,7 +102,6 @@ namespace Source.Codebase.Players
             _weaponHandler.ResetCollectedBullets();
             _bag.Reset();
             _upgradeHandler.SetDefaultValues();
-            UseKey();
         }
 
         public bool HaveCollectedKey() =>
