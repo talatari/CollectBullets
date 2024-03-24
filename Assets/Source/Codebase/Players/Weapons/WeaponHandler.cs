@@ -19,7 +19,6 @@ namespace Source.Codebase.Players.Weapons
         private bool _isRealoding;
         private CooldownTimer _cooldownTimer;
         private DamageStats _damageStats;
-        private int _collectedBullets;
         private int _baseDelay;
         private bool _isInit;
 
@@ -27,7 +26,6 @@ namespace Source.Codebase.Players.Weapons
         public event Action<int> Vampired; 
 
         public int ClipCapacity => _weapon.ClipCapacity;
-        public int CollectedBullets => _collectedBullets;
 
         public void Init(DamageStats damageStats)
         {
@@ -48,7 +46,6 @@ namespace Source.Codebase.Players.Weapons
             _damageStats.VampirismChanged += projectilePlayerPrefab.SetVampirism;
             _damageStats.ClipCapacityChanged += _weapon.SetClipCapacity;
             _damageStats.ShootingDelayChanged += OnShootingDelayChanged;
-            _weapon.CollectedBulletsChanged += OnCollectedBulletsChanged;
 
             _isInit = true;
         }
@@ -72,7 +69,6 @@ namespace Source.Codebase.Players.Weapons
             _damageStats.VampirismChanged -= projectilePlayerPrefab.SetVampirism;
             _damageStats.ClipCapacityChanged -= _weapon.SetClipCapacity;
             _damageStats.ShootingDelayChanged -= OnShootingDelayChanged;
-            _weapon.CollectedBulletsChanged -= OnCollectedBulletsChanged;
 
             StopShooting();
         }
@@ -91,11 +87,8 @@ namespace Source.Codebase.Players.Weapons
         public void CollectBullet() => 
             _weapon.CollectBullet();
 
-        public void ResetCollectedBullets()
-        {
+        public void ResetCollectedBullets() => 
             _weapon.ResetCollectedBullets();
-            _collectedBullets = 0;
-        }
 
         public void StopShooting()
         {
@@ -121,9 +114,6 @@ namespace Source.Codebase.Players.Weapons
             
             _cooldownTimer.SetCooldown(newShootingDelay);
         }
-
-        private void OnCollectedBulletsChanged(int collectedBullets) => 
-            _collectedBullets = collectedBullets;
 
         private IEnumerator Shooting()
         {
