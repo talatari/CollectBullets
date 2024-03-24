@@ -16,17 +16,17 @@ namespace Source.Codebase.Players.Weapons
         private Weapon _weapon;
         private Coroutine _shootingCoroutine;
         private Vector3 _direction;
-        private bool _isRealoding;
         private CooldownTimer _cooldownTimer;
         private DamageStats _damageStats;
         private int _baseDelay;
+        private bool _isRealoding => _cooldownTimer.IsFinished == false;
         private bool _isInit;
 
         public event Action Shoted;
         public event Action<int> Vampired; 
 
         public int ClipCapacity => _weapon.ClipCapacity;
-
+        
         public void Init(DamageStats damageStats)
         {
             if (damageStats == null)
@@ -119,6 +119,9 @@ namespace Source.Codebase.Players.Weapons
         {
             while (enabled)
             {
+                if (_isRealoding)
+                    yield return null;
+                
                 if (_weapon.CollectedBullets > 0 && _cooldownTimer.IsFinished)
                 {
                     _weapon.Shoot();

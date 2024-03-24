@@ -15,27 +15,19 @@ namespace Source.Codebase.Players.Weapons
             _clipCapacity = clipCapacity;
         }
 
-        public event Action<int> CollectedBulletsChanged;
-
         public int ClipCapacity => _clipCapacity;
         public int CollectedBullets => _collectedBullets;
 
         public void CollectBullet()
         {
             if (_collectedBullets < _clipCapacity)
-            {
                 _collectedBullets++;
-                CollectedBulletsChanged?.Invoke(_collectedBullets);
-            }
         }
 
         public void Shoot()
         {
             if (_collectedBullets > 0)
-            {
                 _collectedBullets--;
-                CollectedBulletsChanged?.Invoke(_collectedBullets);
-            }
         }
 
         public void SetClipCapacity(int value)
