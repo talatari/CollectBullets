@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 5624018699515487593}
   - component: {fileID: 1645097043712434591}
   - component: {fileID: 8821495723421317471}
-  - component: {fileID: 8374947389572630470}
+  - component: {fileID: 3786397498894251141}
   m_Layer: 7
   m_Name: Melee+
   m_TagString: Untagged
@@ -240,6 +240,7 @@ MonoBehaviour:
     m_Bits: 8
   _projectilePrefab: {fileID: 0}
   _attackPoint: {fileID: 0}
+  _container: {fileID: 0}
 --- !u!114 &3715297758143764819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,8 +326,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &8374947389572630470
-SphereCollider:
+--- !u!65 &3786397498894251141
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -344,7 +345,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6729977680255492543
 GameObject:
