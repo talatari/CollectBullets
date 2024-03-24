@@ -56,10 +56,11 @@ namespace Source.Codebase.Players.Bug
             
             Vector3 bagPosition = _parent.position;
             Vector3 newPosition = new Vector3(
-                bagPosition.x, bagPosition.y + (_collected.Count + 1) * _offsetY, bagPosition.z);
+                bagPosition.x, bagPosition.y + _collected.Count * _offsetY, bagPosition.z);
             
             CreateSlot(newPosition);
             RefreshLabelCapactity();
+            Sort();
         }
 
         public void Reset()

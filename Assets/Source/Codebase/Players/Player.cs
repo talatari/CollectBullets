@@ -41,7 +41,7 @@ namespace Source.Codebase.Players
             _mover.Init(_stats.CommonStats.Speed);
             _weaponHandler.Init(_stats.DamageStats);
             _health.Init(_stats.HealthStats);
-            _collisionForBullets.Init(_bag, _weaponHandler, _stats.CommonStats.Magnet);
+            _collisionForBullets.Init(_bag, _stats.CommonStats.Magnet);
             _collisionForEnemies.Init(this, _stats.CommonStats);
             _collisionForKeys.Init(_bag, _stats.CommonStats.Magnet);
             _bag.CreateClip(_weaponHandler.ClipCapacity);
@@ -125,7 +125,6 @@ namespace Source.Codebase.Players
 
         private void OnShoted() => 
             _bag.UseCollectedBullet();
-            // _bag.UseCollectedBullets(_weaponHandler.CollectedBullets);
 
         private void OnSetMagnet(int magnet)
         {
@@ -137,7 +136,6 @@ namespace Source.Codebase.Players
         {
             _weaponHandler.CollectBullet();
             _bag.CollectBullet();
-            // _bag.CollectBullet(_weaponHandler.CollectedBullets);
         }
 
         private void OnKeyCollected()

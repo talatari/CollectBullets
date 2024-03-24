@@ -1,7 +1,6 @@
 using System;
 using Source.Codebase.Bullets;
 using Source.Codebase.Players.Bug;
-using Source.Codebase.Players.PlayerModels;
 using Source.Codebase.Players.Weapons;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +15,6 @@ namespace Source.Codebase.Players.CollisionHandlers
         [SerializeField] private Image _rangePickUpBulletsImage;
         
         private Collider[] _bulletColliders = new Collider[MaxOverlap];
-        private WeaponHandler _weaponHandler;
         private Bag _bag;
         private float _radiusPickUp;
         private int _baseRadiusMagnet;
@@ -24,10 +22,9 @@ namespace Source.Codebase.Players.CollisionHandlers
 
         public event Action BulletCollected;
         
-        public void Init(Bag bag, WeaponHandler weaponHandler, int magnet)
+        public void Init(Bag bag, int magnet)
         {
             _bag = bag ? bag : throw new ArgumentNullException(nameof(bag));
-            _weaponHandler = weaponHandler ? weaponHandler : throw new ArgumentNullException(nameof(weaponHandler));
             if (magnet <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(magnet));
 
@@ -72,9 +69,6 @@ namespace Source.Codebase.Players.CollisionHandlers
 
         private void OverlapBullets()
         {
-            // if (_weaponHandler.CollectedBullets >= _weaponHandler.ClipCapacity)
-            //     return;
-            
             int bulletsAmount = Physics.OverlapSphereNonAlloc(
                 transform.position, _radiusPickUp, _bulletColliders, _bulletLayer);
 

@@ -40,14 +40,6 @@ namespace Source.Codebase.Upgrades
             Changed?.Invoke(this);
         }
 
-        // public void SetCurrentValue(int value)
-        // {
-        //     if (value < 0)
-        //         throw new ArgumentOutOfRangeException(nameof(value));
-        //
-        //     CurrentValue = value;
-        // }
-        
         public void ResetProgress()
         {
             CurrentValue = Config.CurrentValue;
