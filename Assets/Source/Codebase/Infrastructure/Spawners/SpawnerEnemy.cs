@@ -42,9 +42,12 @@ namespace Source.Codebase.Infrastructure.Spawners
         
         private void OnDestroy()
         {
-            _poolEnemy.Completed -= OnCompleted;
-            
             StopSpawn();
+            
+            if (_poolEnemy == null)
+                return;
+            
+            _poolEnemy.Completed -= OnCompleted;
         }
 
         public void StartSpawn(int waveNumber, int spawnCount, float spawnDelay, float delayBetweenWaves)
@@ -65,7 +68,7 @@ namespace Source.Codebase.Infrastructure.Spawners
             _delayBetweenWaves = delayBetweenWaves;
             _spawnedCount = 0;
 
-            print($"+++ SpawnerEnemy.StartSpawn(): Started WAVE: {waveNumber} with {_spawCount} enemies");
+            // print($"+++ SpawnerEnemy.StartSpawn(): Started WAVE: {waveNumber} with {_spawCount} enemies");
             
             _coroutineSpawnEnemy = StartCoroutine(SpawnEnemy());
         }
@@ -100,7 +103,6 @@ namespace Source.Codebase.Infrastructure.Spawners
         {
             float positionY = enemy.transform.position.y;
             enemy.transform.position = Random.insideUnitSphere * _distanceRange;
-
             enemy.transform.position = new Vector3(enemy.transform.position.x, positionY, enemy.transform.position.z);
         }
 

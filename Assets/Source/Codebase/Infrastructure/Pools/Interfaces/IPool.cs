@@ -16,6 +16,5 @@ namespace Source.Codebase.Infrastructure.Pools.Interfaces
         void Release(T item);
         void SetActive(T item);
         void ReleaseAll();
-        // void SetKeyCollected();
     }
 }

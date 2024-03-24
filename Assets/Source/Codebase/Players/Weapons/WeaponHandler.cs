@@ -11,7 +11,7 @@ namespace Source.Codebase.Players.Weapons
     {
         private const float RatioDecrement = 0.05f;
             
-        [SerializeField] private ProjectileForPistol _projectilePrefab;
+        [SerializeField] private ProjectilePlayer projectilePlayerPrefab;
         
         private Weapon _weapon;
         private Coroutine _shootingCoroutine;
@@ -43,9 +43,9 @@ namespace Source.Codebase.Players.Weapons
             // TODO: create IFactory<ProjectileForPistol> -> pool
             // TODO: create pool projectile
 
-            _damageStats.DamageChanged += _projectilePrefab.SetDamage;
-            _damageStats.BurningChanged += _projectilePrefab.SetBurning;
-            _damageStats.VampirismChanged += _projectilePrefab.SetVampirism;
+            _damageStats.DamageChanged += projectilePlayerPrefab.SetDamage;
+            _damageStats.BurningChanged += projectilePlayerPrefab.SetBurning;
+            _damageStats.VampirismChanged += projectilePlayerPrefab.SetVampirism;
             _damageStats.ClipCapacityChanged += _weapon.SetClipCapacity;
             _damageStats.ShootingDelayChanged += OnShootingDelayChanged;
             _weapon.CollectedBulletsChanged += OnCollectedBulletsChanged;
@@ -57,7 +57,7 @@ namespace Source.Codebase.Players.Weapons
         {
             if (_isInit == false)
                 return;
-
+            
             _cooldownTimer?.Tick(Time.deltaTime);
         }
 
@@ -66,10 +66,10 @@ namespace Source.Codebase.Players.Weapons
             if (_isInit == false)
                 return;
 
-            _projectilePrefab.Vampired -= OnVampired;
-            _damageStats.DamageChanged -= _projectilePrefab.SetDamage;
-            _damageStats.BurningChanged -= _projectilePrefab.SetBurning;
-            _damageStats.VampirismChanged -= _projectilePrefab.SetVampirism;
+            projectilePlayerPrefab.Vampired -= OnVampired;
+            _damageStats.DamageChanged -= projectilePlayerPrefab.SetDamage;
+            _damageStats.BurningChanged -= projectilePlayerPrefab.SetBurning;
+            _damageStats.VampirismChanged -= projectilePlayerPrefab.SetVampirism;
             _damageStats.ClipCapacityChanged -= _weapon.SetClipCapacity;
             _damageStats.ShootingDelayChanged -= OnShootingDelayChanged;
             _weapon.CollectedBulletsChanged -= OnCollectedBulletsChanged;
@@ -105,11 +105,11 @@ namespace Source.Codebase.Players.Weapons
             _shootingCoroutine = null;
         }
 
-        private void OnVampired(ProjectileForPistol projectileForPistol, int vampirism)
+        private void OnVampired(ProjectilePlayer projectilePlayer, int vampirism)
         {
             Vampired?.Invoke(vampirism);
             
-            projectileForPistol.Vampired -= OnVampired;
+            projectilePlayer.Vampired -= OnVampired;
         }
 
         private void OnShootingDelayChanged(int shootingDelay)
@@ -135,16 +135,16 @@ namespace Source.Codebase.Players.Weapons
                     Shoted?.Invoke();
                     _cooldownTimer.Run();
                     
-                    ProjectileForPistol projectileForPistol = Instantiate(
-                        _projectilePrefab, new Vector3(
+                    ProjectilePlayer projectilePlayer = Instantiate(
+                        projectilePlayerPrefab, new Vector3(
                             transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
                     
-                    projectileForPistol.Init(
+                    projectilePlayer.Init(
                         _damageStats.Damage, 
                         _damageStats.Burning, 
                         _damageStats.BurningDuration, 
                         _damageStats.Vampirism);
-                    projectileForPistol.Vampired += OnVampired;
+                    projectilePlayer.Vampired += OnVampired;
 
                     // TODO: использовать пул 
                     // ProjectileForPistol projectileForPistol = _projectilePool.Get();
@@ -152,7 +152,7 @@ namespace Source.Codebase.Players.Weapons
                     // SetPositionAndRotation(new Vector3(
                     // transform.position.x, transform.position.y, transform.position.z), Quaternion.identity))'
                     
-                    projectileForPistol.SetDirection(_direction);
+                    projectilePlayer.SetDirection(_direction);
                 }
                 
                 yield return null;

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Source.Codebase.Players.Projectiles
 {
-    public class ProjectileForPistol : CollisionHandler, IPoolable
+    public class ProjectilePlayer : CollisionHandler, IPoolable
     {
         [SerializeField] private LayerMask _enemyLayer;
         [SerializeField] private ProjectileScriptableObject _projectileScriptableObject;
@@ -22,7 +22,7 @@ namespace Source.Codebase.Players.Projectiles
         private Vector3 _direction;
         private Collider[] _enemyColliders = new Collider[MaxOverlap];
 
-        public event Action<ProjectileForPistol, int> Vampired; 
+        public event Action<ProjectilePlayer, int> Vampired; 
 
         public void Init(int damage, int burning, int burningDuration, int vampirism)
         {
@@ -39,6 +39,26 @@ namespace Source.Codebase.Players.Projectiles
             _burning = burning;
             _burningDuration = burningDuration;
             _vampirism = vampirism;
+        }
+
+        public void Init<T>(IPool<T> pool) where T : IPoolable
+        {
+            // TODO: реализовать пул проджектайлов, возможно эти методы нужны не в этом классе
+        }
+
+        public void Enable()
+        {
+            
+        }
+
+        public void Disable()
+        {
+            
+        }
+
+        public void OnReleaseToPool()
+        {
+            
         }
 
         private void Start()
@@ -109,26 +129,5 @@ namespace Source.Codebase.Players.Projectiles
 
         private void Move() => 
             transform.Translate(_direction * (_speed * Time.deltaTime));
-
-        
-        public void Init<T>(IPool<T> pool) where T : IPoolable
-        {
-            // TODO: реализовать пул проджектайлов, возможно эти методы нужны не в этом классе
-        }
-
-        public void Enable()
-        {
-            
-        }
-
-        public void Disable()
-        {
-            
-        }
-
-        public void OnReleaseToPool()
-        {
-            
-        }
     }
 }

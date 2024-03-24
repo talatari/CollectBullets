@@ -1,24 +1,22 @@
 using System;
 using Source.Codebase.Infrastructure.Factories.Interfaces;
-using Source.Codebase.Players.Projectiles;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Source.Codebase.Infrastructure.Factories
 {
-    // TODO: implement
-    public class FactoryProjectile : IFactory<ProjectileForPistol>
+    public class FactoryProjectile<T> : IFactory<T> where T : Object
     {
+        private readonly T _prefab;
         private readonly Transform _parent;
-        private readonly ProjectileForPistol _prefab;
 
-        public FactoryProjectile(ProjectileForPistol prefab, Transform parent)
+        public FactoryProjectile(T prefab, Transform parent)
         {
-            _parent = parent ? parent : throw new ArgumentNullException(nameof(parent));
             _prefab = prefab ? prefab : throw new ArgumentNullException(nameof(prefab));
+            _parent = parent ? parent : throw new ArgumentNullException(nameof(parent));
         }
 
-        public ProjectileForPistol Create() => 
+        public T Create() => 
             Object.Instantiate(_prefab, _parent);
     }
 }

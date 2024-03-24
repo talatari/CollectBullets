@@ -9,7 +9,6 @@ using UnityEngine.AI;
 
 namespace Source.Codebase.Enemies
 {
-    [RequireComponent(typeof(Mover))]
     public class Enemy : MonoBehaviour, IPoolable
     {
         [SerializeField] private EnemyScriptableObject _config;
@@ -19,21 +18,21 @@ namespace Source.Codebase.Enemies
         [SerializeField] private EnemyPointer _enemyPointer;
         [SerializeField] private NavMeshAgent _agent;
         
-        private IPool<Enemy> _pool;
+        private IPool<Enemy> _poolEnemy;
         private Transform _player;
-        private int _burningDelay = 1;
         private CommonStats _commonStats;
+        private int _burningDelay = 1;
 
         public void Init<T>(IPool<T> pool) where T : IPoolable
         {
             if (pool == null) 
                 throw new ArgumentNullException(nameof(pool));
             
-            _pool = pool as IPool<Enemy>;
+            _poolEnemy = pool as IPool<Enemy>;
             
-            if (_pool == null)
+            if (_poolEnemy == null)
                 throw new ArgumentException("Pool must be of type IPool<Enemy>");
-
+            
             _health.Init(_config.MaxHealth);
             _mover.Init(_config.Speed, _config.DistanceAttack);
             _attacker.Init(_config.Damage, _config.DistanceAttack, _config.AttackCooldown);
@@ -84,8 +83,8 @@ namespace Source.Codebase.Enemies
         public void OnReleaseToPool()
         {
             StopAllCoroutines();
-            _pool.Release(this);
-            _attacker.DestroyProjectileEnemy();
+            _poolEnemy.Release(this);
+            _attacker.ReleaseAllProjectile();
         }
 
         public void TakeDamage(int damage)
