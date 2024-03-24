@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Linq;
 using Source.Codebase.Common;
+using Source.Codebase.Infrastructure.Factories;
+using Source.Codebase.Infrastructure.Pools;
 using Source.Codebase.Players;
 using Source.Codebase.Players.CollisionHandlers;
 using UnityEngine;
@@ -13,15 +15,17 @@ namespace Source.Codebase.Enemies
         [SerializeField] private LayerMask _playerLayer;
         [SerializeField] private ProjectileEnemy _projectilePrefab;
         [SerializeField] private Transform _attackPoint;
-
+        [SerializeField] private Transform _container;
+        
         private Collider[] _playerColliders = new Collider[MaxOverlap];
+        private Pool<ProjectileEnemy> _poolProjectile;
         private CooldownTimer _cooldownTimer;
         private Coroutine _attackCoroutine;
-        private ProjectileEnemy _projectileEnemy;
         private int _radiusAttack;
         private int _attackCooldown;
         private bool _isRealoding;
         private int _damage;
+        private int _startProjectileCount = 10;
 
         public event Action PlayerDetected;
         public event Action PlayerLost;
@@ -40,8 +44,19 @@ namespace Source.Codebase.Enemies
             _attackCooldown = attackCooldown;
         }
 
-        private void Start() => 
+        private void Start()
+        {
             _cooldownTimer = new CooldownTimer(_attackCooldown);
+            
+            if (_projectilePrefab == null)
+                return;
+            
+            FactoryProjectile<ProjectileEnemy> factoryProjectile = new FactoryProjectile<ProjectileEnemy>(
+                _projectilePrefab, _container);
+            
+            _poolProjectile = new Pool<ProjectileEnemy>(factoryProjectile, _startProjectileCount);
+            _poolProjectile.Init();
+        }
 
         public void Update()
         {
@@ -50,11 +65,8 @@ namespace Source.Codebase.Enemies
             _cooldownTimer?.Tick(Time.deltaTime);
         }
 
-        public void DestroyProjectileEnemy()
-        {
-            _projectileEnemy?.Destroy();
-            _projectileEnemy = null;
-        }
+        public void ReleaseAllProjectile() => 
+            _poolProjectile?.ReleaseAll();
 
         private void OverlapPlayer()
         {
@@ -90,18 +102,6 @@ namespace Source.Codebase.Enemies
                 _attackCoroutine = StartCoroutine(Attacking(player));
         }
 
-        private ProjectileEnemy CreateProjectile(Player player)
-        {
-            ProjectileEnemy projectileEnemy = Instantiate(
-                _projectilePrefab, _attackPoint.transform.position, Quaternion.identity);
-                
-            Vector3 rotateDirection = player.transform.position - transform.position;
-            rotateDirection.y = 0;
-            projectileEnemy.SetDirection(rotateDirection);
-
-            return projectileEnemy;
-        }
-
         private IEnumerator Attacking(Player player)
         {
             while (enabled)
@@ -109,13 +109,24 @@ namespace Source.Codebase.Enemies
                 if (_cooldownTimer.IsFinished)
                 {
                     if (_projectilePrefab == null)
+                    {
                         player.TakeDamage(_damage);
+                    }
                     else
-                        _projectileEnemy = CreateProjectile(player);
+                    {
+                        ProjectileEnemy projectileEnemy = _poolProjectile.Get();
+                        projectileEnemy.Init(_poolProjectile);
+                        projectileEnemy.SetPosition(_attackPoint.position);
+                        
+                        Vector3 direction = player.transform.position - transform.position;
+                        direction.y = 0;
+                        
+                        projectileEnemy.SetDirection(direction);
+                    }
                     
                     _cooldownTimer.Run();
                 }
-
+                
                 yield return null;
             }
         }

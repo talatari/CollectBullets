@@ -1,6 +1,7 @@
 using System;
 using Source.Codebase.Behaviour;
 using Source.Codebase.Infrastructure.Services;
+using Source.Codebase.Players.Bug;
 using Source.Codebase.Players.CollisionHandlers;
 using Source.Codebase.Players.Joystick;
 using Source.Codebase.Players.Movement;
@@ -40,9 +41,9 @@ namespace Source.Codebase.Players
             _mover.Init(_stats.CommonStats.Speed);
             _weaponHandler.Init(_stats.DamageStats);
             _health.Init(_stats.HealthStats);
-            _collisionForBullets.Init(_weaponHandler, _stats.CommonStats.Magnet);
+            _collisionForBullets.Init(_bag, _weaponHandler, _stats.CommonStats.Magnet);
             _collisionForEnemies.Init(this, _stats.CommonStats);
-            _collisionForKeys.Init(_stats.CommonStats.Magnet);
+            _collisionForKeys.Init(_bag, _stats.CommonStats.Magnet);
             _bag.CreateClip(_weaponHandler.ClipCapacity);
 
             _gameLoopMediator.WaveCompleted += OnWaveCompleted;
@@ -50,7 +51,7 @@ namespace Source.Codebase.Players
             _stats.CommonStats.SpeedChanged += _mover.SetSpeed;
             _stats.CommonStats.MagnetChanged += OnSetMagnet;
             _stats.CommonStats.FreezeChanged += _collisionForEnemies.SetFreeze;
-            _stats.DamageStats.ClipCapacityChanged += _bag.CreateClip;
+            _stats.DamageStats.ClipCapacityChanged += _bag.AddSlot;
             _collisionForBullets.BulletCollected += OnBulletCollected;
             _collisionForKeys.KeyCollected += OnKeyCollected;
             _weaponHandler.Shoted += OnShoted;
@@ -68,7 +69,7 @@ namespace Source.Codebase.Players
             _stats.CommonStats.SpeedChanged -= _mover.SetSpeed;
             _stats.CommonStats.MagnetChanged -= OnSetMagnet;
             _stats.CommonStats.FreezeChanged -= _collisionForEnemies.SetFreeze;
-            _stats.DamageStats.ClipCapacityChanged -= _bag.CreateClip;
+            _stats.DamageStats.ClipCapacityChanged -= _bag.AddSlot;
             _collisionForBullets.BulletCollected -= OnBulletCollected;
             _collisionForKeys.KeyCollected -= OnKeyCollected;
             _weaponHandler.Shoted -= OnShoted;
@@ -104,7 +105,7 @@ namespace Source.Codebase.Players
             UseKey();
         }
 
-        public bool HaveCollectedKey() => 
+        public bool HaveCollectedKey() =>
             _collisionForKeys.IsKeyCollected;
 
         public void UseKey()
@@ -123,7 +124,8 @@ namespace Source.Codebase.Players
             _health.Heal(vampirism);
 
         private void OnShoted() => 
-            _bag.UseCollectedBullets(_weaponHandler.CollectedBullets);
+            _bag.UseCollectedBullet();
+            // _bag.UseCollectedBullets(_weaponHandler.CollectedBullets);
 
         private void OnSetMagnet(int magnet)
         {
@@ -134,7 +136,8 @@ namespace Source.Codebase.Players
         private void OnBulletCollected()
         {
             _weaponHandler.CollectBullet();
-            _bag.CollectBullet(_weaponHandler.CollectedBullets);
+            _bag.CollectBullet();
+            // _bag.CollectBullet(_weaponHandler.CollectedBullets);
         }
 
         private void OnKeyCollected()

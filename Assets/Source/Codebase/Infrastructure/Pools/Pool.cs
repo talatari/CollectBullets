@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Source.Codebase.Infrastructure.Factories.Interfaces;
 using Source.Codebase.Infrastructure.Pools.Interfaces;
-using Source.Codebase.Infrastructure.Services;
 
 namespace Source.Codebase.Infrastructure.Pools
 {
@@ -13,7 +12,6 @@ namespace Source.Codebase.Infrastructure.Pools
 
         private Queue<T> _pool = new();
         private List<T> _activeItems = new();
-        private GameLoopMediator _gameLoopMediator;
 
         public Pool(IFactory<T> factoryItems, int startItemsCount)
         {

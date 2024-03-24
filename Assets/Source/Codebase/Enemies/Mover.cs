@@ -18,7 +18,7 @@ namespace Source.Codebase.Enemies
 
         public void Init(int speed, int distanceAttack)
         {
-            if (speed <= 0) 
+            if (speed < 0)
                 throw new ArgumentOutOfRangeException(nameof(speed));
             if (distanceAttack <= 0) 
                 throw new ArgumentOutOfRangeException(nameof(distanceAttack));
