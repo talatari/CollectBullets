@@ -14,7 +14,6 @@ namespace Source.Codebase.Infrastructure.Spawners
         private float _currentDelay;
         private float _decrementDelay;
         private float _delayBetweenWaves;
-        private float _hundredPercent = 100f;
         private readonly int _defaultCount;
         private readonly float _defaultDelay;
 
@@ -58,7 +57,7 @@ namespace Source.Codebase.Infrastructure.Spawners
         public void StartSpawnWave()
         {
             _waveNumber++;
-            float increment = (_currentCount / _hundredPercent) * _incrementPercent;
+            float increment = _currentCount.ToPercent() * _incrementPercent;
             _currentCount += (int) increment;
             _currentDelay = Mathf.Clamp(_currentDelay -= _decrementDelay, _decrementDelay, _currentDelay);
             _spawnerEnemy.StartSpawn(_waveNumber, _currentCount, _currentDelay, _delayBetweenWaves);
