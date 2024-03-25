@@ -52,6 +52,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _projectileConfig: {fileID: 11400000, guid: b52ce7f064b104619a72fb21ceaf9a74, type: 2}
+  _rigidbody: {fileID: -628641742686550624}
 --- !u!33 &5322244552459039886
 MeshFilter:
   m_ObjectHideFlags: 0

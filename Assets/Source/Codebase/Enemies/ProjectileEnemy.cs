@@ -54,7 +54,7 @@ namespace Source.Codebase.Enemies
                 return;
             
             OverlapEnemies();
-            
+
             Move();
             
             _cooldownTimer.Tick(Time.deltaTime);

@@ -13,11 +13,10 @@ namespace Source.Codebase.Chests
 
         public event Action KeyUsed;
 
-        public void Init(TargetProvider targetProvider) => 
+        public void Init(TargetProvider targetProvider)
+        {
             _targetProvider = targetProvider ?? throw new ArgumentNullException(nameof(targetProvider));
 
-        private void Start()
-        {
             foreach (ChestView chestView in _chestViews)
             {
                 chestView.SetTarget(_targetProvider.Target);
