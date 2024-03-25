@@ -12,7 +12,7 @@ namespace Source.Codebase.Enemies
     public class ProjectileEnemy : CollisionHandler, IPoolable
     {
         [SerializeField] private LayerMask _playerLayer;
-        [SerializeField] private ProjectileScriptableObject _projectileScriptableObject;
+        [SerializeField] private ProjectileScriptableObject _projectileConfig;
 
         private Collider[] _playerColliders = new Collider[MaxOverlap];
         private IPool<ProjectileEnemy> _poolProjectileEnemy;
@@ -33,13 +33,13 @@ namespace Source.Codebase.Enemies
             if (_poolProjectileEnemy == null)
                 throw new ArgumentException("Pool must be of type IPool<ProjectileEnemy>");
             
-            _damage = _projectileScriptableObject.Damage;
-            _speed = _projectileScriptableObject.Speed;
+            _damage = _projectileConfig.Damage;
+            _speed = _projectileConfig.Speed;
             
             float _diameter = transform.localScale.x;
             _radius = _diameter / 2;
             
-            _cooldownTimer = new CooldownTimer(_projectileScriptableObject.LifeTime);
+            _cooldownTimer = new CooldownTimer(_projectileConfig.LifeTime);
             _cooldownTimer.Run();
             
             _isInit = true;

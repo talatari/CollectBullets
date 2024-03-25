@@ -1048,17 +1048,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvas: {fileID: 787481463}
   <RestartButton>k__BackingField: {fileID: 699070806}
---- !u!114 &959353986 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5424635889503540117, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
-  m_PrefabInstance: {fileID: 4995678700342140417}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1186,6 +1175,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!4 &1013432535 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2547889324644839277, guid: 5d2a522994edb4dd489ace38832fbed4, type: 3}
+  m_PrefabInstance: {fileID: 2808206639321831832}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1014390593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2440,6 +2434,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1446779389}
     m_Modifications:
+    - target: {fileID: 356748677024705508, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
+      propertyPath: _container
+      value: 
+      objectReference: {fileID: 1013432535}
+    - target: {fileID: 356748677024705508, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
+      propertyPath: _attackPoint
+      value: 
+      objectReference: {fileID: 5235903559368636686}
     - target: {fileID: 626301032406746911, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
       propertyPath: _joystickForRotator
       value: 
@@ -2448,14 +2450,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player+
       objectReference: {fileID: 0}
-    - target: {fileID: 5424635889503540117, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
-      propertyPath: m_text
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6176588145452337043, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
-      propertyPath: _maxLabel
-      value: 
-      objectReference: {fileID: 959353986}
     - target: {fileID: 7914356212811610726, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2497,7 +2491,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3753757060579890816, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e2933c60a5cc4afd9f0aefdb741cc57, type: 3}
