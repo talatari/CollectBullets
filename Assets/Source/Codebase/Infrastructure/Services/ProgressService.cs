@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Source.Codebase.Infrastructure.SaveLoadData;
@@ -15,6 +16,10 @@ namespace Source.Codebase.Infrastructure.Services
         private PlayerProgress _playerProgress;
         private int _waveNumberCompleted;
         private int _countKeySpawned;
+        private bool _isLoaded;
+        
+        public int WaveNumberCompleted => _waveNumberCompleted;
+        public int CountKeySpawned => _countKeySpawned;
 
         public ProgressService(
             SaveLoadService saveLoadService, GameLoopMediator gameLoopMediator, List<UpgradeModel> upgradeModels)
@@ -30,8 +35,6 @@ namespace Source.Codebase.Infrastructure.Services
             _gameLoopMediator.GameOver += OnSaveResetProgress;
         }
 
-        public event Action PlayerProgressLoaded;
-
         public void Dispose()
         {
             _saveLoadService.PlayerProgressLoaded -= OnLoadPlayerProgress;
@@ -40,9 +43,6 @@ namespace Source.Codebase.Infrastructure.Services
             _gameLoopMediator.KeyUsed -= OnKeyUsed;
             _gameLoopMediator.GameOver -= OnSaveResetProgress;
         }
-
-        public void Init() => 
-            LoadPlayerProgress();
 
         public void SaveUpgrades(List<UpgradeModel> upgradeModels)
         {
@@ -63,8 +63,14 @@ namespace Source.Codebase.Infrastructure.Services
             return upgradeProgress.Id != default;
         }
 
-        private void LoadPlayerProgress() => 
+        public IEnumerator LoadPlayerProgress()
+        {
+            _isLoaded = false;
             _saveLoadService.LoadPlayerProgress();
+
+            while (_isLoaded == false)
+                yield return null;
+        }
 
         private void OnLoadPlayerProgress(PlayerProgress playerProgress)
         {
@@ -77,11 +83,7 @@ namespace Source.Codebase.Infrastructure.Services
             _waveNumberCompleted = _playerProgress.CountWaveCompleted;
             _countKeySpawned = _playerProgress.CountKeySpawned;
 
-            _gameLoopMediator.NotifyWaveNumberCompletedLoaded(_waveNumberCompleted);
-            _gameLoopMediator.NotifyCountKeySpawnedLoaded(_countKeySpawned);
-            
-            PlayerProgressLoaded?.Invoke();
-            
+            _isLoaded = true;
         }
 
         private void OnSetCountWaveCompleted(int waveNumberCompleted)
@@ -109,9 +111,6 @@ namespace Source.Codebase.Infrastructure.Services
         {
             _playerProgress = _saveLoadService.CreateNewPlayerProgress();
             _countKeySpawned = 0;
-            // _playerProgress.SetCountWaveCompleted(0);
-            // _playerProgress.SetCountKeySpawned(0);
-            // _saveLoadService.SavePlayerProgress();
         }
     }
 }

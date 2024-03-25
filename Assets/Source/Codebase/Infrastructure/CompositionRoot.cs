@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Agava.YandexGames;
 using Source.Codebase.Bullets;
@@ -71,10 +72,10 @@ namespace Source.Codebase.Infrastructure
         private SpawnerBullet _spawnerBullet;
         private SpawnerKey _spawnerKey;
         private GameOverPresenter _gameOverPresenter;
-        private RestartGamePresenter _restartPresenter;
+        private RestartGamePresenter _restartGamePresenter;
         private WavePresenter _wavePresenter;
 
-        private void Start()
+        private IEnumerator Start()
         {
             CheckSerializedFields();
 
@@ -82,16 +83,13 @@ namespace Source.Codebase.Infrastructure
             
             CreateServices();
 
-            InitServices();
+            yield return InitServices();
 
             InitSpawners();
 
             InitPresenters();
-            
-            _progressService.Init();
 
-            // _upgradeService.Init();
-            // _gameLoopMediator.NotifyStartGame();
+            _gameLoopMediator.NotifyStartGame();
             
 #if UNITY_WEBGL && !UNITY_EDITOR
             YandexGamesSdk.GameReady();
@@ -150,16 +148,17 @@ namespace Source.Codebase.Infrastructure
             _saveLoadService = new SaveLoadService(_upgradeModels);
             _progressService = new ProgressService(_saveLoadService, _gameLoopMediator, _upgradeModels);
             _upgradeService = new UpgradeService(_progressService, _upgradeModels);
-            _gameLoopMediator.Init(_upgradeService);
             _keyService = new KeyService();
             _targetProvider = new TargetProvider();
             _chestPresenter = new ChestPresenter();
         }
 
-        private void InitServices()
+        private IEnumerator InitServices()
         {
             _gamePauseService.Init();
             _saveLoadService.Init();
+            yield return _progressService.LoadPlayerProgress();
+            _upgradeService.Init();
             _targetProvider.Init(_player.transform);
             _compositeChestView.Init(_targetProvider);
             _chestPresenter.Init(_compositeChestView, _gameLoopMediator);
@@ -213,23 +212,21 @@ namespace Source.Codebase.Infrastructure
             _spawnBulletPresenter = new SpawnBulletPresenter(_gameLoopMediator, _spawnerBullet);
             _upgradePresenter.Init(_upgradeService, _gameLoopMediator, _gamePauseService);
             _gameOverPresenter = new GameOverPresenter(_gameLoopMediator, _player);
-            _restartPresenter = new RestartGamePresenter(_gameLoopMediator, _gamePauseService, _restartView);
-            _wavePresenter = new WavePresenter(_gameLoopMediator, _spawnerWave, _keyService);
+            _restartGamePresenter = new RestartGamePresenter(_gameLoopMediator, _gamePauseService, _restartView);
+            _wavePresenter = new WavePresenter(_gameLoopMediator, _spawnerWave, _keyService, _progressService);
         }
         
         private void OnDestroy()
         {
             _gamePauseService?.Dispose();
-            _gameLoopMediator?.Dispose();
             _progressService?.Dispose();
             _chestPresenter?.Dispose();
             _spawnerWave?.Dispose();
             _spawnEnemyPresenter?.Dispose();
             _spawnBulletPresenter?.Dispose();
             _gameOverPresenter?.Dispose();
-            _restartPresenter?.Dispose();
+            _restartGamePresenter?.Dispose();
             _wavePresenter?.Dispose();
-            _upgradeService?.Dispose();
             _keyService?.Dispose();
         }
     }

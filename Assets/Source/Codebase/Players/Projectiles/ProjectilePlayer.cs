@@ -13,7 +13,7 @@ namespace Source.Codebase.Players.Projectiles
     {
         [SerializeField] private LayerMask _enemyLayer;
         [SerializeField] private ProjectileScriptableObject _projectileConfig;
-
+        
         private Collider[] _enemyColliders = new Collider[MaxOverlap];
         private IPool<ProjectilePlayer> _poolProjectilePlayer;
         private CooldownTimer _cooldownTimer;
@@ -55,6 +55,11 @@ namespace Source.Codebase.Players.Projectiles
             _burningDuration = burningDuration;
             _vampirism = vampirism;
             
+            _speed = _projectileConfig.Speed;
+
+            float _diameter = transform.localScale.x;
+            _radius = _diameter / 2;
+            
             _cooldownTimer = new CooldownTimer(_projectileConfig.LifeTime);
             _cooldownTimer.Run();
             
@@ -73,14 +78,6 @@ namespace Source.Codebase.Players.Projectiles
 
         public void OnReleaseToPool() => 
             _poolProjectilePlayer.Release(this);
-
-        private void Start()
-        {
-            _speed = _projectileConfig.Speed;
-
-            float _diameter = transform.localScale.x;
-            _radius = _diameter / 2;
-        }
 
         private void Update()
         {

@@ -95,9 +95,9 @@ namespace Source.Codebase.Infrastructure.Services
             
             _playerProgress = JsonUtility.FromJson<PlayerProgress>(_dataValue);
             
-            PlayerProgressLoaded?.Invoke(_playerProgress);
-            
             SaveLocalPlayerPrefs();
+            
+            PlayerProgressLoaded?.Invoke(_playerProgress);
         }
 
         private void ValidatePlayerProgress()

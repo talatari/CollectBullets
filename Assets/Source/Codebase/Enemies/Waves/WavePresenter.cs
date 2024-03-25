@@ -9,18 +9,21 @@ namespace Source.Codebase.Enemies.Waves
         private readonly GameLoopMediator _gameLoopMediator;
         private readonly SpawnerWave _spawnerWave;
         private readonly KeyService _keyService;
+        private readonly ProgressService _progressService;
 
-        // TODO: прокинуть сюда ProgressService и спрашивать нужные данные напрямую, а не через события
-        public WavePresenter(GameLoopMediator gameLoopMediator, SpawnerWave spawnerWave, KeyService keyService)
+        public WavePresenter(
+            GameLoopMediator gameLoopMediator, 
+            SpawnerWave spawnerWave, 
+            KeyService keyService, 
+            ProgressService progressService)
         {
             _gameLoopMediator = gameLoopMediator ?? throw new ArgumentNullException(nameof(gameLoopMediator));
             _spawnerWave = spawnerWave ?? throw new ArgumentNullException(nameof(spawnerWave));
             _keyService = keyService ?? throw new ArgumentNullException(nameof(keyService));
+            _progressService = progressService ?? throw new ArgumentNullException(nameof(progressService));
             
             _gameLoopMediator.GameStarted += OnGameStarted;
             _gameLoopMediator.GameRestarting += OnGameRestarting;
-            _gameLoopMediator.WaveNumberCompletedLoaded += OnSetWaveNumber;
-            _gameLoopMediator.CountKeySpawnedLoaded += OnKeySpawned;
             _spawnerWave.WaveNumberCompleted += OnWaveNumberCompleted;
         }
 
@@ -28,28 +31,26 @@ namespace Source.Codebase.Enemies.Waves
         {
             _gameLoopMediator.GameStarted -= OnGameStarted;
             _gameLoopMediator.GameRestarting -= OnGameRestarting;
-            _gameLoopMediator.WaveNumberCompletedLoaded -= OnSetWaveNumber;
-            _gameLoopMediator.CountKeySpawnedLoaded -= OnKeySpawned;
             _spawnerWave.WaveNumberCompleted -= OnWaveNumberCompleted;
         }
 
-        private void OnGameStarted() => 
+        private void OnGameStarted()
+        {
+            int waveNumber = _progressService.WaveNumberCompleted;
+            int amountKey = _progressService.CountKeySpawned;
+            
+            _spawnerWave.SetWaveNumber(waveNumber);
+            _keyService.SetCountWaveCompleted(waveNumber);
+            _keyService.SpawnKey(amountKey);
+            
             _spawnerWave.StartSpawnWave();
+        }
 
         private void OnGameRestarting()
         {
             _spawnerWave.RestartWave();
             _keyService.ResetKeyPool();
         }
-
-        private void OnSetWaveNumber(int waveNumber)
-        {
-            _spawnerWave.SetWaveNumber(waveNumber);
-            _keyService.SetCountWaveCompleted(waveNumber);
-        }
-
-        private void OnKeySpawned(int amountKey) => 
-            _keyService.SpawnKey(amountKey);
 
         private void OnWaveNumberCompleted(int numberWave)
         {
