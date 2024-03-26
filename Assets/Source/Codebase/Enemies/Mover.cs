@@ -41,6 +41,7 @@ namespace Source.Codebase.Enemies
             if (_agent.isActiveAndEnabled && _agent.isOnNavMesh)
             {
                 _agent.SetDestination(_target.position);
+                _agent.updateRotation = true;
                 _agent.speed = _speed - _freeze;
             }
         }

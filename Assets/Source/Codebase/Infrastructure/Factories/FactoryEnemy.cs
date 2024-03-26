@@ -4,6 +4,7 @@ using Source.Codebase.Enemies;
 using Source.Codebase.Infrastructure.Factories.Interfaces;
 using Source.Codebase.Infrastructure.Services;
 using Source.Codebase.Players.PlayerModels;
+using Source.Codebase.UI;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -32,6 +33,11 @@ namespace Source.Codebase.Infrastructure.Factories
             Enemy enemy = Object.Instantiate(_enemyPrefabs[randomIndex], _parent);
             enemy.SetTarget(_targetProvider.Target, _commonStats);
             enemy.name = _enemyPrefabs[randomIndex].name + enemy.GetInstanceID();
+            
+            UIHealthBar uiHealthBar = enemy.GetComponentInChildren<UIHealthBar>();
+            
+            if (uiHealthBar != null)
+                uiHealthBar.Init(Camera.main);
 
             return enemy;
         }
