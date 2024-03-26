@@ -12,11 +12,11 @@ namespace Source.Codebase.Players.Bug
         
         [SerializeField] private Collected _collectedPrefab;
         [SerializeField] private TextMeshProUGUI _maxLabel;
+        [SerializeField] private Transform _container;
         
         private float _offsetY = 0.35f;
         private List<Collected> _collected = new();
         private int _activateCollected;
-        private Transform _parent;
 
         public bool HaveFreeSlot => _collected.Any(collected => collected.isActiveAndEnabled == false);
 
@@ -30,11 +30,11 @@ namespace Source.Codebase.Players.Bug
 
             Reset();
             
-            _parent = transform;
+            // _container = transform;
             
             for (int i = 0; i < capacity; i++)
             {
-                Vector3 bagPosition = _parent.position;
+                Vector3 bagPosition = _container.position;
                 Vector3 newPosition = new Vector3(bagPosition.x, bagPosition.y + i * _offsetY, bagPosition.z);
             
                 CreateSlot(newPosition);
@@ -54,7 +54,7 @@ namespace Source.Codebase.Players.Bug
             if (_collected.Count >= currentCapacity)
                 return;
             
-            Vector3 bagPosition = _parent.position;
+            Vector3 bagPosition = _container.position;
             Vector3 newPosition = new Vector3(
                 bagPosition.x, bagPosition.y + _collected.Count * _offsetY, bagPosition.z);
             
@@ -119,7 +119,7 @@ namespace Source.Codebase.Players.Bug
 
         private void CreateSlot(Vector3 newPosition)
         {
-            Collected collected = Instantiate(_collectedPrefab, _parent);
+            Collected collected = Instantiate(_collectedPrefab, _container);
             collected.transform.position = newPosition;
             collected.Inactive();
 
@@ -160,7 +160,7 @@ namespace Source.Codebase.Players.Bug
 
         private void SetKeyPosition(Collected key)
         {
-            Vector3 bagKeyPosition = _parent.position;
+            Vector3 bagKeyPosition = _container.position;
             Vector3 newKeyPosition = new Vector3(
                 bagKeyPosition.x, bagKeyPosition.y + (_activateCollected - 1) * _offsetY, bagKeyPosition.z);
             

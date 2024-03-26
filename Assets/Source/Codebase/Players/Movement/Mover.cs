@@ -7,7 +7,7 @@ namespace Source.Codebase.Players.Movement
     public class Mover : MonoBehaviour
     {
         [SerializeField] private CharacterController _characterController;
-        
+
         private float _speed;
 
         [HideInInspector] public float CurrentAttractionCharacter;
