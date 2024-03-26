@@ -30,8 +30,6 @@ namespace Source.Codebase.Players.Bug
 
             Reset();
             
-            // _container = transform;
-            
             for (int i = 0; i < capacity; i++)
             {
                 Vector3 bagPosition = _container.position;
